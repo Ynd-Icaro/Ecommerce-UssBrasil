@@ -1,0 +1,51 @@
+# 🔑 VARIÁVEIS DE AMBIENTE PARA VERCEL
+# Copie e cole estas variáveis na configuração da Vercel
+
+# =====================================
+# OBRIGATÓRIAS (Configure estas 3)
+# =====================================
+
+NEXTAUTH_SECRET=ussbrasil_secret_key_2024_muito_segura_para_producao_123456789abcdef
+NEXTAUTH_URL=https://ecommerce-uss-brasil.vercel.app
+DATABASE_URL=postgresql://username:password@hostname:5432/database_name
+
+# =====================================
+# OPCIONAL - EMAIL (só se quiser reset de senha)
+# =====================================
+
+EMAIL_SERVER_HOST=smtp.gmail.com
+EMAIL_SERVER_PORT=587
+EMAIL_SERVER_USER=admin@ussbrasil.com.br
+EMAIL_SERVER_PASSWORD=sua_senha_de_aplicativo_gmail
+EMAIL_FROM=noreply@ussbrasil.com.br
+
+# =====================================
+# OPCIONAL - GOOGLE OAUTH (só se quiser login com Google)
+# =====================================
+
+GOOGLE_CLIENT_ID=seu-google-client-id.googleusercontent.com
+GOOGLE_CLIENT_SECRET=seu-google-client-secret
+
+# =====================================
+# OPCIONAL - PAGAMENTOS (só se quiser Stripe)
+# =====================================
+
+STRIPE_PUBLISHABLE_KEY=pk_live_sua_chave_publica_stripe
+STRIPE_SECRET_KEY=sk_live_sua_chave_secreta_stripe
+
+# =====================================
+# INSTRUÇÕES:
+# =====================================
+# 1. Na Vercel, vá em Settings > Environment Variables
+# 2. Para cada linha acima, crie uma nova variável:
+#    - Name: nome da variável (ex: NEXTAUTH_SECRET)
+#    - Value: valor da variável
+#    - Target: Production, Preview, Development
+# 3. IMPORTANTE: Troque os valores de exemplo pelos reais!
+
+# =====================================
+# GERADORES DE VALORES SEGUROS:
+# =====================================
+# NEXTAUTH_SECRET: https://generate-secret.vercel.app/32
+# DATABASE_URL: https://vercel.com/storage (Vercel Postgres)
+# GOOGLE OAUTH: https://console.cloud.google.com/
