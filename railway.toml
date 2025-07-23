@@ -1,0 +1,20 @@
+# Configuração do Railway
+# https://railway.app
+
+[build]
+builder = "nixpacks"
+
+[deploy]
+startCommand = "npm start"
+healthcheckPath = "/"
+healthcheckTimeout = 300
+restartPolicyType = "on_failure"
+
+[env]
+NODE_ENV = "production"
+NIXPACKS_METADATA = "node"
+
+# Configurações específicas do Railway
+[[services]]
+name = "web"
+source = "."

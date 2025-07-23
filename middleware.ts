@@ -2,6 +2,9 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { auth } from '@/lib/auth'
 
+// Force Node.js runtime for middleware
+export const runtime = 'nodejs'
+
 export async function middleware(request: NextRequest) {
   const session = await auth()
   

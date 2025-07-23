@@ -2,6 +2,33 @@
 
 Uma plataforma de e-commerce moderna e responsiva desenvolvida com Next.js 15, focada na venda de produtos Apple.
 
+## 🚀 Deploy Rápido (5 minutos)
+
+### **🥇 Opção 1: Netlify (Mais Recomendado)**
+```bash
+# Execute o script automático:
+.\setup-deploy.ps1
+
+# Ou siga o guia manual:
+# 1. https://netlify.com > New site from Git
+# 2. Configure: npm run build | .next
+# 3. Adicione variáveis (veja .env.example)
+```
+
+### **📚 Documentação Completa de Deploy**
+- 📖 **[Guia Netlify Completo](./NETLIFY_COMPLETE_GUIDE.md)** - Passo a passo detalhado
+- 🌐 **[Todas as Opções](./DEPLOYMENT_OPTIONS.md)** - Netlify, Vercel, Railway, Render
+- 🗄️ **[Setup Database](./DATABASE_SETUP.md)** - Supabase, PlanetScale, Railway
+
+### **⚡ Deploy Automático**
+```bash
+# Windows PowerShell
+.\setup-deploy.ps1
+
+# Bash/Linux/Mac
+./setup-deploy.sh
+```
+
 ## ✨ Características
 
 - 🎨 **Design Moderno**: Interface limpa e responsiva com animações suaves
@@ -60,38 +87,67 @@ npx prisma db seed
 npm run dev
 ```
 
-## 🌐 Deploy na Vercel
+## 🌐 Deploy em Produção
 
-### Método 1: Deploy Automático via GitHub
+### 🚀 **Deploy Automático (Recomendado)**
 
-1. Acesse [vercel.com](https://vercel.com) e faça login
-2. Clique em "New Project"
-3. Conecte seu repositório GitHub
-4. Configure as variáveis de ambiente:
-   - `NEXTAUTH_SECRET`: Um secret aleatório seguro
-   - `NEXTAUTH_URL`: Sua URL de produção (ex: https://seu-projeto.vercel.app)
-5. Clique em "Deploy"
+**Windows PowerShell:**
+```bash
+.\setup-deploy.ps1
+```
 
-### Método 2: Deploy via CLI
+**Mac/Linux:**
+```bash
+./setup-deploy.sh
+```
 
-1. Instale a Vercel CLI:
+### 🥇 **Netlify (Mais Fácil)**
+- ✅ **500GB** bandwidth/mês gratuito
+- ✅ **CDN global** automático  
+- ✅ **SSL** certificado gratuito
+- ✅ **Deploy automático** via Git
+- ✅ **Preview** de pull requests
+
+**Setup em 3 passos:**
+1. [netlify.com](https://netlify.com) → New site from Git
+2. Configure: `npm run build` | `.next`
+3. Adicione variáveis de ambiente (veja `.env.example`)
+
+### 🥈 **Vercel (Criadores do Next.js)**
+- ✅ **100GB** bandwidth/mês
+- ✅ **Edge functions**
+- ✅ **Analytics** incluído
+- ✅ **Otimizado** para Next.js
+
 ```bash
 npm i -g vercel
-```
-
-2. Faça login na Vercel:
-```bash
-vercel login
-```
-
-3. Deploy o projeto:
-```bash
 vercel --prod
 ```
 
-### Configuração do Banco de Dados
+### 🥉 **Railway (Banco Incluído)**
+- ✅ **$5 crédito** inicial
+- ✅ **PostgreSQL** incluído
+- ✅ **Monitoring** completo
 
-Para produção, recomendamos usar um banco PostgreSQL. Configure a `DATABASE_URL` com a string de conexão do seu banco.
+1. [railway.app](https://railway.app) → New Project
+2. Deploy from GitHub repo
+3. Add PostgreSQL service
+
+### 🛠️ **Render**
+- ✅ **PostgreSQL** gratuito (90 dias)
+- ✅ **SSL** automático
+- ✅ **Logs** detalhados
+
+**📖 Documentação Completa**: Veja `DEPLOYMENT_OPTIONS.md` para comparação detalhada de todas as plataformas.
+
+### 🗄️ **Banco de Dados Gratuitos**
+
+**Para produção, recomendamos:**
+- 🟢 **Supabase**: 500MB PostgreSQL (recomendado)
+- 🟢 **PlanetScale**: 1GB MySQL
+- 🟢 **Railway**: PostgreSQL completo ($5 crédito)
+
+**Veja configuração completa em:** `DATABASE_SETUP.md`
 
 ## 📁 Estrutura do Projeto
 

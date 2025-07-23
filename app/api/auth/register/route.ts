@@ -1,7 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { hash } from 'bcryptjs'
+import { hashPassword } from '@/lib/password'
 import { prisma } from '@/lib/prisma'
 import { z } from 'zod'
+
+// Force Node.js runtime for this API route
+export const runtime = 'nodejs'
+export const dynamic = 'force-dynamic'
 
 const registerSchema = z.object({
   name: z.string().min(2, 'Nome deve ter pelo menos 2 caracteres'),
@@ -27,7 +31,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Hash password
-    const hashedPassword = await hash(password, 12)
+    const hashedPassword = hashPassword(password)
 
     // Create user
     const user = await prisma.user.create({
