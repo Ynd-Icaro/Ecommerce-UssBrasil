@@ -1,0 +1,416 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "iPhone 16 Pro",
+      "brand": "Apple",
+      "category": "smartphones",
+      "price": 7999.99,
+      "discountPrice": 7499.99,
+      "description": "O iPhone mais Pro de todos os tempos",
+      "image": "/Produtos/Iphone 16 Pro.png",
+      "images": [
+        "/Produtos/Iphone 16 Pro.png",
+        "/Produtos/Iphone 16/variant1.png",
+        "/Produtos/Iphone 16/variant2.png"
+      ],
+      "rating": 4.8,
+      "totalReviews": 1247,
+      "stock": 25,
+      "status": "active",
+      "paymentOptions": 12,
+      "colors": ["Natural Titanium", "Blue Titanium", "White Titanium", "Black Titanium"],
+      "createdAt": "2024-09-20T10:00:00Z",
+      "specifications": {
+        "screen": "6.3 polegadas Super Retina XDR",
+        "processor": "A18 Pro",
+        "storage": "128GB",
+        "camera": "Sistema de câmera Pro de 48MP"
+      }
+    },
+    {
+      "id": 2,
+      "name": "MacBook Pro 14",
+      "brand": "Apple",
+      "category": "computers",
+      "price": 12999.99,
+      "description": "Performance incomparável para profissionais",
+      "image": "/Produtos/Macbook Pro.png",
+      "images": [
+        "/Produtos/Macbook Pro.png"
+      ],
+      "rating": 4.9,
+      "totalReviews": 892,
+      "stock": 15,
+      "status": "active",
+      "paymentOptions": 12,
+      "colors": ["Space Gray", "Silver"],
+      "createdAt": "2024-09-15T10:00:00Z",
+      "specifications": {
+        "screen": "14.2 polegadas Liquid Retina XDR",
+        "processor": "M3 Pro",
+        "memory": "18GB RAM",
+        "storage": "512GB SSD"
+      }
+    },
+    {
+      "id": 3,
+      "name": "iPad Pro",
+      "brand": "Apple",
+      "category": "tablets",
+      "price": 5999.99,
+      "discountPrice": 5499.99,
+      "description": "Criatividade sem limites",
+      "image": "/Produtos/Ipad Pro.png",
+      "images": [
+        "/Produtos/Ipad Pro.png"
+      ],
+      "rating": 4.7,
+      "totalReviews": 654,
+      "stock": 20,
+      "status": "active",
+      "paymentOptions": 10,
+      "colors": ["Space Gray", "Silver"],
+      "createdAt": "2024-09-10T10:00:00Z",
+      "specifications": {
+        "screen": "12.9 polegadas Liquid Retina XDR",
+        "processor": "M2",
+        "storage": "256GB",
+        "camera": "Sistema de câmera Pro de 12MP"
+      }
+    },
+    {
+      "id": 4,
+      "name": "Apple Watch Series 10",
+      "brand": "Apple",
+      "category": "wearables",
+      "price": 2999.99,
+      "description": "O futuro da saúde no seu pulso",
+      "image": "/Produtos/Watch Series 10.png",
+      "images": [
+        "/Produtos/Watch Series 10.png"
+      ],
+      "rating": 4.6,
+      "totalReviews": 423,
+      "stock": 30,
+      "status": "active",
+      "paymentOptions": 8,
+      "colors": ["Aluminum", "Stainless Steel", "Titanium"],
+      "createdAt": "2024-09-05T10:00:00Z",
+      "specifications": {
+        "screen": "45mm Always-On Retina",
+        "processor": "S10 SiP",
+        "battery": "Até 36 horas",
+        "connectivity": "GPS + Cellular"
+      }
+    },
+    {
+      "id": 5,
+      "name": "AirPods Pro 2",
+      "brand": "Apple",
+      "category": "audio",
+      "price": 1899.99,
+      "description": "Som imersivo com cancelamento ativo de ruído",
+      "image": "/Produtos/Air Pods Pro 2",
+      "images": [
+        "/Produtos/Air Pods Pro 2"
+      ],
+      "rating": 4.8,
+      "totalReviews": 987,
+      "stock": 50,
+      "status": "active",
+      "paymentOptions": 6,
+      "colors": ["White"],
+      "createdAt": "2024-08-30T10:00:00Z",
+      "specifications": {
+        "driver": "Driver personalizado Apple",
+        "battery": "Até 6 horas + 30 horas com estojo",
+        "features": "Cancelamento ativo de ruído",
+        "connectivity": "Bluetooth 5.3"
+      }
+    }
+  ],
+  "customers": [
+    {
+      "id": 1,
+      "name": "João Silva",
+      "email": "joao.silva@email.com",
+      "phone": "(48) 99999-9999",
+      "status": "active",
+      "type": "vip",
+      "location": "Criciúma, SC",
+      "firstPurchase": "2023-06-15T10:00:00Z",
+      "lastPurchase": "2024-11-20T15:30:00Z",
+      "totalOrders": 8,
+      "totalSpent": 45999.99,
+      "avatar": "/avatars/user1.png",
+      "address": {
+        "street": "Rua das Flores, 123",
+        "neighborhood": "Centro",
+        "city": "Criciúma",
+        "state": "SC",
+        "zipCode": "88801-000"
+      }
+    },
+    {
+      "id": 2,
+      "name": "Maria Santos",
+      "email": "maria.santos@email.com",
+      "phone": "(48) 88888-8888",
+      "status": "active",
+      "type": "regular",
+      "location": "Criciúma, SC",
+      "firstPurchase": "2024-01-10T14:20:00Z",
+      "lastPurchase": "2024-10-05T11:45:00Z",
+      "totalOrders": 3,
+      "totalSpent": 12999.99,
+      "avatar": "/avatars/user2.png",
+      "address": {
+        "street": "Av. Centenário, 456",
+        "neighborhood": "Michel",
+        "city": "Criciúma",
+        "state": "SC",
+        "zipCode": "88802-000"
+      }
+    },
+    {
+      "id": 3,
+      "name": "Pedro Costa",
+      "email": "pedro.costa@email.com",
+      "phone": "(48) 77777-7777",
+      "status": "inactive",
+      "type": "new",
+      "location": "Criciúma, SC",
+      "firstPurchase": "2024-11-01T09:15:00Z",
+      "lastPurchase": "2024-11-01T09:15:00Z",
+      "totalOrders": 1,
+      "totalSpent": 2999.99,
+      "avatar": "/avatars/user3.png",
+      "address": {
+        "street": "Rua Anita Garibaldi, 789",
+        "neighborhood": "Próspera",
+        "city": "Criciúma",
+        "state": "SC",
+        "zipCode": "88803-000"
+      }
+    }
+  ],
+  "orders": [
+    {
+      "id": 1,
+      "customerId": 1,
+      "customerName": "João Silva",
+      "orderDate": "2024-11-20T15:30:00Z",
+      "shippingDate": "2024-11-21T08:00:00Z",
+      "deliveryDate": "2024-11-23T14:00:00Z",
+      "status": "delivered",
+      "total": 7499.99,
+      "paymentMethod": "credit_card",
+      "shippingAddress": {
+        "street": "Rua das Flores, 123",
+        "neighborhood": "Centro",
+        "city": "Criciúma",
+        "state": "SC",
+        "zipCode": "88801-000"
+      },
+      "items": [
+        {
+          "productId": 1,
+          "productName": "iPhone 16 Pro",
+          "quantity": 1,
+          "unitPrice": 7499.99,
+          "total": 7499.99,
+          "image": "/Produtos/Iphone 16 Pro.png"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "customerId": 2,
+      "customerName": "Maria Santos",
+      "orderDate": "2024-10-05T11:45:00Z",
+      "shippingDate": "2024-10-06T08:00:00Z",
+      "deliveryDate": "2024-10-08T16:30:00Z",
+      "status": "delivered",
+      "total": 12999.99,
+      "paymentMethod": "pix",
+      "shippingAddress": {
+        "street": "Av. Centenário, 456",
+        "neighborhood": "Michel",
+        "city": "Criciúma",
+        "state": "SC",
+        "zipCode": "88802-000"
+      },
+      "items": [
+        {
+          "productId": 2,
+          "productName": "MacBook Pro 14",
+          "quantity": 1,
+          "unitPrice": 12999.99,
+          "total": 12999.99,
+          "image": "/Produtos/Macbook Pro.png"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "customerId": 1,
+      "customerName": "João Silva",
+      "orderDate": "2024-09-15T10:20:00Z",
+      "shippingDate": "2024-09-16T08:00:00Z",
+      "deliveryDate": "2024-09-18T13:45:00Z",
+      "status": "delivered",
+      "total": 8899.98,
+      "paymentMethod": "credit_card",
+      "shippingAddress": {
+        "street": "Rua das Flores, 123",
+        "neighborhood": "Centro",
+        "city": "Criciúma",
+        "state": "SC",
+        "zipCode": "88801-000"
+      },
+      "items": [
+        {
+          "productId": 3,
+          "productName": "iPad Pro",
+          "quantity": 1,
+          "unitPrice": 5499.99,
+          "total": 5499.99,
+          "image": "/Produtos/Ipad Pro.png"
+        },
+        {
+          "productId": 4,
+          "productName": "Apple Watch Series 10",
+          "quantity": 1,
+          "unitPrice": 2999.99,
+          "total": 2999.99,
+          "image": "/Produtos/Watch Series 10.png"
+        },
+        {
+          "productId": 5,
+          "productName": "AirPods Pro 2",
+          "quantity": 1,
+          "unitPrice": 1899.99,
+          "total": 1899.99,
+          "image": "/Produtos/Air Pods Pro 2"
+        }
+      ]
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "name": "smartphones",
+      "displayName": "iPhone",
+      "description": "A linha mais avançada de smartphones do mundo",
+      "image": "/Produtos/Iphone 16 Pro.png",
+      "video": "/Videos/IphoneVideo.mp4",
+      "productCount": 5,
+      "tagline": "Titanium. Tão forte. Tão leve. Tão Pro."
+    },
+    {
+      "id": 2,
+      "name": "computers",
+      "displayName": "Mac",
+      "description": "Performance sem limites para suas criações",
+      "image": "/Produtos/Macbook Pro.png",
+      "video": "/Videos/Macs Video.mp4",
+      "productCount": 8,
+      "tagline": "Superpowered by M3"
+    },
+    {
+      "id": 3,
+      "name": "tablets",
+      "displayName": "iPad",
+      "description": "Versátil, poderoso e portátil",
+      "image": "/Produtos/Ipad Pro.png",
+      "video": "/Videos/IpadVideo.mp4",
+      "productCount": 4,
+      "tagline": "Lovable. Drawable. Magical."
+    },
+    {
+      "id": 4,
+      "name": "wearables",
+      "displayName": "Apple Watch",
+      "description": "O futuro da saúde no seu pulso",
+      "image": "/Produtos/Watch Series 10.png",
+      "video": "/Videos/Apple Watch.mp4",
+      "productCount": 3,
+      "tagline": "A healthy leap ahead."
+    },
+    {
+      "id": 5,
+      "name": "audio",
+      "displayName": "AirPods",
+      "description": "Som que envolve você completamente",
+      "image": "/Produtos/Air Pods Pro 2",
+      "video": "/Videos/AirPods Video.webm",
+      "productCount": 4,
+      "tagline": "Adaptive Audio. Que se adapta a você."
+    }
+  ],
+  "settings": {
+    "company": {
+      "name": "UssBrasil",
+      "location": "Shopping Della - Criciúma, SC",
+      "description": "Especializada em produtos Apple Premium",
+      "phone": "(48) 3431-0000",
+      "email": "contato@ussbrasil.com.br",
+      "address": "Av. Centenário, 2992 - Shopping Della, Criciúma - SC, 88804-003"
+    },
+    "theme": {
+      "primaryColor": "#00CED1",
+      "secondaryColor": "#000000",
+      "backgroundColor": "#FFFFFF",
+      "textColor": "#333333",
+      "accentColor": "#20B2AA"
+    },
+    "payment": {
+      "methods": ["credit_card", "debit_card", "pix", "boleto"],
+      "installments": 12,
+      "pixDiscount": 5
+    },
+    "shipping": {
+      "freeShippingThreshold": 500,
+      "deliveryTime": "2-5 dias úteis",
+      "regions": ["Criciúma", "Içara", "Siderópolis", "Nova Veneza"]
+    },
+    "notifications": {
+      "newOrder": true,
+      "lowStock": true,
+      "customerMessages": true,
+      "systemUpdates": false
+    }
+  },
+  "users": [
+    {
+      "id": 1,
+      "name": "Admin Principal",
+      "email": "admin@ussbrasil.com.br",
+      "role": "admin",
+      "permissions": ["all"],
+      "avatar": "/avatars/admin.png",
+      "lastLogin": "2024-11-25T09:00:00Z",
+      "status": "active"
+    },
+    {
+      "id": 2,
+      "name": "Vendedor 1",
+      "email": "vendedor1@ussbrasil.com.br",
+      "role": "sales",
+      "permissions": ["view_products", "create_orders", "view_customers"],
+      "avatar": "/avatars/sales1.png",
+      "lastLogin": "2024-11-24T18:30:00Z",
+      "status": "active"
+    }
+  ],
+  "dashboard": {
+    "totalSales": 159999.95,
+    "totalOrders": 27,
+    "totalCustomers": 156,
+    "monthlyGrowth": 12.5,
+    "popularProducts": [1, 2, 3],
+    "recentOrders": [1, 2, 3],
+    "lowStockProducts": []
+  }
+}
