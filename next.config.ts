@@ -29,7 +29,6 @@ const nextConfig: NextConfig = {
     return `build-${Date.now()}`
   },
   // Otimizações de performance
-  swcMinify: true,
   compress: true,
   poweredByHeader: false,
   reactStrictMode: true,
