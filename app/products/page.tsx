@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
@@ -29,7 +29,8 @@ import {
 } from 'lucide-react'
 import { useProductsDatabase, type Product, type Category } from '@/lib/use-products-database'
 
-export default function ProdutosPage() {
+// Componente que usa useSearchParams
+function ProductsContent() {
   const searchParams = useSearchParams()
   const { 
     getAllProducts, 
@@ -438,5 +439,26 @@ export default function ProdutosPage() {
         </div>
       </section>
     </div>
+  )
+}
+
+// Loading component for Suspense fallback
+function ProductsLoading() {
+  return (
+    <div className="min-h-screen bg-neutral-50 flex items-center justify-center">
+      <div className="text-center">
+        <div className="w-16 h-16 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin mx-auto mb-4"></div>
+        <p className="text-neutral-600">Carregando produtos...</p>
+      </div>
+    </div>
+  )
+}
+
+// Main component exported with Suspense boundary
+export default function ProdutosPage() {
+  return (
+    <Suspense fallback={<ProductsLoading />}>
+      <ProductsContent />
+    </Suspense>
   )
 }
