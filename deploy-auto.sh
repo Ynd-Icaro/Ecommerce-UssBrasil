@@ -83,7 +83,7 @@ if command -v netlify &> /dev/null; then
         success "Deploy concluído!"
         echo ""
         echo "🎉 Site deployado com sucesso!"
-        echo "📱 Acesse: https://ussbrasil.netlify.app"
+        echo "📱 Acesse: https://uss-brasil.netlify.app"
     else
         error "Falha no deploy"
         exit 1

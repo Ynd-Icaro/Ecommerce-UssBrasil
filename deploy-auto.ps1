@@ -48,8 +48,8 @@ Write-Log "Configurando ambiente..."
 if (-not (Test-Path ".env.local")) {
     $envContent = @"
 NEXTAUTH_SECRET=ussbrasil_secret_key_production_$(Get-Random -Minimum 1000 -Maximum 9999)
-NEXTAUTH_URL=https://ussbrasil.netlify.app
-NEXT_PUBLIC_API_URL=https://ussbrasil.netlify.app/api
+NEXTAUTH_URL=https://uss-brasil.netlify.app
+NEXT_PUBLIC_API_URL=https://uss-brasil.netlify.app/api
 DATABASE_URL="file:./prod.db"
 EMAIL_FROM=noreply@ussbrasil.com
 "@

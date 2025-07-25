@@ -4,7 +4,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
-    domains: ['localhost', 'ussbrasil.netlify.app'],
+    domains: ['localhost', 'uss-brasil.netlify.app'],
     remotePatterns: [
       {
         protocol: 'https',

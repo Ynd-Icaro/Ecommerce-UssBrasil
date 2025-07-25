@@ -5,8 +5,8 @@
 [build.environment]
   NODE_VERSION = "20"
   NEXT_TELEMETRY_DISABLED = "1"
-  NEXTAUTH_URL = "https://ussbrasil.netlify.app"
-  NEXT_PUBLIC_API_URL = "https://ussbrasil.netlify.app/api"
+  NEXTAUTH_URL = "https://uss-brasil.netlify.app"
+  NEXT_PUBLIC_API_URL = "https://uss-brasil.netlify.app/api"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"

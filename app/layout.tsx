@@ -14,13 +14,13 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
   title: 'UssBrasil - Importados Premium',
   description: 'A melhor loja de produtos importados do Brasil com tecnologia de ponta e entrega rápida',
-  metadataBase: new URL('https://ussbrasil.netlify.app'),
+  metadataBase: new URL('https://uss-brasil.netlify.app'),
   openGraph: {
     title: 'UssBrasil - Importados Premium',
     description: 'A melhor loja de produtos importados do Brasil com tecnologia de ponta e entrega rápida',
     type: 'website',
     locale: 'pt_BR',
-    url: 'https://ussbrasil.netlify.app',
+    url: 'https://uss-brasil.netlify.app',
     siteName: 'UssBrasil',
   },
   twitter: {
