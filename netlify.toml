@@ -11,6 +11,17 @@
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
+# Redirects para SPA routing (fallback)
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
 # Headers for better performance and security
 [[headers]]
   for = "/*"
