@@ -553,7 +553,7 @@ export default function ProductPage({ params }: ProductPageProps) {
                     name={relatedProduct.name}
                     price={formatCurrency(relatedProduct.price)}
                     originalPrice={relatedProduct.originalPrice ? formatCurrency(relatedProduct.originalPrice) : undefined}
-                    image={relatedProduct.images.main}
+                    image={relatedProduct.images?.main || ''}
                     category={relatedProduct.category}
                     rating={relatedProduct.rating}
                     isNew={relatedProduct.isNew}

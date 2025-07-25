@@ -1,13 +1,18 @@
 import type { NextConfig } from "next";
 
+
 const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
-    domains: ['localhost'],
+    domains: ['localhost', 'ussbrasil.netlify.app'],
     remotePatterns: [
       {
         protocol: 'https',
         hostname: '**',
+      },
+      {
+        protocol: 'http',
+        hostname: 'localhost',
       },
     ],
   },
@@ -22,6 +27,16 @@ const nextConfig: NextConfig = {
   distDir: '.next',
   generateBuildId: async () => {
     return `build-${Date.now()}`
+  },
+  // Otimizações de performance
+  swcMinify: true,
+  compress: true,
+  poweredByHeader: false,
+  reactStrictMode: true,
+  // Configurações para deploy
+  output: 'standalone',
+  experimental: {
+    optimizeCss: true,
   }
 };
 

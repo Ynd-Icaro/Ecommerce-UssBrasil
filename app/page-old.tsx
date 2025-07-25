@@ -1,315 +1,232 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import Link from 'next/link'
-import Image from 'next/image'
-import { ChevronLeft, ChevronRight, Play } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { VideoPlayer } from '@/components/video/VideoPlayer'
+import { SimpleProductCard } from '@/components/product/SimpleProductCard'
+import { useFeaturedProducts, useCompanySettings } from '@/hooks/use-ussbrasil'
+import { 
+  ArrowRight, 
+  Play, 
+  Truck, 
+  Shield, 
+  Headphones,
+  Smartphone,
+  Laptop,
+  Watch
+} from 'lucide-react'
 
-interface Product {
-  id: number
-  name: string
-  description: string
-  price: number
-  discountPrice?: number
-  image: string
-  category: string
-}
-
-interface Category {
-  id: number
-  name: string
-  displayName: string
-  image: string
-  productCount: number
-  tagline: string
-}
-
-const featuredProducts = [
+const categories = [
   {
-    id: 1,
-    name: 'iPhone 16 Pro',
-    tagline: 'Titanium. Tão forte. Tão leve. Tão Pro.',
-    price: 7999.99,
-    discountPrice: 7499.99,
-    image: '/Produtos/Iphone 16 Pro.png',
+    name: 'Smartphones',
+    icon: Smartphone,
+    description: 'Última tecnologia',
+    href: '/categories/smartphones',
     video: '/Videos/IphoneVideo.mp4',
-    colors: ['Natural Titanium', 'Blue Titanium', 'White Titanium', 'Black Titanium']
+    gradient: 'from-blue-600 to-purple-600'
   },
   {
-    id: 2,
-    name: 'MacBook Pro',
-    tagline: 'Superpowered by M3 Pro',
-    price: 12999.99,
-    image: '/Produtos/Macbook Pro.png',
+    name: 'Acessórios',
+    icon: Laptop,
+    description: 'Performance profissional',
+    href: '/categories/acessorios',
     video: '/Videos/Macs Video.mp4',
-    colors: ['Space Gray', 'Silver']
+    gradient: 'from-gray-600 to-gray-800'
   },
   {
-    id: 3,
-    name: 'iPad Pro',
-    tagline: 'Lovable. Drawable. Magical.',
-    price: 5999.99,
-    discountPrice: 5499.99,
-    image: '/Produtos/Ipad Pro.png',
-    video: '/Videos/IpadVideo.mp4',
-    colors: ['Space Gray', 'Silver']
+    name: 'Smartwatchs',
+    icon: Watch,
+    description: 'Sua saúde. Sua vida.',
+    href: '/categories/smartwatchs',
+    video: '/Videos/Apple Watch.mp4',
+    gradient: 'from-red-600 to-orange-600'
+  },
+  {
+    name: 'Fones',
+    icon: Headphones,
+    description: 'Som imersivo',
+    href: '/categories/fones',
+    video: '/Videos/AirPods Video.webm',
+    gradient: 'from-purple-600 to-pink-600'
   }
 ]
 
-export default function Home() {
-  const [currentSlide, setCurrentSlide] = useState(0)
+export default function HomePage() {
+  const { products: featuredProducts, loading: productsLoading } = useFeaturedProducts()
+  const { settings: companySettings } = useCompanySettings()
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % featuredProducts.length)
-    }, 6000)
-
-    return () => clearInterval(interval)
-  }, [])
-
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % featuredProducts.length)
-  }
-
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + featuredProducts.length) % featuredProducts.length)
-  }
-
-  const formatCurrency = (value: number) => {
-    return new Intl.NumberFormat('pt-BR', {
-      style: 'currency',
-      currency: 'BRL'
-    }).format(value)
-  }
+  const companyName = companySettings?.name || 'UssBrasil'
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Hero Carousel */}
-      <section className="relative h-[70vh] bg-gradient-to-br from-gray-50 to-white overflow-hidden">
-        <AnimatePresence mode="wait">
+      {/* Hero Section */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-gray-900 to-gray-700">
+        <div className="absolute inset-0">
+          <VideoPlayer
+            src="/Videos/IphoneVideo.mp4"
+            autoplay
+            muted
+            loop
+            className="w-full h-full object-cover opacity-30"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent"></div>
+        </div>
+        
+        <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
           <motion.div
-            key={currentSlide}
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -50 }}
-            transition={{ duration: 0.8, ease: 'easeInOut' }}
-            className="absolute inset-0 flex items-center"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="space-y-8"
           >
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                {/* Content */}
-                <div className="space-y-6">
-                  <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2, duration: 0.6 }}
-                  >
-                    <Badge className="bg-[#00CED1] text-white mb-4">
-                      Novo
-                    </Badge>
-                    <h1 className="text-4xl md:text-6xl font-bold text-gray-900 leading-tight">
-                      {featuredProducts[currentSlide].name}
-                    </h1>
-                    <p className="text-xl text-gray-600 mt-4">
-                      {featuredProducts[currentSlide].tagline}
-                    </p>
-                  </motion.div>
-
-                  <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.4, duration: 0.6 }}
-                    className="space-y-4"
-                  >
-                    <div className="flex items-center space-x-4">
-                      {featuredProducts[currentSlide].discountPrice ? (
-                        <>
-                          <span className="text-3xl font-bold text-[#00CED1]">
-                            {formatCurrency(featuredProducts[currentSlide].discountPrice!)}
-                          </span>
-                          <span className="text-xl text-gray-500 line-through">
-                            {formatCurrency(featuredProducts[currentSlide].price)}
-                          </span>
-                        </>
-                      ) : (
-                        <span className="text-3xl font-bold text-gray-900">
-                          {formatCurrency(featuredProducts[currentSlide].price)}
-                        </span>
-                      )}
-                    </div>
-
-                    <div className="flex items-center space-x-4">
-                      <Button className="bg-[#00CED1] hover:bg-[#20B2AA] text-white px-8 py-3 rounded-full">
-                        Comprar Agora
-                      </Button>
-                      <Button variant="outline" className="px-8 py-3 rounded-full">
-                        Saiba Mais
-                      </Button>
-                    </div>
-
-                    {/* Color Options */}
-                    <div className="flex items-center space-x-3">
-                      <span className="text-sm text-gray-600">Cores:</span>
-                      {featuredProducts[currentSlide].colors.map((color, index) => (
-                        <div
-                          key={index}
-                          className="w-6 h-6 rounded-full border-2 border-gray-300"
-                          style={{
-                            backgroundColor: color.includes('Gray') ? '#6B7280' :
-                                           color.includes('Blue') ? '#3B82F6' :
-                                           color.includes('White') || color.includes('Silver') ? '#F3F4F6' :
-                                           '#1F2937'
-                          }}
-                        />
-                      ))}
-                    </div>
-                  </motion.div>
-                </div>
-
-                {/* Product Image */}
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.3, duration: 0.8 }}
-                  className="relative h-96 lg:h-full"
-                >
-                  <Image
-                    src={featuredProducts[currentSlide].image}
-                    alt={featuredProducts[currentSlide].name}
-                    fill
-                    className="object-contain"
-                    priority
-                  />
-                </motion.div>
-              </div>
+            <Badge className="bg-white/20 text-white border-white/30 backdrop-blur-sm">
+              iPhone 16 Pro
+            </Badge>
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white tracking-tight">
+              Forjado em
+              <span className="block bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                titânio
+              </span>
+            </h1>
+            <p className="text-xl sm:text-2xl text-white/90 max-w-2xl mx-auto leading-relaxed">
+              O iPhone mais poderoso de todos os tempos. Camera Control. Chip A18 Pro. E muito mais.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <Button size="lg" className="bg-white text-gray-900 hover:bg-gray-100 px-8 py-4 text-lg">
+                Comprar a partir de R$ 10.499
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+              <Button 
+                variant="outline" 
+                size="lg" 
+                className="border-white/30 text-white hover:bg-white/10 backdrop-blur-sm px-8 py-4 text-lg"
+              >
+                <Play className="mr-2 h-5 w-5" />
+                Assistir o filme
+              </Button>
             </div>
           </motion.div>
-        </AnimatePresence>
-
-        {/* Navigation Arrows */}
-        <Button
-          variant="ghost"
-          size="icon"
-          className="absolute left-6 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white shadow-lg"
-          onClick={prevSlide}
-        >
-          <ChevronLeft className="h-6 w-6" />
-        </Button>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="absolute right-6 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white shadow-lg"
-          onClick={nextSlide}
-        >
-          <ChevronRight className="h-6 w-6" />
-        </Button>
-
-        {/* Dots Indicator */}
-        <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-3">
-          {featuredProducts.map((_, index) => (
-            <button
-              key={index}
-              className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                index === currentSlide ? 'bg-[#00CED1] scale-125' : 'bg-gray-300'
-              }`}
-              onClick={() => setCurrentSlide(index)}
-            />
-          ))}
         </div>
+
+        {/* Scroll indicator */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.5 }}
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+        >
+          <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">
+            <motion.div
+              animate={{ y: [0, 8, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+              className="w-1 h-3 bg-white/50 rounded-full mt-2"
+            ></motion.div>
+          </div>
+        </motion.div>
       </section>
 
-      {/* Company Info Banner */}
-      <section className="bg-gradient-to-r from-[#00CED1] to-[#20B2AA] text-white py-16">
+      {/* Features Section */}
+      <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-            >
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                UssBrasil - Shopping Della
-              </h2>
-              <p className="text-xl opacity-90 mb-6">
-                Especializada em produtos Apple Premium
-              </p>
-              <p className="text-lg opacity-80 max-w-2xl mx-auto">
-                Localizada no Shopping Della em Criciúma, SC, oferecemos a melhor experiência 
-                em tecnologia Apple com atendimento especializado e produtos autênticos.
-              </p>
-              <div className="mt-8 flex justify-center space-x-8 text-sm">
-                <div className="text-center">
-                  <div className="text-2xl font-bold">+5</div>
-                  <div className="opacity-80">Anos de Experiência</div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
+              Por que escolher a {companyName}?
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              A experiência Apple completa com o melhor atendimento do Brasil
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                icon: Truck,
+                title: 'Entrega em todo Brasil',
+                description: 'Frete grátis em compras acima de R$ 250. Entrega expressa em capitais.'
+              },
+              {
+                icon: Shield,
+                title: 'Garantia Apple',
+                description: 'Produtos originais com garantia oficial Apple e suporte técnico especializado.'
+              },
+              {
+                icon: Headphones,
+                title: 'Suporte 24/7',
+                description: 'Atendimento especializado sempre que você precisar, por chat, telefone ou email.'
+              }
+            ].map((feature, index) => (
+              <motion.div
+                key={feature.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="text-center p-6 rounded-2xl bg-white shadow-lg hover:shadow-xl transition-all duration-300"
+              >
+                <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center">
+                  <feature.icon className="h-8 w-8 text-white" />
                 </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold">1000+</div>
-                  <div className="opacity-80">Clientes Satisfeitos</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold">100%</div>
-                  <div className="opacity-80">Produtos Originais</div>
-                </div>
-              </div>
-            </motion.div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">{feature.title}</h3>
+                <p className="text-gray-600">{feature.description}</p>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Categories Preview */}
-      <section className="py-16 bg-gray-50">
+      {/* Categories Section */}
+      <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="text-center mb-12"
+            className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Explore Nossas Categorias
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
+              Explore todas as categorias
             </h2>
-            <p className="text-xl text-gray-600">
-              Descubra toda a linha Apple disponível
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Descubra a tecnologia completa na {companyName}
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
-            {[
-              { name: 'iPhone', image: '/Produtos/Iphone 16 Pro.png', count: 12 },
-              { name: 'Mac', image: '/Produtos/Macbook Pro.png', count: 8 },
-              { name: 'iPad', image: '/Produtos/Ipad Pro.png', count: 6 },
-              { name: 'Watch', image: '/Produtos/Watch Series 10.png', count: 4 },
-              { name: 'AirPods', image: '/Produtos/Air Pods Pro 2', count: 5 }
-            ].map((category, index) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {categories.map((category, index) => (
               <motion.div
                 key={category.name}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true }}
+                whileHover={{ y: -5 }}
+                className="group"
               >
-                <Link href={`/categories/${category.name.toLowerCase()}`}>
-                  <Card className="border-0 shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer group">
-                    <CardContent className="p-6 text-center">
-                      <div className="relative h-32 mb-4">
-                        <Image
-                          src={category.image}
-                          alt={category.name}
-                          fill
-                          className="object-contain group-hover:scale-105 transition-transform duration-300"
-                        />
-                      </div>
-                      <h3 className="font-semibold text-gray-900 mb-1">{category.name}</h3>
-                      <p className="text-sm text-gray-600">{category.count} produtos</p>
-                    </CardContent>
-                  </Card>
+                <Link href={category.href} className="block">
+                  <div className="relative aspect-square rounded-3xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200">
+                    <VideoPlayer
+                      src={category.video}
+                      autoplay
+                      muted
+                      loop
+                      className="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-300"
+                    />
+                    <div className={`absolute inset-0 bg-gradient-to-br ${category.gradient} opacity-60 group-hover:opacity-50 transition-opacity duration-300`}></div>
+                    <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-6">
+                      <category.icon className="h-12 w-12 mb-4 opacity-90" />
+                      <h3 className="text-2xl font-bold mb-2">{category.name}</h3>
+                      <p className="text-sm opacity-90 text-center">{category.description}</p>
+                    </div>
+                  </div>
                 </Link>
               </motion.div>
             ))}
@@ -317,199 +234,106 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Why Choose Us Section */}
-      <section className="py-16 bg-white">
+      {/* Featured Products */}
+      <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="text-center mb-12"
+            className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Por que escolher a UssBrasil?
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
+              Produtos em destaque
             </h2>
-            <p className="text-xl text-gray-600">
-              Experiência premium em produtos Apple
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Os lançamentos mais recentes com preços especiais
             </p>
           </motion.div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              {
-                icon: '🎯',
-                title: 'Produtos Originais',
-                description: '100% autênticos direto da Apple'
-              },
-              {
-                icon: '🚚',
-                title: 'Entrega Rápida',
-                description: 'Receba em casa ou retire na loja'
-              },
-              {
-                icon: '🛡️',
-                title: 'Garantia Apple',
-                description: 'Cobertura completa e suporte técnico'
-              },
-              {
-                icon: '💬',
-                title: 'Atendimento Expert',
-                description: 'Consultoria especializada em Apple'
-              }
-            ].map((item, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="text-center p-6 rounded-lg hover:bg-gray-50 transition-colors"
-              >
-                <div className="text-4xl mb-4">{item.icon}</div>
-                <h3 className="text-xl font-semibold mb-2 text-gray-900">{item.title}</h3>
-                <p className="text-gray-600">{item.description}</p>
-              </motion.div>
-            ))}
-          </div>
+
+          {productsLoading ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {[...Array(4)].map((_, index) => (
+                <div key={index} className="animate-pulse">
+                  <div className="bg-gray-200 rounded-2xl h-80 mb-4"></div>
+                  <div className="bg-gray-200 rounded h-4 mb-2"></div>
+                  <div className="bg-gray-200 rounded h-4 w-2/3"></div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {featuredProducts.slice(0, 4).map((product, index) => (
+                <motion.div
+                  key={product.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                >
+                  <SimpleProductCard 
+                    id={product.id}
+                    name={product.name}
+                    price={`R$ ${product.price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`}
+                    originalPrice={product.originalPrice ? `R$ ${product.originalPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}` : undefined}
+                    image={product.images.main}
+                    category={product.categoria}
+                    rating={product.rating}
+                    isNew={product.isNew}
+                  />
+                </motion.div>
+              ))}
+            </div>
+          )}
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            viewport={{ once: true }}
+            className="text-center mt-12"
+          >
+            <Button size="lg" asChild>
+              <Link href="/products">
+                Ver todos os produtos
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
+            </Button>
+          </motion.div>
         </div>
       </section>
 
       {/* Newsletter Section */}
-      <section className="py-16 bg-gradient-to-r from-gray-900 to-gray-800 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-20 bg-gradient-to-br from-gray-900 to-gray-700">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="text-center"
+            className="max-w-3xl mx-auto"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Fique por dentro das novidades Apple
+            <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
+              Fique por dentro das novidades
             </h2>
-            <p className="text-xl opacity-90 mb-8">
-              Receba primeiro as informações sobre lançamentos e ofertas exclusivas
+            <p className="text-xl text-white/90 mb-8">
+              Seja o primeiro a saber sobre lançamentos, ofertas especiais e eventos exclusivos
             </p>
-            <div className="max-w-md mx-auto flex flex-col sm:flex-row gap-4">
-              <Input
+            <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
+              <input
+                type="email"
                 placeholder="Seu melhor email"
-                className="flex-1 bg-white/10 border-white/20 text-white placeholder:text-white/70"
+                className="flex-1 px-6 py-4 rounded-xl border-0 bg-white/10 backdrop-blur-sm text-white placeholder-white/70 focus:ring-2 focus:ring-blue-500 focus:outline-none"
               />
-              <Button className="bg-[#00CED1] hover:bg-[#20B2AA] text-white px-8">
-                Inscrever-se
+              <Button size="lg" className="bg-white text-gray-900 hover:bg-gray-100 px-8">
+                Assinar
               </Button>
             </div>
-            <p className="text-sm opacity-70 mt-4">
-              Não enviamos spam. Cancele a qualquer momento.
-            </p>
           </motion.div>
         </div>
       </section>
-
-      {/* Store Location */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-            >
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                Visite Nossa Loja
-              </h2>
-              <p className="text-lg text-gray-600 mb-6">
-                Experimente os produtos Apple de perto no Shopping Della, em Criciúma. 
-                Nossa equipe especializada está pronta para ajudar você a encontrar o produto perfeito.
-              </p>
-              <div className="space-y-4">
-                <div className="flex items-center">
-                  <div className="w-6 h-6 bg-[#00CED1] rounded-full flex items-center justify-center mr-3">
-                    <span className="text-white text-sm">📍</span>
-                  </div>
-                  <span className="text-gray-700">Shopping Della - Loja 123, Criciúma - SC</span>
-                </div>
-                <div className="flex items-center">
-                  <div className="w-6 h-6 bg-[#00CED1] rounded-full flex items-center justify-center mr-3">
-                    <span className="text-white text-sm">🕒</span>
-                  </div>
-                  <span className="text-gray-700">Segunda a Sábado: 10h às 22h | Domingo: 14h às 20h</span>
-                </div>
-                <div className="flex items-center">
-                  <div className="w-6 h-6 bg-[#00CED1] rounded-full flex items-center justify-center mr-3">
-                    <span className="text-white text-sm">📞</span>
-                  </div>
-                  <span className="text-gray-700">(48) 3431-0000</span>
-                </div>
-              </div>
-              <Button className="mt-6 bg-[#00CED1] hover:bg-[#20B2AA] text-white">
-                Como Chegar
-              </Button>
-            </motion.div>
-            
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-              className="bg-gray-200 rounded-lg h-64 lg:h-80 flex items-center justify-center"
-            >
-              <span className="text-gray-500">Mapa da Localização</span>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div>
-              <div className="flex items-center space-x-2 mb-4">
-                <div className="w-8 h-8 bg-gradient-to-r from-[#00CED1] to-[#20B2AA] rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">U</span>
-                </div>
-                <span className="text-xl font-bold">UssBrasil</span>
-              </div>
-              <p className="text-gray-400 text-sm">
-                Especializada em produtos Apple Premium no Shopping Della, Criciúma - SC.
-              </p>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4">Produtos</h4>
-              <ul className="space-y-2 text-sm text-gray-400">
-                <li><Link href="/categories/iphone">iPhone</Link></li>
-                <li><Link href="/categories/mac">Mac</Link></li>
-                <li><Link href="/categories/ipad">iPad</Link></li>
-                <li><Link href="/categories/watch">Apple Watch</Link></li>
-                <li><Link href="/categories/airpods">AirPods</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4">Suporte</h4>
-              <ul className="space-y-2 text-sm text-gray-400">
-                <li><Link href="/support">Central de Ajuda</Link></li>
-                <li><Link href="/warranty">Garantia</Link></li>
-                <li><Link href="/shipping">Envios</Link></li>
-                <li><Link href="/returns">Devoluções</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4">Contato</h4>
-              <ul className="space-y-2 text-sm text-gray-400">
-                <li>Shopping Della - Criciúma, SC</li>
-                <li>(48) 3431-0000</li>
-                <li>contato@ussbrasil.com.br</li>
-              </ul>
-            </div>
-          </div>
-          <div className="border-t border-gray-800 mt-8 pt-8 text-center text-sm text-gray-400">
-            <p>&copy; 2024 UssBrasil. Todos os direitos reservados.</p>
-          </div>
-        </div>
-      </footer>
     </div>
   )
 }
+                

@@ -41,12 +41,26 @@ const categoryData = {
     gradient: "from-gray-700 via-gray-800 to-black",
     videoKeywords: ["mac", "macbook", "imac", "laptop"]
   },
+  ipad: {
+    title: "iPad",
+    subtitle: "Versatilidade que vai além da imaginação",
+    description: "iPads com tela líquida Retina, performance profissional e suporte ao Apple Pencil para máxima criatividade.",
+    gradient: "from-cyan-500 via-blue-500 to-purple-600",
+    videoKeywords: ["ipad", "tablet"]
+  },
   watch: {
     title: "Apple Watch",
     subtitle: "Seu companheiro de saúde no pulso",
     description: "Relógios inteligentes que combinam tecnologia avançada com design elegante para cuidar da sua saúde.",
     gradient: "from-red-500 via-pink-500 to-rose-600",
     videoKeywords: ["watch", "apple watch", "smartwatch"]
+  },
+  airpods: {
+    title: "AirPods",
+    subtitle: "Áudio mágico ao alcance dos seus ouvidos",
+    description: "Fones de ouvido sem fio com cancelamento de ruído ativo, áudio espacial e qualidade de som excepcional.",
+    gradient: "from-indigo-500 via-purple-500 to-pink-500",
+    videoKeywords: ["airpods", "headphones", "audio"]
   },
   "xiomi-ultra": {
     title: "Xiaomi Ultra",
@@ -64,7 +78,20 @@ const categoryData = {
   }
 }
 
-const mockProducts = [
+interface Product {
+  id: number;
+  name: string;
+  price: number;
+  originalPrice: number;
+  rating: number;
+  reviews: number;
+  image: string;
+  category: string;
+  isNew: boolean;
+  inStock: boolean;
+}
+
+const mockProducts: Product[] = [
   {
     id: 1,
     name: "iPhone 15 Pro Max", 
@@ -79,6 +106,30 @@ const mockProducts = [
   },
   {
     id: 2,
+    name: "iPhone 15 Pro",
+    price: 8999,
+    originalPrice: 9999,
+    rating: 4.8,
+    reviews: 1892,
+    image: "/Produtos/Iphone 16.png",
+    category: "iphone",
+    isNew: true,
+    inStock: true
+  },
+  {
+    id: 3,
+    name: "iPhone 15",
+    price: 6999,
+    originalPrice: 7999,
+    rating: 4.7,
+    reviews: 3241,
+    image: "/Produtos/Iphone 16e.png",
+    category: "iphone",
+    isNew: false,
+    inStock: true
+  },
+  {
+    id: 4,
     name: "MacBook Pro 16\"",
     price: 19999,
     originalPrice: 21999,
@@ -90,7 +141,31 @@ const mockProducts = [
     inStock: true
   },
   {
-    id: 3,
+    id: 5,
+    name: "MacBook Air 15\"",
+    price: 12999,
+    originalPrice: 13999,
+    rating: 4.7,
+    reviews: 2156,
+    image: "/Produtos/Macbook Air.png",
+    category: "mac",
+    isNew: false,
+    inStock: true
+  },
+  {
+    id: 6,
+    name: "iMac 24\"",
+    price: 15999,
+    originalPrice: 16999,
+    rating: 4.9,
+    reviews: 892,
+    image: "/Produtos/Imac.png",
+    category: "mac",
+    isNew: false,
+    inStock: true
+  },
+  {
+    id: 7,
     name: "Apple Watch Ultra 2",
     price: 6999,
     originalPrice: 7999,
@@ -99,6 +174,138 @@ const mockProducts = [
     image: "/Produtos/Watch Ultra 2.png",
     category: "watch",
     isNew: false,
+    inStock: true
+  },
+  {
+    id: 8,
+    name: "Apple Watch Series 10",
+    price: 3999,
+    originalPrice: 4299,
+    rating: 4.6,
+    reviews: 1654,
+    image: "/Produtos/Watch Series 10.png",
+    category: "watch",
+    isNew: true,
+    inStock: true
+  },
+  {
+    id: 9,
+    name: "Apple Watch SE",
+    price: 2499,
+    originalPrice: 2799,
+    rating: 4.5,
+    reviews: 2341,
+    image: "/Produtos/Watch SE.png",
+    category: "watch",
+    isNew: false,
+    inStock: true
+  },
+  {
+    id: 10,
+    name: "iPad Pro 12.9\"",
+    price: 11999,
+    originalPrice: 12999,
+    rating: 4.8,
+    reviews: 1456,
+    image: "/Produtos/Ipad Pro.png",
+    category: "ipad",
+    isNew: true,
+    inStock: true
+  },
+  {
+    id: 11,
+    name: "iPad Air",
+    price: 5999,
+    originalPrice: 6499,
+    rating: 4.7,
+    reviews: 2134,
+    image: "/Produtos/IpadAir.png",
+    category: "ipad",
+    isNew: false,
+    inStock: true
+  },
+  {
+    id: 12,
+    name: "iPad",
+    price: 3499,
+    originalPrice: 3999,
+    rating: 4.6,
+    reviews: 3287,
+    image: "/Produtos/Ipad.png",
+    category: "ipad",
+    isNew: false,
+    inStock: true
+  },
+  {
+    id: 13,
+    name: "iPad Mini",
+    price: 4999,
+    originalPrice: 5299,
+    rating: 4.5,
+    reviews: 1876,
+    image: "/Produtos/IpadMini.png",
+    category: "ipad",
+    isNew: false,
+    inStock: true
+  },
+  {
+    id: 14,
+    name: "AirPods Pro 2",
+    price: 2499,
+    originalPrice: 2799,
+    rating: 4.8,
+    reviews: 4521,
+    image: "/Produtos/Air Pods Pro 2",
+    category: "airpods",
+    isNew: true,
+    inStock: true
+  },
+  {
+    id: 15,
+    name: "AirPods Max",
+    price: 4999,
+    originalPrice: 5299,
+    rating: 4.7,
+    reviews: 2134,
+    image: "/Produtos/Air Pods Max.png",
+    category: "airpods",
+    isNew: false,
+    inStock: true
+  },
+  {
+    id: 16,
+    name: "AirPods 4",
+    price: 1299,
+    originalPrice: 1499,
+    rating: 4.6,
+    reviews: 3876,
+    image: "/Produtos/Air Pods 4",
+    category: "airpods",
+    isNew: true,
+    inStock: true
+  },
+  {
+    id: 17,
+    name: "Xiaomi 14 Ultra",
+    price: 4999,
+    originalPrice: 5499,
+    rating: 4.6,
+    reviews: 1247,
+    image: "/Produtos/acessorios/airpods-4-anc-select-202409.png",
+    category: "xiomi-ultra",
+    isNew: true,
+    inStock: true
+  },
+  {
+    id: 18,
+    name: "DJI Mini 4 Pro",
+    price: 8999,
+    originalPrice: 9999,
+    rating: 4.8,
+    reviews: 567,
+    image: "/Produtos/acessorios/airpods-4-anc-select-202409.png",
+    category: "dji",
+    isNew: true,
     inStock: true
   }
 ]
@@ -119,7 +326,7 @@ export default function CategoryPage() {
   const categoryInfo = categoryData[category as keyof typeof categoryData]
   
   const categoryVideo = categoryInfo ? 
-    videoCategories.find(vc => 
+    videoCategories.find((vc: any) => 
       categoryInfo.videoKeywords.some(keyword => 
         vc.keywords.includes(keyword)
       )

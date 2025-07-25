@@ -1,21 +1,33 @@
-// Design System - Uss Brasil
-// Cores, espaçamentos, tipografia e componentes padronizados
+// ============================================================================
+// SISTEMA DE DESIGN - DESIGN TOKENS E UTILITÁRIOS
+// ============================================================================
 
-export const designSystem = {
+import { type ClassValue, clsx } from "clsx"
+import { twMerge } from "tailwind-merge"
+
+// ========== UTILITY FUNCTION ==========
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs))
+}
+
+// ========== DESIGN TOKENS ==========
+export const designTokens = {
+  // Cores principais
   colors: {
     primary: {
-      50: '#f0fdff',
-      100: '#ccf7fe', 
-      200: '#99eefd',
-      300: '#66e5fc',
-      400: '#22d3ee', // Cor principal #00CED1
-      500: '#00CED1',
-      600: '#0891b2',
-      700: '#0e7490',
-      800: '#155e75',
-      900: '#164e63',
+      50: '#f0f2f9',
+      100: '#e0e6f3', 
+      200: '#c1cde7',
+      300: '#a2b4db',
+      400: '#839bcf',
+      500: '#6482c3',
+      600: '#4569b7',
+      700: '#2650ab',
+      800: '#1e3f85',
+      900: '#0f1a3c', // Cor da marca USSBrasil
+      DEFAULT: '#0f1a3c'
     },
-    gray: {
+    secondary: {
       50: '#f8fafc',
       100: '#f1f5f9',
       200: '#e2e8f0',
@@ -26,72 +38,96 @@ export const designSystem = {
       700: '#334155',
       800: '#1e293b',
       900: '#0f172a',
+      DEFAULT: '#64748b'
     }
   },
-  
+
+  // Espaçamentos
   spacing: {
-    xs: '0.5rem',     // 8px
-    sm: '0.75rem',    // 12px
-    md: '1rem',       // 16px
-    lg: '1.5rem',     // 24px
-    xl: '2rem',       // 32px
-    '2xl': '3rem',    // 48px
-    '3xl': '4rem',    // 64px
-    '4xl': '6rem',    // 96px
+    px: '1px',
+    0: '0',
+    1: '0.25rem',
+    2: '0.5rem',
+    3: '0.75rem',
+    4: '1rem',
+    5: '1.25rem',
+    6: '1.5rem',
+    8: '2rem',
+    10: '2.5rem',
+    12: '3rem',
+    16: '4rem',
+    20: '5rem',
+    24: '6rem'
+  }
+} as const
+
+// ========== ANIMAÇÕES ==========
+export const animations = {
+  duration: {
+    fast: '150ms',
+    normal: '300ms',
+    slow: '500ms'
   },
   
-  borderRadius: {
-    sm: '0.375rem',   // 6px
-    md: '0.5rem',     // 8px
-    lg: '0.75rem',    // 12px
-    xl: '1rem',       // 16px
-    '2xl': '1.5rem',  // 24px
-    '3xl': '2rem',    // 32px
-  },
-  
-  shadows: {
-    sm: '0 1px 2px 0 rgb(0 0 0 / 0.05)',
-    md: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
-    lg: '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
-    xl: '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)',
-    '2xl': '0 25px 50px -12px rgb(0 0 0 / 0.25)',
-    glass: '0 8px 32px 0 rgba(31, 38, 135, 0.37)',
-  },
-  
-  typography: {
-    fontFamily: 'font-sans',
-    sizes: {
-      xs: 'text-xs',      // 12px
-      sm: 'text-sm',      // 14px
-      base: 'text-base',  // 16px
-      lg: 'text-lg',      // 18px
-      xl: 'text-xl',      // 20px
-      '2xl': 'text-2xl',  // 24px
-      '3xl': 'text-3xl',  // 30px
-      '4xl': 'text-4xl',  // 36px
+  variants: {
+    fadeIn: {
+      initial: { opacity: 0 },
+      animate: { opacity: 1 },
+      exit: { opacity: 0 }
     },
-    weights: {
-      normal: 'font-normal',
-      medium: 'font-medium',
-      semibold: 'font-semibold',
-      bold: 'font-bold',
+    slideUp: {
+      initial: { opacity: 0, y: 20 },
+      animate: { opacity: 1, y: 0 },
+      exit: { opacity: 0, y: -20 }
+    }
+  }
+} as const
+
+// ========== COMPONENTES ==========
+export const componentStyles = {
+  button: {
+    base: "inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 disabled:opacity-50 disabled:pointer-events-none",
+    variants: {
+      primary: "bg-primary-900 text-white hover:bg-primary-800",
+      secondary: "bg-secondary-200 text-secondary-900 hover:bg-secondary-300", 
+      outline: "border border-primary-300 hover:bg-primary-50",
+      ghost: "hover:bg-primary-50 hover:text-primary-900"
+    },
+    sizes: {
+      sm: "h-9 px-3 text-sm",
+      md: "h-10 py-2 px-4",
+      lg: "h-11 px-8 text-base"
     }
   },
-  
-  glassmorphism: {
-    light: 'bg-white/70 backdrop-blur-xl border border-white/20',
-    dark: 'bg-gray-900/70 backdrop-blur-xl border border-gray-800/20',
-    card: 'bg-white/80 backdrop-blur-xl rounded-2xl shadow-lg border border-white/20',
+
+  navigation: {
+    base: "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+    variants: {
+      transparent: "bg-transparent",
+      glass: "bg-white/80 backdrop-blur-xl border-b border-gray-200/50 shadow-sm",
+      solid: "bg-white border-b shadow-sm"
+    }
+  }
+} as const
+
+// ========== UTILIDADES ==========
+export const styleUtils = {
+  applyGlass: (intensity: 'light' | 'medium' | 'heavy' = 'medium') => {
+    const intensities = {
+      light: 'bg-white/50 backdrop-blur-sm',
+      medium: 'bg-white/70 backdrop-blur-md',
+      heavy: 'bg-white/80 backdrop-blur-xl'
+    }
+    return intensities[intensity]
   },
-  
-  animations: {
-    transition: 'transition-all duration-300 ease-in-out',
-    hover: 'hover:scale-105 transition-transform duration-200',
-    button: 'hover:shadow-lg transition-all duration-200',
+
+  applyHover: (scale: boolean = true) => {
+    let classes = 'transition-all duration-200'
+    if (scale) classes += ' hover:scale-105'
+    return classes
+  },
+
+  applyFocus: () => {
+    return 'focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2'
   }
 }
-
-// Utilitários para aplicar o design system
-export const applyGlass = (variant: 'light' | 'dark' | 'card' = 'card') => designSystem.glassmorphism[variant]
-export const applyTransition = () => designSystem.animations.transition
-export const applyHover = () => designSystem.animations.hover

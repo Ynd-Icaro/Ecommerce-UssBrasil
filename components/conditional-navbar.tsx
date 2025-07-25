@@ -1,7 +1,7 @@
 'use client'
 
 import { usePathname } from 'next/navigation'
-import ClientNavbar from './client-navbar'
+import { MainNavigation } from './navigation/main-navigation'
 
 export default function ConditionalNavbar() {
   const pathname = usePathname()
@@ -11,5 +11,11 @@ export default function ConditionalNavbar() {
     return null
   }
   
-  return <ClientNavbar />
+  // Determinar variante baseada na página
+  const getNavigationVariant = () => {
+    if (pathname === '/') return 'transparent' // Home page
+    return 'glass' // Outras páginas
+  }
+  
+  return <MainNavigation variant={getNavigationVariant()} />
 }

@@ -15,12 +15,12 @@
         "description": "O mais avançado iPhone já criado, com chip A18 Pro e câmeras revolucionárias.",
         "features": ["Chip A18 Pro", "Câmera 48MP", "Tela ProMotion 120Hz", "Titânio Aerospace"],
         "images": {
-          "main": "/Produtos/Iphone-16-Pro.png",
+          "main": "/Imagens/Iphone-16-Pro.png",
           "gallery": [
-            "/Produtos/Iphone 16/Pro max/Titanio-deserto.webp",
-            "/Produtos/Iphone 16/Pro max/Titanio-natural.webp",
-            "/Produtos/Iphone 16/Pro max/Titanio-branco.webp",
-            "/Produtos/Iphone 16/Pro max/Titanio-preto.webp"
+            "/Imagens/Iphone 16/Pro max/Titanio-deserto.webp",
+            "/Imagens/Iphone 16/Pro max/Titanio-natural.webp",
+            "/Imagens/Iphone 16/Pro max/Titanio-branco.webp",
+            "/Imagens/Iphone 16/Pro max/Titanio-preto.webp"
           ]
         },
         "videos": [

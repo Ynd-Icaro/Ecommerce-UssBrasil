@@ -1,11 +1,13 @@
 [build]
-  command = "npm run build:netlify"
+  command = "npm run build:production"
   publish = ".next"
 
 [build.environment]
   NODE_VERSION = "20"
   NPM_FLAGS = "--legacy-peer-deps"
   NEXT_TELEMETRY_DISABLED = "1"
+  NEXTAUTH_URL = "https://ussbrasil.netlify.app"
+  NEXT_PUBLIC_API_URL = "https://ussbrasil.netlify.app/api"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"

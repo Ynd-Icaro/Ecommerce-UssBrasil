@@ -2,105 +2,63 @@
 
 import { motion } from 'framer-motion'
 import Link from 'next/link'
-import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { VideoPlayer } from '@/components/video/VideoPlayer'
 import { SimpleProductCard } from '@/components/product/SimpleProductCard'
+import { useFeaturedProducts, useCompanySettings } from '@/hooks/use-ussbrasil'
 import { 
   ArrowRight, 
   Play, 
-  Star, 
   Truck, 
   Shield, 
   Headphones,
-  Apple,
   Smartphone,
   Laptop,
-  Watch,
-  Tablet
+  Watch
 } from 'lucide-react'
-
-const featuredProducts = [
-  {
-    id: '1',
-    name: 'iPhone 16 Pro',
-    price: 'R$ 10.499',
-    originalPrice: 'R$ 11.999',
-    image: '/Produtos/Iphone 16 Pro.png',
-    category: 'iPhone',
-    rating: 4.9,
-    isNew: true,
-    description: 'Forjado em titânio. Camera Control. Chip A18 Pro.'
-  },
-  {
-    id: '2',
-    name: 'MacBook Pro M3',
-    price: 'R$ 19.999',
-    image: '/Produtos/Macbook Pro.png',
-    category: 'Mac',
-    rating: 4.8,
-    isNew: true,
-    description: 'Supercharged for pros. Com chip M3 revolucionário.'
-  },
-  {
-    id: '3',
-    name: 'iPad Pro M4',
-    price: 'R$ 10.499',
-    image: '/Produtos/Ipad Pro.png',
-    category: 'iPad',
-    rating: 4.7,
-    isNew: true,
-    description: 'O iPad mais fino de todos os tempos.'
-  },
-  {
-    id: '4',
-    name: 'Apple Watch Series 10',
-    price: 'R$ 4.699',
-    image: '/Produtos/Watch Series 10.png',
-    category: 'Apple Watch',
-    rating: 4.8,
-    isNew: true,
-    description: 'Mais fino. Mais inteligente. Mais brilhante.'
-  }
-]
 
 const categories = [
   {
-    name: 'iPhone',
+    name: 'Smartphones',
     icon: Smartphone,
-    description: 'Forjado em titânio',
-    href: '/categories/iphone',
+    description: 'Última tecnologia',
+    href: '/categories/smartphones',
     video: '/Videos/IphoneVideo.mp4',
     gradient: 'from-blue-600 to-purple-600'
   },
   {
-    name: 'Mac',
+    name: 'Acessórios',
     icon: Laptop,
-    description: 'Supercharged by M3',
-    href: '/categories/mac',
+    description: 'Performance profissional',
+    href: '/categories/acessorios',
     video: '/Videos/Macs Video.mp4',
     gradient: 'from-gray-600 to-gray-800'
   },
   {
-    name: 'iPad',
-    icon: Tablet,
-    description: 'Sua próxima ideia',
-    href: '/categories/ipad',
-    video: '/Videos/IpadVideo.mp4',
-    gradient: 'from-purple-600 to-pink-600'
-  },
-  {
-    name: 'Watch',
+    name: 'Smartwatchs',
     icon: Watch,
     description: 'Sua saúde. Sua vida.',
-    href: '/categories/watch',
+    href: '/categories/smartwatchs',
     video: '/Videos/Apple Watch.mp4',
     gradient: 'from-red-600 to-orange-600'
+  },
+  {
+    name: 'Fones',
+    icon: Headphones,
+    description: 'Som imersivo',
+    href: '/categories/fones',
+    video: '/Videos/AirPods Video.webm',
+    gradient: 'from-purple-600 to-pink-600'
   }
 ]
 
 export default function HomePage() {
+  const { products: featuredProducts, loading: productsLoading } = useFeaturedProducts()
+  const { settings: companySettings } = useCompanySettings()
+
+  const companyName = companySettings?.name || 'UssBrasil'
+
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
@@ -180,7 +138,7 @@ export default function HomePage() {
             className="text-center mb-16"
           >
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
-              Por que escolher a USS Brasil?
+              Por que escolher a {companyName}?
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               A experiência Apple completa com o melhor atendimento do Brasil
@@ -235,10 +193,10 @@ export default function HomePage() {
             className="text-center mb-16"
           >
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
-              Explore todos os produtos Apple
+              Explore todas as categorias
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Descubra o ecossistema Apple completo na USS Brasil
+              Descubra a tecnologia completa na {companyName}
             </p>
           </motion.div>
 
@@ -290,23 +248,44 @@ export default function HomePage() {
               Produtos em destaque
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Os lançamentos mais recentes da Apple com preços especiais
+              Os lançamentos mais recentes com preços especiais
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {featuredProducts.map((product, index) => (
-              <motion.div
-                key={product.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-              >
-                <SimpleProductCard {...product} />
-              </motion.div>
-            ))}
-          </div>
+          {productsLoading ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {[...Array(4)].map((_, index) => (
+                <div key={index} className="animate-pulse">
+                  <div className="bg-gray-200 rounded-2xl h-80 mb-4"></div>
+                  <div className="bg-gray-200 rounded h-4 mb-2"></div>
+                  <div className="bg-gray-200 rounded h-4 w-2/3"></div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {featuredProducts.slice(0, 4).map((product, index) => (
+                <motion.div
+                  key={product.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                >
+                  <SimpleProductCard 
+                    id={product.id}
+                    name={product.name}
+                    price={`R$ ${product.price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`}
+                    originalPrice={product.originalPrice ? `R$ ${product.originalPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}` : undefined}
+                    image={product.images.main}
+                    category={product.categoria}
+                    rating={product.rating}
+                    isNew={product.isNew}
+                  />
+                </motion.div>
+              ))}
+            </div>
+          )}
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -339,7 +318,7 @@ export default function HomePage() {
               Fique por dentro das novidades
             </h2>
             <p className="text-xl text-white/90 mb-8">
-              Seja o primeiro a saber sobre lançamentos, ofertas especiais e eventos Apple
+              Seja o primeiro a saber sobre lançamentos, ofertas especiais e eventos exclusivos
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
               <input
@@ -357,3 +336,4 @@ export default function HomePage() {
     </div>
   )
 }
+                

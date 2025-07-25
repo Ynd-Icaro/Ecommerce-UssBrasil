@@ -1,108 +1,294 @@
 {
   "products": [
     {
-      "id": 1,
+      "id": "1",
       "name": "iPhone 16 Pro",
-      "brand": "Apple",
-      "category": "smartphones",
-      "price": 7999.99,
-      "discountPrice": 7499.99,
-      "description": "O iPhone mais Pro de todos os tempos",
-      "image": "/Produtos/Iphone 16 Pro.png",
-      "images": [
-        "/Produtos/Iphone 16 Pro.png",
-        "/Produtos/Iphone 16/variant1.png",
-        "/Produtos/Iphone 16/variant2.png"
+      "slug": "iphone-16-pro",
+      "classe": "Smartphones",
+      "categoria": "Apple",
+      "price": 10499.99,
+      "originalPrice": 11999.99,
+      "discountPrice": 10499.99,
+      "description": "Forjado em titânio. Camera Control. Chip A18 Pro.",
+      "features": [
+        "Chip A18 Pro revolucionário",
+        "Sistema de câmera Pro de 48MP",
+        "Tela Super Retina XDR de 6.3 polegadas",
+        "Forjado em titânio premium"
       ],
-      "rating": 4.8,
+      "images": {
+        "main": "/Imagens/Iphone-16-Pro.png",
+        "gallery": [
+          "/Imagens/Iphone-16-Pro.png",
+          "/Imagens/Iphone-16-Pro-variant1.png",
+          "/Imagens/Iphone-16-Pro-variant2.png"
+        ],
+        "thumbnail": "/Imagens/Iphone-16-Pro-thumb.png"
+      },
+      "rating": 4.9,
+      "reviews": 1247,
       "totalReviews": 1247,
       "stock": 25,
       "status": "active",
+      "isNew": true,
+      "isFeatured": true,
+      "isOnSale": true,
+      "discount": 12,
       "paymentOptions": 12,
-      "colors": ["Natural Titanium", "Blue Titanium", "White Titanium", "Black Titanium"],
-      "createdAt": "2024-09-20T10:00:00Z",
+      "colors": [
+        {
+          "name": "Natural Titanium",
+          "code": "#8E8E93",
+          "image": "/Imagens/Iphone-16-Pro-natural.png"
+        },
+        {
+          "name": "Blue Titanium",
+          "code": "#4A90E2",
+          "image": "/Imagens/Iphone-16-Pro-blue.png"
+        },
+        {
+          "name": "White Titanium",
+          "code": "#F2F2F7",
+          "image": "/Imagens/Iphone-16-Pro-white.png"
+        },
+        {
+          "name": "Black Titanium",
+          "code": "#1D1D1F",
+          "image": "/Imagens/Iphone-16-Pro-black.png"
+        }
+      ],
+      "storage": ["128GB", "256GB", "512GB", "1TB"],
       "specifications": {
-        "screen": "6.3 polegadas Super Retina XDR",
+        "display": "6.3 polegadas Super Retina XDR",
         "processor": "A18 Pro",
-        "storage": "128GB",
-        "camera": "Sistema de câmera Pro de 48MP"
-      }
+        "camera": "Sistema de câmera Pro de 48MP",
+        "battery": "Até 23 horas de reprodução de vídeo",
+        "material": "Titânio",
+        "resistance": "IP68",
+        "connectivity": "5G, Wi-Fi 6E, Bluetooth 5.3"
+      },
+      "tags": ["smartphone", "apple", "5g", "premium"],
+      "sku": "IPH16P-128-NAT",
+      "barcode": "1234567890123",
+      "weight": "199g",
+      "dimensions": {
+        "width": 76.2,
+        "height": 159.9,
+        "depth": 8.25
+      },
+      "createdAt": "2024-09-20T10:00:00Z",
+      "updatedAt": "2024-09-20T10:00:00Z"
     },
     {
-      "id": 2,
-      "name": "MacBook Pro 14",
-      "brand": "Apple",
-      "category": "computers",
-      "price": 12999.99,
-      "description": "Performance incomparável para profissionais",
-      "image": "/Produtos/Macbook Pro.png",
-      "images": [
-        "/Produtos/Macbook Pro.png"
+      "id": "2",
+      "name": "MacBook Pro M4",
+      "slug": "macbook-pro-m4",
+      "classe": "Acessórios",
+      "categoria": "Apple",
+      "price": 19999.99,
+      "originalPrice": 21999.99,
+      "description": "Supercharged for pros. Com chip M4 revolucionário.",
+      "features": [
+        "Chip M4 de nova geração",
+        "Tela Liquid Retina XDR de 14.2 polegadas",
+        "Até 18 horas de bateria",
+        "Sistema de câmera avançado de 1080p"
       ],
-      "rating": 4.9,
+      "images": {
+        "main": "/Imagens/Macbook-Pro.png",
+        "gallery": [
+          "/Imagens/Macbook-Pro.png",
+          "/Imagens/Macbook-Pro-variant1.png"
+        ],
+        "thumbnail": "/Imagens/Macbook-Pro-thumb.png"
+      },
+      "rating": 4.8,
+      "reviews": 892,
       "totalReviews": 892,
       "stock": 15,
       "status": "active",
+      "isNew": true,
+      "isFeatured": true,
+      "isOnSale": false,
+      "discount": 0,
       "paymentOptions": 12,
-      "colors": ["Space Gray", "Silver"],
-      "createdAt": "2024-09-15T10:00:00Z",
+      "colors": [
+        {
+          "name": "Space Gray",
+          "code": "#7D7D7D",
+          "image": "/Imagens/Macbook-Pro-gray.png"
+        },
+        {
+          "name": "Silver",
+          "code": "#E3E3E3",
+          "image": "/Imagens/Macbook-Pro-silver.png"
+        }
+      ],
+      "storage": ["512GB", "1TB", "2TB"],
       "specifications": {
-        "screen": "14.2 polegadas Liquid Retina XDR",
-        "processor": "M3 Pro",
-        "memory": "18GB RAM",
-        "storage": "512GB SSD"
-      }
+        "display": "14.2 polegadas Liquid Retina XDR",
+        "processor": "Apple M4",
+        "memory": "8GB RAM unificada",
+        "storage": "512GB SSD",
+        "graphics": "GPU de 10 núcleos",
+        "battery": "Até 18 horas",
+        "weight": "1.55 kg",
+        "connectivity": "Wi-Fi 6E, Bluetooth 5.3, Thunderbolt 4"
+      },
+      "tags": ["laptop", "apple", "professional", "m4"],
+      "sku": "MBP14-M4-512-SG",
+      "barcode": "1234567890124",
+      "weight": "1550g",
+      "dimensions": {
+        "width": 312.6,
+        "height": 221.2,
+        "depth": 15.5
+      },
+      "createdAt": "2024-09-15T10:00:00Z",
+      "updatedAt": "2024-09-15T10:00:00Z"
     },
     {
-      "id": 3,
-      "name": "iPad Pro",
-      "brand": "Apple",
-      "category": "tablets",
-      "price": 5999.99,
-      "discountPrice": 5499.99,
-      "description": "Criatividade sem limites",
-      "image": "/Produtos/Ipad Pro.png",
-      "images": [
-        "/Produtos/Ipad Pro.png"
+      "id": "3",
+      "name": "iPad Pro M4",
+      "slug": "ipad-pro-m4",
+      "classe": "Acessórios",
+      "categoria": "Apple",
+      "price": 10499.99,
+      "originalPrice": 11999.99,
+      "discountPrice": 10499.99,
+      "description": "O iPad mais fino de todos os tempos.",
+      "features": [
+        "Chip M4 ultrarrápido",
+        "Tela Tandem OLED Ultra Retina XDR",
+        "Design incrivelmente fino",
+        "Compatível com Apple Pencil Pro"
       ],
+      "images": {
+        "main": "/Imagens/Ipad-Pro.png",
+        "gallery": [
+          "/Imagens/Ipad-Pro.png",
+          "/Imagens/Ipad-Pro-variant1.png"
+        ],
+        "thumbnail": "/Imagens/Ipad-Pro-thumb.png"
+      },
       "rating": 4.7,
+      "reviews": 654,
       "totalReviews": 654,
       "stock": 20,
       "status": "active",
+      "isNew": true,
+      "isFeatured": true,
+      "isOnSale": true,
+      "discount": 12,
       "paymentOptions": 10,
-      "colors": ["Space Gray", "Silver"],
-      "createdAt": "2024-09-10T10:00:00Z",
+      "colors": [
+        {
+          "name": "Space Gray",
+          "code": "#7D7D7D",
+          "image": "/Imagens/Ipad-Pro-gray.png"
+        },
+        {
+          "name": "Silver",
+          "code": "#E3E3E3",
+          "image": "/Imagens/Ipad-Pro-silver.png"
+        }
+      ],
+      "storage": ["256GB", "512GB", "1TB", "2TB"],
       "specifications": {
-        "screen": "12.9 polegadas Liquid Retina XDR",
-        "processor": "M2",
+        "display": "12.9 polegadas Tandem OLED Ultra Retina XDR",
+        "processor": "Apple M4",
+        "memory": "8GB RAM",
         "storage": "256GB",
-        "camera": "Sistema de câmera Pro de 12MP"
-      }
+        "camera": "Sistema de câmera Pro de 12MP",
+        "frontCamera": "Câmera frontal TrueDepth de 12MP",
+        "battery": "Até 10 horas",
+        "weight": "682g",
+        "connectivity": "Wi-Fi 6E, Bluetooth 5.3, USB-C Thunderbolt"
+      },
+      "tags": ["tablet", "apple", "professional", "m4"],
+      "sku": "IPADPRO-M4-256-SG",
+      "barcode": "1234567890125",
+      "weight": "682g",
+      "dimensions": {
+        "width": 214.9,
+        "height": 280.6,
+        "depth": 5.1
+      },
+      "createdAt": "2024-09-10T10:00:00Z",
+      "updatedAt": "2024-09-10T10:00:00Z"
     },
     {
-      "id": 4,
+      "id": "4",
       "name": "Apple Watch Series 10",
-      "brand": "Apple",
-      "category": "wearables",
-      "price": 2999.99,
-      "description": "O futuro da saúde no seu pulso",
-      "image": "/Produtos/Watch Series 10.png",
-      "images": [
-        "/Produtos/Watch Series 10.png"
+      "slug": "apple-watch-series-10",
+      "classe": "Smartwatchs",
+      "categoria": "Apple",
+      "price": 4699.99,
+      "originalPrice": 4999.99,
+      "description": "Mais fino. Mais inteligente. Mais brilhante.",
+      "features": [
+        "Tela maior e mais brilhante",
+        "Chip S10 ultrarrápido",
+        "Detecção de queda e acidente",
+        "Resistente à água até 50 metros"
       ],
-      "rating": 4.6,
+      "images": {
+        "main": "/Imagens/Watch-Series-10.png",
+        "gallery": [
+          "/Imagens/Watch-Series-10.png",
+          "/Imagens/Watch-Series-10-variant1.png"
+        ],
+        "thumbnail": "/Imagens/Watch-Series-10-thumb.png"
+      },
+      "rating": 4.8,
+      "reviews": 423,
       "totalReviews": 423,
       "stock": 30,
       "status": "active",
+      "isNew": true,
+      "isFeatured": true,
+      "isOnSale": false,
+      "discount": 0,
       "paymentOptions": 8,
-      "colors": ["Aluminum", "Stainless Steel", "Titanium"],
-      "createdAt": "2024-09-05T10:00:00Z",
+      "colors": [
+        {
+          "name": "Aluminum",
+          "code": "#C7C7CC",
+          "image": "/Imagens/Watch-Series-10-aluminum.png"
+        },
+        {
+          "name": "Stainless Steel",
+          "code": "#8E8E93",
+          "image": "/Imagens/Watch-Series-10-steel.png"
+        },
+        {
+          "name": "Titanium",
+          "code": "#6D6D70",
+          "image": "/Imagens/Watch-Series-10-titanium.png"
+        }
+      ],
+      "sizes": ["42mm", "46mm"],
       "specifications": {
-        "screen": "45mm Always-On Retina",
+        "display": "45mm Always-On Retina",
         "processor": "S10 SiP",
+        "storage": "64GB",
         "battery": "Até 36 horas",
-        "connectivity": "GPS + Cellular"
-      }
+        "connectivity": "GPS + Cellular",
+        "sensors": "Sensores de saúde avançados",
+        "water": "Resistente à água até 50m",
+        "weight": "42.3g"
+      },
+      "tags": ["smartwatch", "apple", "health", "fitness"],
+      "sku": "AWS10-42-ALU",
+      "barcode": "1234567890126",
+      "weight": "42.3g",
+      "dimensions": {
+        "width": 42,
+        "height": 36,
+        "depth": 10.7
+      },
+      "createdAt": "2024-09-05T10:00:00Z",
+      "updatedAt": "2024-09-05T10:00:00Z"
     },
     {
       "id": 5,
@@ -297,91 +483,6 @@
       ]
     }
   ],
-  "categories": [
-    {
-      "id": 1,
-      "name": "smartphones",
-      "displayName": "iPhone",
-      "description": "A linha mais avançada de smartphones do mundo",
-      "image": "/Produtos/Iphone 16 Pro.png",
-      "video": "/Videos/IphoneVideo.mp4",
-      "productCount": 5,
-      "tagline": "Titanium. Tão forte. Tão leve. Tão Pro."
-    },
-    {
-      "id": 2,
-      "name": "computers",
-      "displayName": "Mac",
-      "description": "Performance sem limites para suas criações",
-      "image": "/Produtos/Macbook Pro.png",
-      "video": "/Videos/Macs Video.mp4",
-      "productCount": 8,
-      "tagline": "Superpowered by M3"
-    },
-    {
-      "id": 3,
-      "name": "tablets",
-      "displayName": "iPad",
-      "description": "Versátil, poderoso e portátil",
-      "image": "/Produtos/Ipad Pro.png",
-      "video": "/Videos/IpadVideo.mp4",
-      "productCount": 4,
-      "tagline": "Lovable. Drawable. Magical."
-    },
-    {
-      "id": 4,
-      "name": "wearables",
-      "displayName": "Apple Watch",
-      "description": "O futuro da saúde no seu pulso",
-      "image": "/Produtos/Watch Series 10.png",
-      "video": "/Videos/Apple Watch.mp4",
-      "productCount": 3,
-      "tagline": "A healthy leap ahead."
-    },
-    {
-      "id": 5,
-      "name": "audio",
-      "displayName": "AirPods",
-      "description": "Som que envolve você completamente",
-      "image": "/Produtos/Air Pods Pro 2",
-      "video": "/Videos/AirPods Video.webm",
-      "productCount": 4,
-      "tagline": "Adaptive Audio. Que se adapta a você."
-    }
-  ],
-  "settings": {
-    "company": {
-      "name": "UssBrasil",
-      "location": "Shopping Della - Criciúma, SC",
-      "description": "Especializada em produtos Apple Premium",
-      "phone": "(48) 3431-0000",
-      "email": "contato@ussbrasil.com.br",
-      "address": "Av. Centenário, 2992 - Shopping Della, Criciúma - SC, 88804-003"
-    },
-    "theme": {
-      "primaryColor": "#00CED1",
-      "secondaryColor": "#000000",
-      "backgroundColor": "#FFFFFF",
-      "textColor": "#333333",
-      "accentColor": "#20B2AA"
-    },
-    "payment": {
-      "methods": ["credit_card", "debit_card", "pix", "boleto"],
-      "installments": 12,
-      "pixDiscount": 5
-    },
-    "shipping": {
-      "freeShippingThreshold": 500,
-      "deliveryTime": "2-5 dias úteis",
-      "regions": ["Criciúma", "Içara", "Siderópolis", "Nova Veneza"]
-    },
-    "notifications": {
-      "newOrder": true,
-      "lowStock": true,
-      "customerMessages": true,
-      "systemUpdates": false
-    }
-  },
   "users": [
     {
       "id": 1,
@@ -404,13 +505,133 @@
       "status": "active"
     }
   ],
+  "categories": [
+    {
+      "id": "1",
+      "name": "Apple",
+      "slug": "apple",
+      "description": "Produtos oficiais Apple com garantia e suporte completo",
+      "image": "/Imagens/categories/Apple-logo.png",
+      "bannerImage": "/Imagens/banners/Apple-banner.jpg",
+      "icon": "apple",
+      "productCount": 24,
+      "isActive": true,
+      "order": 1,
+      "seo": {
+        "title": "Produtos Apple - UssBrasil",
+        "description": "Encontre os melhores produtos Apple no Brasil. iPhone, iPad, Mac, Apple Watch e muito mais com garantia oficial.",
+        "keywords": ["apple", "iphone", "ipad", "mac", "apple watch"]
+      },
+      "customPageContent": "Descubra o ecossistema Apple completo na UssBrasil",
+      "createdAt": "2024-01-01T00:00:00Z",
+      "updatedAt": "2024-07-24T00:00:00Z"
+    },
+    {
+      "id": "2",
+      "name": "JBL",
+      "slug": "jbl",
+      "description": "Som de qualidade profissional para todos os momentos",
+      "image": "/Imagens/categories/JBL-logo.png",
+      "bannerImage": "/Imagens/banners/JBL-banner.jpg",
+      "icon": "headphones",
+      "productCount": 12,
+      "isActive": true,
+      "order": 2,
+      "seo": {
+        "title": "Produtos JBL - UssBrasil",
+        "description": "Fones de ouvido, caixas de som e sistemas de áudio JBL com a melhor qualidade sonora.",
+        "keywords": ["jbl", "fones", "caixa de som", "audio", "bluetooth"]
+      },
+      "customPageContent": "Experimente a qualidade sonora JBL",
+      "createdAt": "2024-01-01T00:00:00Z",
+      "updatedAt": "2024-07-24T00:00:00Z"
+    },
+    {
+      "id": "3",
+      "name": "Geonav",
+      "slug": "geonav",
+      "description": "Tecnologia e inovação em navegação e mobilidade",
+      "image": "/Imagens/categories/Geonav-logo.png",
+      "bannerImage": "/Imagens/banners/Geonav-banner.jpg",
+      "icon": "navigation",
+      "productCount": 8,
+      "isActive": true,
+      "order": 3,
+      "seo": {
+        "title": "Produtos Geonav - UssBrasil",
+        "description": "Sistemas de navegação e tecnologia automotiva Geonav para sua segurança e comodidade.",
+        "keywords": ["geonav", "navegacao", "gps", "automotivo"]
+      },
+      "customPageContent": "Navegue com segurança com Geonav",
+      "createdAt": "2024-01-01T00:00:00Z",
+      "updatedAt": "2024-07-24T00:00:00Z"
+    }
+  ],
+  "companySettings": {
+    "id": "1",
+    "name": "UssBrasil",
+    "email": "contato@ussbrasil.com.br",
+    "phone": "(11) 99999-9999",
+    "whatsapp": "(11) 99999-9999",
+    "cnpj": "12.345.678/0001-90",
+    "address": {
+      "street": "Rua das Tecnologias",
+      "number": "123",
+      "complement": "Sala 45",
+      "neighborhood": "Centro",
+      "city": "São Paulo",
+      "state": "SP",
+      "zipCode": "01234-567",
+      "country": "Brasil"
+    },
+    "socialMedia": {
+      "facebook": "https://facebook.com/ussbrasil",
+      "instagram": "https://instagram.com/ussbrasil",
+      "twitter": "https://twitter.com/ussbrasil",
+      "youtube": "https://youtube.com/ussbrasil",
+      "linkedin": "https://linkedin.com/company/ussbrasil"
+    },
+    "businessHours": {
+      "monday": { "isOpen": true, "openTime": "09:00", "closeTime": "18:00" },
+      "tuesday": { "isOpen": true, "openTime": "09:00", "closeTime": "18:00" },
+      "wednesday": { "isOpen": true, "openTime": "09:00", "closeTime": "18:00" },
+      "thursday": { "isOpen": true, "openTime": "09:00", "closeTime": "18:00" },
+      "friday": { "isOpen": true, "openTime": "09:00", "closeTime": "18:00" },
+      "saturday": { "isOpen": true, "openTime": "09:00", "closeTime": "14:00" },
+      "sunday": { "isOpen": false }
+    },
+    "seo": {
+      "title": "UssBrasil - Tecnologia e Inovação",
+      "description": "A melhor loja de tecnologia do Brasil. Produtos Apple, JBL, Geonav e muito mais com garantia e entrega em todo país.",
+      "keywords": ["tecnologia", "apple", "jbl", "geonav", "smartphones", "fones", "acessorios"],
+      "favicon": "/favicon.ico",
+      "logo": "/Imagens/logo-ussbrasil.png",
+      "ogImage": "/Imagens/og-ussbrasil.jpg"
+    },
+    "branding": {
+      "primaryColor": "#0f1a3c",
+      "secondaryColor": "#1a2851",
+      "accentColor": "#3b82f6",
+      "logo": "/Imagens/logo-ussbrasil.png",
+      "logoAlt": "UssBrasil - Tecnologia e Inovação",
+      "favicon": "/favicon.ico"
+    },
+    "policies": {
+      "privacyPolicy": "Nossa política de privacidade protege seus dados...",
+      "termsOfService": "Termos de uso da plataforma UssBrasil...",
+      "returnPolicy": "Política de trocas e devoluções em até 30 dias...",
+      "shippingPolicy": "Entregamos em todo Brasil com frete grátis acima de R$ 250..."
+    },
+    "createdAt": "2024-01-01T00:00:00Z",
+    "updatedAt": "2024-07-24T00:00:00Z"
+  },
   "dashboard": {
     "totalSales": 159999.95,
     "totalOrders": 27,
     "totalCustomers": 156,
     "monthlyGrowth": 12.5,
-    "popularProducts": [1, 2, 3],
-    "recentOrders": [1, 2, 3],
+    "popularProducts": ["1", "2", "3"],
+    "recentOrders": ["1", "2", "3"],
     "lowStockProducts": []
   }
 }
