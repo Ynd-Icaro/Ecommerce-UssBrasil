@@ -30,8 +30,10 @@ if (Get-Command node -ErrorAction SilentlyContinue) {
 
 # Limpeza inicial
 Write-Log "Limpando arquivos anteriores..."
-if (Test-Path ".next") { Remove-Item ".next" -Recurse -Force }
-if (Test-Path "node_modules") { Remove-Item "node_modules" -Recurse -Force }
+npm run clean
+if ($LASTEXITCODE -ne 0) {
+    Write-Log "AVISO: Falha na limpeza, continuando..."
+}
 
 # Instalar dependencias
 Write-Log "Instalando dependencias..."
