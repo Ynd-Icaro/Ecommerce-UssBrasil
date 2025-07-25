@@ -1,0 +1,788 @@
+{
+  "products": {
+    "iphones": [
+      {
+        "id": "iphone-16-pro",
+        "name": "iPhone 16 Pro",
+        "slug": "iphone-16-pro",
+        "category": "iPhones",
+        "price": 9999.99,
+        "originalPrice": 10999.99,
+        "rating": 4.9,
+        "reviews": 847,
+        "isNew": true,
+        "discount": 9,
+        "description": "O mais avançado iPhone já criado, com chip A18 Pro e câmeras revolucionárias.",
+        "features": ["Chip A18 Pro", "Câmera 48MP", "Tela ProMotion 120Hz", "Titânio Aerospace"],
+        "images": {
+          "main": "/Produtos/Iphone-16-Pro.png",
+          "gallery": [
+            "/Produtos/Iphone 16/Pro max/Titanio-deserto.webp",
+            "/Produtos/Iphone 16/Pro max/Titanio-natural.webp",
+            "/Produtos/Iphone 16/Pro max/Titanio-branco.webp",
+            "/Produtos/Iphone 16/Pro max/Titanio-preto.webp"
+          ]
+        },
+        "videos": [
+          "/Videos/IphoneVideo.mp4"
+        ],
+        "colors": [
+          {
+            "name": "Titânio Natural",
+            "code": "#E3D0BA",
+            "image": "/Produtos/Iphone 16/Pro max/Titanio-natural.webp"
+          },
+          {
+            "name": "Titânio Preto",
+            "code": "#2C2C2C",
+            "image": "/Produtos/Iphone 16/Pro max/Titanio-preto.webp"
+          },
+          {
+            "name": "Titânio Branco",
+            "code": "#F5F5F5",
+            "image": "/Produtos/Iphone 16/Pro max/Titanio-branco.webp"
+          },
+          {
+            "name": "Titânio Deserto",
+            "code": "#D2B8C",
+            "image": "/Produtos/Iphone 16/Pro max/Titanio-deserto.webp"
+          }
+        ],
+        "storage": ["256GB", "512GB", "1TB"]
+      },
+      {
+        "id": "iphone-15-pro",
+        "name": "iPhone 15 Pro",
+        "slug": "iphone-15-pro",
+        "category": "iPhones",
+        "price": 6999.99,
+        "originalPrice": 9999.99,
+        "rating": 4.8,
+        "reviews": 1234,
+        "isNew": false,
+        "discount": 30,
+        "description": "iPhone 15 Pro com chip A17 Pro e câmeras profissionais",
+        "features": ["Chip A17 Pro", "Câmera 48MP", "Action Button", "USB-C"],
+        "images": {
+          "main": "/Produtos/Iphone 15/Normal x Plus/iphone-15-finish-select-202309-6-1inch-naturaltitanium.jpg",
+          "gallery": [
+            "/Produtos/Iphone 15/Normal x Plus/iphone-15-finish-select-202309-6-1inch-blue.jpg",
+            "/Produtos/Iphone 15/Normal x Plus/iphone-15-finish-select-202309-6-1inch-green.jpg",
+            "/Produtos/Iphone 15/Normal x Plus/iphone-15-finish-select-202309-6-1inch-pink.jpg"
+          ]
+        },
+        "videos": [
+          "/Videos/IphoneVideo.mp4"
+        ],
+        "colors": [
+          {
+            "name": "Titânio Natural",
+            "code": "#E3D0BA",
+            "image": "/Produtos/Iphone 15/Normal x Plus/iphone-15-finish-select-202309-6-1inch-naturaltitanium.jpg"
+          },
+          {
+            "name": "Azul",
+            "code": "#4169E1",
+            "image": "/Produtos/Iphone 15/Normal x Plus/iphone-15-finish-select-202309-6-1inch-blue.jpg"
+          },
+          {
+            "name": "Verde",
+            "code": "#90EE90",
+            "image": "/Produtos/Iphone 15/Normal x Plus/iphone-15-finish-select-202309-6-1inch-green.jpg"
+          },
+          {
+            "name": "Rosa",
+            "code": "#FFC0CB",
+            "image": "/Produtos/Iphone 15/Normal x Plus/iphone-15-finish-select-202309-6-1inch-pink.jpg"
+          }
+        ],
+        "storage": ["128GB", "256GB", "512GB"]
+      }
+    ],
+    "macs": [
+      {
+        "id": "macbook-pro-16",
+        "name": "MacBook Pro 16\"",
+        "slug": "macbook-pro-16",
+        "category": "Macs",
+        "price": 15999.99,
+        "originalPrice": 17999.99,
+        "rating": 4.8,
+        "reviews": 523,
+        "isNew": true,
+        "discount": 11,
+        "description": "MacBook Pro com chip M3 Pro e tela Liquid Retina XDR",
+        "features": ["Chip M3 Pro", "Tela Liquid Retina XDR", "Até 22h bateria", "Thunderbolt 4"],
+        "images": {
+          "main": "/Produtos/Macbook-Pro.png",
+          "gallery": [
+            "/Produtos/Macbook-Pro.png"
+          ]
+        },
+        "videos": [
+          "/Videos/Macs Video.mp4"
+        ],
+        "colors": [
+          {
+            "name": "Cinza Espacial",
+            "code": "#2C2C2C",
+            "image": "/Produtos/Macbook-Pro.png"
+          },
+          {
+            "name": "Prateado",
+            "code": "#E8E8E8",
+            "image": "/Produtos/Macbook-Pro.png"
+          }
+        ],
+        "storage": ["512GB", "1TB", "2TB"]
+      },
+      {
+        "id": "macbook-air-m2",
+        "name": "MacBook Air M2",
+        "slug": "macbook-air-m2",
+        "category": "Macs",
+        "price": 8999.99,
+        "originalPrice": 11999.99,
+        "rating": 4.9,
+        "reviews": 856,
+        "isNew": false,
+        "discount": 25,
+        "description": "MacBook Air com chip M2 e tela Liquid Retina",
+        "features": ["Chip M2", "Tela Liquid Retina", "Até 18h bateria", "MagSafe"],
+        "images": {
+          "main": "/Produtos/Macbook-Air.png",
+          "gallery": [
+            "/Produtos/Macbook-Air.png"
+          ]
+        },
+        "videos": [
+          "/Videos/Macs Video.mp4"
+        ],
+        "colors": [
+          {
+            "name": "Meia-noite",
+            "code": "#2C2C2C",
+            "image": "/Produtos/Macbook-Air.png"
+          },
+          {
+            "name": "Prateado",
+            "code": "#E8E8E8",
+            "image": "/Produtos/Macbook-Air.png"
+          },
+          {
+            "name": "Dourado",
+            "code": "#FAD5A5",
+            "image": "/Produtos/Macbook-Air.png"
+          }
+        ],
+        "storage": ["256GB", "512GB", "1TB"]
+      },
+      {
+        "id": "imac-24",
+        "name": "iMac 24\"",
+        "slug": "imac-24",
+        "category": "Macs",
+        "price": 12999.99,
+        "originalPrice": 15999.99,
+        "rating": 4.8,
+        "reviews": 432,
+        "isNew": false,
+        "discount": 19,
+        "description": "iMac 24\" com chip M1 e tela Retina 4.5K",
+        "features": ["Chip M1", "Tela 4.5K", "8GB RAM", "256GB SSD"],
+        "images": {
+          "main": "/Produtos/iMac.png",
+          "gallery": [
+            "/Produtos/iMac.png"
+          ]
+        },
+        "videos": [
+          "/Videos/Macs Video.mp4"
+        ],
+        "colors": [
+          {
+            "name": "Azul",
+            "code": "#4169E1",
+            "image": "/Produtos/iMac.png"
+          },
+          {
+            "name": "Verde",
+            "code": "#90EE90",
+            "image": "/Produtos/iMac.png"
+          },
+          {
+            "name": "Rosa",
+            "code": "#FFC0CB",
+            "image": "/Produtos/iMac.png"
+          },
+          {
+            "name": "Prateado",
+            "code": "#E8E8E8",
+            "image": "/Produtos/iMac.png"
+          }
+        ],
+        "storage": ["256GB", "512GB", "1TB"]
+      }
+    ],
+    "watches": [
+      {
+        "id": "apple-watch-ultra-2",
+        "name": "Apple Watch Ultra 2",
+        "slug": "apple-watch-ultra-2",
+        "category": "Watches",
+        "price": 7999.99,
+        "originalPrice": 8499.99,
+        "rating": 4.9,
+        "reviews": 312,
+        "isNew": true,
+        "discount": 6,
+        "description": "O smartwatch mais robusto da Apple para aventuras extremas.",
+        "features": ["Caixa Titânio 49mm", "GPS Dupla Frequência", "Resistente 100m", "Bateria 36h"],
+        "images": {
+          "main": "/Produtos/Watch-Ultra-2.png",
+          "gallery": [
+            "/Produtos/Watch-Ultra-2.png"
+          ]
+        },
+        "videos": [
+          "/Videos/Apple Watch.mp4"
+        ],
+        "colors": [
+          {
+            "name": "Titânio Natural",
+            "code": "#E3D0BA",
+            "image": "/Produtos/Watch-Ultra-2.png"
+          }
+        ],
+        "sizes": ["49mm"]
+      },
+      {
+        "id": "apple-watch-se",
+        "name": "Apple Watch SE",
+        "slug": "apple-watch-se",
+        "category": "Watches",
+        "price": 2299.99,
+        "originalPrice": 2899.99,
+        "rating": 4.5,
+        "reviews": 1523,
+        "isNew": false,
+        "discount": 21,
+        "description": "Apple Watch SE com GPS e resistência à água",
+        "features": ["GPS", "Resistente água", "Saúde", "Fitness"],
+        "images": {
+          "main": "/Produtos/Watch-SE.png",
+          "gallery": [
+            "/Produtos/Watch-SE.png"
+          ]
+        },
+        "videos": [
+          "/Videos/Apple Watch.mp4"
+        ],
+        "colors": [
+          {
+            "name": "Meia-noite",
+            "code": "#1D1D1F",
+            "image": "/Produtos/Watch-SE.png"
+          },
+          {
+            "name": "Estelar",
+            "code": "#F5F5DC",
+            "image": "/Produtos/Watch-SE.png"
+          }
+        ],
+        "sizes": ["40mm", "44mm"]
+      },
+      {
+        "id": "apple-watch-series-10",
+        "name": "Apple Watch Series 10",
+        "slug": "apple-watch-series-10",
+        "category": "Watches",
+        "price": 4999.99,
+        "originalPrice": 5499.99,
+        "rating": 4.8,
+        "reviews": 756,
+        "isNew": true,
+        "discount": 9,
+        "description": "Apple Watch Series 10 com tela sempre ativa",
+        "features": ["Tela Always-On", "ECG", "GPS", "Resistente à água"],
+        "images": {
+          "main": "/Produtos/Watch-Series-10.png",
+          "gallery": [
+            "/Produtos/Watch-Series-10.png"
+          ]
+        },
+        "videos": [
+          "/Videos/Apple Watch.mp4"
+        ],
+        "colors": [
+          {
+            "name": "Meia-noite",
+            "code": "#1D1D1F",
+            "image": "/Produtos/Watch-Series-10.png"
+          },
+          {
+            "name": "Rosa",
+            "code": "#FFC0CB",
+            "image": "/Produtos/Watch-Series-10.png"
+          },
+          {
+            "name": "Prateado",
+            "code": "#E8E8E8",
+            "image": "/Produtos/Watch-Series-10.png"
+          }
+        ],
+        "sizes": ["42mm", "46mm"]
+      }
+    ],
+    "airpods": [
+      {
+        "id": "airpods-pro-2",
+        "name": "AirPods Pro 2",
+        "slug": "airpods-pro-2",
+        "category": "AirPods",
+        "price": 1899.99,
+        "originalPrice": 2599.99,
+        "rating": 4.7,
+        "reviews": 2341,
+        "isNew": false,
+        "discount": 27,
+        "description": "AirPods Pro de 2ª geração com cancelamento ativo",
+        "features": ["Cancelamento ativo", "Áudio espacial", "H2 Chip", "USB-C"],
+        "images": {
+          "main": "/Produtos/Air Pods Pro 2/airpods-pro-2nd-gen-hero-202209.jpg",
+          "gallery": [
+            "/Produtos/Air Pods Pro 2/airpods-pro-2nd-gen-hero-202209.jpg"
+          ]
+        },
+        "videos": [
+          "/Videos/AirPods Video.webm"
+        ],
+        "colors": [
+          {
+            "name": "Branco",
+            "code": "#FFFFFF",
+            "image": "/Produtos/Air Pods Pro 2/airpods-pro-2nd-gen-hero-202209.jpg"
+          }
+        ]
+      },
+      {
+        "id": "airpods-4",
+        "name": "AirPods 4",
+        "slug": "airpods-4",
+        "category": "AirPods",
+        "price": 899.99,
+        "originalPrice": 1199.99,
+        "rating": 4.4,
+        "reviews": 567,
+        "isNew": true,
+        "discount": 25,
+        "description": "AirPods 4 com áudio espacial personalizado",
+        "features": ["Áudio Espacial", "H2 Chip", "30h bateria", "USB-C"],
+        "images": {
+          "main": "/Produtos/Air Pods 4/airpods-4-anc-select-202409.png",
+          "gallery": [
+            "/Produtos/acessorios/airpods-4-anc-select-202409.png"
+          ]
+        },
+        "videos": [
+          "/Videos/AirPods Video.webm"
+        ],
+        "colors": [
+          {
+            "name": "Branco",
+            "code": "#FFFFFF",
+            "image": "/Produtos/Air Pods 4/airpods-4-anc-select-202409.png"
+          }
+        ]
+      },
+      {
+        "id": "airpods-max",
+        "name": "AirPods Max",
+        "slug": "airpods-max",
+        "category": "AirPods",
+        "price": 4599.99,
+        "originalPrice": 5299.99,
+        "rating": 4.6,
+        "reviews": 423,
+        "isNew": false,
+        "discount": 13,
+        "description": "AirPods Max com cancelamento ativo premium",
+        "features": ["Drivers 40mm", "Cancelamento ativo", "Áudio espacial", "20h bateria"],
+        "images": {
+          "main": "/Produtos/Air-Pods-Max.png",
+          "gallery": [
+            "/Produtos/Air-Pods-Max.png"
+          ]
+        },
+        "videos": [
+          "/Videos/AirPods Video.webm"
+        ],
+        "colors": [
+          {
+            "name": "Cinza Espacial",
+            "code": "#2C2C2C",
+            "image": "/Produtos/Air-Pods-Max.png"
+          },
+          {
+            "name": "Prateado",
+            "code": "#E8E8E8",
+            "image": "/Produtos/Air-Pods-Max.png"
+          },
+          {
+            "name": "Verde",
+            "code": "#90EE90",
+            "image": "/Produtos/Air-Pods-Max.png"
+          },
+          {
+            "name": "Azul",
+            "code": "#4169E1",
+            "image": "/Produtos/Air-Pods-Max.png"
+          },
+          {
+            "name": "Rosa",
+            "code": "#FFC0CB",
+            "image": "/Produtos/Air-Pods-Max.png"
+          }
+        ]
+      }
+    ],
+    "ipads": [
+      {
+        "id": "ipad-pro-12",
+        "name": "iPad Pro 12.9\"",
+        "slug": "ipad-pro-12",
+        "category": "iPads",
+        "price": 8999.99,
+        "originalPrice": 11299.99,
+        "rating": 4.9,
+        "reviews": 891,
+        "isNew": true,
+        "discount": 20,
+        "description": "iPad Pro 12.9\" com chip M2 e tela Liquid Retina XDR",
+        "features": ["Chip M2", "Tela XDR", "ProMotion", "Thunderbolt"],
+        "images": {
+          "main": "/Produtos/Ipad-Pro.png",
+          "gallery": [
+            "/Produtos/Ipad-Pro.png"
+          ]
+        },
+        "videos": [
+          "/Videos/IpadVideo.mp4"
+        ],
+        "colors": [
+          {
+            "name": "Cinza Espacial",
+            "code": "#2C2C2C",
+            "image": "/Produtos/Ipad-Pro.png"
+          },
+          {
+            "name": "Prateado",
+            "code": "#E8E8E8",
+            "image": "/Produtos/Ipad-Pro.png"
+          }
+        ],
+        "storage": ["128GB", "256GB", "512GB", "1TB", "2TB"]
+      },
+      {
+        "id": "ipad-air",
+        "name": "iPad Air",
+        "slug": "ipad-air",
+        "category": "iPads",
+        "price": 4299.99,
+        "originalPrice": 5599.99,
+        "rating": 4.6,
+        "reviews": 678,
+        "isNew": false,
+        "discount": 23,
+        "description": "iPad Air com chip M1 e tela Liquid Retina de 10.9\"",
+        "features": ["Chip M1", "Tela 10.9\"", "Camera 12MP", "256GB"],
+        "images": {
+          "main": "/Produtos/IpadAir.png",
+          "gallery": [
+            "/Produtos/IpadAir.png"
+          ]
+        },
+        "videos": [
+          "/Videos/IpadVideo.mp4"
+        ],
+        "colors": [
+          {
+            "name": "Azul",
+            "code": "#4169E1",
+            "image": "/Produtos/IpadAir.png"
+          },
+          {
+            "name": "Rosa",
+            "code": "#FFC0CB",
+            "image": "/Produtos/IpadAir.png"
+          },
+          {
+            "name": "Roxo",
+            "code": "#9966CC",
+            "image": "/Produtos/IpadAir.png"
+          },
+          {
+            "name": "Estelar",
+            "code": "#F5F5DC",
+            "image": "/Produtos/IpadAir.png"
+          },
+          {
+            "name": "Cinza Espacial",
+            "code": "#2C2C2C",
+            "image": "/Produtos/IpadAir.png"
+          }
+        ],
+        "storage": ["64GB", "256GB"]
+      },
+      {
+        "id": "ipad",
+        "name": "iPad",
+        "slug": "ipad",
+        "category": "iPads",
+        "price": 2699.99,
+        "originalPrice": 3199.99,
+        "rating": 4.4,
+        "reviews": 1234,
+        "isNew": false,
+        "discount": 16,
+        "description": "iPad com chip A14 Bionic e tela Retina",
+        "features": ["Chip A14", "Tela Retina", "Touch ID", "Lightning"],
+        "images": {
+          "main": "/Produtos/Ipad.png",
+          "gallery": [
+            "/Produtos/Ipad.png"
+          ]
+        },
+        "videos": [
+          "/Videos/IpadVideo.mp4"
+        ],
+        "colors": [
+          {
+            "name": "Prateado",
+            "code": "#E8E8E8",
+            "image": "/Produtos/Ipad.png"
+          },
+          {
+            "name": "Cinza Espacial",
+            "code": "#2C2C2C",
+            "image": "/Produtos/Ipad.png"
+          }
+        ],
+        "storage": ["64GB", "256GB"]
+      }
+    ],
+    "xiaomi": [
+      {
+        "id": "xiaomi-14-ultra",
+        "name": "Xiaomi 14 Ultra",
+        "slug": "xiaomi-14-ultra",
+        "category": "Xiaomi",
+        "price": 5999.99,
+        "originalPrice": 6799.99,
+        "rating": 4.8,
+        "reviews": 523,
+        "isNew": true,
+        "discount": 12,
+        "description": "Fotografia profissional em suas mãos com sensor de 1 polegada.",
+        "features": ["Snapdragon 8 Gen 3", "Câmera Leica 50MP", "Carregamento 90W", "Tela AMOLED 6.73\""],
+        "images": {
+          "main": "/Produtos/Xiaomi-14-Ultra.png",
+          "gallery": [
+            "/Produtos/Xiaomi-14-Ultra.png"
+          ]
+        },
+        "videos": [
+          "/Videos/IphoneVideo.mp4"
+        ],
+        "colors": [
+          {
+            "name": "Preto",
+            "code": "#000000",
+            "image": "/Produtos/Xiaomi-14-Ultra.png"
+          },
+          {
+            "name": "Branco",
+            "code": "#FFFFFF",
+            "image": "/Produtos/Xiaomi-14-Ultra.png"
+          }
+        ],
+        "storage": ["256GB", "512GB", "1TB"]
+      }
+    ],
+    "drones": [
+      {
+        "id": "dji-mini-4-pro",
+        "name": "DJI Mini 4 Pro",
+        "slug": "dji-mini-4-pro",
+        "category": "Drones",
+        "price": 4299.99,
+        "originalPrice": 4799.99,
+        "rating": 4.9,
+        "reviews": 312,
+        "isNew": true,
+        "discount": 10,
+        "description": "Drone compacto com câmera 4K HDR e recursos profissionais.",
+        "features": ["Câmera 4K 60fps", "Omnidirecional", "34min voo", "ActiveTrack 360°"],
+        "images": {
+          "main": "/Produtos/DJI-Mini-4-Pro.png",
+          "gallery": [
+            "/Produtos/DJI-Mini-4-Pro.png"
+          ]
+        },
+        "videos": [
+          "/Videos/IphoneVideo.mp4"
+        ],
+        "colors": [
+          {
+            "name": "Cinza",
+            "code": "#808080",
+            "image": "/Produtos/DJI-Mini-4-Pro.png"
+          }
+        ]
+      }
+    ],
+    "mobilidade": [
+      {
+        "id": "segway-ninebot-max-g2",
+        "name": "Segway Ninebot Max G2",
+        "slug": "segway-ninebot-max-g2",
+        "category": "Mobilidade",
+        "price": 3599.99,
+        "originalPrice": 3999.99,
+        "rating": 4.7,
+        "reviews": 234,
+        "isNew": true,
+        "discount": 10,
+        "description": "Patinete elétrico premium com autonomia estendida.",
+        "features": ["65km autonomia", "Suspensão dupla", "App conectado", "Freio regenerativo"],
+        "images": {
+          "main": "/Produtos/Segway-G2.png",
+          "gallery": [
+            "/Produtos/Segway-G2.png"
+          ]
+        },
+        "videos": [
+          "/Videos/IphoneVideo.mp4"
+        ],
+        "colors": [
+          {
+            "name": "Preto",
+            "code": "#000000",
+            "image": "/Produtos/Segway-G2.png"
+          }
+        ]
+      }
+    ],
+    "audio": [
+      {
+        "id": "sony-wh-1000xm5",
+        "name": "Sony WH-1000XM5",
+        "slug": "sony-wh-1000xm5",
+        "category": "Áudio",
+        "price": 1899.99,
+        "originalPrice": 2199.99,
+        "rating": 4.9,
+        "reviews": 1247,
+        "isNew": true,
+        "discount": 14,
+        "description": "Cancelamento de ruído líder da indústria com qualidade Sony.",
+        "features": ["30h bateria", "Cancelamento ativo", "Hi-Res Audio", "Chamadas cristalinas"],
+        "images": {
+          "main": "/Produtos/Sony-WH1000XM5.png",
+          "gallery": [
+            "/Produtos/Sony-WH1000XM5.png"
+          ]
+        },
+        "videos": [
+          "/Videos/AirPods Video.webm"
+        ],
+        "colors": [
+          {
+            "name": "Preto",
+            "code": "#000000",
+            "image": "/Produtos/Sony-WH1000XM5.png"
+          },
+          {
+            "name": "Prateado",
+            "code": "#C0C0C0",
+            "image": "/Produtos/Sony-WH1000XM5.png"
+          }
+        ]
+      }
+    ]
+  },
+  "categories": {
+    "iphones": {
+      "name": "iPhones",
+      "slug": "iphones",
+      "description": "A mais avançada linha de smartphones",
+      "image": "/Produtos/Iphone-16-Pro.png",
+      "video": "/Videos/IphoneVideo.mp4",
+      "bannerGradient": "from-blue-600 to-purple-700",
+      "icon": "Smartphone"
+    },
+    "macs": {
+      "name": "Macs",
+      "slug": "macs",
+      "description": "Poder e performance sem limites",
+      "image": "/Produtos/Macbook-Pro.png",
+      "video": "/Videos/Macs Video.mp4",
+      "bannerGradient": "from-gray-700 to-gray-900",
+      "icon": "Laptop"
+    },
+    "watches": {
+      "name": "Apple Watch",
+      "slug": "watches",
+      "description": "Tecnologia que cuida de você",
+      "image": "/Produtos/Watch-Ultra-2.png",
+      "video": "/Videos/Apple Watch.mp4",
+      "bannerGradient": "from-red-500 to-pink-600",
+      "icon": "Watch"
+    },
+    "airpods": {
+      "name": "AirPods",
+      "slug": "airpods",
+      "description": "Áudio espacial revolucionário",
+      "image": "/Produtos/Air Pods Pro 2/airpods-pro-2nd-gen-hero-202209.jpg",
+      "video": "/Videos/AirPods Video.webm",
+      "bannerGradient": "from-green-500 to-teal-600",
+      "icon": "Headphones"
+    },
+    "ipads": {
+      "name": "iPads",
+      "slug": "ipads",
+      "description": "Criatividade sem fronteiras",
+      "image": "/Produtos/Ipad-Pro.png",
+      "video": "/Videos/IpadVideo.mp4",
+      "bannerGradient": "from-orange-500 to-red-600",
+      "icon": "TabletSmartphone"
+    },
+    "xiaomi": {
+      "name": "Xiaomi",
+      "slug": "xiaomi",
+      "description": "Inovação acessível",
+      "image": "/Produtos/Xiaomi-14-Ultra.png",
+      "video": "/Videos/IphoneVideo.mp4",
+      "bannerGradient": "from-orange-600 to-yellow-600",
+      "icon": "Smartphone"
+    },
+    "drones": {
+      "name": "Drones",
+      "slug": "drones",
+      "description": "Perspectivas aéreas profissionais",
+      "image": "/Produtos/DJI-Mini-4-Pro.png",
+      "video": "/Videos/IphoneVideo.mp4",
+      "bannerGradient": "from-cyan-500 to-blue-600",
+      "icon": "Plane"
+    },
+    "mobilidade": {
+      "name": "Mobilidade",
+      "slug": "mobilidade",
+      "description": "Transporte inteligente",
+      "image": "/Produtos/Segway-G2.png",
+      "video": "/Videos/IphoneVideo.mp4",
+      "bannerGradient": "from-emerald-500 to-green-600",
+      "icon": "Bike"
+    }
+  }
+}

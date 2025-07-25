@@ -16,14 +16,18 @@
     "db:deploy": "prisma migrate deploy",
     "build:railway": "npm run db:generate && npm run build",
     "build:render": "npm install && npm run db:generate && npm run build",
-    "build:netlify": "npx prisma generate --schema=./prisma/schema.prisma && next build",
+    "build:netlify": "next build",
     "build:vercel": "npm run db:generate && npm run build",
-    "postinstall": "prisma generate",
-    "postbuild": "prisma migrate deploy",
+    "postinstall": "prisma generate || true",
     "deploy:netlify": "netlify deploy --prod",
     "deploy:preview": "netlify deploy",
     "type-check": "tsc --noEmit",
-    "test:build": "npm run type-check && npm run build"
+    "test:build": "npm run type-check && npm run build",
+    "json-server": "json-server --watch db.json --port 3001",
+    "clean": "if exist .next rmdir /s /q .next && if exist out rmdir /s /q out && if exist node_modules\\.cache rmdir /s /q node_modules\\.cache",
+    "prebuild": "npm run clean",
+    "predeploy": "node scripts/pre-deploy-check.js",
+    "test:urls": "node scripts/test-urls.js"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.10.0",
@@ -66,7 +70,7 @@
     "concurrently": "^9.2.0",
     "date-fns": "^4.1.0",
     "embla-carousel-react": "^8.6.0",
-    "framer-motion": "^12.23.6",
+    "framer-motion": "^12.23.7",
     "gsap": "^3.13.0",
     "input-otp": "^1.4.2",
     "lucide-react": "^0.525.0",
@@ -89,6 +93,7 @@
     "zustand": "^5.0.6"
   },
   "devDependencies": {
+    "@netlify/plugin-nextjs": "^5.11.6",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",

@@ -1,0 +1,16 @@
+# Netlify redirects file for Next.js App Router
+
+# Static assets with cache headers
+/Produtos/*    /Produtos/:splat    200
+/Videos/*    /Videos/:splat    200  
+/Svg/*    /Svg/:splat    200
+/icons/*    /icons/:splat    200
+
+# Product route redirects
+/product/:id    /product/:id/    301
+
+# API routes
+/api/* /.netlify/functions/nextjs-func 200
+
+# App Router pages - catch all
+/* /.netlify/functions/nextjs-func 200

@@ -1,9 +1,9 @@
-# Configuração para build estático (Netlify)
-# Descomente para usar com Netlify
-# output = 'export'
-# trailingSlash = true
-# images = { unoptimized = true }
-
+// Configuração para build estático (Netlify)
+// Descomente para usar com Netlify
+// output = 'export'
+// trailingSlash = true
+// images = { unoptimized = true }
+    
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {

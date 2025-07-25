@@ -1,131 +1,91 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
-import { useSession } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
-import Link from 'next/link'
+import { useState, useMemo } from 'react'
 import Image from 'next/image'
-import {
-  Search,
+import { motion } from 'framer-motion'
+import { 
+  Search, 
+  MoreHorizontal, 
+  Eye, 
+  Edit, 
+  Trash2, 
   Plus,
-  Edit,
-  Trash2,
-  Eye,
-  MoreHorizontal,
+  ArrowUp,
+  ArrowDown,
+  Filter,
+  ChevronDown,
   Package,
-  Star,
-  Filter
+  DollarSign,
+  BarChart,
+  CheckCircle,
+  AlertTriangle
 } from 'lucide-react'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
+import { toast } from 'sonner'
 import AdminLayout from '@/components/admin-layout'
-import { toast } from 'react-hot-toast'
+import { useAPI } from '@/hooks/use-api'
 
 interface Product {
   id: string
   name: string
-  description: string
+  image: string
+  category: string
   price: number
-  discountPrice?: number
   stock: number
-  status: 'ACTIVE' | 'INACTIVE'
-  featured: boolean
-  images: string
-  category: {
-    id: string
-    name: string
-    slug: string
-  }
-  rating: number
-  totalReviews: number
-  createdAt: string
+  sales: number
+  status: string
 }
 
-interface Category {
-  id: string
-  name: string
-  slug: string
-}
+type SortKey = 'name' | 'price' | 'stock' | 'sales'
+type SortDirection = 'asc' | 'desc'
 
-export default function ProductsPage() {
-  const { data: session, status } = useSession()
-  const router = useRouter()
-  const [products, setProducts] = useState<Product[]>([])
-  const [filteredProducts, setFilteredProducts] = useState<Product[]>([])
-  const [categories, setCategories] = useState<Category[]>([])
+export default function AdminProductsPage() {
+  const { data: products, loading, update, remove } = useAPI<Product>('products')
   const [searchTerm, setSearchTerm] = useState('')
-  const [categoryFilter, setCategoryFilter] = useState('all')
-  const [statusFilter, setStatusFilter] = useState('all')
-  const [loading, setLoading] = useState(true)
+  const [sortKey, setSortKey] = useState<SortKey>('sales')
+  const [sortDirection, setSortDirection] = useState<SortDirection>('desc')
 
-  useEffect(() => {
-    if (status === 'loading') return
+  const filteredAndSortedProducts = useMemo(() => {
+    const filtered = products.filter(product =>
+      product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      product.category.toLowerCase().includes(searchTerm.toLowerCase())
+    )
 
-    if (!session || session.user.role !== 'ADMIN') {
-      router.push('/login')
-      return
+    const sorted = filtered.sort((a, b) => {
+      if (a[sortKey] < b[sortKey]) return -1
+      if (a[sortKey] > b[sortKey]) return 1
+      return 0
+    })
+
+    if (sortDirection === 'desc') {
+      return sorted.reverse()
     }
+    return sorted
+  }, [products, searchTerm, sortKey, sortDirection])
 
-    loadProducts()
-    loadCategories()
-  }, [session, status, router])
-
-  const loadProducts = async () => {
-    try {
-      const response = await fetch('/api/products')
-      if (response.ok) {
-        const data = await response.json()
-        setProducts(data)
-      }
-    } catch (error) {
-      console.error('Erro ao carregar produtos:', error)
-      toast.error('Erro ao carregar produtos')
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  const loadCategories = async () => {
-    try {
-      const response = await fetch('/api/categories')
-      if (response.ok) {
-        const data = await response.json()
-        setCategories(data)
-      }
-    } catch (error) {
-      console.error('Erro ao carregar categorias:', error)
+  const handleSort = (key: SortKey) => {
+    if (key === sortKey) {
+      setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc')
+    } else {
+      setSortKey(key)
+      setSortDirection('desc')
     }
   }
 
-  const filterProducts = useCallback(() => {
-    let filtered = products
-
-    if (searchTerm) {
-      filtered = filtered.filter(product =>
-        product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        product.description.toLowerCase().includes(searchTerm.toLowerCase())
-      )
+  const handleDelete = async (productId: string) => {
+    if (confirm('Tem certeza que deseja excluir este produto?')) {
+      await remove(productId)
     }
+  }
 
-    if (categoryFilter !== 'all') {
-      filtered = filtered.filter(product => product.category.id === categoryFilter)
-    }
-
-    if (statusFilter !== 'all') {
-      filtered = filtered.filter(product => product.status === statusFilter)
-    }
-
-    setFilteredProducts(filtered)
-  }, [products, searchTerm, categoryFilter, statusFilter])
-
-  // Effect to trigger filtering
-  useEffect(() => {
-    filterProducts()
-  }, [products, searchTerm, categoryFilter, statusFilter, filterProducts])
+  const handleToggleStatus = async (product: Product) => {
+    const newStatus = product.status === 'published' ? 'draft' : 'published'
+    await update(product.id, { status: newStatus })
+  }
 
   const formatCurrency = (value: number) => {
     return new Intl.NumberFormat('pt-BR', {
@@ -134,261 +94,198 @@ export default function ProductsPage() {
     }).format(value)
   }
 
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('pt-BR')
-  }
-
-  const deleteProduct = async (productId: string) => {
-    if (!confirm('Tem certeza que deseja excluir este produto?')) return
-
-    try {
-      const response = await fetch(`/api/products/${productId}`, {
-        method: 'DELETE'
-      })
-
-      if (response.ok) {
-        toast.success('Produto excluído com sucesso')
-        loadProducts()
-      } else {
-        toast.error('Erro ao excluir produto')
-      }
-    } catch (error) {
-      console.error('Erro ao excluir produto:', error)
-      toast.error('Erro ao excluir produto')
+  const getStockBadge = (stock: number) => {
+    if (stock > 50) {
+      return <Badge className="bg-emerald-500/80 text-white border-emerald-600/50"><CheckCircle className="mr-1 h-3 w-3" />Em Estoque</Badge>
     }
+    if (stock > 0) {
+      return <Badge className="bg-amber-500/80 text-white border-amber-600/50"><AlertTriangle className="mr-1 h-3 w-3" />Estoque Baixo</Badge>
+    }
+    return <Badge className="bg-red-500/80 text-white border-red-600/50"><AlertTriangle className="mr-1 h-3 w-3" />Fora de Estoque</Badge>
   }
 
-  if (status === 'loading' || loading) {
-    return (
-      <AdminLayout>
-        <div className="flex items-center justify-center h-96">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
-        </div>
-      </AdminLayout>
-    )
+  const springTransition = { type: "spring" as const, stiffness: 200, damping: 25 }
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { staggerChildren: 0.08 } }
   }
-
-  if (!session || session.user.role !== 'ADMIN') {
-    return null
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20, scale: 0.98 },
+    visible: { opacity: 1, y: 0, scale: 1, transition: springTransition }
   }
 
   return (
     <AdminLayout>
-      <div className="space-y-6">
-        {/* Header */}
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900">Produtos</h1>
-            <p className="text-gray-600 mt-1">Gerencie o catálogo de produtos da loja</p>
-          </div>
-          <Link href="/admin/products/new">
-            <Button className="bg-blue-600 hover:bg-blue-700">
-              <Plus className="h-4 w-4 mr-2" />
-              Novo Produto
-            </Button>
-          </Link>
-        </div>
+      <motion.div 
+        className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 p-4 sm:p-6 lg:p-8"
+        initial="hidden"
+        animate="visible"
+        variants={containerVariants}
+      >
+        <div className="max-w-8xl mx-auto">
+          {/* Header */}
+          <motion.header variants={itemVariants} className="mb-8">
+            <div className="bg-white/70 backdrop-blur-xl rounded-3xl p-6 shadow-lg border border-white/20 flex items-center justify-between">
+              <div>
+                <h1 className="text-3xl font-bold bg-gradient-to-r from-slate-900 to-slate-600 bg-clip-text text-transparent tracking-tight">
+                  Gerenciar Produtos
+                </h1>
+                <p className="text-gray-600 mt-1">
+                  {loading ? 'Carregando...' : `${filteredAndSortedProducts.length} produtos encontrados`}
+                </p>
+              </div>
+              <Button 
+                className="bg-gradient-to-r from-[#00CED1] to-[#20B2AA] text-white font-bold py-3 px-6 rounded-xl shadow-lg hover:scale-105 transition-transform"
+                onClick={() => toast.success('Funcionalidade de adicionar produto em breve!')}
+              >
+                <Plus className="mr-2 h-5 w-5" />
+                Novo Produto
+              </Button>
+            </div>
+          </motion.header>
 
-        {/* Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center">
-                <Package className="h-8 w-8 text-blue-600" />
-                <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600">Total Produtos</p>
-                  <p className="text-2xl font-bold">{products.length}</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center">
-                <Star className="h-8 w-8 text-yellow-600" />
-                <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600">Em Destaque</p>
-                  <p className="text-2xl font-bold">{products.filter(p => p.featured).length}</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center">
-                <Package className="h-8 w-8 text-green-600" />
-                <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600">Ativos</p>
-                  <p className="text-2xl font-bold">{products.filter(p => p.status === 'ACTIVE').length}</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center">
-                <Package className="h-8 w-8 text-red-600" />
-                <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600">Estoque Baixo</p>
-                  <p className="text-2xl font-bold">{products.filter(p => p.stock < 5).length}</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Filters */}
-        <Card>
-          <CardContent className="p-6">
-            <div className="flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-4">
-              <div className="relative flex-1">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+          {/* Filters and Search */}
+          <motion.div variants={itemVariants} className="mb-6">
+            <div className="bg-white/70 backdrop-blur-xl rounded-3xl p-4 shadow-lg border border-white/20 flex items-center justify-between">
+              <div className="relative w-full max-w-sm">
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-500" />
                 <Input
-                  placeholder="Buscar produtos..."
+                  placeholder="Buscar por nome ou categoria..."
+                  className="w-full pl-12 pr-4 py-3 bg-white/80 border-gray-300/50 rounded-xl focus:ring-2 focus:ring-[#00CED1]/50"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10"
                 />
               </div>
-              <Select value={categoryFilter} onValueChange={setCategoryFilter}>
-                <SelectTrigger className="w-48">
-                  <SelectValue placeholder="Categoria" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">Todas Categorias</SelectItem>
-                  {categories.map((category) => (
-                    <SelectItem key={category.id} value={category.id}>
-                      {category.name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <Select value={statusFilter} onValueChange={setStatusFilter}>
-                <SelectTrigger className="w-32">
-                  <SelectValue placeholder="Status" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">Todos</SelectItem>
-                  <SelectItem value="ACTIVE">Ativo</SelectItem>
-                  <SelectItem value="INACTIVE">Inativo</SelectItem>
-                </SelectContent>
-              </Select>
+              <div className="flex items-center space-x-4">
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="outline" className="flex items-center space-x-2 rounded-xl border-gray-300/80 hover:bg-white/80">
+                      <Filter className="h-4 w-4" />
+                      <span>Filtros</span>
+                      <ChevronDown className="h-4 w-4" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="bg-white/80 backdrop-blur-xl border-gray-300/50 rounded-xl shadow-lg">
+                    <DropdownMenuItem>Categoria: Smartphones</DropdownMenuItem>
+                    <DropdownMenuItem>Categoria: Laptops</DropdownMenuItem>
+                    <DropdownMenuItem>Categoria: Wearables</DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
             </div>
-          </CardContent>
-        </Card>
+          </motion.div>
 
-        {/* Products Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {filteredProducts.map((product) => (
-            <Card key={product.id} className="overflow-hidden hover:shadow-lg transition-shadow">
-              <div className="relative aspect-square">
-                <Image
-                  src={product.images || '/placeholder-product.jpg'}
-                  alt={product.name}
-                  fill
-                  className="object-cover"
-                />
-                {product.featured && (
-                  <Badge className="absolute top-2 left-2 bg-yellow-500">
-                    Destaque
-                  </Badge>
-                )}
-                <Badge 
-                  className={`absolute top-2 right-2 ${
-                    product.status === 'ACTIVE' ? 'bg-green-500' : 'bg-red-500'
-                  }`}
-                >
-                  {product.status === 'ACTIVE' ? 'Ativo' : 'Inativo'}
-                </Badge>
-              </div>
-              <CardContent className="p-4">
-                <div className="mb-2">
-                  <Badge variant="outline">{product.category.name}</Badge>
-                </div>
-                <h3 className="font-semibold text-lg mb-2 line-clamp-1">{product.name}</h3>
-                <p className="text-gray-600 text-sm mb-3 line-clamp-2">
-                  {product.description}
-                </p>
-                <div className="flex items-center justify-between mb-3">
-                  <div>
-                    {product.discountPrice ? (
-                      <div>
-                        <span className="text-lg font-bold text-green-600">
-                          {formatCurrency(product.discountPrice)}
-                        </span>
-                        <span className="text-sm text-gray-500 line-through ml-2">
-                          {formatCurrency(product.price)}
-                        </span>
-                      </div>
-                    ) : (
-                      <span className="text-lg font-bold text-gray-900">
-                        {formatCurrency(product.price)}
-                      </span>
-                    )}
-                  </div>
-                  <span className={`text-sm ${product.stock < 5 ? 'text-red-600' : 'text-gray-600'}`}>
-                    Estoque: {product.stock}
-                  </span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center">
-                    <Star className="h-4 w-4 text-yellow-400 fill-current" />
-                    <span className="text-sm text-gray-600 ml-1">
-                      {product.rating.toFixed(1)} ({product.totalReviews})
-                    </span>
-                  </div>
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button variant="ghost" size="sm">
-                        <MoreHorizontal className="h-4 w-4" />
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                      <DropdownMenuItem asChild>
-                        <Link href={`/product/${product.id}`}>
-                          <Eye className="h-4 w-4 mr-2" />
-                          Ver Produto
-                        </Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href={`/admin/products/${product.id}/edit`}>
-                          <Edit className="h-4 w-4 mr-2" />
-                          Editar
-                        </Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem 
-                        onClick={() => deleteProduct(product.id)}
-                        className="text-red-600"
-                      >
-                        <Trash2 className="h-4 w-4 mr-2" />
-                        Excluir
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
+          {/* Products Table */}
+          <motion.div variants={itemVariants}>
+            <Card className="bg-white/70 backdrop-blur-xl rounded-3xl shadow-lg border border-white/20">
+              <CardContent className="p-0">
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left">
+                    <thead className="border-b border-gray-200/50">
+                      <tr>
+                        <th className="p-6 font-semibold text-gray-600">
+                          <button onClick={() => handleSort('name')} className="flex items-center space-x-1">
+                            <Package className="h-4 w-4 mr-1" />
+                            <span>Produto</span>
+                            {sortKey === 'name' && (sortDirection === 'asc' ? <ArrowUp className="h-4 w-4" /> : <ArrowDown className="h-4 w-4" />)}
+                          </button>
+                        </th>
+                        <th className="p-6 font-semibold text-gray-600">
+                          <button onClick={() => handleSort('price')} className="flex items-center space-x-1">
+                            <DollarSign className="h-4 w-4 mr-1" />
+                            <span>Preço</span>
+                            {sortKey === 'price' && (sortDirection === 'asc' ? <ArrowUp className="h-4 w-4" /> : <ArrowDown className="h-4 w-4" />)}
+                          </button>
+                        </th>
+                        <th className="p-6 font-semibold text-gray-600">
+                          <button onClick={() => handleSort('stock')} className="flex items-center space-x-1">
+                            <Package className="h-4 w-4 mr-1" />
+                            <span>Estoque</span>
+                            {sortKey === 'stock' && (sortDirection === 'asc' ? <ArrowUp className="h-4 w-4" /> : <ArrowDown className="h-4 w-4" />)}
+                          </button>
+                        </th>
+                        <th className="p-6 font-semibold text-gray-600">
+                          <button onClick={() => handleSort('sales')} className="flex items-center space-x-1">
+                            <BarChart className="h-4 w-4 mr-1" />
+                            <span>Vendas</span>
+                            {sortKey === 'sales' && (sortDirection === 'asc' ? <ArrowUp className="h-4 w-4" /> : <ArrowDown className="h-4 w-4" />)}
+                          </button>
+                        </th>
+                        <th className="p-6 font-semibold text-gray-600">Status</th>
+                        <th className="p-6 font-semibold text-gray-600">Ações</th>
+                      </tr>
+                    </thead>
+                    <motion.tbody variants={containerVariants}>
+                      {loading ? (
+                        <tr>
+                          <td colSpan={6} className="p-12 text-center text-gray-500">
+                            Carregando produtos...
+                          </td>
+                        </tr>
+                      ) : filteredAndSortedProducts.map(product => (
+                        <motion.tr 
+                          key={product.id} 
+                          className="border-b border-gray-200/50 hover:bg-white/50 transition-colors"
+                          variants={itemVariants}
+                          layout
+                        >
+                          <td className="p-6">
+                            <div className="flex items-center space-x-4">
+                              <Image 
+                                src={product.image} 
+                                alt={product.name} 
+                                width={50} 
+                                height={50} 
+                                className="rounded-lg object-contain bg-slate-100 p-1"
+                              />
+                              <div>
+                                <div className="font-semibold text-gray-800">{product.name}</div>
+                                <div className="text-sm text-gray-500">{product.category}</div>
+                              </div>
+                            </div>
+                          </td>
+                          <td className="p-6 font-semibold text-gray-800">{formatCurrency(product.price)}</td>
+                          <td className="p-6">{getStockBadge(product.stock)}</td>
+                          <td className="p-6 text-center text-gray-600">{product.sales}</td>
+                          <td className="p-6">
+                            <Badge variant={product.status === 'published' ? 'default' : 'outline'} className={product.status === 'published' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'}>
+                              {product.status === 'published' ? 'Publicado' : 'Rascunho'}
+                            </Badge>
+                          </td>
+                          <td className="p-6">
+                            <DropdownMenu>
+                              <DropdownMenuTrigger asChild>
+                                <Button variant="ghost" size="icon" className="rounded-full hover:bg-gray-200/50">
+                                  <MoreHorizontal className="h-5 w-5" />
+                                </Button>
+                              </DropdownMenuTrigger>
+                              <DropdownMenuContent align="end" className="bg-white/80 backdrop-blur-xl border-gray-300/50 rounded-xl shadow-lg">
+                                <DropdownMenuItem>
+                                  <Eye className="mr-2 h-4 w-4" /> Ver Produto
+                                </DropdownMenuItem>
+                                <DropdownMenuItem>
+                                  <Edit className="mr-2 h-4 w-4" /> Editar
+                                </DropdownMenuItem>
+                                <DropdownMenuItem onClick={() => handleToggleStatus(product)}>
+                                  <Package className="mr-2 h-4 w-4" /> 
+                                  {product.status === 'published' ? 'Despublicar' : 'Publicar'}
+                                </DropdownMenuItem>
+                                <DropdownMenuItem className="text-red-500" onClick={() => handleDelete(product.id)}>
+                                  <Trash2 className="mr-2 h-4 w-4" /> Excluir
+                                </DropdownMenuItem>
+                              </DropdownMenuContent>
+                            </DropdownMenu>
+                          </td>
+                        </motion.tr>
+                      ))}
+                    </motion.tbody>
+                  </table>
                 </div>
               </CardContent>
             </Card>
-          ))}
+          </motion.div>
         </div>
-
-        {filteredProducts.length === 0 && (
-          <Card>
-            <CardContent className="p-12">
-              <div className="text-center">
-                <Package className="h-16 w-16 text-gray-300 mx-auto mb-4" />
-                <h3 className="text-lg font-medium text-gray-900 mb-2">Nenhum produto encontrado</h3>
-                <p className="text-gray-600 mb-6">Tente ajustar os filtros ou adicionar um novo produto.</p>
-                <Link href="/admin/products/new">
-                  <Button>
-                    <Plus className="h-4 w-4 mr-2" />
-                    Novo Produto
-                  </Button>
-                </Link>
-              </div>
-            </CardContent>
-          </Card>
-        )}
-      </div>
+      </motion.div>
     </AdminLayout>
   )
 }

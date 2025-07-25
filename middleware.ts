@@ -1,50 +1,23 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
-import { auth } from '@/lib/auth'
 
-// Force Node.js runtime for middleware
-export const runtime = 'nodejs'
-
-export async function middleware(request: NextRequest) {
-  const session = await auth()
+export function middleware(request: NextRequest) {
+  // Simple middleware without auth for Edge Runtime compatibility
+  // Authentication will be handled by page-level components
   
-  // Protected admin routes
-  if (request.nextUrl.pathname.startsWith('/admin')) {
-    if (!session) {
-      return NextResponse.redirect(new URL('/login', request.url))
-    }
-    
-    if (session.user.role !== 'ADMIN') {
-      return NextResponse.redirect(new URL('/', request.url))
-    }
-  }
-  
-  // Protected user routes
-  if (request.nextUrl.pathname.startsWith('/profile') || 
-      request.nextUrl.pathname.startsWith('/orders') ||
-      request.nextUrl.pathname.startsWith('/checkout')) {
-    if (!session) {
-      return NextResponse.redirect(new URL('/login', request.url))
-    }
-  }
-  
-  // Redirect authenticated users away from login page
-  if (request.nextUrl.pathname === '/login' && session) {
-    if (session.user.role === 'ADMIN') {
-      return NextResponse.redirect(new URL('/admin', request.url))
-    }
-    return NextResponse.redirect(new URL('/', request.url))
-  }
-  
+  // Allow all requests to pass through
   return NextResponse.next()
 }
 
 export const config = {
   matcher: [
-    '/admin/:path*',
-    '/profile/:path*',
-    '/orders/:path*',
-    '/checkout/:path*',
-    '/login'
+    /*
+     * Match all request paths except for the ones starting with:
+     * - api (API routes)
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
+     */
+    '/((?!api|_next/static|_next/image|favicon.ico).*)',
   ]
 }

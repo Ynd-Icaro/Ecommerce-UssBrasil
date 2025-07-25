@@ -7,16 +7,20 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
-import { Eye, EyeOff, User, Mail, Lock, Chrome } from 'lucide-react'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Card, CardContent } from '@/components/ui/card'
+import { Eye, EyeOff, User, Mail, Lock, Chrome, X, Loader2 } from 'lucide-react'
 import { toast } from 'react-hot-toast'
+import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from '@radix-ui/react-dialog'
+import { DialogHeader } from './ui/dialog'
 
 interface LoginModalProps {
+  isOpen: boolean
+  onClose: () => void
   children: React.ReactNode
 }
-
-export default function LoginModal({ children }: LoginModalProps) {
-  const [isOpen, setIsOpen] = useState(false)
+export default function LoginModal({ children, isOpen: propIsOpen, onClose }: LoginModalProps) {
+  const [isOpen, setIsOpen] = useState(propIsOpen || false)
   const [isLoading, setIsLoading] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
