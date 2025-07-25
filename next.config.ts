@@ -33,10 +33,7 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   reactStrictMode: true,
   // Configurações para deploy
-  output: 'standalone',
-  experimental: {
-    optimizeCss: true,
-  }
+  output: 'standalone'
 };
 
 export default nextConfig;
