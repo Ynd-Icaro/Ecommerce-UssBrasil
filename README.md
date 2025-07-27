@@ -9,14 +9,38 @@
 
 ## 🚀 **Deploy Ultra-Rápido (2 comandos)**
 
-### **🎯 Setup Completo (Recomendado)**
+### **🎯 Setup Completo com JSON Server (Recomendado)**
 
 ```bash
 # Windows PowerShell:
-./setup-quick.ps1
+./start-system.ps1
 
-# Linux/macOS:
-chmod +x setup-quick.sh && ./setup-quick.sh
+# Ou manualmente:
+npm install
+npm run dev:full  # Inicia JSON Server + Next.js
+```
+
+### **🗄️ Apenas API (JSON Server)**
+
+```bash
+# Iniciar apenas o servidor de dados:
+npm run api
+
+# URL da API: http://localhost:3003
+# Endpoints disponíveis:
+# - GET /products        - Lista todos os produtos
+# - GET /products/1      - Produto específico
+# - GET /categories      - Lista categorias
+# - GET /brands          - Lista marcas
+```
+
+### **⚡ Apenas Frontend (Next.js)**
+
+```bash
+# Iniciar apenas o frontend:
+npm run dev
+
+# URL: http://localhost:3000
 ```
 
 ### **🚀 Deploy para Produção**

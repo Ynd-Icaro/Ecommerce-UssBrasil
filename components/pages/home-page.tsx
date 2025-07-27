@@ -45,7 +45,7 @@ const featuredProducts: FeaturedProduct[] = [
     description: 'Titânio. Tão forte. Tão leve. Tão Pro.',
     price: 7999,
     originalPrice: 8999,
-    image: '/Produtos/Iphone 16 Pro.png',
+    image: '/Imagens/Iphone 16 Pro.png',
     href: '/product/iphone-16-pro',
     featured: true,
     isNew: true
@@ -55,7 +55,7 @@ const featuredProducts: FeaturedProduct[] = [
     name: 'MacBook Pro M3',
     description: 'Performance descomunal. Bateria o dia todo.',
     price: 15999,
-    image: '/Produtos/Macbook Pro.png',
+    image: '/Imagens/Macbook Pro.png',
     href: '/product/macbook-pro-m3',
     featured: true
   },
@@ -64,7 +64,7 @@ const featuredProducts: FeaturedProduct[] = [
     name: 'Apple Watch Series 10',
     description: 'O maior display. O carregamento mais rápido.',
     price: 2999,
-    image: '/Produtos/Watch Series 10.png',
+    image: '/Imagens/Watch Series 10.png',
     href: '/product/watch-series-10'
   }
 ]
@@ -74,7 +74,7 @@ const categories: CategoryShowcase[] = [
     id: 'iphones',
     name: 'iPhone',
     description: 'A experiência iPhone mais avançada',
-    image: '/Produtos/Iphone 16.png',
+    image: '/Imagens/Iphone 16.png',
     href: '/categories/iphones',
     color: 'from-blue-600 to-purple-600'
   },
@@ -82,7 +82,7 @@ const categories: CategoryShowcase[] = [
     id: 'macs',
     name: 'Mac',
     description: 'Performance superpotente',
-    image: '/Produtos/Imac.png',
+    image: '/Imagens/Imac.png',
     href: '/categories/macs',
     color: 'from-gray-800 to-gray-600'
   },
@@ -90,7 +90,7 @@ const categories: CategoryShowcase[] = [
     id: 'ipads',
     name: 'iPad',
     description: 'Versátil. Criativo. Poderoso.',
-    image: '/Produtos/Ipad Pro.png',
+    image: '/Imagens/Ipad Pro.png',
     href: '/categories/ipads',
     color: 'from-emerald-600 to-teal-600'
   },
@@ -98,7 +98,7 @@ const categories: CategoryShowcase[] = [
     id: 'watches',
     name: 'Apple Watch',
     description: 'O futuro da saúde no seu pulso',
-    image: '/Produtos/Watch Ultra 2.png',
+    image: '/Imagens/Watch Ultra 2.png',
     href: '/categories/watches',
     color: 'from-orange-600 to-red-600'
   }
@@ -183,7 +183,7 @@ export function HomePage() {
         >
           <div className="relative w-96 h-96">
             <Image
-              src="/Produtos/Iphone 16 Pro.png"
+              src="/Imagens/Iphone 16 Pro.png"
               alt="iPhone 16 Pro"
               fill
               className="object-contain"

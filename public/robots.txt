@@ -1,0 +1,42 @@
+User-agent: *
+Allow: /
+
+# Páginas importantes
+Allow: /products/
+Allow: /categories/
+Allow: /cart/
+Allow: /checkout/
+
+# Recursos estáticos
+Allow: /Produtos/
+Allow: /Videos/
+Allow: /Svg/
+Allow: /_next/static/
+
+# Páginas administrativas
+Disallow: /admin/
+Disallow: /api/
+Disallow: /lading/
+
+# Arquivos de sistema
+Disallow: *.json$
+Disallow: /.*
+
+# Sitemap
+Sitemap: https://uss-brasil.netlify.app/sitemap.xml
+
+# Crawl delay para respeitar o servidor
+Crawl-delay: 1
+
+# User agents específicos
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Slurp
+Allow: /
+Crawl-delay: 2

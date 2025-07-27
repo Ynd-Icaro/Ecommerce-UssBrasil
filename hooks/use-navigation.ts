@@ -6,6 +6,7 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
+import { useCart } from '@/contexts/CartContext'
 
 // ========== TIPOS ==========
 interface NavigationState {
@@ -28,12 +29,13 @@ interface NavigationActions {
 export function useNavigation(): NavigationState & NavigationActions {
   const router = useRouter()
   const pathname = usePathname()
+  const { cartCount } = useCart()
   
   const [state, setState] = useState<NavigationState>({
     isScrolled: false,
     isMobileMenuOpen: false,
     searchQuery: '',
-    cartItemsCount: 0, // Será integrado com o estado global do carrinho
+    cartItemsCount: 0,
     isSearchFocused: false
   })
 
@@ -58,14 +60,13 @@ export function useNavigation(): NavigationState & NavigationActions {
     }))
   }, [pathname])
 
-  // Carregar contagem do carrinho (mock por enquanto)
+  // Atualizar contagem do carrinho
   useEffect(() => {
-    // TODO: Integrar com contexto do carrinho
     setState(prev => ({
       ...prev,
-      cartItemsCount: 3 // Mock value
+      cartItemsCount: cartCount
     }))
-  }, [])
+  }, [cartCount])
 
   // ========== AÇÕES ==========
   const setMobileMenuOpen = (open: boolean) => {

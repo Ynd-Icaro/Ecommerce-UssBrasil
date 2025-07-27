@@ -1,400 +1,372 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { usePathname, useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { 
-  Search, 
-  ShoppingCart, 
+  ShoppingBag, 
   User, 
-  Heart, 
   Menu, 
-  X,
-  Smartphone,
-  Tablet,
-  Monitor,
-  Watch,
-  Headphones
+  X, 
+  Search,
+  Heart,
+  MapPin,
+  Bell,
+  Crown,
+  Sparkles
 } from 'lucide-react'
-
-import { cn } from '@/lib/utils'
-import { componentStyles, styleUtils } from '@/lib/design-system'
-import { useNavigation, useNavigationCategories } from '@/hooks/use-navigation'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from '@/components/ui/navigation-menu'
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover'
 import { Badge } from '@/components/ui/badge'
-import { AdvancedSearch } from '@/components/search/AdvancedSearch'
-import { AuthModal } from '@/components/auth/AuthModal'
-
-// ========== MAPEAMENTO DE ÍCONES ==========
-const iconMap = {
-  Smartphone,
-  Tablet,
-  Monitor,
-  Watch,
-  Headphones
-}
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
+import { useIsMobile } from '@/hooks/use-mobile'
 
 // ========== TIPOS ==========
-interface NavigationProps {
-  variant?: 'transparent' | 'glass' | 'solid'
+type NavigationVariant = 'transparent' | 'glass' | 'solid' | 'floating'
+
+interface MainNavigationProps {
+  variant?: NavigationVariant
   className?: string
 }
 
-// ========== COMPONENTE PRINCIPAL ==========
-export function MainNavigation({ variant = 'glass', className }: NavigationProps) {
-  const {
-    isScrolled,
-    isMobileMenuOpen,
-    searchQuery,
-    cartItemsCount,
-    setMobileMenuOpen,
-    setSearchQuery,
-    handleSearch,
-    toggleMobileMenu
-  } = useNavigation()
+// ========== CONFIGURAÇÕES ==========
+const navigationItems = [
+  { href: '/', label: 'Início', icon: null },
+  { href: '/products', label: 'Produtos', icon: null },
+  { href: '/categories/mac', label: 'Mac', icon: null },
+  { href: '/categories/iphone', label: 'iPhone', icon: null },
+  { href: '/categories/ipad', label: 'iPad', icon: null },
+  { href: '/categories/watch', label: 'Watch', icon: null },
+  { href: '/categories/airpods', label: 'AirPods', icon: null }
+]
 
-  const { categories, quickLinks } = useNavigationCategories()
+const userMenuItems = [
+  { href: '/profile', label: 'Perfil', icon: User },
+  { href: '/orders', label: 'Pedidos', icon: ShoppingBag },
+  { href: '/wishlist', label: 'Favoritos', icon: Heart },
+  { href: '/notifications', label: 'Notificações', icon: Bell }
+]
+
+// ========== ANIMAÇÕES ==========
+const logoVariants = {
+  initial: { scale: 1, rotate: 0 },
+  hover: { 
+    scale: 1.05, 
+    rotate: [0, -5, 5, 0],
+    transition: { 
+      duration: 0.4,
+      ease: 'easeInOut' as const
+    }
+  }
+}
+
+const itemVariants = {
+  initial: { opacity: 0.7, y: 0 },
+  hover: { 
+    opacity: 1, 
+    y: -2,
+    transition: { duration: 0.2, ease: 'easeOut' as const }
+  }
+}
+
+const badgeVariants = {
+  initial: { scale: 1 },
+  pulse: { 
+    scale: [1, 1.2, 1],
+    transition: { 
+      duration: 0.6,
+      repeat: Infinity,
+      repeatDelay: 2
+    }
+  }
+}
+
+// ========== ESTILOS DINÂMICOS ==========
+const getVariantStyles = (variant: NavigationVariant) => {
+  const baseStyles = 'w-full border-b transition-all duration-300'
   
-  // Estado do modal de autenticação
-  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false)
-  const [authMode, setAuthMode] = useState<'login' | 'register'>('login')
+  switch (variant) {
+    case 'transparent':
+      return `${baseStyles} navbar-transparent`
+    
+    case 'glass':
+      return `${baseStyles} navbar-glass`
+    
+    case 'solid':
+      return `${baseStyles} navbar-solid`
+    
+    case 'floating':
+      return `${baseStyles} navbar-floating`
+    
+    default:
+      return baseStyles
+  }
+}
 
-  // Determinar estilo da navbar
-  const getNavbarStyle = () => {
-    if (variant === 'solid') return componentStyles.navigation.variants.solid
-    if (variant === 'transparent' && !isScrolled) return componentStyles.navigation.variants.transparent
-    return componentStyles.navigation.variants.glass
+// ========== COMPONENTE PRINCIPAL ==========
+export function MainNavigation({ variant = 'glass', className }: MainNavigationProps) {
+  const pathname = usePathname()
+  const router = useRouter()
+  const isMobile = useIsMobile()
+  const [isScrolled, setIsScrolled] = useState(false)
+  const [cartCount, setCartCount] = useState(3) // Mock data
+  const [notificationCount, setNotificationCount] = useState(2) // Mock data
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+
+  // ========== EFEITOS ==========
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20)
+    }
+    
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  // ========== HELPERS ==========
+  const isActiveLink = (href: string) => {
+    if (href === '/') return pathname === '/'
+    return pathname.startsWith(href)
   }
 
-  // Handler para busca
-  const onSearchSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    handleSearch(searchQuery)
+  const handleSearch = () => {
+    // Implementar busca
+    router.push('/search')
   }
 
-  return (
-    <>
-      <motion.header
-        className={cn(
-          componentStyles.navigation.base,
-          getNavbarStyle(),
-          className
-        )}
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.3 }}
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            
-            {/* Logo */}
-            <motion.div 
-              className="flex-shrink-0"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Link href="/" className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-primary-900 rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">USS</span>
-                </div>
-                <span className="hidden sm:block font-semibold text-lg text-gray-900">
-                  Brasil
-                </span>
-              </Link>
-            </motion.div>
-
-            {/* Navegação Desktop */}
-            <div className="hidden lg:flex lg:items-center lg:space-x-8">
-              
-              {/* Menu de Categorias */}
-              <NavigationMenu>
-                <NavigationMenuList>
-                  <NavigationMenuItem>
-                    <NavigationMenuTrigger className="bg-transparent hover:bg-gray-100 focus:bg-gray-100">
-                      <span className="font-medium">Produtos</span>
-                    </NavigationMenuTrigger>
-                    <NavigationMenuContent>
-                      <div className="w-[600px] p-6">
-                        <div className="grid grid-cols-2 gap-6">
-                          <div>
-                            <h3 className="font-semibold text-gray-900 mb-4">Categorias</h3>
-                            <div className="space-y-3">
-                              {categories.map((category) => {
-                                const IconComponent = iconMap[category.icon as keyof typeof iconMap]
-                                return (
-                                  <NavigationMenuLink key={category.id} asChild>
-                                    <Link
-                                      href={category.href}
-                                      className={cn(
-                                        "flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors",
-                                        styleUtils.applyFocus()
-                                      )}
-                                    >
-                                      <div className="flex-shrink-0">
-                                        <IconComponent className="w-5 h-5 text-primary-900" />
-                                      </div>
-                                      <div>
-                                        <div className="font-medium text-gray-900 flex items-center space-x-2">
-                                          <span>{category.name}</span>
-                                          {category.featured && (
-                                            <Badge variant="secondary" className="text-xs">
-                                              Featured
-                                            </Badge>
-                                          )}
-                                        </div>
-                                        {category.description && (
-                                          <p className="text-sm text-gray-500">
-                                            {category.description}
-                                          </p>
-                                        )}
-                                      </div>
-                                    </Link>
-                                  </NavigationMenuLink>
-                                )
-                              })}
-                            </div>
-                          </div>
-                          
-                          <div>
-                            <h3 className="font-semibold text-gray-900 mb-4">Destacados</h3>
-                            <div className="space-y-4">
-                              <div className="bg-gradient-to-r from-primary-900 to-primary-700 rounded-xl p-4 text-white">
-                                <h4 className="font-semibold mb-2">iPhone 16 Pro</h4>
-                                <p className="text-sm text-primary-100 mb-3">
-                                  Titânio. Tão forte. Tão leve. Tão Pro.
-                                </p>
-                                <Button size="sm" variant="secondary">
-                                  Saiba mais
-                                </Button>
-                              </div>
-                              
-                              <div className="bg-gray-100 rounded-xl p-4">
-                                <h4 className="font-semibold text-gray-900 mb-2">Apple Watch Series 10</h4>
-                                <p className="text-sm text-gray-600 mb-3">
-                                  O maior display. O carregamento mais rápido.
-                                </p>
-                                <Button size="sm" variant="outline">
-                                  Ver ofertas
-                                </Button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </NavigationMenuContent>
-                  </NavigationMenuItem>
-                </NavigationMenuList>
-              </NavigationMenu>
-
-              {/* Links Rápidos */}
-              {quickLinks.map((link) => (
-                <Link
-                  key={link.name}
-                  href={link.href}
-                  className={cn(
-                    "relative font-medium text-gray-900 hover:text-primary-900 transition-colors",
-                    styleUtils.applyFocus()
-                  )}
-                >
-                  {link.name}
-                  {link.badge && (
-                    <Badge 
-                      variant={link.badge === 'Sale' ? 'destructive' : 'default'}
-                      className="absolute -top-2 -right-8 text-xs"
-                    >
-                      {link.badge}
-                    </Badge>
-                  )}
-                </Link>
-              ))}
-            </div>
-
-            {/* Barra de Busca */}
-            <div className="hidden md:flex flex-1 max-w-lg mx-8">
-              <AdvancedSearch 
-                className="w-full"
-                placeholder="Buscar produtos..."
-                onSearch={handleSearch}
-              />
-            </div>
-
-            {/* Ações do Usuário */}
-            <div className="flex items-center space-x-4">
-              
-              {/* Favoritos */}
-              <Button variant="ghost" size="sm" className="hidden sm:flex">
-                <Heart className="w-5 h-5" />
-              </Button>
-
-              {/* Carrinho */}
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Button variant="ghost" size="sm" className="relative">
-                    <ShoppingCart className="w-5 h-5" />
-                    {cartItemsCount > 0 && (
-                      <Badge 
-                        variant="destructive"
-                        className="absolute -top-2 -right-2 w-5 h-5 text-xs flex items-center justify-center p-0"
-                      >
-                        {cartItemsCount}
-                      </Badge>
-                    )}
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent align="end" className="w-80">
-                  <div className="space-y-4">
-                    <h3 className="font-semibold">Carrinho de Compras</h3>
-                    <div className="text-sm text-gray-500">
-                      {cartItemsCount} itens no carrinho
-                    </div>
-                    <Button className="w-full">Ver Carrinho</Button>
-                  </div>
-                </PopoverContent>
-              </Popover>
-
-              {/* Usuário */}
-              <Button 
-                variant="ghost" 
-                size="sm" 
-                className="hidden sm:flex"
-                onClick={() => {
-                  setAuthMode('login')
-                  setIsAuthModalOpen(true)
-                }}
-              >
-                <User className="w-5 h-5" />
-              </Button>
-
-              {/* Menu Mobile */}
-              <Button
-                variant="ghost"
-                size="sm"
-                className="lg:hidden"
-                onClick={toggleMobileMenu}
-              >
-                <Menu className="w-5 h-5" />
-              </Button>
-            </div>
+  // ========== COMPONENTES INTERNOS ==========
+  const Logo = () => (
+    <motion.div
+      variants={logoVariants}
+      initial="initial"
+      whileHover="hover"
+      className="flex items-center space-x-2"
+    >
+      <Link href="/" className="flex items-center space-x-2">
+        <div className="relative">
+          <div className="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center">
+            <Crown className="w-5 h-5 text-white" />
           </div>
+          <motion.div 
+            className="absolute -top-1 -right-1 w-3 h-3 bg-yellow-400 rounded-full premium-badge"
+            variants={badgeVariants}
+            initial="initial"
+            animate="pulse"
+          >
+            <Sparkles className="w-2 h-2 text-yellow-800 absolute top-0.5 left-0.5" />
+          </motion.div>
         </div>
-      </motion.header>
+        <span className={`font-bold text-xl bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent
+          ${variant === 'transparent' && !isScrolled ? 'text-white' : ''}
+        `}>
+          USS Brasil
+        </span>
+      </Link>
+    </motion.div>
+  )
 
-      {/* Menu Mobile */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <>
-            {/* Backdrop */}
+  const DesktopNavigation = () => (
+    <nav className="hidden lg:flex items-center space-x-8">
+      {navigationItems.map((item) => (
+        <motion.div
+          key={item.href}
+          variants={itemVariants}
+          initial="initial"
+          whileHover="hover"
+        >
+          <Link
+            href={item.href}
+            className={`
+              nav-link relative text-sm font-medium transition-colors duration-200
+              hover:text-primary group
+              ${isActiveLink(item.href) 
+                ? 'text-primary active' 
+                : variant === 'transparent' && !isScrolled 
+                  ? 'text-white/90' 
+                  : 'text-muted-foreground'
+              }
+            `}
+          >
+            {item.label}
+            
+            {/* Active indicator */}
+            {isActiveLink(item.href) && (
+              <motion.div
+                layoutId="activeTab"
+                className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary rounded-full"
+                initial={false}
+                transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+              />
+            )}
+            
+            {/* Hover effect */}
             <motion.div
-              className="fixed inset-0 bg-black/50 z-50 lg:hidden"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setMobileMenuOpen(false)}
+              className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary/50 rounded-full scale-x-0 group-hover:scale-x-100 transition-transform duration-200"
             />
+          </Link>
+        </motion.div>
+      ))}
+    </nav>
+  )
 
-            {/* Menu Panel */}
-            <motion.div
-              className="fixed top-0 right-0 bottom-0 w-80 bg-white z-50 lg:hidden"
-              initial={{ x: '100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '100%' }}
-              transition={{ type: 'spring', damping: 30, stiffness: 300 }}
+  const ActionButtons = () => (
+    <div className="flex items-center space-x-2">
+      {/* Search */}
+      <Button
+        variant="ghost"
+        size="icon"
+        onClick={handleSearch}
+        className={`
+          relative hover:bg-primary/10
+          ${variant === 'transparent' && !isScrolled ? 'text-white hover:bg-white/10' : ''}
+        `}
+      >
+        <Search className="w-5 h-5" />
+      </Button>
+
+      {/* Notifications */}
+      <Button
+        variant="ghost"
+        size="icon"
+        asChild
+        className={`
+          relative hover:bg-primary/10
+          ${variant === 'transparent' && !isScrolled ? 'text-white hover:bg-white/10' : ''}
+        `}
+      >
+        <Link href="/notifications">
+          <Bell className="w-5 h-5" />
+          {notificationCount > 0 && (
+            <Badge 
+              variant="destructive" 
+              className="absolute -top-1 -right-1 w-5 h-5 flex items-center justify-center p-0 text-xs"
             >
-              <div className="p-6">
-                {/* Header */}
-                <div className="flex items-center justify-between mb-8">
-                  <h2 className="text-lg font-semibold">Menu</h2>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    <X className="w-5 h-5" />
-                  </Button>
-                </div>
+              {notificationCount}
+            </Badge>
+          )}
+        </Link>
+      </Button>
 
-                {/* Busca Mobile */}
-                <div className="mb-6">
-                  <form onSubmit={onSearchSubmit} className="relative">
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-                    <Input
-                      type="text"
-                      placeholder="Buscar..."
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      className="pl-10"
-                    />
-                  </form>
-                </div>
+      {/* Cart */}
+      <Button
+        variant="ghost"
+        size="icon"
+        asChild
+        className={`
+          relative hover:bg-primary/10
+          ${variant === 'transparent' && !isScrolled ? 'text-white hover:bg-white/10' : ''}
+        `}
+      >
+        <Link href="/cart">
+          <ShoppingBag className="w-5 h-5" />
+          {cartCount > 0 && (
+            <Badge 
+              variant="default" 
+              className="absolute -top-1 -right-1 w-5 h-5 flex items-center justify-center p-0 text-xs bg-primary"
+            >
+              {cartCount}
+            </Badge>
+          )}
+        </Link>
+      </Button>
 
-                {/* Categorias */}
-                <div className="space-y-4">
-                  <h3 className="font-semibold text-gray-900">Categorias</h3>
-                  {categories.map((category) => {
-                    const IconComponent = iconMap[category.icon as keyof typeof iconMap]
-                    return (
-                      <Link
-                        key={category.id}
-                        href={category.href}
-                        className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors"
-                        onClick={() => setMobileMenuOpen(false)}
-                      >
-                        <IconComponent className="w-5 h-5 text-primary-900" />
-                        <span className="font-medium">{category.name}</span>
-                      </Link>
-                    )
-                  })}
+      {/* User Menu */}
+      <Button
+        variant="ghost"
+        size="icon"
+        asChild
+        className={`
+          hover:bg-primary/10
+          ${variant === 'transparent' && !isScrolled ? 'text-white hover:bg-white/10' : ''}
+        `}
+      >
+        <Link href="/profile">
+          <User className="w-5 h-5" />
+        </Link>
+      </Button>
 
-                  <hr className="my-6" />
+      {/* Mobile Menu */}
+      {isMobile && (
+        <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
+          <SheetTrigger asChild>
+            <Button
+              variant="ghost"
+              size="icon"
+              className={`
+                lg:hidden hover:bg-primary/10
+                ${variant === 'transparent' && !isScrolled ? 'text-white hover:bg-white/10' : ''}
+              `}
+            >
+              <Menu className="w-5 h-5" />
+            </Button>
+          </SheetTrigger>
+          <SheetContent side="right" className="w-80">
+            <MobileMenu onClose={() => setIsMobileMenuOpen(false)} />
+          </SheetContent>
+        </Sheet>
+      )}
+    </div>
+  )
 
-                  {/* Quick Links */}
-                  {quickLinks.map((link) => (
-                    <Link
-                      key={link.name}
-                      href={link.href}
-                      className="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 transition-colors"
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      <span className="font-medium">{link.name}</span>
-                      {link.badge && (
-                        <Badge variant={link.badge === 'Sale' ? 'destructive' : 'default'}>
-                          {link.badge}
-                        </Badge>
-                      )}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
+  const MobileMenu = ({ onClose }: { onClose: () => void }) => (
+    <div className="flex flex-col h-full">
+      {/* Header */}
+      <div className="flex items-center justify-between p-4 border-b">
+        <Logo />
+        <Button variant="ghost" size="icon" onClick={onClose}>
+          <X className="w-5 h-5" />
+        </Button>
+      </div>
 
-      {/* Modal de Autenticação */}
-      <AuthModal
-        isOpen={isAuthModalOpen}
-        onClose={() => setIsAuthModalOpen(false)}
-        defaultTab={authMode}
-      />
+      {/* Navigation */}
+      <nav className="flex-1 p-4 space-y-2">
+        {navigationItems.map((item) => (
+          <Link
+            key={item.href}
+            href={item.href}
+            onClick={onClose}
+            className={`
+              block px-4 py-3 rounded-lg transition-colors duration-200
+              hover:bg-primary/10
+              ${isActiveLink(item.href) 
+                ? 'bg-primary/10 text-primary font-medium' 
+                : 'text-muted-foreground'
+              }
+            `}
+          >
+            {item.label}
+          </Link>
+        ))}
+      </nav>
 
-      {/* Spacer para compensar navbar fixa */}
-      <div className="h-16" />
-    </>
+      {/* User Menu */}
+      <div className="p-4 border-t space-y-2">
+        {userMenuItems.map((item) => (
+          <Link
+            key={item.href}
+            href={item.href}
+            onClick={onClose}
+            className="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-primary/10 transition-colors duration-200"
+          >
+            <item.icon className="w-5 h-5" />
+            <span>{item.label}</span>
+          </Link>
+        ))}
+      </div>
+    </div>
+  )
+
+  // ========== RENDERIZAÇÃO ==========
+  return (
+    <header className={`${getVariantStyles(variant)} ${className}`}>
+      <div className="container mx-auto px-4">
+        <div className="flex items-center justify-between h-16">
+          <Logo />
+          <DesktopNavigation />
+          <ActionButtons />
+        </div>
+      </div>
+    </header>
   )
 }
 
-export default MainNavigation

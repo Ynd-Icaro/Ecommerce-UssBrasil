@@ -1,8 +1,9 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Image from "next/image"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -12,22 +13,13 @@ import { Separator } from "@/components/ui/separator"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Textarea } from "@/components/ui/textarea"
 import { Badge } from "@/components/ui/badge"
-import { ArrowLeft, CreditCard, Truck, MapPin, User, Lock, CheckCircle } from "lucide-react"
-
-const orderItems = [
-  {
-    id: 1,
-    name: "iPhone 15 Pro Max",
-    brand: "Apple",
-    price: 9999,
-    quantity: 1,
-    color: "Titânio Natural",
-    storage: "256GB",
-    image: "/Produtos/Iphone 16 Pro.png",
-  },
-]
+import { ArrowLeft, CreditCard, Truck, MapPin, User, Lock, CheckCircle, Shield } from "lucide-react"
+import { useCart } from "@/contexts/CartContext"
+import { toast } from "sonner"
 
 export default function CheckoutPage() {
+  const router = useRouter()
+  const { cartItems, cartTotal, clearCart } = useCart()
   const [step, setStep] = useState(1) // 1: Dados, 2: Entrega, 3: Pagamento, 4: Confirmação
   const [formData, setFormData] = useState({
     // Dados pessoais
@@ -63,7 +55,19 @@ export default function CheckoutPage() {
 
   const [orderConfirmed, setOrderConfirmed] = useState(false)
 
-  const subtotal = orderItems.reduce((sum, item) => sum + item.price * item.quantity, 0)
+  // Redirecionar se carrinho vazio
+  useEffect(() => {
+    if (cartItems.length === 0 && !orderConfirmed) {
+      router.push('/cart')
+    }
+  }, [cartItems.length, orderConfirmed, router])
+
+  // Retornar null enquanto carrega ou se carrinho vazio
+  if (cartItems.length === 0 && !orderConfirmed) {
+    return null
+  }
+
+  const subtotal = cartTotal
   const deliveryFee = formData.deliveryMethod === "express" ? 49 : 0
   const total = subtotal + deliveryFee
 
@@ -84,7 +88,9 @@ export default function CheckoutPage() {
   }
 
   const handleConfirmOrder = () => {
-    // Aqui você processaria o pedido
+    // Simular processamento do pedido
+    toast.success('Pedido realizado com sucesso!')
+    clearCart()
     setOrderConfirmed(true)
     setStep(4)
   }
@@ -582,7 +588,7 @@ export default function CheckoutPage() {
                 <CardTitle>Resumo do Pedido</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                {orderItems.map((item) => (
+                {cartItems.map((item) => (
                   <div key={item.id} className="flex items-center space-x-3">
                     <Image
                       src={item.image || "/placeholder.svg"}
@@ -593,11 +599,10 @@ export default function CheckoutPage() {
                     />
                     <div className="flex-1">
                       <h4 className="font-medium text-sm">{item.name}</h4>
-                      <p className="text-xs text-gray-600">{item.brand}</p>
-                      <p className="text-xs text-gray-600">
-                        {item.color} • {item.storage}
+                      <p className="text-xs text-gray-600">Quantidade: {item.quantity}</p>
+                      <p className="text-sm font-medium">
+                        {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(item.price * item.quantity)}
                       </p>
-                      <p className="text-sm font-medium">R$ {item.price.toLocaleString()}</p>
                     </div>
                     <span className="text-sm text-gray-600">x{item.quantity}</span>
                   </div>

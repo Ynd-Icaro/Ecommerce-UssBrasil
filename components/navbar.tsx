@@ -7,6 +7,8 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useCart } from '@/contexts/CartContext'
+import { useUI } from '@/contexts/UIContext'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -38,7 +40,7 @@ const appleCategories = {
         name: 'MacBook Air', 
         href: '/categories/macbook-air', 
         price: 'A partir de R$ 10.499', 
-        image: '/Produtos/Macbook Air.png',
+        image: '/Imagens/Macbook Air.png',
         description: 'Extraordinariamente fino. Incrivelmente poderoso.',
         isNew: false
       },
@@ -134,7 +136,7 @@ const appleCategories = {
         name: 'Apple Watch Ultra 2', 
         href: '/categories/watch-ultra-2', 
         price: 'A partir de R$ 8.299', 
-        image: '/Produtos/Watch Ultra 2.png',
+        image: '/Imagens/Watch Ultra 2.png',
         description: 'A aventura te chama.',
         isNew: false
       },
@@ -228,12 +230,14 @@ const mockProducts = [
   { id: 3, name: 'MacBook Pro', price: 'R$ 19.999', image: '/Produtos/Macbook Pro.png', category: 'Mac' },
   { id: 4, name: 'MacBook Air', price: 'R$ 11.999', image: '/Produtos/Macbook Air.png', category: 'Mac' },
   { id: 5, name: 'iPad Pro', price: 'R$ 10.999', image: '/Produtos/Ipad Pro.png', category: 'iPad' },
-  { id: 6, name: 'Apple Watch Ultra 2', price: 'R$ 6.999', image: '/Produtos/Watch Ultra 2.png', category: 'Watch' },
+  { id: 6, name: 'Apple Watch Ultra 2', price: 'R$ 6.999', image: '/Imagens/Watch Ultra 2.png', category: 'Watch' },
   { id: 7, name: 'AirPods Pro 2', price: 'R$ 2.499', image: '/Produtos/Air Pods Pro 2', category: 'AirPods' },
   { id: 8, name: 'AirPods Max', price: 'R$ 4.999', image: '/Produtos/Air Pods Max.png', category: 'AirPods' }
 ]
 
 export default function Navbar() {
+  const { getTotalItems } = useCart()
+  const { toggleCart } = useUI()
   const [searchQuery, setSearchQuery] = useState('')
   const [isSearchFocused, setIsSearchFocused] = useState(false)
   const [searchResults, setSearchResults] = useState<typeof mockProducts>([])
@@ -480,7 +484,7 @@ export default function Navbar() {
                   <div className={`relative transition-all duration-300 ease-in-out ${
                     isSearchFocused ? 'w-80' : 'w-64'
                   }`}>
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-black" />
                     <Input
                       type="search"
                       placeholder="Buscar produtos..."
@@ -547,7 +551,7 @@ export default function Navbar() {
               <Dialog open={isLoginOpen} onOpenChange={setIsLoginOpen}>
                 <DialogTrigger asChild>
                   <Button variant="ghost" size="sm" className="hover:bg-gray-100 transition-colors duration-200">
-                    <User className="h-5 w-5" />
+                    <User className="h-5 w-5 text-black" />
                   </Button>
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-md">
@@ -584,14 +588,19 @@ export default function Navbar() {
               </Dialog>
 
               {/* Cart */}
-              <Link href="/cart">
-                <Button variant="ghost" size="sm" className="relative hover:bg-gray-100 transition-colors duration-200">
-                  <ShoppingBag className="h-5 w-5" />
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="relative hover:bg-gray-100 transition-colors duration-200"
+                onClick={toggleCart}
+              >
+                <ShoppingBag className="h-5 w-5 text-black" />
+                {getTotalItems() > 0 && (
                   <Badge className="absolute -top-2 -right-2 h-5 w-5 rounded-full p-0 flex items-center justify-center text-xs bg-blue-600 hover:bg-blue-700">
-                    0
+                    {getTotalItems()}
                   </Badge>
-                </Button>
-              </Link>
+                )}
+              </Button>
             </div>
           </div>
         </div>

@@ -1,0 +1,90 @@
+{
+  "name": "USS Brasil - Produtos Apple Premium",
+  "short_name": "USS Brasil",
+  "description": "Loja premium de produtos Apple no Brasil. iPhone, MacBook, iPad, Apple Watch e AirPods com garantia oficial.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#00CED1",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "pt-BR",
+  "categories": ["shopping", "technology", "lifestyle"],
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Produtos em Destaque",
+      "short_name": "Destaques",
+      "description": "Ver produtos em destaque",
+      "url": "/products/featured",
+      "icons": [
+        {
+          "src": "/icons/featured-96x96.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "iPhone",
+      "short_name": "iPhone",
+      "description": "Ver iPhones disponíveis",
+      "url": "/categories/smartphones",
+      "icons": [
+        {
+          "src": "/icons/iphone-96x96.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "MacBook",
+      "short_name": "MacBook",
+      "description": "Ver MacBooks disponíveis",
+      "url": "/categories/acessorios",
+      "icons": [
+        {
+          "src": "/icons/macbook-96x96.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Carrinho",
+      "short_name": "Carrinho",
+      "description": "Ver carrinho de compras",
+      "url": "/cart",
+      "icons": [
+        {
+          "src": "/icons/cart-96x96.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ],
+  "prefer_related_applications": false,
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  "launch_handler": {
+    "client_mode": "navigate-existing"
+  }
+}

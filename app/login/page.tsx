@@ -42,10 +42,15 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-neutral-50 via-white to-neutral-100 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-white flex items-center justify-center p-4">
       <div className="w-full max-w-md space-y-6">
         {/* Header */}
-        <div className="text-center space-y-2">
+        <motion.div 
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+          className="text-center space-y-2"
+        >
           <Link 
             href="/" 
             className="inline-flex items-center text-sm text-neutral-600 hover:text-neutral-900 transition-colors mb-4"
@@ -62,78 +67,85 @@ export default function LoginPage() {
         </div>
 
         {/* Auth Card */}
-        <Card className="border-0 shadow-xl bg-white/80 backdrop-blur-sm">
-          <CardHeader className="space-y-1 pb-6">
-            <CardTitle className="text-center text-xl">Acesse sua conta</CardTitle>
-            <CardDescription className="text-center">
-              Use suas credenciais para entrar ou criar uma nova conta
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-              <TabsList className="grid w-full grid-cols-2 mb-6">
-                <TabsTrigger value="login">Entrar</TabsTrigger>
-                <TabsTrigger value="register">Criar Conta</TabsTrigger>
-              </TabsList>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.1 }}
+        >
+          <Card className="border-0 shadow-lg bg-white rounded-xl">
+            <CardHeader className="space-y-1 pb-6">
+              <CardTitle className="text-center text-xl font-semibold text-gray-900">
+                Acesse sua conta
+              </CardTitle>
+              <CardDescription className="text-center font-light text-gray-600">
+                Use suas credenciais para entrar ou criar uma nova conta
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+                <TabsList className="grid w-full grid-cols-2 mb-6 bg-gray-100">
+                  <TabsTrigger value="login" className="font-semibold">Entrar</TabsTrigger>
+                  <TabsTrigger value="register" className="font-semibold">Criar Conta</TabsTrigger>
+                </TabsList>
 
-              {/* Login Tab */}
-              <TabsContent value="login" className="space-y-4">
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="email">E-mail</Label>
-                    <div className="relative">
-                      <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-neutral-400" />
-                      <Input
-                        id="email"
-                        type="email"
-                        placeholder="seu@email.com"
-                        className="pl-10"
-                        required
-                      />
+                {/* Login Tab */}
+                <TabsContent value="login" className="space-y-4">
+                  <form onSubmit={handleSubmit} className="space-y-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="email" className="font-semibold text-gray-700">E-mail</Label>
+                      <div className="relative">
+                        <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                        <Input
+                          id="email"
+                          type="email"
+                          placeholder="seu@email.com"
+                          className="pl-10 border-gray-300 focus:border-gray-500 font-light"
+                          required
+                        />
+                      </div>
                     </div>
-                  </div>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="password">Senha</Label>
-                    <div className="relative">
-                      <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-neutral-400" />
-                      <Input
-                        id="password"
-                        type={showPassword ? 'text' : 'password'}
-                        placeholder="••••••••"
-                        className="pl-10 pr-10"
-                        required
-                      />
-                      <Button
-                        type="button"
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-2 top-1/2 transform -translate-y-1/2 h-6 w-6 p-0"
+                    <div className="space-y-2">
+                      <Label htmlFor="password" className="font-semibold text-gray-700">Senha</Label>
+                      <div className="relative">
+                        <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                        <Input
+                          id="password"
+                          type={showPassword ? 'text' : 'password'}
+                          placeholder="••••••••"
+                          className="pl-10 pr-10 border-gray-300 focus:border-gray-500 font-light"
+                          required
+                        />
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => setShowPassword(!showPassword)}
+                          className="absolute right-2 top-1/2 transform -translate-y-1/2 h-6 w-6 p-0"
+                        >
+                          {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                        </Button>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center justify-between">
+                      <Link 
+                        href="#" 
+                        className="text-sm text-gray-600 hover:text-gray-900 transition-colors font-light"
                       >
-                        {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                      </Button>
+                        Esqueceu a senha?
+                      </Link>
                     </div>
-                  </div>
 
-                  <div className="flex items-center justify-between">
-                    <Link 
-                      href="#" 
-                      className="text-sm text-[#00CED1] hover:text-[#20B2AA] transition-colors"
+                    <Button 
+                      type="submit" 
+                      className="w-full bg-black text-white font-semibold hover:bg-gray-900 transition-colors py-3 rounded-lg"
+                      disabled={isLoading}
                     >
-                      Esqueceu a senha?
-                    </Link>
-                  </div>
-
-                  <Button 
-                    type="submit" 
-                    className="w-full bg-gradient-to-r from-[#00CED1] to-[#20B2AA] hover:from-[#20B2AA] hover:to-[#00CED1] text-white font-medium"
-                    disabled={isLoading}
-                  >
-                    {isLoading ? 'Entrando...' : 'Entrar'}
-                  </Button>
-                </form>
-              </TabsContent>
+                      {isLoading ? 'Entrando...' : 'Entrar'}
+                    </Button>
+                  </form>
+                </TabsContent>
 
               {/* Register Tab */}
               <TabsContent value="register" className="space-y-4">
