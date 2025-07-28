@@ -10,6 +10,17 @@ module.exports = {
     extend: {
       /* === SISTEMA DE CORES PREMIUM === */
       colors: {
+        // USS Brasil Brand Colors
+        'uss-primary': '#00B3E6',
+        'uss-primary-dark': '#0099CC',
+        'uss-primary-light': '#33C4EA',
+        'uss-secondary': '#001122',
+        'uss-accent': '#FFB800',
+        'uss-accent-light': '#FFC533',
+        'uss-success': '#00CC66',
+        'uss-warning': '#FF8800',
+        'uss-error': '#FF4444',
+        
         border: "hsl(var(--border))",
         "border-soft": "hsl(var(--border-soft))",
         input: "hsl(var(--input))",
@@ -151,6 +162,8 @@ module.exports = {
         'shimmer': 'shimmer 2s linear infinite',
         'gradient': 'gradient 3s ease infinite',
         'bounce-gentle': 'bounce 2s infinite',
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
       },
       
       /* === SOMBRAS PREMIUM === */
@@ -178,19 +191,6 @@ module.exports = {
         '2xl': '40px',
         '3xl': '64px',
       },
-          400: "#839bcf",
-          500: "#6482c3",
-          600: "#4569b7",
-          700: "#2650ab",
-          800: "#1e3f85",
-          900: "#0f1a3c",
-        },
-      },
-      borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
-      },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
@@ -200,10 +200,6 @@ module.exports = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
-      },
-      animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
       },
     },
   },

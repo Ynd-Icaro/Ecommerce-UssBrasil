@@ -1,16 +1,13 @@
 'use client'
 
 import { useState } from 'react'
-import { signIn, getSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Card, CardContent } from '@/components/ui/card'
-import { Eye, EyeOff, User, Mail, Lock, Chrome, X, Loader2 } from 'lucide-react'
-import { toast } from 'react-hot-toast'
+import { Eye, EyeOff, User, Mail, Lock, X, Loader2 } from 'lucide-react'
+import { toast } from 'sonner'
 import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from '@radix-ui/react-dialog'
 import { DialogHeader } from './ui/dialog'
 
@@ -42,88 +39,79 @@ export default function LoginModal({ children, isOpen: propIsOpen, onClose }: Lo
   })
 
   const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsLoading(true)
-
+    e.preventDefault();
+    setIsLoading(true);
     try {
-      const result = await signIn('credentials', {
-        email: loginForm.email,
-        password: loginForm.password,
-        redirect: false,
-      })
-
-      if (result?.error) {
-        toast.error('Credenciais inválidas')
-      } else {
-        toast.success('Login realizado com sucesso!')
-        setIsOpen(false)
-        const session = await getSession()
-        if (session?.user?.role === 'admin') {
-          router.push('/admin')
+      // Buscar usuários do JSON Server
+      const response = await fetch('https://json-server-url/users?email=' + loginForm.email);
+      const users = await response.json();
+      const user = users.find((u: any) => u.email === loginForm.email && u.password === loginForm.password);
+      if (user) {
+        localStorage.setItem('isAuthenticated', 'true');
+        localStorage.setItem('user', JSON.stringify(user));
+        toast.success('Login realizado com sucesso!');
+        setIsOpen(false);
+        if (user.role === 'admin') {
+          router.push('/admin');
         } else {
-          router.refresh()
+          router.refresh();
         }
+      } else {
+        toast.error('Credenciais inválidas');
       }
     } catch (error) {
-      toast.error('Erro ao fazer login')
+      toast.error('Erro ao fazer login');
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
   }
 
   const handleRegister = async (e: React.FormEvent) => {
-    e.preventDefault()
-    
+    e.preventDefault();
     if (registerForm.password !== registerForm.confirmPassword) {
-      toast.error('As senhas não coincidem')
-      return
+      toast.error('As senhas não coincidem');
+      return;
     }
-
     if (registerForm.password.length < 6) {
-      toast.error('A senha deve ter pelo menos 6 caracteres')
-      return
+      toast.error('A senha deve ter pelo menos 6 caracteres');
+      return;
     }
-
-    setIsLoading(true)
-
+    setIsLoading(true);
     try {
-      const response = await fetch('/api/auth/register', {
+      // Verifica se já existe usuário
+      const response = await fetch('https://json-server-url/users?email=' + registerForm.email);
+      const users = await response.json();
+      if (users.length > 0) {
+        toast.error('Email já cadastrado');
+        setIsLoading(false);
+        return;
+      }
+      // Cria usuário no JSON Server
+      const create = await fetch('https://json-server-url/users', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           name: registerForm.name,
           email: registerForm.email,
           password: registerForm.password,
-        }),
-      })
-
-      if (response.ok) {
-        toast.success('Conta criada com sucesso!')
-        setActiveTab('login')
-        setRegisterForm({ name: '', email: '', password: '', confirmPassword: '' })
+          role: 'user'
+        })
+      });
+      if (create.ok) {
+        toast.success('Conta criada com sucesso!');
+        setActiveTab('login');
+        setRegisterForm({ name: '', email: '', password: '', confirmPassword: '' });
       } else {
-        const data = await response.json()
-        toast.error(data.message || 'Erro ao criar conta')
+        toast.error('Erro ao criar conta');
       }
     } catch (error) {
-      toast.error('Erro ao criar conta')
+      toast.error('Erro ao criar conta');
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
   }
 
-  const handleGoogleLogin = async () => {
-    setIsLoading(true)
-    try {
-      await signIn('google', { callbackUrl: '/' })
-    } catch (error) {
-      toast.error('Erro ao fazer login com Google')
-    } finally {
-      setIsLoading(false)
-    }
-  }
+  // Google login removido para compatibilidade com Netlify/Vercel
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -307,16 +295,7 @@ export default function LoginModal({ children, isOpen: propIsOpen, onClose }: Lo
                       animate={{ y: 0, opacity: 1 }}
                       transition={{ delay: 0.5, duration: 0.3 }}
                     >
-                      <Button
-                        type="button"
-                        variant="outline"
-                        className="w-full transition-all duration-200 hover:bg-gray-50 transform hover:scale-[1.02]"
-                        onClick={handleGoogleLogin}
-                        disabled={isLoading}
-                      >
-                        <Chrome className="mr-2 h-4 w-4" />
-                        Google
-                      </Button>
+                      {/* Google login removido para compatibilidade Netlify/Vercel */}
                     </motion.div>
                   </motion.div>
                 )}
@@ -505,16 +484,7 @@ export default function LoginModal({ children, isOpen: propIsOpen, onClose }: Lo
                       animate={{ y: 0, opacity: 1 }}
                       transition={{ delay: 0.7, duration: 0.3 }}
                     >
-                      <Button
-                        type="button"
-                        variant="outline"
-                        className="w-full transition-all duration-200 hover:bg-gray-50 transform hover:scale-[1.02]"
-                        onClick={handleGoogleLogin}
-                        disabled={isLoading}
-                      >
-                        <Chrome className="mr-2 h-4 w-4" />
-                        Google
-                      </Button>
+                      {/* Google login removido para compatibilidade Netlify/Vercel */}
                     </motion.div>
                   </motion.div>
                 )}
