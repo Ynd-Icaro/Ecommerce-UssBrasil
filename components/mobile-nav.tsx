@@ -85,7 +85,7 @@ export function MobileNav() {
                   className="flex items-center px-4 py-3 text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-xl transition-all duration-200"
                   onClick={() => setOpen(false)}
                 >
-                  📂 CATEGORIAS
+                  CATEGORIAS
                 </Link>
                 <Link
                   href="/sobre"
@@ -99,7 +99,7 @@ export function MobileNav() {
                   className="flex items-center px-4 py-3 text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-xl transition-all duration-200"
                   onClick={() => setOpen(false)}
                 >
-                  📞 CONTATO
+                  CONTATO
                 </Link>
               </div>
             </div>

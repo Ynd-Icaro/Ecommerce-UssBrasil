@@ -194,21 +194,21 @@ const productCategories = [
     id: 'smartphones',
     name: 'Smartphones',
     description: 'iPhone e outros smartphones premium',
-    icon: '📱',
+    icon: '',
     count: 12
   },
   {
     id: 'laptops',
     name: 'Laptops',
     description: 'MacBooks e notebooks profissionais',
-    icon: '💻',
+    icon: '',
     count: 8
   },
   {
     id: 'tablets',
     name: 'Tablets',
     description: 'iPads e tablets para criatividade',
-    icon: '📱',
+    icon: '',
     count: 6
   },
   {
@@ -222,14 +222,14 @@ const productCategories = [
     id: 'acessorios',
     name: 'Acessórios',
     description: 'AirPods, capas e mais',
-    icon: '🎧',
+    icon: '',
     count: 25
   },
   {
     id: 'drones',
     name: 'Drones',
     description: 'Drones profissionais e recreativos',
-    icon: '🚁',
+    icon: '',
     count: 3
   }
 ]

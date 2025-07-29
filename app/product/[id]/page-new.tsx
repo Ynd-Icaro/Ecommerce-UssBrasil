@@ -35,6 +35,7 @@ import { toast } from 'react-hot-toast'
 
 // Dados mockados baseados nas imagens da pasta public
 const products = [
+  // ...existing code...
   {
     id: 1,
     name: "iPhone 16 Pro",
@@ -52,16 +53,15 @@ const products = [
     discount: 12,
     inStock: true,
     images: [
-      "/Produtos/Iphone 16 Pro.png",
-      "/Produtos/Iphone 16/Normal x Plus/iPhone 16 Pro Max - Natural Titanium.png",
-      "/Produtos/Iphone 16/Normal x Plus/iPhone 16 Pro Max - Blue Titanium.png",
-      "/Produtos/Iphone 16/Normal x Plus/iPhone 16 Pro Max - White Titanium.png"
+      "/Produtos/Apple/Iphone 16 Pro.png",
+      "/Produtos/Apple/iphone-16-pro-Max-Titanio-natural.webp",
+      "/Produtos/Apple/iphone-16-pro-Max-Titanio-branco.webp",
+      "/Produtos/Apple/iphone-16-pro-Max-Titânio-deserto.webp"
     ],
     colors: [
-      { name: "Titânio Natural", code: "#E8E8E8", image: "/Produtos/Iphone 16 Pro.png" },
-      { name: "Titânio Azul", code: "#4A6FA5", image: "/Produtos/Iphone 16/Normal x Plus/iPhone 16 Pro Max - Blue Titanium.png" },
-      { name: "Titânio Branco", code: "#F8F8F8", image: "/Produtos/Iphone 16/Normal x Plus/iPhone 16 Pro Max - White Titanium.png" },
-      { name: "Titânio Preto", code: "#1F1F1F", image: "/Produtos/Iphone 16 Pro.png" }
+      { name: "Titânio Natural", code: "#E8E8E8", image: "/Produtos/Apple/iphone-16-pro-Max-Titanio-natural.webp" },
+      { name: "Titânio Branco", code: "#F8F8F8", image: "/Produtos/Apple/iphone-16-pro-Max-Titanio-branco.webp" },
+      { name: "Titânio Deserto", code: "#D2B48C", image: "/Produtos/Apple/iphone-16-pro-Max-Titânio-deserto.webp" }
     ],
     storage: [
       { capacity: "128GB", price: 10499, available: true },
@@ -113,6 +113,7 @@ const products = [
       }
     ]
   },
+  // iPhone 16
   {
     id: 2,
     name: "iPhone 16",
@@ -126,24 +127,92 @@ const products = [
     shortDescription: "iPhone 16 com chip A18 e nova Action Button.",
     description: "O iPhone 16 traz inovações incríveis com o chip A18, câmera Fusion de 48MP e a nova Action Button personalizável.",
     isNew: true,
-    images: ["/Produtos/Iphone 16.png"],
+    images: ["/Produtos/Apple/Iphone 16.png"],
     colors: [
-      { name: "Rosa", code: "#FFB3D9", image: "/Produtos/Iphone 16.png" },
-      { name: "Verde-água", code: "#7FFFD4", image: "/Produtos/Iphone 16.png" },
-      { name: "Ultramarino", code: "#4169E1", image: "/Produtos/Iphone 16.png" },
-      { name: "Branco", code: "#FFFFFF", image: "/Produtos/Iphone 16.png" },
-      { name: "Preto", code: "#000000", image: "/Produtos/Iphone 16.png" }
+      { name: "Rosa", code: "#FFB3D9", image: "/Produtos/Apple/Iphone 16.png" },
+      { name: "Verde-água", code: "#7FFFD4", image: "/Produtos/Apple/Iphone 16.png" },
+      { name: "Ultramarino", code: "#4169E1", image: "/Produtos/Apple/Iphone 16.png" },
+      { name: "Branco", code: "#FFFFFF", image: "/Produtos/Apple/Iphone 16.png" },
+      { name: "Preto", code: "#000000", image: "/Produtos/Apple/Iphone 16.png" }
     ],
     storage: [
       { capacity: "128GB", price: 7499, available: true },
       { capacity: "256GB", price: 8499, available: true },
       { capacity: "512GB", price: 10499, available: true }
     ]
+  },
+  // iPad Pro
+  {
+    id: 3,
+    name: "iPad Pro M4",
+    slug: "ipad-pro-m4",
+    brand: "Apple",
+    basePrice: 9999,
+    originalPrice: 10999,
+    category: "iPad",
+    rating: 4.9,
+    reviewCount: 1200,
+    shortDescription: "O iPad Pro mais poderoso com chip M4.",
+    description: "O novo iPad Pro M4 traz performance de desktop, tela Ultra Retina XDR e suporte a Apple Pencil Pro.",
+    isNew: true,
+    images: ["/Produtos/Apple/Ipad Pro.png"],
+    colors: [
+      { name: "Prata", code: "#F8F8F8", image: "/Produtos/Apple/Ipad Pro.png" },
+      { name: "Cinza Espacial", code: "#1F1F1F", image: "/Produtos/Apple/Ipad Pro.png" }
+    ],
+    storage: [
+      { capacity: "256GB", price: 9999, available: true },
+      { capacity: "512GB", price: 10999, available: true },
+      { capacity: "1TB", price: 12999, available: true }
+    ]
+  },
+  // Apple Watch Ultra 2
+  {
+    id: 4,
+    name: "Apple Watch Ultra 2",
+    slug: "watch-ultra-2",
+    brand: "Apple",
+    basePrice: 3499,
+    originalPrice: 3999,
+    category: "Watch",
+    rating: 4.8,
+    reviewCount: 800,
+    shortDescription: "O relógio mais resistente e avançado da Apple.",
+    description: "Apple Watch Ultra 2 com GPS, resistência à água e bateria de longa duração.",
+    isNew: true,
+    images: ["/Produtos/Apple/Watch Ultra 2.png"],
+    colors: [
+      { name: "Titanium", code: "#E8E8E8", image: "/Produtos/Apple/Watch Ultra 2.png" }
+    ],
+    storage: [
+      { capacity: "64GB", price: 3499, available: true }
+    ]
+  },
+  // AirPods Max
+  {
+    id: 5,
+    name: "AirPods Max",
+    slug: "airpods-max",
+    brand: "Apple",
+    basePrice: 1799,
+    originalPrice: 1999,
+    category: "AirPods",
+    rating: 4.7,
+    reviewCount: 600,
+    shortDescription: "Som de alta fidelidade com cancelamento ativo de ruído.",
+    description: "Os AirPods Max oferecem áudio espacial, conforto premium e bateria de longa duração.",
+    isNew: true,
+    images: ["/Produtos/Apple/airpods-max.png"],
+    colors: [
+      { name: "Prata", code: "#F8F8F8", image: "/Produtos/Apple/airpods-max.png" },
+      { name: "Cinza Espacial", code: "#1F1F1F", image: "/Produtos/Apple/airpods-max.png" }
+    ],
+    storage: [
+      { capacity: "64GB", price: 1799, available: true }
+    ]
   }
 ]
-
 export default function ProductPage({ params }: { params: { id: string } }) {
-  const router = useRouter()
   const [selectedProduct, setSelectedProduct] = useState<typeof products[0] | null>(null)
   const [selectedImage, setSelectedImage] = useState(0)
   const [selectedColor, setSelectedColor] = useState(0)
@@ -172,7 +241,7 @@ export default function ProductPage({ params }: { params: { id: string } }) {
     )
   }
 
-  const currentPrice = selectedProduct.storage[selectedStorage]?.price || selectedProduct.basePrice
+  const currentPrice = selectedProduct.storage?.[selectedStorage]?.price || selectedProduct.basePrice
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat('pt-BR', {
       style: 'currency',
@@ -184,7 +253,7 @@ export default function ProductPage({ params }: { params: { id: string } }) {
     toast.success('Produto adicionado ao carrinho!')
   }
 
-  const currentImage = selectedProduct.colors[selectedColor]?.image || selectedProduct.images[selectedImage]
+  const currentImage = selectedProduct.colors?.[selectedColor]?.image || selectedProduct.images?.[selectedImage]
 
   return (
     <div className="min-h-screen bg-white">
@@ -238,12 +307,12 @@ export default function ProductPage({ params }: { params: { id: string } }) {
               {/* Badges */}
               <div className="absolute top-6 left-6 flex flex-col space-y-2">
                 {selectedProduct.isNew && (
-                  <Badge className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1">
+                  <Badge className="bg-[var(--uss-primary)] hover:bg-[var(--uss-primary-dark)] text-white px-3 py-1">
                     Novo
                   </Badge>
                 )}
                 {selectedProduct.discount && selectedProduct.discount > 0 && (
-                  <Badge className="bg-red-600 hover:bg-red-700 text-white px-3 py-1">
+                  <Badge className="bg-[var(--uss-error)] hover:bg-red-700 text-white px-3 py-1">
                     -{selectedProduct.discount}%
                   </Badge>
                 )}
@@ -278,7 +347,7 @@ export default function ProductPage({ params }: { params: { id: string } }) {
                     onClick={() => setSelectedImage(index)}
                     className={`w-20 h-20 rounded-xl border-2 transition-all duration-200 ${
                       selectedImage === index 
-                        ? 'border-blue-600 shadow-lg' 
+                        ? 'border-[var(--uss-primary)] shadow-lg' 
                         : 'border-gray-200 hover:border-gray-300'
                     }`}
                   >
@@ -357,7 +426,7 @@ export default function ProductPage({ params }: { params: { id: string } }) {
                       onClick={() => setSelectedColor(index)}
                       className={`w-12 h-12 rounded-full border-4 transition-all duration-200 ${
                         selectedColor === index 
-                          ? 'border-blue-600 shadow-lg' 
+                          ? 'border-[var(--uss-primary)] shadow-lg' 
                           : 'border-gray-200 hover:border-gray-300'
                       }`}
                       style={{ backgroundColor: color.code }}
@@ -382,7 +451,7 @@ export default function ProductPage({ params }: { params: { id: string } }) {
                       disabled={!storage.available}
                       className={`p-4 rounded-xl border-2 text-center transition-all duration-200 ${
                         selectedStorage === index 
-                          ? 'border-blue-600 bg-blue-50 text-blue-900' 
+                          ? 'border-[var(--uss-primary)] bg-[var(--uss-primary-light)] text-[var(--uss-secondary)]' 
                           : storage.available 
                             ? 'border-gray-200 hover:border-gray-300' 
                             : 'border-gray-100 bg-gray-50 text-gray-400 cursor-not-allowed'
@@ -428,13 +497,13 @@ export default function ProductPage({ params }: { params: { id: string } }) {
               <div className="flex space-x-4">
                 <Button 
                   size="lg" 
-                  className="flex-1 h-12"
+                  className="flex-1 h-12 bg-[var(--uss-primary)] hover:bg-[var(--uss-primary-dark)] text-white"
                   onClick={addToCart}
                 >
                   <ShoppingCart className="h-5 w-5 mr-2" />
                   Adicionar ao Carrinho
                 </Button>
-                <Button size="lg" variant="outline" className="h-12">
+                <Button size="lg" variant="outline" className="h-12 border-[var(--uss-primary)] text-[var(--uss-primary)] hover:bg-[var(--uss-primary-light)] hover:text-[var(--uss-secondary)]">
                   Comprar Agora
                 </Button>
               </div>
@@ -442,7 +511,7 @@ export default function ProductPage({ params }: { params: { id: string } }) {
               <Button 
                 variant="outline" 
                 size="lg" 
-                className="w-full h-12 bg-green-50 border-green-200 text-green-700 hover:bg-green-100"
+                className="w-full h-12 bg-[var(--uss-success)]/10 border-[var(--uss-success)] text-[var(--uss-success)] hover:bg-[var(--uss-success)]/20"
               >
                 <MessageCircle className="h-5 w-5 mr-2" />
                 Comprar via WhatsApp
@@ -454,19 +523,19 @@ export default function ProductPage({ params }: { params: { id: string } }) {
               <h3 className="font-semibold text-gray-900 mb-4">Benefícios</h3>
               <div className="space-y-3">
                 <div className="flex items-center space-x-3">
-                  <Truck className="h-5 w-5 text-blue-600" />
+                  <Truck className="h-5 w-5 text-[var(--uss-primary)]" />
                   <span className="text-sm text-gray-700">Frete grátis para todo o Brasil</span>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <Shield className="h-5 w-5 text-green-600" />
+                  <Shield className="h-5 w-5 text-[var(--uss-success)]" />
                   <span className="text-sm text-gray-700">Garantia de 1 ano</span>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <RotateCcw className="h-5 w-5 text-purple-600" />
+                  <RotateCcw className="h-5 w-5 text-[var(--uss-accent)]" />
                   <span className="text-sm text-gray-700">7 dias para troca e devolução</span>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <Award className="h-5 w-5 text-yellow-600" />
+                  <Award className="h-5 w-5 text-[var(--uss-accent)]" />
                   <span className="text-sm text-gray-700">Produto original Apple</span>
                 </div>
               </div>
@@ -506,8 +575,8 @@ export default function ProductPage({ params }: { params: { id: string } }) {
                             const Icon = feature.icon
                             return (
                               <div key={index} className="flex items-start space-x-4">
-                                <div className="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
-                                  <Icon className="h-6 w-6 text-blue-600" />
+                                <div className="flex-shrink-0 w-12 h-12 bg-[var(--uss-primary-light)] rounded-xl flex items-center justify-center">
+                                  <Icon className="h-6 w-6 text-[var(--uss-primary)]" />
                                 </div>
                                 <div>
                                   <h5 className="font-semibold text-gray-900 mb-1">{feature.title}</h5>

@@ -276,7 +276,7 @@ export default function LancamentosPage() {
                         )}
                         {product.isHot && (
                           <Badge className="bg-gradient-to-r from-red-500 to-red-600 text-white border-0 shadow-md">
-                            🔥 Hot
+                            Hot
                           </Badge>
                         )}
                       </div>

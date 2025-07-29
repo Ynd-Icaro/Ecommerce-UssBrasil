@@ -341,9 +341,9 @@ export default function CartPage() {
 
                 {/* Informações Extras */}
                 <div className="pt-4 space-y-2 text-xs text-gray-500">
-                  <p>✓ Entrega rápida e segura</p>
-                  <p>✓ Garantia de 1 ano</p>
-                  <p>✓ Suporte técnico especializado</p>
+                  <p>Entrega rápida e segura</p>
+                  <p>Garantia de 1 ano</p>
+                  <p>Suporte técnico especializado</p>
                 </div>
               </CardContent>
             </Card>

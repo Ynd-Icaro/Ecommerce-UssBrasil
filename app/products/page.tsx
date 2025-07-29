@@ -16,7 +16,11 @@ import {
   List,
   Loader2
 } from 'lucide-react'
-import { useAPI } from '@/hooks/use-api'
+import { produtosApple } from '@/lib/Products/Apple/page'
+import { produtosJBL } from '@/lib/Products/JBL/page'
+import { produtosDji } from '@/lib/Products/Dji/page'
+import { produtosGeonav } from '@/lib/Products/Geonav/page'
+import { produtosXiomi } from '@/lib/Products/Xiomi/page'
 
 // Dados mock de categorias
 const categories = [
@@ -29,9 +33,37 @@ const categories = [
 ]
 
 // Componente que usa useSearchParams
+/**
+ * Renders the main products page content, including filters, sorting, brand sidebar, and product grid/list.
+ * 
+ * Features:
+ * - Fetches and merges product lists from multiple brands.
+ * - Reads filter parameters (category, search, brand) from the URL using `useSearchParams`.
+ * - Allows filtering by category, brand, and search term.
+ * - Supports sorting by newest, price (low/high), and name.
+ * - Provides grid and list view modes for displaying products.
+ * - Displays loading state, empty state, and result count.
+ * - Integrates animated transitions for UI elements.
+ * - Handles filter reset and product mapping for the `ProductCard` component.
+ * 
+ * @component
+ * @returns {JSX.Element} The rendered products content page.
+ *
+ * @remarks
+ * - Requires product arrays (`produtosApple`, `produtosJBL`, etc.) and category definitions (`categories`) to be available in scope.
+ * - Depends on UI components such as `BrandSidebar`, `ProductCard`, `Button`, `Input`, and animation helpers.
+ * - Handles edge cases for missing product fields and variations.
+ */
 function ProductsContent() {
   const searchParams = useSearchParams()
-  const { data: products, loading } = useAPI<any>('products')
+  const products = [
+    ...produtosApple,
+    ...produtosJBL,
+    ...produtosDji,
+    ...produtosGeonav,
+    ...produtosXiomi
+  ];
+  const loading = false;
   
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('all')
@@ -53,20 +85,25 @@ function ProductsContent() {
   // Filtrar e ordenar produtos
   const filteredProducts = (products || [])
     .filter(product => {
-      const matchesCategory = selectedCategory === 'all' || product.category === selectedCategory
-      const matchesBrand = !selectedBrand || product.brand?.toLowerCase() === selectedBrand.toLowerCase()
-      const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           (product.description && product.description.toLowerCase().includes(searchTerm.toLowerCase()))
+      const matchesCategory = selectedCategory === 'all' || product.categoria === selectedCategory
+      const matchesBrand = !selectedBrand || product.marca?.toLowerCase() === selectedBrand.toLowerCase()
+      const matchesSearch = searchTerm.trim() === '' ||
+        product.nome?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        (product.descricao && product.descricao.toLowerCase().includes(searchTerm.toLowerCase()))
       return matchesCategory && matchesBrand && matchesSearch
     })
     .sort((a, b) => {
       switch (sortBy) {
         case 'price-low':
-          return a.price - b.price
+          return (a.preco ?? 0) - (b.preco ?? 0)
         case 'price-high':
-          return b.price - a.price
+          return (b.preco ?? 0) - (a.preco ?? 0)
         case 'name':
-          return a.name.localeCompare(b.name)
+          return (a.nome ?? '').localeCompare(b.nome ?? '')
+        case 'newest':
+          const aDate = 'dataLancamento' in a && a.dataLancamento instanceof Date ? a.dataLancamento.getTime() : 0;
+          const bDate = 'dataLancamento' in b && b.dataLancamento instanceof Date ? b.dataLancamento.getTime() : 0;
+          return bDate - aDate;
         default:
           return 0
       }
@@ -190,14 +227,47 @@ function ProductsContent() {
                       ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4' 
                       : 'grid-cols-1'
                   }`}>
-                    {filteredProducts.map((product) => (
-                      <StaggerItem key={product.id}>
-                        <ProductCard
-                          product={product}
-                          viewMode={viewMode}
-                        />
-                      </StaggerItem>
-                    ))}
+                    {filteredProducts.map((product) => {
+                      // Map your product to the expected Product type
+                        return (
+                          <StaggerItem key={product.id}>
+                            <ProductCard
+                              title={product.nome ?? ''}
+                              slug={'slug' in product && typeof product.slug === 'string'
+                                ? product.slug
+                                : (product.nome?.toLowerCase().replace(/\s+/g, '-') ?? '')
+                              }
+                              category={product.categoria ?? ''}
+                              price={product.preco ?? 0}
+                              image={
+                                'imagem' in product && typeof (product as any).imagem === 'string'
+                                  ? (product as any).imagem
+                                  : ('images' in product && Array.isArray((product as any).images) && (product as any).images.length > 0
+                                    ? (product as any).images[0]
+                                    : ('images' in product && typeof (product as any).images === 'string'
+                                      ? (product as any).images
+                                      : '')
+                                  ) || ''
+                              }
+                              brand={product.marca ?? ''}
+                              description={product.descricao ?? ''}
+                              variations={'variacoes' in product && Array.isArray(product.variacoes) ? product.variacoes : []}
+                              warranty={'garantia' in product ? (product.garantia ?? '') : ''}
+                              stock={
+                                'variacoes' in product && Array.isArray((product as any).variacoes)
+                                  ? (product as any).variacoes.some((v: any) => v.estoque)
+                                  : ('estoque' in product ? (product as any).estoque : true)
+                              }
+                              rating={'rating' in product && typeof (product as any).rating === 'number' ? (product as any).rating : 0}
+                              reviews={'reviews' in product && Array.isArray((product as any).reviews) ? (product as any).reviews : []}
+                              tags={'tags' in product && Array.isArray((product as any).tags) ? (product as any).tags : []}
+                              createdAt={'dataLancamento' in product && product.dataLancamento ? product.dataLancamento : new Date()}
+                              updatedAt={'updatedAt' in product && product.updatedAt ? product.updatedAt : new Date()}
+                              viewMode={viewMode}
+                            />
+                          </StaggerItem>
+                        );
+                    })}
                   </div>
                 </StaggerContainer>
               </FadeIn>

@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import Link from 'next/link'
+import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { featuredProducts as featuredProductsData } from '@/lib/product-data'
@@ -17,6 +18,7 @@ import {
   Monitor,
   Tablet
 } from 'lucide-react'
+// import { brands } from '@/lib/design-system'
 
 // ========== CONFIGURAÇÕES DE CATEGORIAS ==========
 const categories = [
@@ -25,8 +27,8 @@ const categories = [
     icon: Smartphone,
     description: 'iPhone 16 Pro - Forjado em titânio',
     href: '/categories/iphone',
-    video: '/Videos/IphoneVideo.mp4',
-    image: '/Imagens/Iphone-16-Pro.png',
+    video: '/videos/iphone.mp4',
+    image: '/produtos/Apple/Iphone 16 Pro.png',
     gradient: 'from-blue-600 to-purple-600',
     price: 'A partir de R$ 10.499'
   },
@@ -35,8 +37,8 @@ const categories = [
     icon: Laptop,
     description: 'Performance que supera expectativas',
     href: '/categories/mac',
-    video: '/Videos/Macs Video.mp4',
-    image: '/Imagens/Macbook-Pro.png',
+    video: '/videos/mac.mp4',
+    image: '/produtos/Apple/Macbook Pro.png',
     gradient: 'from-gray-600 to-gray-800',
     price: 'A partir de R$ 12.999'
   },
@@ -45,8 +47,8 @@ const categories = [
     icon: Tablet,
     description: 'Sua criatividade, sem limites',
     href: '/categories/ipad',
-    video: '/Videos/IpadVideo.mp4',
-    image: '/Imagens/Ipad-Pro.png',
+    video: '/videos/ipad.mp4',
+    image: '/produtos/Apple/Ipad Pro.png',
     gradient: 'from-purple-600 to-pink-600',
     price: 'A partir de R$ 4.999'
   },
@@ -55,28 +57,18 @@ const categories = [
     icon: Watch,
     description: 'Sua saúde. Sua vida.',
     href: '/categories/watch',
-    video: '/Videos/Apple Watch.mp4',
-    image: '/Imagens/Watch-Series-10.png',
+    video: '/videos/watch.mp4',
+    image: '/produtos/Apple/Watch Ultra 2.png',
     gradient: 'from-red-600 to-orange-600',
     price: 'A partir de R$ 3.499'
-  },
-  {
-    name: 'AirPods',
-    icon: Headphones,
-    description: 'Som que envolve você',
-    href: '/categories/airpods',
-    video: '/Videos/AirPods Video.webm',
-    image: '/Imagens/Air-Pods-Max.png',
-    gradient: 'from-indigo-600 to-blue-600',
-    price: 'A partir de R$ 1.799'
   },
   {
     name: 'Acessórios',
     icon: Monitor,
     description: 'Complete sua experiência Apple',
     href: '/categories/acessorios',
-    video: '/Videos/Macs Video.mp4',
-    image: '/Imagens/Studio-Display.png',
+    video: '/videos/mac.mp4',
+    image: '/produtos/Apple/Magic-Mouse.png',
     gradient: 'from-green-600 to-teal-600',
     price: 'A partir de R$ 299'
   }
@@ -108,7 +100,6 @@ const SimpleProductCard = ({
   originalPrice, 
   image, 
   category, 
-  rating, 
   isNew 
 }: {
   id: number
@@ -117,16 +108,13 @@ const SimpleProductCard = ({
   originalPrice?: string
   image: string
   category: string
-  rating: number
   isNew: boolean
 }) => (
   <Link href={`/product/${id}`} className="group">
     <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden">
       <div className="relative aspect-square bg-gray-50 p-8">
         {isNew && (
-          <Badge className="absolute top-4 left-4 bg-red-500 text-white">
-            Novo
-          </Badge>
+          <Badge className="absolute top-4 left-4 bg-red-500 text-white">Novo</Badge>
         )}
         <img
           src={image}
@@ -150,14 +138,92 @@ const SimpleProductCard = ({
 
 // ========== COMPONENTE PRINCIPAL ==========
 export default function HomePage() {
-  const companyName = 'USS Brasil'
-
+  const [showProducts, setShowProducts] = useState(false);
+  const [showBrands, setShowBrands] = useState(false);
+  const companyName = 'USS Brasil';
+  const brands = [
+    { name: 'Apple', image: '/produtos/Apple/Iphone 16 Pro.png' },
+    { name: 'JBL', image: '/produtos/JBL/logo.png' },
+    { name: 'Geonav', image: '/produtos/Geonav/logo.png' },
+    { name: 'Dji', image: '/produtos/Dji/logo.png' },
+    { name: 'Xiomi', image: '/produtos/Xiomi/logo.png' }
+  ];
   return (
-    <div className="min-h-screen bg-white">
-      {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
-        <div className="absolute inset-0">
-          <VideoPlayer
+    <>
+      <nav className="fixed top-0 left-0 w-full z-50 bg-white/70 backdrop-blur-xl border-b border-white/30 shadow-lg">
+        <div className="flex items-center justify-between px-6 py-2">
+          <div className="flex items-center gap-8">
+            <Link href="/" className="flex items-center gap-2">
+              <span className="font-bold text-2xl tracking-tight text-gray-900">USS Brasil</span>
+            </Link>
+            {/* Marcas */}
+            <div className="hidden md:flex items-center gap-4">
+              {brands.map((brand) => (
+                <Link key={brand.name} href={`/marcas/${brand.name.toLowerCase()}`} className="flex items-center gap-2 px-2 py-1 rounded-lg hover:bg-white/40 transition-colors">
+                  <img src={brand.image} alt={brand.name} className="h-6 w-6 object-contain rounded" />
+                  <span className="text-gray-800 font-medium text-sm">{brand.name}</span>
+                </Link>
+              ))}
+            </div>
+            {/* Combobox Produtos */}
+            <div className="relative group">
+              <button className="flex items-center gap-2 font-medium px-4 py-2 rounded-lg bg-gray-900 hover:bg-gray-800 border border-gray-800 shadow-sm group-hover:bg-gray-800" id="product-combobox" aria-haspopup="listbox" aria-expanded="false">
+                Produtos
+                <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              <ul className="absolute left-0 mt-2 w-56 bg-white border border-gray-200 rounded-lg shadow-lg z-50 group-hover:block hidden" role="listbox" aria-labelledby="product-combobox">
+                <li role="option"><Link href="/products/" className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 rounded transition-colors">Todos os Produtos</Link></li>
+                <li role="option"><Link href="/lancamentos/" className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 rounded transition-colors">Lançamentos</Link></li>
+              </ul>
+            </div>
+            {/* Combobox Categorias */}
+            <div className="relative group">
+              <button className="flex items-center gap-2 font-medium px-4 py-2 rounded-lg bg-gray-900 hover:bg-gray-800 border border-gray-800 shadow-sm group-hover:bg-gray-800" id="category-combobox" aria-haspopup="listbox" aria-expanded="false">
+                Categorias
+                <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              <ul className="absolute left-0 mt-2 w-56 bg-white border border-gray-200 rounded-lg shadow-lg z-50 group-hover:block hidden" role="listbox" aria-labelledby="category-combobox">
+                {categories.map((category) => (
+                  <li key={category.name} role="option">
+                    <Link href={category.href} className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 rounded transition-colors">
+                      <span>{category.name}</span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <Link href="/lancamentos/" className="hidden md:inline-block font-medium px-4 py-2 rounded-lg hover:bg-gray-900 transition-colors">Lançamentos</Link>
+            {/* Barra de Pesquisa */}
+            <div className="relative w-64">
+              <input type="text" placeholder="Buscar..." className="w-full px-4 py-2 rounded-lg bg-gray-800 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-primary" />
+              <svg className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" /></svg>
+            </div>
+          </div>
+          <div className="flex items-center gap-4">
+            {/* Favoritos */}
+            <Link href="/favoritos/" className="p-2 rounded-full hover:bg-gray-800">
+              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 15l7-7 7 7" /></svg>
+            </Link>
+            {/* Carrinho */}
+            <Link href="/carrinho/" className="p-2 rounded-full hover:bg-gray-800">
+              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1" /><circle cx="20" cy="21" r="1" /><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61l1.38-7.39H6" /></svg>
+            </Link>
+            {/* Perfil/Login/Registro */}
+            <Link href="/perfil/" className="p-2 rounded-full hover:bg-gray-800">
+              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="7" r="4" /><path d="M5.5 21a7.5 7.5 0 0 1 13 0" /></svg>
+            </Link>
+          </div>
+        </div>
+      </nav>
+      <div className="min-h-screen bg-white">
+        {/* Hero Section */}
+        <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+          <div className="absolute inset-0">
+            <VideoPlayer
             src="/Videos/IphoneVideo.mp4"
             autoplay
             muted
@@ -406,34 +472,26 @@ export default function HomePage() {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true }}
               >
-                <SimpleProductCard 
-                  id={product.id}
-                  name={product.name}
-                  price={`R$ ${product.price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`}
-                  originalPrice={product.originalPrice ? `R$ ${product.originalPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}` : undefined}
-                  image={product.images.main}
-                  category={product.categoria}
-                  rating={product.rating}
-                  isNew={product.isNew}
-                />
+                <div>
+                  <SimpleProductCard 
+                    id={product.id}
+                    name={product.name}
+                    price={`R$ ${product.price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`}
+                    originalPrice={product.originalPrice ? `R$ ${product.originalPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}` : undefined}
+                    image={product.images.main}
+                    category={product.categoria}
+                    isNew={product.isNew}
+                  />
+                  {/* Estoque visual */}
+                  {product.stock > 10 && <span className="text-green-600 text-xs font-semibold ml-2">Em estoque</span>}
+                  {product.stock > 0 && product.stock <= 10 && <span className="text-yellow-600 text-xs font-semibold ml-2">Estoque baixo</span>}
+                  {product.stock === 0 && <span className="text-red-600 text-xs font-semibold ml-2">Fora de estoque</span>}
+                </div>
               </motion.div>
             ))}
           </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            viewport={{ once: true }}
-            className="text-center mt-12"
-          >
-            <Button size="lg" asChild>
-              <Link href="/products">
-                Ver todos os produtos
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
-            </Button>
-          </motion.div>
+          {/* ...existing code... */}
         </div>
       </section>
 
@@ -466,6 +524,7 @@ export default function HomePage() {
           </motion.div>
         </div>
       </section>
-    </div>
+      </div>
+    </>
   )
 }

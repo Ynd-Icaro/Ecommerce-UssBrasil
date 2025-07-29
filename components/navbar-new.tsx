@@ -1,445 +1,111 @@
+// ...existing code...
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
-import { Search, User, ShoppingBag, ChevronDown, X } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Badge } from '@/components/ui/badge'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import { MobileNav } from '@/components/mobile-nav'
+import Image from 'next/image'
+import { X } from 'lucide-react'
 
-const categoryStructure = {
-  smartphones: {
-    title: 'iPhone',
-    href: '/categories/smartphones',
-    items: [
-      { name: 'iPhone 16 Pro', href: '/categories/iphone-16-pro', count: 3 },
-      { name: 'iPhone 16', href: '/categories/iphone-16', count: 4 },
-      { name: 'iPhone 15', href: '/categories/iphone-15', count: 8 },
-      { name: 'Acessórios iPhone', href: '/categories/acessorios-iphone', count: 15 }
+const marcas = [
+  {
+    nome: 'Apple',
+    pasta: 'Apple',
+    categorias: [
+      { nome: 'iPhones', imagem: '/produtos/Apple/Iphone 16 Pro.png', categoria: 'iphone' },
+      { nome: 'iPads', imagem: '/produtos/Apple/Ipad Pro.png', categoria: 'ipad' },
+      { nome: 'Mac', imagem: '/produtos/Apple/Macbook Pro.png', categoria: 'mac' },
+      { nome: 'Watch', imagem: '/produtos/Apple/Watch Ultra 2.png', categoria: 'watch' },
+      { nome: 'Acessórios', imagem: '/produtos/Apple/Magic-Mouse.png', categoria: 'acessorios' }
     ]
   },
-  mac: {
-    title: 'Mac',
-    href: '/categories/mac',
-    items: [
-      { name: 'MacBook Air', href: '/categories/macbook-air', count: 3 },
-      { name: 'MacBook Pro', href: '/categories/macbook-pro', count: 4 },
-      { name: 'iMac', href: '/categories/imac', count: 2 },
-      { name: 'Mac mini', href: '/categories/mac-mini', count: 2 },
-      { name: 'Mac Studio', href: '/categories/mac-studio', count: 1 },
-      { name: 'Mac Pro', href: '/categories/mac-pro', count: 1 }
-    ]
-  },
-  tablets: {
-    title: 'iPad',
-    href: '/categories/ipad',
-    items: [
-      { name: 'iPad Pro', href: '/categories/ipad-pro', count: 2 },
-      { name: 'iPad Air', href: '/categories/ipad-air', count: 2 },
-      { name: 'iPad', href: '/categories/ipad', count: 3 },
-      { name: 'iPad mini', href: '/categories/ipad-mini', count: 1 }
-    ]
-  },
-  watch: {
-    title: 'Watch',
-    href: '/categories/apple-watch',
-    items: [
-      { name: 'Apple Watch Series 10', href: '/categories/apple-watch-series-10', count: 2 },
-      { name: 'Apple Watch Ultra 2', href: '/categories/apple-watch-ultra-2', count: 2 },
-      { name: 'Apple Watch SE', href: '/categories/apple-watch-se', count: 2 }
-    ]
-  },
-  audio: {
-    title: 'AirPods',
-    href: '/categories/airpods',
-    items: [
-      { name: 'AirPods 4', href: '/categories/airpods-4', count: 2 },
-      { name: 'AirPods Pro 2', href: '/categories/airpods-pro-2', count: 2 },
-      { name: 'AirPods Max', href: '/categories/airpods-max', count: 1 }
-    ]
-  }
-}
-
-const mockProducts = [
-  { id: 1, name: 'iPhone 16 Pro', price: 'R$ 10.499', image: '/Produtos/Iphone 16 Pro.png', category: 'iPhone' },
-  { id: 2, name: 'iPhone 16', price: 'R$ 7.499', image: '/Produtos/Iphone 16.png', category: 'iPhone' },
-  { id: 3, name: 'MacBook Pro', price: 'R$ 19.999', image: '/Produtos/Macbook Pro.png', category: 'Mac' },
-  { id: 4, name: 'MacBook Air', price: 'R$ 11.999', image: '/Produtos/Macbook Air.png', category: 'Mac' },
-  { id: 5, name: 'iPad Pro', price: 'R$ 10.999', image: '/Produtos/Ipad Pro.png', category: 'iPad' },
-  { id: 6, name: 'Apple Watch Ultra 2', price: 'R$ 6.999', image: '/Produtos/Watch Ultra 2.png', category: 'Watch' },
-  { id: 7, name: 'AirPods Pro 2', price: 'R$ 2.499', image: '/Produtos/Air Pods Pro 2', category: 'AirPods' },
-  { id: 8, name: 'AirPods Max', price: 'R$ 4.999', image: '/Produtos/Air Pods Max.png', category: 'AirPods' }
-]
+  { nome: 'JBL', pasta: 'JBL', categorias: [] },
+  { nome: 'Geonav', pasta: 'Geonav', categorias: [] },
+  { nome: 'Dji', pasta: 'Dji', categorias: [] },
+  { nome: 'Xiomi', pasta: 'Xiomi', categorias: [] }
+];
 
 export default function Navbar() {
-  const [searchQuery, setSearchQuery] = useState('')
-  const [isSearchFocused, setIsSearchFocused] = useState(false)
-  const [searchResults, setSearchResults] = useState<typeof mockProducts>([])
-  const [isScrolled, setIsScrolled] = useState(false)
-  const searchRef = useRef<HTMLDivElement>(null)
-  const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null)
-
-  // Handle scroll effect
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 0)
-    }
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
-  // Handle search with debounce
-  useEffect(() => {
-    if (searchTimeoutRef.current) {
-      clearTimeout(searchTimeoutRef.current)
-    }
-
-    if (searchQuery.trim()) {
-      searchTimeoutRef.current = setTimeout(() => {
-        const filtered = mockProducts.filter(product =>
-          product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          product.category.toLowerCase().includes(searchQuery.toLowerCase())
-        )
-        setSearchResults(filtered)
-      }, 300)
-    } else {
-      setSearchResults([])
-    }
-
-    return () => {
-      if (searchTimeoutRef.current) {
-        clearTimeout(searchTimeoutRef.current)
-      }
-    }
-  }, [searchQuery])
-
-  // Handle click outside search
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
-        setIsSearchFocused(false)
-      }
-    }
-
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [])
-
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (searchQuery.trim()) {
-      window.location.href = `/products?search=${encodeURIComponent(searchQuery.trim())}`
-      setIsSearchFocused(false)
-    }
-  }
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [hoveredBrand, setHoveredBrand] = useState<string | null>(null);
 
   return (
-    <>
-      {/* Main Navbar */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled 
-          ? 'bg-white/80 backdrop-blur-xl border-b border-gray-200/50 shadow-sm' 
-          : 'bg-white/95 backdrop-blur-sm'
-      }`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            {/* Mobile menu button */}
-            <div className="md:hidden">
-              <MobileNav />
-            </div>
-
-            {/* Logo */}
-            <div className="flex-shrink-0">
-              <Link href="/" className="text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent tracking-tight transition-all duration-300">
-                USSBRASIL
-              </Link>
-            </div>
-
-            {/* Desktop Navigation */}
-            <div className="hidden md:block">
-              <div className="ml-10 flex items-center space-x-8">
-                {/* iPhone Dropdown */}
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" className="flex items-center space-x-1 text-gray-700 hover:text-gray-900 font-medium text-sm transition-colors duration-200">
-                      <span>iPhone</span>
-                      <ChevronDown className="h-3 w-3 transition-transform duration-200 group-data-[state=open]:rotate-180" />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent className="w-80 p-6 mt-2 bg-white/95 backdrop-blur-xl border border-gray-200/50 shadow-xl rounded-2xl">
-                    <div className="space-y-4">
-                      <DropdownMenuLabel className="text-lg font-semibold text-gray-900 border-b border-gray-100 pb-3">
-                        <Link href={categoryStructure.smartphones.href} className="hover:text-ussbrasil-900 transition-colors">
-                          {categoryStructure.smartphones.title}
+    <nav className="fixed top-0 left-0 w-full z-50 bg-gray-950/90 backdrop-blur border-b border-gray-900 shadow-lg text-white">
+      <div className="flex items-center justify-between px-6 py-2">
+        <div className="flex items-center gap-8">
+          <Link href="/" className="flex items-center gap-2">
+            <span className="font-bold text-2xl tracking-tight text-white">USS Brasil</span>
+          </Link>
+          <Link href="/categories" className="hidden md:inline-block font-medium px-4 py-2 rounded-lg hover:bg-gray-900 transition-colors">Categorias</Link>
+          <Link href="/lancamentos" className="hidden md:inline-block font-medium px-4 py-2 rounded-lg hover:bg-gray-900 transition-colors">Lançamentos</Link>
+          <Link href="/" className="hidden md:inline-block font-medium px-4 py-2 rounded-lg hover:bg-gray-900 transition-colors">Sobre</Link>
+        </div>
+        <div className="flex items-center gap-4">
+          <button
+            className="flex items-center gap-2 font-medium px-4 py-2 rounded-lg bg-gray-900 hover:bg-gray-800 border border-gray-800 shadow-sm"
+            onMouseEnter={() => setSidebarOpen(true)}
+            onClick={() => setSidebarOpen(true)}
+          >
+            Produtos
+            <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+        </div>
+      </div>
+      {/* Sidebar lateral direita */}
+      {sidebarOpen && (
+        <div className="fixed top-0 right-0 h-full w-full md:w-96 bg-gray-950 shadow-2xl z-50 flex flex-col border-l border-gray-800 animate-slidein">
+          <div className="flex justify-between items-center px-6 py-4 border-b border-gray-800">
+            <span className="text-lg font-bold">Marcas</span>
+            <button className="text-gray-400 hover:text-white" onClick={() => setSidebarOpen(false)}>
+              <X size={24} />
+            </button>
+          </div>
+          <div className="flex flex-col gap-2 px-6 py-4 overflow-y-auto">
+            {marcas.map((marca) => (
+              <div key={marca.nome} className="group relative">
+                <button
+                  className="w-full flex items-center gap-3 px-4 py-2 rounded-lg bg-gray-900 hover:bg-gray-800 text-left text-white font-semibold transition-all"
+                  onMouseEnter={() => setHoveredBrand(marca.nome)}
+                  onMouseLeave={() => setHoveredBrand(null)}
+                  onClick={() => setHoveredBrand(marca.nome)}
+                >
+                  <Image src={`/produtos/${marca.pasta}/${marca.categorias[0]?.imagem?.split('/').pop() || 'logo.png'}`} alt={marca.nome} width={32} height={32} className="rounded" />
+                  {marca.nome}
+                </button>
+                {/* Subpainel lateral de categorias */}
+                {hoveredBrand === marca.nome && marca.categorias.length > 0 && (
+                  <div className="absolute right-full md:right-96 top-0 h-full w-80 bg-gray-900 border-l border-gray-800 shadow-xl z-50 flex flex-col animate-slidein">
+                    <div className="px-4 py-4 border-b border-gray-800 text-lg font-bold">Categorias</div>
+                    <div className="flex flex-col gap-2 px-4 py-4">
+                      {marca.categorias.map((cat) => (
+                        <Link
+                          key={cat.nome}
+                          href={`/produtos?categoria=${cat.categoria}&marca=${marca.nome.toLowerCase()}`}
+                          className="flex items-center gap-3 px-3 py-2 rounded-lg bg-gray-800 hover:bg-gray-700 text-white transition-all"
+                        >
+                          <Image src={cat.imagem} alt={cat.nome} width={28} height={28} className="rounded" />
+                          <span>{cat.nome}</span>
                         </Link>
-                      </DropdownMenuLabel>
-                      <div className="grid gap-2">
-                        {categoryStructure.smartphones.items.map((item) => (
-                          <DropdownMenuItem key={item.name} asChild>
-                            <Link href={item.href} className="flex items-center justify-between w-full p-3 rounded-lg hover:bg-gray-50 transition-colors group">
-                              <span className="font-medium text-gray-700 group-hover:text-gray-900">{item.name}</span>
-                              <Badge variant="secondary" className="bg-gray-100 text-gray-600 text-xs">
-                                {item.count}
-                              </Badge>
-                            </Link>
-                          </DropdownMenuItem>
-                        ))}
-                      </div>
-                    </div>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-
-                {/* Mac Dropdown */}
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" className="flex items-center space-x-1 text-gray-700 hover:text-gray-900 font-medium text-sm transition-colors duration-200">
-                      <span>Mac</span>
-                      <ChevronDown className="h-3 w-3 transition-transform duration-200 group-data-[state=open]:rotate-180" />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent className="w-80 p-6 mt-2 bg-white/95 backdrop-blur-xl border border-gray-200/50 shadow-xl rounded-2xl">
-                    <div className="space-y-4">
-                      <DropdownMenuLabel className="text-lg font-semibold text-gray-900 border-b border-gray-100 pb-3">
-                        <Link href={categoryStructure.mac.href} className="hover:text-ussbrasil-900 transition-colors">
-                          {categoryStructure.mac.title}
-                        </Link>
-                      </DropdownMenuLabel>
-                      <div className="grid gap-2">
-                        {categoryStructure.mac.items.map((item) => (
-                          <DropdownMenuItem key={item.name} asChild>
-                            <Link href={item.href} className="flex items-center justify-between w-full p-3 rounded-lg hover:bg-gray-50 transition-colors group">
-                              <span className="font-medium text-gray-700 group-hover:text-gray-900">{item.name}</span>
-                              <Badge variant="secondary" className="bg-gray-100 text-gray-600 text-xs">
-                                {item.count}
-                              </Badge>
-                            </Link>
-                          </DropdownMenuItem>
-                        ))}
-                      </div>
-                    </div>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-
-                {/* iPad Dropdown */}
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" className="flex items-center space-x-1 text-gray-700 hover:text-gray-900 font-medium text-sm transition-colors duration-200">
-                      <span>iPad</span>
-                      <ChevronDown className="h-3 w-3 transition-transform duration-200 group-data-[state=open]:rotate-180" />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent className="w-80 p-6 mt-2 bg-white/95 backdrop-blur-xl border border-gray-200/50 shadow-xl rounded-2xl">
-                    <div className="space-y-4">
-                      <DropdownMenuLabel className="text-lg font-semibold text-gray-900 border-b border-gray-100 pb-3">
-                        <Link href={categoryStructure.tablets.href} className="hover:text-ussbrasil-900 transition-colors">
-                          {categoryStructure.tablets.title}
-                        </Link>
-                      </DropdownMenuLabel>
-                      <div className="grid gap-2">
-                        {categoryStructure.tablets.items.map((item) => (
-                          <DropdownMenuItem key={item.name} asChild>
-                            <Link href={item.href} className="flex items-center justify-between w-full p-3 rounded-lg hover:bg-gray-50 transition-colors group">
-                              <span className="font-medium text-gray-700 group-hover:text-gray-900">{item.name}</span>
-                              <Badge variant="secondary" className="bg-gray-100 text-gray-600 text-xs">
-                                {item.count}
-                              </Badge>
-                            </Link>
-                          </DropdownMenuItem>
-                        ))}
-                      </div>
-                    </div>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-
-                {/* Watch Dropdown */}
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" className="flex items-center space-x-1 text-gray-700 hover:text-gray-900 font-medium text-sm transition-colors duration-200">
-                      <span>Watch</span>
-                      <ChevronDown className="h-3 w-3 transition-transform duration-200 group-data-[state=open]:rotate-180" />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent className="w-80 p-6 mt-2 bg-white/95 backdrop-blur-xl border border-gray-200/50 shadow-xl rounded-2xl">
-                    <div className="space-y-4">
-                      <DropdownMenuLabel className="text-lg font-semibold text-gray-900 border-b border-gray-100 pb-3">
-                        <Link href={categoryStructure.watch.href} className="hover:text-ussbrasil-900 transition-colors">
-                          {categoryStructure.watch.title}
-                        </Link>
-                      </DropdownMenuLabel>
-                      <div className="grid gap-2">
-                        {categoryStructure.watch.items.map((item) => (
-                          <DropdownMenuItem key={item.name} asChild>
-                            <Link href={item.href} className="flex items-center justify-between w-full p-3 rounded-lg hover:bg-gray-50 transition-colors group">
-                              <span className="font-medium text-gray-700 group-hover:text-gray-900">{item.name}</span>
-                              <Badge variant="secondary" className="bg-gray-100 text-gray-600 text-xs">
-                                {item.count}
-                              </Badge>
-                            </Link>
-                          </DropdownMenuItem>
-                        ))}
-                      </div>
-                    </div>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-
-                {/* AirPods Dropdown */}
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" className="flex items-center space-x-1 text-gray-700 hover:text-gray-900 font-medium text-sm transition-colors duration-200">
-                      <span>AirPods</span>
-                      <ChevronDown className="h-3 w-3 transition-transform duration-200 group-data-[state=open]:rotate-180" />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent className="w-80 p-6 mt-2 bg-white/95 backdrop-blur-xl border border-gray-200/50 shadow-xl rounded-2xl">
-                    <div className="space-y-4">
-                      <DropdownMenuLabel className="text-lg font-semibold text-gray-900 border-b border-gray-100 pb-3">
-                        <Link href={categoryStructure.audio.href} className="hover:text-ussbrasil-900 transition-colors">
-                          {categoryStructure.audio.title}
-                        </Link>
-                      </DropdownMenuLabel>
-                      <div className="grid gap-2">
-                        {categoryStructure.audio.items.map((item) => (
-                          <DropdownMenuItem key={item.name} asChild>
-                            <Link href={item.href} className="flex items-center justify-between w-full p-3 rounded-lg hover:bg-gray-50 transition-colors group">
-                              <span className="font-medium text-gray-700 group-hover:text-gray-900">{item.name}</span>
-                              <Badge variant="secondary" className="bg-gray-100 text-gray-600 text-xs">
-                                {item.count}
-                              </Badge>
-                            </Link>
-                          </DropdownMenuItem>
-                        ))}
-                      </div>
-                    </div>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-
-                {/* Acessórios Link */}
-                <Link href="/categories/acessorios" className="text-gray-700 hover:text-gray-900 font-medium text-sm transition-colors duration-200">
-                  Acessórios
-                </Link>
-              </div>
-            </div>
-
-            {/* Search and Actions */}
-            <div className="flex items-center space-x-4">
-              {/* Advanced Search */}
-              <div ref={searchRef} className="relative hidden lg:block">
-                <form onSubmit={handleSearch}>
-                  <div className={`relative transition-all duration-300 ease-in-out ${
-                    isSearchFocused ? 'w-80' : 'w-64'
-                  }`}>
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-                    <Input
-                      type="search"
-                      placeholder="Buscar produtos..."
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      onFocus={() => setIsSearchFocused(true)}
-                      className={`pl-10 pr-4 transition-all duration-300 border-gray-200 focus:border-blue-500 focus:ring-blue-500 ${
-                        isSearchFocused ? 'bg-white shadow-lg' : 'bg-gray-50'
-                      }`}
-                    />
-                    {isSearchFocused && searchQuery && (
-                      <Button
-                        type="button"
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => {
-                          setSearchQuery('')
-                          setSearchResults([])
-                        }}
-                        className="absolute right-2 top-1/2 transform -translate-y-1/2 h-6 w-6 p-0"
-                      >
-                        <X className="h-3 w-3" />
-                      </Button>
-                    )}
-                  </div>
-                </form>
-
-                {/* Search Results Dropdown */}
-                {isSearchFocused && searchResults.length > 0 && (
-                  <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-xl shadow-xl z-50 max-h-96 overflow-y-auto">
-                    <div className="p-4">
-                      <div className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-3">
-                        Produtos encontrados ({searchResults.length})
-                      </div>
-                      <div className="space-y-2">
-                        {searchResults.map((product) => (
-                          <Link
-                            key={product.id}
-                            href={`/product/${product.id}`}
-                            onClick={() => setIsSearchFocused(false)}
-                            className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors group"
-                          >
-                            <div className="w-12 h-12 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
-                              <img
-                                src={product.image}
-                                alt={product.name}
-                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
-                              />
-                            </div>
-                            <div className="flex-1 min-w-0">
-                              <div className="font-medium text-gray-900 truncate">{product.name}</div>
-                              <div className="text-sm text-gray-500">{product.category}</div>
-                            </div>
-                            <div className="font-semibold text-ussbrasil-900">{product.price}</div>
-                          </Link>
-                        ))}
-                      </div>
+                      ))}
                     </div>
                   </div>
                 )}
               </div>
-
-              {/* User Menu */}
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="sm" className="hover:bg-gray-100 transition-colors duration-200">
-                    <User className="h-5 w-5" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-48 bg-white/95 backdrop-blur-xl border border-gray-200/50 shadow-xl rounded-2xl">
-                  <DropdownMenuItem asChild>
-                    <Link href="/login" className="font-medium">Entrar</Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link href="/login">Criar Conta</Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem asChild>
-                    <Link href="/orders">Meus Pedidos</Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link href="/profile">Perfil</Link>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-
-              {/* Cart */}
-              <Link href="/cart">
-                <Button variant="ghost" size="sm" className="relative hover:bg-gray-100 transition-colors duration-200">
-                  <ShoppingBag className="h-5 w-5" />
-                  <Badge className="absolute -top-2 -right-2 h-5 w-5 rounded-full p-0 flex items-center justify-center text-xs bg-ussbrasil-900 hover:bg-ussbrasil-800">
-                    0
-                  </Badge>
-                </Button>
-              </Link>
-            </div>
+            ))}
           </div>
         </div>
-      </nav>
-
-      {/* Spacer for fixed navbar */}
-      <div className="h-16"></div>
-    </>
-  )
+      )}
+      {/* Mobile nav */}
+      <div className="md:hidden flex justify-between items-center px-4 py-2 bg-gray-950/95 border-t border-gray-900">
+        <Link href="/categories" className="font-medium px-2 py-1 rounded hover:bg-gray-900 transition-colors">Categorias</Link>
+        <Link href="/lancamentos" className="font-medium px-2 py-1 rounded hover:bg-gray-900 transition-colors">Lançamentos</Link>
+        <Link href="/" className="font-medium px-2 py-1 rounded hover:bg-gray-900 transition-colors">Sobre</Link>
+        <button
+          className="font-medium px-2 py-1 rounded hover:bg-gray-900 transition-colors"
+          onClick={() => setSidebarOpen(true)}
+        >Produtos</button>
+      </div>
+    </nav>
+  );
 }

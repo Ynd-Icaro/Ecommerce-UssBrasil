@@ -122,7 +122,7 @@ const productCategories = [
     id: 'smartphones',
     name: 'Smartphones',
     description: 'iPhone e Android premium',
-    icon: '📱',
+    icon: '',
     count: 35,
     image: '/Imagens/Iphone-16-Pro.png'
   },

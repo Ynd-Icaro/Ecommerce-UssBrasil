@@ -29,6 +29,14 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/co
 import { premiumCategories, formatPrice, calculateDiscount, type Product } from '@/lib/premium-categories'
 import { toast } from 'react-hot-toast'
 
+// Exemplo de importação dos produtos reais
+import { produtosApple } from '@/lib/Products/Apple/page'
+import { produtosJBL } from '@/lib/Products/JBL/page'
+import { produtosDji } from '@/lib/Products/Dji/page'
+import { produtosGeonav } from '@/lib/Products/Geonav/page'
+import { produtosXiomi } from '@/lib/Products/Xiomi/page'
+import { SimpleProductCard } from '@/components/product/SimpleProductCard'
+
 type ViewMode = 'grid' | 'list'
 type SortOption = 'relevance' | 'price-low' | 'price-high' | 'rating' | 'newest'
 
@@ -43,27 +51,29 @@ export default function PremiumCategoriesPage() {
   const [favorites, setFavorites] = useState<string[]>([])
 
   // Agregação de dados para filtros
+  // Filtra apenas produtos realmente disponíveis no sistema
   const allProducts = useMemo(() => {
-    const products: Product[] = []
-    premiumCategories.forEach(category => {
-      category.subcategories.forEach(subcategory => {
-        subcategory.products.forEach(product => {
-          products.push(product)
-        })
-      })
-    })
-    return products
-  }, [])
+    return [
+      ...produtosApple,
+      ...produtosJBL,
+      ...produtosDji,
+      ...produtosGeonav,
+      ...produtosXiomi
+    ];
+  }, []);
 
   const allBrands = useMemo(() => {
     const brands = new Set<string>()
-    allProducts.forEach(product => brands.add(product.brand))
+    allProducts.forEach(product => brands.add((product as any).brand ?? (product as any).marca))
     return Array.from(brands).sort()
   }, [allProducts])
 
   const allOrigins = useMemo(() => {
     const origins = new Set<string>()
-    allProducts.forEach(product => origins.add(product.origin))
+    allProducts.forEach(product => {
+      const origin = (product as any).origin ?? (product as any).origem
+      if (origin) origins.add(origin)
+    })
     return Array.from(origins).sort()
   }, [allProducts])
 
@@ -74,51 +84,53 @@ export default function PremiumCategoriesPage() {
     // Filtro por busca
     if (searchTerm) {
       filtered = filtered.filter(product =>
-        product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        product.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        product.brand.toLowerCase().includes(searchTerm.toLowerCase())
+        (product.nome ?? '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+        (product.descricao ?? '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+        (product.marca ?? '').toLowerCase().includes(searchTerm.toLowerCase())
       )
     }
 
     // Filtro por categorias
     if (selectedCategories.length > 0) {
       filtered = filtered.filter(product =>
-        selectedCategories.includes(product.category)
+        selectedCategories.includes(product.categoria)
       )
     }
 
     // Filtro por marcas
     if (selectedBrands.length > 0) {
       filtered = filtered.filter(product =>
-        selectedBrands.includes(product.brand)
+        selectedBrands.includes((product as any).brand ?? (product as any).marca)
       )
     }
 
     // Filtro por origem
     if (selectedOrigins.length > 0) {
       filtered = filtered.filter(product =>
-        selectedOrigins.includes(product.origin)
+        selectedOrigins.includes((product as any).origin ?? (product as any).origem)
       )
     }
 
     // Filtro por preço
     filtered = filtered.filter(product =>
-      product.price >= priceRange[0] && product.price <= priceRange[1]
+      typeof product.preco === 'number' &&
+      product.preco >= priceRange[0] &&
+      product.preco <= priceRange[1]
     )
 
     // Ordenação
     switch (sortBy) {
       case 'price-low':
-        filtered.sort((a, b) => a.price - b.price)
+        filtered.sort((a, b) => (a.preco ?? 0) - (b.preco ?? 0))
         break
       case 'price-high':
-        filtered.sort((a, b) => b.price - a.price)
+        filtered.sort((a, b) => (b.preco ?? 0) - (a.preco ?? 0))
         break
       case 'rating':
-        filtered.sort((a, b) => b.rating - a.rating)
+        filtered.sort((a, b) => ((b as any).rating ?? 0) - ((a as any).rating ?? 0))
         break
       case 'newest':
-        filtered.sort((a, b) => (b.isNew ? 1 : 0) - (a.isNew ? 1 : 0))
+        filtered.sort((a, b) => ((b as any)?.isNew ? 1 : 0) - ((a as any)?.isNew ? 1 : 0))
         break
       default:
         // relevance - manter ordem original
@@ -395,6 +407,14 @@ export default function PremiumCategoriesPage() {
     </div>
   )
 
+  // Exemplo de renderização dos produtos por categoria
+  const categorias = [
+    { nome: 'Apple', produtos: produtosApple },
+    { nome: 'JBL', produtos: produtosJBL },
+    { nome: 'Dji', produtos: produtosDji },
+    { nome: 'Xiomi', produtos: produtosXiomi }
+  ]
+
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 py-8">
@@ -516,9 +536,32 @@ export default function PremiumCategoriesPage() {
                   ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' 
                   : 'grid-cols-1'
               }`}>
-                {filteredProducts.map((product) => (
-                  <ProductCard key={product.id} product={product} />
-                ))}
+                {filteredProducts.map((product) => {
+                  // Map product to Product type
+                  const mappedProduct: Product = {
+                    id: String(product.id),
+                    name: (product as any).name ?? (product as any).nome ?? '',
+                    description: (product as any).description ?? (product as any).descricao ?? '',
+                    price: (product as any).price ?? (product as any).preco ?? 0,
+                    originalPrice: (product as any).originalPrice ?? (product as any).precoOriginal,
+                    image: (product as any).image ?? (product as any).imagem ?? '',
+                    category: (product as any).category ?? (product as any).categoria ?? '',
+                    brand: (product as any).brand ?? (product as any).marca ?? '',
+                    origin: (product as any).origin ?? (product as any).origem ?? '',
+                    badge: (product as any).badge,
+                    isNew: (product as any).isNew ?? false,
+                    isExclusive: (product as any).isExclusive ?? false,
+                    flag: (product as any).flag ?? '',
+                    rating: (product as any).rating ?? 0,
+                    reviews: (product as any).reviews ?? 0,
+                    features: (product as any).features ?? [],
+                    stock: (product as any).stock ?? (product as any).estoque ?? 0,
+                    subcategory: ''
+                  };
+                  return (
+                    <ProductCard key={mappedProduct.id} product={mappedProduct} />
+                  );
+                })}
               </div>
             ) : (
               <div className="text-center py-16">
@@ -535,6 +578,32 @@ export default function PremiumCategoriesPage() {
             )}
           </div>
         </div>
+
+        {/* Exemplo de renderização dos produtos por categoria */}
+        <section className="py-24 bg-background">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-4xl font-bold mb-8 text-foreground">Produtos por Categoria</h2>
+            {categorias.map(categoria => (
+              <div key={categoria.nome} className="mb-12">
+                <h3 className="text-2xl font-semibold mb-4">{categoria.nome}</h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                  {categoria.produtos.map(produto => (
+                    <SimpleProductCard
+                      key={produto.id}
+                      id={produto.id}
+                      name={produto.nome ?? ''}
+                      price={`R$ ${(produto.preco ?? 0).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`}
+                      originalPrice={typeof (produto as any).precoOriginal === 'number' ? `R$ ${(produto as any).precoOriginal.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}` : undefined}
+                      image={(produto as any).imagem ?? (produto as any).image ?? '' }
+                      category={produto.categoria}
+                      isNew={(produto as any)?.isNew}
+                    />
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
       </div>
     </div>
   )

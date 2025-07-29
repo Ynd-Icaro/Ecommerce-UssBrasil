@@ -99,16 +99,16 @@ export function MobileNav() {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="todos" className="font-medium text-gray-500">
-                        📋 Ver todos
+                        Ver todos
                       </SelectItem>
                       <SelectItem value="/products" className="font-medium">
-                        📦 PRODUTOS
+                        PRODUTOS
                       </SelectItem>
                       <SelectItem value="/categories" className="font-medium">
-                        📂 CATEGORIAS
+                        CATEGORIAS
                       </SelectItem>
                       <SelectItem value="/novidades" className="font-medium">
-                        ✨ NOVIDADES
+                        NOVIDADES
                       </SelectItem>
                       <SelectItem value="/sobre" className="font-medium">
                         ℹ️ SOBRE

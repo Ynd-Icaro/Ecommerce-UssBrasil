@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import { Inter, JetBrains_Mono } from 'next/font/google'
-import ConditionalNavbar from '@/components/conditional-navbar'
+import NavbarNew from '@/components/navbar-new'
 import ToastWrapper from '@/components/toast-wrapper'
 import CartWrapper from '@/components/cart/cart-wrapper'
 import { ThemeProvider } from '@/contexts/ThemeContext'
@@ -290,8 +290,8 @@ export default function RootLayout({
               transition-all duration-500 ease-in-out
               selection:bg-primary/20
             ">
-              {/* Navigation condicional */}
-              <ConditionalNavbar />
+              {/* Navigation premium restaurada */}
+              <NavbarNew />
               
               {/* Main content area */}
               <main className="
