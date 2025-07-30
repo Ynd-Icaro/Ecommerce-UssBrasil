@@ -58,7 +58,7 @@ export function MobileNav() {
           {/* Navigation Links */}
           <nav className="flex-1 py-6 overflow-y-auto">
             <div className="space-y-1 px-6">
-              <Link
+                href="/cart"
                 href="/"
                 className="flex items-center px-4 py-3 text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-xl transition-all duration-200 group"
                 onClick={() => setOpen(false)}

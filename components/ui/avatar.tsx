@@ -10,18 +10,18 @@ function Avatar({
   ...props
 }: React.ComponentProps<typeof AvatarPrimitive.Root>) {
   return (
-        <span
-          className={cn(
-            "relative flex h-12 w-12 shrink-0 overflow-hidden rounded-full border border-[var(--glass-border)] bg-glass shadow-md transition-all duration-300 backdrop-blur-md",
-            className
-          )}
-          style={{
-            background: "var(--glass-bg)",
-            boxShadow: "var(--glass-shadow)",
-            borderRadius: "50%"
-          }}
-          {...props}
-        />
+    <AvatarPrimitive.Root
+      className={cn(
+        "relative flex h-12 w-12 shrink-0 overflow-hidden rounded-full border border-[var(--glass-border)] bg-glass shadow-md transition-all duration-300 backdrop-blur-md",
+        className
+      )}
+      style={{
+        background: "var(--glass-bg)",
+        boxShadow: "var(--glass-shadow)",
+        borderRadius: "50%"
+      }}
+      {...props}
+    />
   )
 }
 

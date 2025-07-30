@@ -245,10 +245,10 @@ export const brands = [
     name: 'Apple',
     logo: '/icons/apple-logo.svg',
     products: [
-      { name: 'iPhone 16 Pro', image: '/Imagens/Iphone 16 Pro.png' },
-      { name: 'MacBook Pro', image: '/Imagens/Macbook Pro.png' },
-      { name: 'iPad Pro', image: '/Imagens/Ipad Pro.png' },
-      { name: 'Apple Watch', image: '/Imagens/Watch Series 10.png' }
+      { name: 'iPhone 16 Pro', image: '/products/Iphone 16 Pro.png' },
+      { name: 'MacBook Pro', image: '/products/Macbook Pro.png' },
+      { name: 'iPad Pro', image: '/products/Ipad Pro.png' },
+      { name: 'Apple Watch', image: '/products/Watch Series 10.png' }
     ]
   },
   {

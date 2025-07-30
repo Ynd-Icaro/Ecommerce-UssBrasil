@@ -55,11 +55,11 @@ interface Category {
 }
 
 const mockSearchSuggestions: SearchSuggestion[] = [
-  { id: '1', name: 'iPhone 16 Pro', category: 'Smartphones', image: '/Produtos/Iphone 16 Pro.png', price: 7999 },
-  { id: '2', name: 'MacBook Pro', category: 'Computadores', image: '/Produtos/Macbook Pro.png', price: 15999 },
-  { id: '3', name: 'AirPods Pro 2', category: 'Áudio', image: '/Produtos/Air Pods Pro 2', price: 1899 },
-  { id: '4', name: 'Apple Watch Ultra', category: 'Wearables', image: '/Produtos/Watch Ultra 2.png', price: 5999 },
-  { id: '5', name: 'iPad Pro', category: 'Tablets', image: '/Produtos/Ipad Pro.png', price: 8999 }
+  { id: '1', name: 'iPhone 16 Pro', category: 'Smartphones', image: '/products/Iphone 16 Pro.png', price: 7999 },
+  { id: '2', name: 'MacBook Pro', category: 'Computadores', image: '/products/Macbook Pro.png', price: 15999 },
+  { id: '3', name: 'AirPods Pro 2', category: 'Áudio', image: '/products/Air Pods Pro 2', price: 1899 },
+  { id: '4', name: 'Apple Watch Ultra', category: 'Wearables', image: '/products/Watch Ultra 2.png', price: 5999 },
+  { id: '5', name: 'iPad Pro', category: 'Tablets', image: '/products/Ipad Pro.png', price: 8999 }
 ]
 
 const categories = premiumCategories.map(cat => ({
@@ -312,7 +312,7 @@ export function AdvancedNavbar() {
                               className="flex items-center space-x-3 p-2 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg"
                             >
                               <Image
-                                src={item.image}
+                                src={item.image && item.image.startsWith('/products/') ? item.image : `/products/${item.image?.replace(/^\/+/, '')}`}
                                 alt={item.name}
                                 width={40}
                                 height={40}
@@ -341,7 +341,7 @@ export function AdvancedNavbar() {
                                 onClick={() => setIsSearchFocused(false)}
                               >
                                 <Image
-                                  src={item.image}
+                                  src={item.image && item.image.startsWith('/products/') ? item.image : `/products/${item.image?.replace(/^\/+/, '')}`}
                                   alt={item.name}
                                   width={40}
                                   height={40}

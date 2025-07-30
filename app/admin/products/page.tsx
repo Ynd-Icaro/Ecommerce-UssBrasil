@@ -28,7 +28,7 @@ type SortKey = 'name' | 'price' | 'stock' | 'sales'
 type SortDirection = 'asc' | 'desc'
 
 const productCategories: ProductCategory[] = ['Apple', 'Geonav', 'JBL', 'AIWA', 'DJI', 'Playstation', 'Redmi'];
-const productClasses: ProductClass[] = ['Smartphones', 'Smartwatchs', 'Fones', 'Acessórios', 'Outros'];
+const productClasses: ProductClass[] = ['Smartphone', 'Tablet', 'Notebook', 'Acessorio'];
 import {
   Package,
   Plus,
@@ -65,7 +65,7 @@ export default function AdminProductsPage() {
   const [modalMode, setModalMode] = useState<'create' | 'edit' | 'view'>('create')
 
   const validCategories: ProductCategory[] = ['Apple', 'Geonav', 'JBL', 'AIWA', 'DJI', 'Playstation', 'Redmi'];
-  const validClasses: ProductClass[] = ['Smartphones', 'Smartwatchs', 'Fones', 'Acessórios', 'Outros'];
+  const validClasses: ProductClass[] = ['Smartphone', 'Tablet', 'Notebook', 'Acessorio'];
 
   const products: Product[] = [
     ...produtosApple,
@@ -80,8 +80,8 @@ export default function AdminProductsPage() {
     description: product.description ?? product.descricao ?? '',
     price: product.price ?? product.preco ?? 0,
     images: product.images ?? (product.imagem ? { main: product.imagem } : { main: '' }),
-    categoria: product.categoria ?? 'Outros',
-    classe: product.classe ?? 'Outros',
+    categoria: product.categoria ?? 'Outro',
+    classe: product.classe ?? 'Outro',
     marca: product.marca ?? '',
     stock: product.stock ?? 0,
     rating: product.rating ?? 0,
@@ -112,11 +112,16 @@ export default function AdminProductsPage() {
   const loading = false;
 
   const filteredAndSortedProducts = useMemo(() => {
-    const filtered = products.filter((product: Product) =>
-      (product.name || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
-      (product.categoria || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
-      (product.classe || '').toLowerCase().includes(searchTerm.toLowerCase())
-    )
+    const filtered = products.filter((product: Product) => {
+      const categoriaStr = Array.isArray(product.categoria)
+        ? product.categoria.join(', ')
+        : (product.categoria || '');
+      return (
+        (product.name || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+        categoriaStr.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        (product.classe || '').toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    });
 
     const sorted = filtered.sort((a: Product, b: Product) => {
       let aValue: any, bValue: any
@@ -176,13 +181,13 @@ export default function AdminProductsPage() {
   }
 
   const handleToggleStatus = async (product: Product) => {
-    const newStatus = product.status === 'active' ? 'inactive' : 'active'
+    const newStatus = product.status === 'ACTIVE' ? 'INACTIVE' : 'ACTIVE';
     try {
-      await productService.update(product.id, { status: newStatus })
+      await productService.update(product.id, { status: newStatus });
       // refetch removido
-      toast.success('Status do produto atualizado!')
+      toast.success('Status do produto atualizado!');
     } catch (error) {
-      toast.error('Erro ao atualizar status do produto')
+      toast.error('Erro ao atualizar status do produto');
     }
   }
 
@@ -412,7 +417,7 @@ export default function AdminProductsPage() {
                               </div>
                               <div>
                                 <div className="font-semibold text-gray-800">{product.name}</div>
-                                <div className="text-sm text-gray-500">{product.categoria} • {product.classe}</div>
+                                <div className="text-sm text-gray-500">{Array.isArray(product.categoria) ? product.categoria.join(', ') : product.categoria} • {product.classe}</div>
                               </div>
                             </div>
                           </td>
@@ -420,8 +425,8 @@ export default function AdminProductsPage() {
                           <td className="p-6">{getStockBadge(product.stock)}</td>
                           <td className="p-6 text-center text-gray-600">{product.rating}/5 ⭐</td>
                           <td className="p-6">
-                            <Badge variant={product.status === 'active' ? 'default' : 'outline'} className={product.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'}>
-                              {product.status === 'active' ? 'Ativo' : product.status === 'inactive' ? 'Inativo' : 'Rascunho'}
+                            <Badge variant={product.status === 'ACTIVE' ? 'default' : 'outline'} className={product.status === 'ACTIVE' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'}>
+                              {product.status === 'ACTIVE' ? 'Ativo' : product.status === 'INACTIVE' ? 'Inativo' : 'Rascunho'}
                             </Badge>
                           </td>
                           <td className="p-6">
@@ -440,7 +445,7 @@ export default function AdminProductsPage() {
                                 </DropdownMenuItem>
                                 <DropdownMenuItem onClick={() => handleToggleStatus(product)}>
                                   <Package className="mr-2 h-4 w-4" /> 
-                                  {product.status === 'active' ? 'Desativar' : 'Ativar'}
+                                  {product.status === 'ACTIVE' ? 'Desativar' : 'Ativar'}
                                 </DropdownMenuItem>
                                 <DropdownMenuItem className="text-red-500" onClick={() => handleDelete(product.id)}>
                                   <Trash2 className="mr-2 h-4 w-4" /> Excluir

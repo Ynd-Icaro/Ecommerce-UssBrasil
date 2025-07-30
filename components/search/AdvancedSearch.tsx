@@ -237,7 +237,7 @@ export function AdvancedSearch({ className, placeholder = "Buscar produtos...", 
                             {result.image && (
                               <div className="flex-shrink-0 w-10 h-10 rounded-lg overflow-hidden bg-gray-100">
                                 <img
-                                  src={result.image}
+                                  src={result.image && result.image.startsWith('/products/') ? result.image : `/products/${result.image?.replace(/^\/+/, '')}`}
                                   alt={result.title}
                                   className="w-full h-full object-cover"
                                 />

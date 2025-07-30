@@ -32,7 +32,7 @@ import { OrderModal } from '@/components/admin/OrderModal'
 type SortKey = 'number' | 'total' | 'createdAt'
 type SortDirection = 'asc' | 'desc'
 
-export default function AdminOrdersPage() {
+export default function ProdutosPage() {
   const { items: orders, loading, create, update, remove } = useAdminCrud<Order>('orders')
   const [searchTerm, setSearchTerm] = useState('')
   const [statusFilter, setStatusFilter] = useState<string>('all')

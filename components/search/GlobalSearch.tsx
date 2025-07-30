@@ -155,7 +155,7 @@ export function GlobalSearch() {
                         >
                           <div className="flex-shrink-0 w-12 h-12 bg-gray-100 rounded-xl overflow-hidden group-hover:scale-105 transition-transform">
                             <Image
-                              src={result.image}
+                              src={result.image && result.image.startsWith('/products/') ? result.image : `/products/${result.image?.replace(/^\/+/, '')}`}
                               alt={result.name}
                               width={48}
                               height={48}

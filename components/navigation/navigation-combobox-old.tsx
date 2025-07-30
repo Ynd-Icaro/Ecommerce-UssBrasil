@@ -29,7 +29,7 @@ const productBrands = [
         name: 'iPhone 16 Pro',
         price: 7999.00,
         originalPrice: 8999.00,
-        image: '/Produtos/Iphone 16 Pro.png',
+        image: '/products/Iphone 16 Pro.png',
         video: '/Videos/IphoneVideo.mp4',
         category: 'Smartphones'
       },
@@ -38,7 +38,7 @@ const productBrands = [
         name: 'MacBook Pro M4',
         price: 18999.00,
         originalPrice: 21999.00,
-        image: '/Produtos/Macbook Pro.png',
+        image: '/products/Macbook Pro.png',
         video: '/Videos/Macs Video.mp4',
         category: 'Laptops'
       },
@@ -47,7 +47,7 @@ const productBrands = [
         name: 'AirPods Pro 2',
         price: 2199.00,
         originalPrice: 2499.00,
-        image: '/Produtos/Air Pods Pro 2.png',
+        image: '/products/Air Pods Pro 2.png',
         video: '/Videos/AirPods Video.webm',
         category: 'Acessórios'
       },
@@ -56,7 +56,7 @@ const productBrands = [
         name: 'Apple Watch Ultra 2',
         price: 7199.00,
         originalPrice: 7999.00,
-        image: '/Produtos/Watch Ultra 2.png',
+        image: '/products/Watch Ultra 2.png',
         video: '/Videos/Apple Watch.mp4',
         category: 'Smartwatches'
       }
@@ -81,7 +81,7 @@ const productBrands = [
         name: 'Galaxy Tab S9',
         price: 3999.00,
         originalPrice: 4499.00,
-        image: '/Produtos/Ipad Pro.png',
+        image: '/products/Ipad Pro.png',
         video: '/Videos/IpadVideo.mp4',
         category: 'Tablets'
       }
@@ -131,7 +131,7 @@ const productBrands = [
         name: 'Surface Studio',
         price: 14999.00,
         originalPrice: 16999.00,
-        image: '/Produtos/Imac.png',
+        image: '/products/Imac.png',
         video: '/Videos/Macs Video.mp4',
         category: 'Desktops'
       }
@@ -147,7 +147,7 @@ const productBrands = [
         name: 'OLED C3 65"',
         price: 7999.00,
         originalPrice: 9499.00,
-        image: '/Produtos/Pro Display.png',
+        image: '/products/Pro Display.png',
         video: '/Videos/Macs Video.mp4',
         category: 'TVs'
       },
@@ -156,7 +156,7 @@ const productBrands = [
         name: 'Gram 17"',
         price: 8999.00,
         originalPrice: 9999.00,
-        image: '/Produtos/Macbook Pro.png',
+        image: '/products/Macbook Pro.png',
         video: '/Videos/Macs Video.mp4',
         category: 'Laptops'
       }
@@ -172,7 +172,7 @@ const productBrands = [
         name: 'Charge 5',
         price: 699.00,
         originalPrice: 899.00,
-        image: '/Produtos/Air Pods Pro 2.png',
+        image: '/products/Air Pods Pro 2.png',
         video: '/Videos/AirPods Video.webm',
         category: 'Audio'
       },
@@ -181,7 +181,7 @@ const productBrands = [
         name: 'Live Pro 2',
         price: 899.00,
         originalPrice: 1199.00,
-        image: '/Produtos/Air Pods Pro 2.png',
+        image: '/products/Air Pods Pro 2.png',
         video: '/Videos/AirPods Video.webm',
         category: 'Fones'
       }

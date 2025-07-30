@@ -183,7 +183,7 @@ export function HomePage() {
         >
           <div className="relative w-96 h-96">
             <Image
-              src="/Imagens/Iphone 16 Pro.png"
+              src="/products/Iphone 16 Pro.png"
               alt="iPhone 16 Pro"
               fill
               className="object-contain"

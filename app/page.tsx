@@ -29,7 +29,7 @@ const categories = [
     href: '/categories/iphone',
     video: '/videos/iphone.mp4',
     image: '/produtos/Apple/Iphone 16 Pro.png',
-    gradient: 'from-blue-600 to-purple-600',
+    gradient: 'from-cyan-500 to-blue-700',
     price: 'A partir de R$ 10.499'
   },
   {
@@ -39,7 +39,7 @@ const categories = [
     href: '/categories/mac',
     video: '/videos/mac.mp4',
     image: '/produtos/Apple/Macbook Pro.png',
-    gradient: 'from-gray-600 to-gray-800',
+    gradient: 'from-gray-700 to-slate-900',
     price: 'A partir de R$ 12.999'
   },
   {
@@ -49,7 +49,7 @@ const categories = [
     href: '/categories/ipad',
     video: '/videos/ipad.mp4',
     image: '/produtos/Apple/Ipad Pro.png',
-    gradient: 'from-purple-600 to-pink-600',
+    gradient: 'from-pink-500 to-purple-700',
     price: 'A partir de R$ 4.999'
   },
   {
@@ -59,7 +59,7 @@ const categories = [
     href: '/categories/watch',
     video: '/videos/watch.mp4',
     image: '/produtos/Apple/Watch Ultra 2.png',
-    gradient: 'from-red-600 to-orange-600',
+    gradient: 'from-orange-500 to-red-700',
     price: 'A partir de R$ 3.499'
   },
   {
@@ -69,7 +69,7 @@ const categories = [
     href: '/categories/acessorios',
     video: '/videos/mac.mp4',
     image: '/produtos/Apple/Magic-Mouse.png',
-    gradient: 'from-green-600 to-teal-600',
+    gradient: 'from-teal-500 to-green-700',
     price: 'A partir de R$ 299'
   }
 ]
@@ -111,10 +111,10 @@ const SimpleProductCard = ({
   isNew: boolean
 }) => (
   <Link href={`/product/${id}`} className="group">
-    <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden">
-      <div className="relative aspect-square bg-gray-50 p-8">
+    <div className="bg-gradient-to-br from-white via-blue-50 to-cyan-50 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden">
+      <div className="relative aspect-square bg-gradient-to-br from-blue-100 via-cyan-100 to-white p-8">
         {isNew && (
-          <Badge className="absolute top-4 left-4 bg-red-500 text-white">Novo</Badge>
+          <Badge className="absolute top-4 left-4 bg-gradient-to-r from-pink-500 to-red-500 text-white shadow">Novo</Badge>
         )}
         <img
           src={image}
@@ -123,12 +123,12 @@ const SimpleProductCard = ({
         />
       </div>
       <div className="p-6">
-        <p className="text-sm text-gray-500 mb-1">{category}</p>
-        <h3 className="text-lg font-semibold text-gray-900 mb-2">{name}</h3>
+        <p className="text-sm text-cyan-700 mb-1">{category}</p>
+        <h3 className="text-lg font-semibold text-blue-900 mb-2">{name}</h3>
         <div className="flex items-center gap-2">
-          <span className="text-xl font-bold text-gray-900">{price}</span>
+          <span className="text-xl font-bold text-blue-900">{price}</span>
           {originalPrice && (
-            <span className="text-sm text-gray-500 line-through">{originalPrice}</span>
+            <span className="text-sm text-cyan-600 line-through">{originalPrice}</span>
           )}
         </div>
       </div>
@@ -148,80 +148,149 @@ export default function HomePage() {
     { name: 'Dji', image: '/produtos/Dji/logo.png' },
     { name: 'Xiomi', image: '/produtos/Xiomi/logo.png' }
   ];
+  // Estado para dropdowns e menu mobile
+  const [showCat, setShowCat] = useState(false);
+  const [showBrand, setShowBrand] = useState(false);
+  const [showMobile, setShowMobile] = useState(false);
+  const cartCount = 2; // Exemplo, pode ser dinâmico
   return (
     <>
-      <nav className="fixed top-0 left-0 w-full z-50 bg-white/70 backdrop-blur-xl border-b border-white/30 shadow-lg">
-        <div className="flex items-center justify-between px-6 py-2">
-          <div className="flex items-center gap-8">
+      {/* Navbar - E-commerce Premium */}
+      <header className="fixed top-0 left-0 w-full z-50 bg-gradient-to-r from-blue-900 via-slate-900 to-cyan-900 border-b border-blue-800 shadow-xl text-white">
+        <div className="max-w-7xl mx-auto flex items-center justify-between px-4 py-3 md:px-8">
+          {/* Left: Logo & Company */}
+          <div className="flex items-center gap-4">
             <Link href="/" className="flex items-center gap-2">
-              <span className="font-bold text-2xl tracking-tight text-gray-900">USS Brasil</span>
+              <img src="/produtos/Apple/Iphone 16 Pro.png" alt="Logo" className="h-8 w-8 rounded-full shadow-lg" />
+              <span className="font-extrabold text-2xl tracking-tight text-white drop-shadow-lg">USS Brasil</span>
             </Link>
-            {/* Marcas */}
-            <div className="hidden md:flex items-center gap-4">
-              {brands.map((brand) => (
-                <Link key={brand.name} href={`/marcas/${brand.name.toLowerCase()}`} className="flex items-center gap-2 px-2 py-1 rounded-lg hover:bg-white/40 transition-colors">
-                  <img src={brand.image} alt={brand.name} className="h-6 w-6 object-contain rounded" />
-                  <span className="text-gray-800 font-medium text-sm">{brand.name}</span>
-                </Link>
-              ))}
-            </div>
-            {/* Combobox Produtos */}
-            <div className="relative group">
-              <button className="flex items-center gap-2 font-medium px-4 py-2 rounded-lg bg-gray-900 hover:bg-gray-800 border border-gray-800 shadow-sm group-hover:bg-gray-800" id="product-combobox" aria-haspopup="listbox" aria-expanded="false">
-                Produtos
-                <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              <ul className="absolute left-0 mt-2 w-56 bg-white border border-gray-200 rounded-lg shadow-lg z-50 group-hover:block hidden" role="listbox" aria-labelledby="product-combobox">
-                <li role="option"><Link href="/products/" className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 rounded transition-colors">Todos os Produtos</Link></li>
-                <li role="option"><Link href="/lancamentos/" className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 rounded transition-colors">Lançamentos</Link></li>
-              </ul>
-            </div>
-            {/* Combobox Categorias */}
-            <div className="relative group">
-              <button className="flex items-center gap-2 font-medium px-4 py-2 rounded-lg bg-gray-900 hover:bg-gray-800 border border-gray-800 shadow-sm group-hover:bg-gray-800" id="category-combobox" aria-haspopup="listbox" aria-expanded="false">
+          </div>
+          {/* Center: Navigation & Search */}
+          <nav className="hidden md:flex items-center gap-8 flex-1 justify-center">
+            {/* Categorias Dropdown */}
+            <div className="relative">
+              <button
+                className={`flex items-center gap-2 font-semibold px-4 py-2 rounded-lg bg-blue-900 hover:bg-blue-800 border border-blue-800 shadow-sm transition-all duration-200 ${showCat ? 'ring-2 ring-cyan-400' : ''}`}
+                aria-haspopup="true"
+                aria-expanded={showCat}
+                onClick={() => setShowCat((v) => !v)}
+                onBlur={() => setShowCat(false)}
+              >
+                <Smartphone className="w-5 h-5" />
                 Categorias
                 <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
-              <ul className="absolute left-0 mt-2 w-56 bg-white border border-gray-200 rounded-lg shadow-lg z-50 group-hover:block hidden" role="listbox" aria-labelledby="category-combobox">
-                {categories.map((category) => (
-                  <li key={category.name} role="option">
-                    <Link href={category.href} className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 rounded transition-colors">
-                      <span>{category.name}</span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+              {showCat && (
+                <div className="absolute left-0 top-full mt-2 w-[540px] bg-blue-900 text-white shadow-2xl rounded-2xl z-50 animate-fade-in">
+                  <div className="grid grid-cols-2 gap-4 p-6">
+                    {categories.map(cat => (
+                      <Link key={cat.name} href={cat.href} className="group flex flex-col items-center justify-center gap-2 px-4 py-5 rounded-xl hover:bg-gradient-to-br hover:from-cyan-700 hover:to-blue-900 transition-all duration-200 shadow hover:shadow-xl">
+                        <div className="flex items-center gap-2 mb-2">
+                          <cat.icon className="h-8 w-8 text-cyan-300 group-hover:scale-110 transition-transform duration-200" />
+                          <span className="font-bold text-lg text-white group-hover:text-cyan-200">{cat.name}</span>
+                        </div>
+                        <img src={cat.image} alt={cat.name} className="h-14 w-14 object-contain rounded-xl shadow group-hover:scale-105 transition-transform duration-200" />
+                        <span className="text-xs text-cyan-200 text-center font-medium mt-2">{cat.description}</span>
+                        <span className="text-sm font-semibold text-cyan-100 mt-1">{cat.price}</span>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
-            <Link href="/lancamentos/" className="hidden md:inline-block font-medium px-4 py-2 rounded-lg hover:bg-gray-900 transition-colors">Lançamentos</Link>
-            {/* Barra de Pesquisa */}
+            {/* Marcas Dropdown */}
+            <div className="relative">
+              <button
+                className={`flex items-center gap-2 font-semibold px-4 py-2 rounded-lg bg-blue-900 hover:bg-blue-800 border border-blue-800 shadow-sm transition-all duration-200 ${showBrand ? 'ring-2 ring-cyan-400' : ''}`}
+                aria-haspopup="true"
+                aria-expanded={showBrand}
+                onClick={() => setShowBrand((v) => !v)}
+                onBlur={() => setShowBrand(false)}
+              >
+                <Monitor className="w-5 h-5" />
+                Marcas
+                <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              {showBrand && (
+                <div className="absolute left-0 top-full mt-2 w-80 bg-blue-900 text-white shadow-2xl rounded-xl z-50 animate-fade-in">
+                  <div className="flex flex-col gap-2 p-6">
+                    {brands.map(marca => (
+                      <Link key={marca.name} href={`/produtos?marca=${marca.name.toLowerCase()}`} className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-blue-800 transition-colors">
+                        <img src={marca.image} alt={marca.name} className="h-8 w-8 object-contain rounded" />
+                        <span className="font-semibold text-base">{marca.name}</span>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+            {/* Search Bar */}
             <div className="relative w-64">
-              <input type="text" placeholder="Buscar..." className="w-full px-4 py-2 rounded-lg bg-gray-800 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-primary" />
-              <svg className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" /></svg>
+              <input type="text" placeholder="Buscar produtos, marcas..." className="w-full px-4 py-2 rounded-lg bg-blue-800 text-white border border-blue-700 focus:outline-none focus:ring-2 focus:ring-cyan-400" />
+              <svg className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-cyan-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" /></svg>
             </div>
-          </div>
+          </nav>
+          {/* Right: User Actions */}
           <div className="flex items-center gap-4">
             {/* Favoritos */}
-            <Link href="/favoritos/" className="p-2 rounded-full hover:bg-gray-800">
-              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 15l7-7 7 7" /></svg>
+            <Link href="/favoritos/" className="p-2 rounded-full hover:bg-blue-800" title="Favoritos">
+              <svg className="w-6 h-6 text-cyan-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 15l7-7 7 7" /></svg>
             </Link>
-            {/* Carrinho */}
-            <Link href="/carrinho/" className="p-2 rounded-full hover:bg-gray-800">
-              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1" /><circle cx="20" cy="21" r="1" /><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61l1.38-7.39H6" /></svg>
+            {/* Carrinho com contador */}
+            <Link href="/carrinho/" className="relative p-2 rounded-full hover:bg-blue-800" title="Carrinho">
+              <svg className="w-6 h-6 text-cyan-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1" /><circle cx="20" cy="21" r="1" /><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61l1.38-7.39H6" /></svg>
+              {cartCount > 0 && (
+                <span className="absolute -top-1 -right-1 bg-cyan-500 text-white text-xs font-bold rounded-full px-2 py-0.5 shadow">{cartCount}</span>
+              )}
             </Link>
-            {/* Perfil/Login/Registro */}
-            <Link href="/perfil/" className="p-2 rounded-full hover:bg-gray-800">
-              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="7" r="4" /><path d="M5.5 21a7.5 7.5 0 0 1 13 0" /></svg>
+            {/* Perfil/Login/Registro com avatar */}
+            <Link href="/perfil/" className="p-2 rounded-full hover:bg-blue-800 flex items-center" title="Perfil">
+              <img src="/produtos/Apple/Iphone 16 Pro.png" alt="Avatar" className="h-6 w-6 rounded-full mr-2 border-2 border-cyan-400" />
+              <span className="hidden lg:inline font-semibold">Perfil</span>
             </Link>
+            {/* Mobile menu button */}
+            <button className="md:hidden p-2 rounded-lg bg-blue-900 hover:bg-blue-800 focus:outline-none" aria-label="Abrir menu" onClick={() => setShowMobile((v) => !v)}>
+              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+            </button>
           </div>
         </div>
-      </nav>
-      <div className="min-h-screen bg-white">
+        {/* Mobile Menu (interativo) */}
+        {showMobile && (
+          <div className="md:hidden bg-blue-950 text-white shadow-2xl border-t border-blue-800 px-4 py-4 animate-fade-in">
+            <nav className="flex flex-col gap-4">
+              <Link href="/" className="font-bold text-lg">Início</Link>
+              <div className="flex flex-col gap-2">
+                <span className="font-semibold">Categorias</span>
+                {categories.map(cat => (
+                  <Link key={cat.name} href={cat.href} className="flex items-center gap-2 px-2 py-1 rounded hover:bg-blue-800">
+                    <cat.icon className="h-5 w-5" />
+                    {cat.name}
+                  </Link>
+                ))}
+              </div>
+              <div className="flex flex-col gap-2">
+                <span className="font-semibold">Marcas</span>
+                {brands.map(marca => (
+                  <Link key={marca.name} href={`/produtos?marca=${marca.name.toLowerCase()}`} className="flex items-center gap-2 px-2 py-1 rounded hover:bg-blue-800">
+                    <img src={marca.image} alt={marca.name} className="h-5 w-5 object-contain rounded" />
+                    {marca.name}
+                  </Link>
+                ))}
+              </div>
+              <Link href="/favoritos/" className="flex items-center gap-2 px-2 py-1 rounded hover:bg-blue-800">Favoritos</Link>
+              <Link href="/carrinho/" className="flex items-center gap-2 px-2 py-1 rounded hover:bg-blue-800">Carrinho</Link>
+              <Link href="/perfil/" className="flex items-center gap-2 px-2 py-1 rounded hover:bg-blue-800">Perfil</Link>
+            </nav>
+          </div>
+        )}
+      </header>
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-cyan-50">
         {/* Hero Section */}
-        <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+        <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-900 via-slate-900 to-cyan-900">
           <div className="absolute inset-0">
             <VideoPlayer
             src="/Videos/IphoneVideo.mp4"
@@ -241,7 +310,7 @@ export default function HomePage() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="space-y-8"
           >
-            <Badge className="glass text-white border-glass-border backdrop-blur-xl px-6 py-2 text-sm font-medium tracking-wide">
+            <Badge className="glass bg-gradient-to-r from-cyan-500 to-blue-700 text-white border-blue-400/50 backdrop-blur-xl px-6 py-2 text-sm font-medium tracking-wide">
               iPhone 16 Pro • Novo
             </Badge>
             
@@ -259,7 +328,7 @@ export default function HomePage() {
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center pt-4">
               <Button 
                 size="lg" 
-                className="glass-strong text-gray-900 hover:bg-white hover:scale-105 px-10 py-6 text-lg font-semibold rounded-2xl transition-all duration-300 hover-lift"
+                className="glass-strong bg-gradient-to-r from-cyan-400 to-blue-500 text-white hover:bg-blue-600 hover:scale-105 px-10 py-6 text-lg font-semibold rounded-2xl transition-all duration-300 hover-lift"
               >
                 Comprar a partir de R$ 10.499
                 <ArrowRight className="ml-3 h-6 w-6" />
@@ -267,7 +336,7 @@ export default function HomePage() {
               <Button 
                 variant="outline" 
                 size="lg" 
-                className="border-white/30 text-white hover:bg-white/10 hover:border-white/50 glass px-10 py-6 text-lg font-medium rounded-2xl transition-all duration-300 hover-lift"
+                className="border-cyan-400 text-white hover:bg-cyan-600/10 hover:border-cyan-500 glass px-10 py-6 text-lg font-medium rounded-2xl transition-all duration-300 hover-lift"
               >
                 <Play className="mr-3 h-6 w-6" />
                 Assistir o filme
@@ -294,7 +363,7 @@ export default function HomePage() {
       </section>
 
       {/* Features Section */}
-      <section className="py-24 bg-background-soft">
+      <section className="py-24 bg-gradient-to-br from-blue-50 via-white to-cyan-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -349,7 +418,7 @@ export default function HomePage() {
                 className="group"
               >
                 <div className="card-premium text-center p-8 lg:p-10 rounded-3xl hover-lift hover:border-primary/20 transition-all duration-500">
-                  <div className={`w-20 h-20 mx-auto mb-6 bg-gradient-to-br ${feature.gradient} rounded-3xl flex items-center justify-center shadow-lg group-hover:shadow-xl group-hover:scale-110 transition-all duration-500`}>
+                  <div className={`w-20 h-20 mx-auto mb-6 bg-gradient-to-br ${feature.gradient} rounded-3xl flex items-center justify-center shadow-lg group-hover:shadow-xl group-hover:scale-110 transition-all duration-500 border-2 border-cyan-300/30`}>
                     <feature.icon className="h-10 w-10 text-white" />
                   </div>
                   <h3 className="text-2xl font-bold text-foreground mb-4 group-hover:text-primary transition-colors duration-300">
@@ -366,7 +435,7 @@ export default function HomePage() {
       </section>
 
       {/* Categories Section */}
-      <section className="py-24 bg-background">
+      <section className="py-24 bg-gradient-to-br from-white via-blue-50 to-cyan-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -446,7 +515,7 @@ export default function HomePage() {
       </section>
 
       {/* Featured Products */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-gradient-to-br from-blue-50 via-white to-cyan-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -466,7 +535,7 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {featuredProductsData.map((product, index) => (
               <motion.div
-                key={product.id}
+                key={product.id + '-' + index}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
@@ -476,16 +545,16 @@ export default function HomePage() {
                   <SimpleProductCard 
                     id={product.id}
                     name={product.name}
-                    price={`R$ ${product.price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`}
-                    originalPrice={product.originalPrice ? `R$ ${product.originalPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}` : undefined}
-                    image={product.images.main}
-                    category={product.categoria}
+                    price={`R$ ${product.price?.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`}
+                    originalPrice={product.originalPrice ? `R$ ${product.originalPrice?.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}` : undefined}
+                    image={product.images?.main || (Array.isArray(product.images?.gallery) ? product.images.gallery[0] : '/placeholder.png')}
+                    category={Array.isArray(product.categoria) ? product.categoria.join(', ') : product.categoria}
                     isNew={product.isNew}
                   />
                   {/* Estoque visual */}
-                  {product.stock > 10 && <span className="text-green-600 text-xs font-semibold ml-2">Em estoque</span>}
-                  {product.stock > 0 && product.stock <= 10 && <span className="text-yellow-600 text-xs font-semibold ml-2">Estoque baixo</span>}
-                  {product.stock === 0 && <span className="text-red-600 text-xs font-semibold ml-2">Fora de estoque</span>}
+                  {typeof product.stock === 'number' && product.stock > 10 && <span className="text-green-600 text-xs font-semibold ml-2">Em estoque</span>}
+                  {typeof product.stock === 'number' && product.stock > 0 && product.stock <= 10 && <span className="text-yellow-600 text-xs font-semibold ml-2">Estoque baixo</span>}
+                  {typeof product.stock === 'number' && product.stock === 0 && <span className="text-red-600 text-xs font-semibold ml-2">Fora de estoque</span>}
                 </div>
               </motion.div>
             ))}
@@ -496,7 +565,7 @@ export default function HomePage() {
       </section>
 
       {/* Newsletter Section */}
-      <section className="py-20 bg-gradient-to-br from-gray-900 to-gray-700">
+      <section className="py-20 bg-gradient-to-br from-blue-900 to-cyan-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

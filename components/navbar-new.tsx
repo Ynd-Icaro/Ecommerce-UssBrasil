@@ -11,11 +11,11 @@ const marcas = [
     nome: 'Apple',
     pasta: 'Apple',
     categorias: [
-      { nome: 'iPhones', imagem: '/produtos/Apple/Iphone 16 Pro.png', categoria: 'iphone' },
-      { nome: 'iPads', imagem: '/produtos/Apple/Ipad Pro.png', categoria: 'ipad' },
-      { nome: 'Mac', imagem: '/produtos/Apple/Macbook Pro.png', categoria: 'mac' },
-      { nome: 'Watch', imagem: '/produtos/Apple/Watch Ultra 2.png', categoria: 'watch' },
-      { nome: 'Acessórios', imagem: '/produtos/Apple/Magic-Mouse.png', categoria: 'acessorios' }
+      { nome: 'iPhones', imagem: '/products/Apple/Iphone 16 Pro.png', categoria: 'iphone' },
+      { nome: 'iPads', imagem: '/products/Apple/Ipad Pro.png', categoria: 'ipad' },
+      { nome: 'Mac', imagem: '/products/Apple/Macbook Pro.png', categoria: 'mac' },
+      { nome: 'Watch', imagem: '/products/Apple/Watch Ultra 2.png', categoria: 'watch' },
+      { nome: 'Acessórios', imagem: '/products/Apple/Magic-Mouse.png', categoria: 'acessorios' }
     ]
   },
   { nome: 'JBL', pasta: 'JBL', categorias: [] },
@@ -70,7 +70,7 @@ export default function Navbar() {
                   onMouseLeave={() => setHoveredBrand(null)}
                   onClick={() => setHoveredBrand(marca.nome)}
                 >
-                  <Image src={`/produtos/${marca.pasta}/${marca.categorias[0]?.imagem?.split('/').pop() || 'logo.png'}`} alt={marca.nome} width={32} height={32} className="rounded" />
+                  <Image src={`/Logo/${marca.pasta}.png`} alt={marca.nome} width={32} height={32} className="rounded" />
                   {marca.nome}
                 </button>
                 {/* Subpainel lateral de categorias */}
@@ -84,7 +84,7 @@ export default function Navbar() {
                           href={`/produtos?categoria=${cat.categoria}&marca=${marca.nome.toLowerCase()}`}
                           className="flex items-center gap-3 px-3 py-2 rounded-lg bg-gray-800 hover:bg-gray-700 text-white transition-all"
                         >
-                          <Image src={cat.imagem} alt={cat.nome} width={28} height={28} className="rounded" />
+                          <Image src={cat.imagem.startsWith('/Logo/') ? cat.imagem : `/Logo/${cat.imagem.replace(/^\/+/, '')}`} alt={cat.nome} width={28} height={28} className="rounded" />
                           <span>{cat.nome}</span>
                         </Link>
                       ))}

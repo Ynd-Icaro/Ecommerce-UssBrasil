@@ -230,7 +230,7 @@ const VideoProductCard = ({ product, index }: { product: any, index: number }) =
                 className="absolute inset-0 flex items-center justify-center"
               >
                 <Image
-                  src={product.image}
+                  src={product.image && product.image.startsWith('/products/') ? product.image : `/products/${product.image?.replace(/^\/+/, '')}`}
                   alt={product.name}
                   fill
                   className="object-contain p-4 group-hover:scale-110 transition-transform duration-500"
@@ -388,7 +388,7 @@ export const ProductsCombobox = () => {
                     <CardContent className="p-4 text-center">
                       <div className={`w-12 h-12 bg-gradient-to-r ${brand.color} rounded-xl flex items-center justify-center mx-auto mb-2 group-hover:scale-110 transition-transform duration-300`}>
                         <Image
-                          src={brand.logo}
+                          src={brand.logo.startsWith('/Logo/') ? brand.logo : `/Logo/${brand.logo.replace(/^\/+/, '')}`}
                           alt={brand.name}
                           width={24}
                           height={24}
@@ -446,7 +446,7 @@ export const CategoriesCombobox = () => {
                     <CardContent className="p-4 flex items-center gap-4">
                       <div className="w-16 h-16 bg-gradient-to-br from-slate-50 to-slate-100 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                         <Image
-                          src={category.image}
+                          src={category.image && category.image.startsWith('/products/') ? category.image : `/products/${category.image?.replace(/^\/+/, '')}`}
                           alt={category.name}
                           width={32}
                           height={32}

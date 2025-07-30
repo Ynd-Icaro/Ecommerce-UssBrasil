@@ -368,22 +368,19 @@ export default function CategoryPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white">
-      <section className="relative h-[60vh] overflow-hidden">
-        <div className={`absolute inset-0 bg-gradient-to-r ${categoryInfo.gradient}`}>
-          {categoryVideo && (
-            <div className="absolute inset-0">
-              <video
-                className="w-full h-full object-cover opacity-30"
-                autoPlay={isVideoPlaying}
-                muted={isVideoMuted}
-                loop
-                playsInline
-              >
-                <source src={categoryVideo} type="video/mp4" />
-              </video>
-            </div>
-          )}
-          
+      {/* Hero/Video Section */}
+      {categoryVideo && (
+        <section className="relative h-[60vh] overflow-hidden rounded-b-3xl shadow-xl mb-8">
+          <div className={`absolute inset-0 bg-gradient-to-r ${categoryInfo.gradient}`}></div>
+          <video
+            className="absolute inset-0 w-full h-full object-cover opacity-40"
+            autoPlay={isVideoPlaying}
+            muted={isVideoMuted}
+            loop
+            playsInline
+          >
+            <source src={categoryVideo} type="video/mp4" />
+          </video>
           <div className="absolute top-6 right-6 flex gap-2 z-20">
             <Button
               variant="outline"
@@ -402,7 +399,6 @@ export default function CategoryPage() {
               {isVideoMuted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
             </Button>
           </div>
-          
           <div className="absolute inset-0 bg-black/40" />
           <div className="relative z-10 h-full flex items-center">
             <div className="container mx-auto px-6">
@@ -420,7 +416,6 @@ export default function CategoryPage() {
                 >
                   {categoryInfo.title}
                 </motion.h1>
-                
                 <motion.p
                   className="text-xl lg:text-2xl mb-4 text-white/90"
                   initial={{ opacity: 0, x: -30 }}
@@ -429,7 +424,6 @@ export default function CategoryPage() {
                 >
                   {categoryInfo.subtitle}
                 </motion.p>
-                
                 <motion.p
                   className="text-lg text-white/80 mb-8 leading-relaxed"
                   initial={{ opacity: 0, y: 20 }}
@@ -438,7 +432,6 @@ export default function CategoryPage() {
                 >
                   {categoryInfo.description}
                 </motion.p>
-                
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -451,91 +444,75 @@ export default function CategoryPage() {
               </motion.div>
             </div>
           </div>
-        </div>
-      </section>
-
-      <section className="py-8 bg-white border-b border-gray-200">
-        <div className="container mx-auto px-6">
-          <div className="flex flex-wrap items-center justify-between gap-4">
-            <div className="flex items-center gap-4">
-              <Button variant="outline" size="sm">
-                <SlidersHorizontal className="h-4 w-4 mr-2" />
-                Filtros
-              </Button>
-              
-              <Select value={sortBy} onValueChange={(value: SortOption) => setSortBy(value)}>
-                <SelectTrigger className="w-48">
-                  <SelectValue placeholder="Ordenar por" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="relevance">Relevância</SelectItem>
-                  <SelectItem value="price-low">Menor Preço</SelectItem>
-                  <SelectItem value="price-high">Maior Preço</SelectItem>
-                  <SelectItem value="rating">Melhor Avaliação</SelectItem>
-                  <SelectItem value="newest">Mais Recentes</SelectItem>
-                </SelectContent>
-              </Select>
-              
-              <div className="flex items-center gap-2">
-                <span className="text-sm text-gray-600">Preço:</span>
-                <div className="w-32">
-                  <Slider
-                    value={priceRange}
-                    onValueChange={setPriceRange}
-                    max={50000}
-                    step={500}
-                    className="w-full"
-                  />
-                </div>
-                <span className="text-sm text-gray-600 whitespace-nowrap">
-                  R$ {priceRange[0]} - R$ {priceRange[1]}
-                </span>
-              </div>
-            </div>
-            
+        </section>
+      )}
+      {/* Filtros Modernos */}
+      <section className="py-6 bg-white border-b border-gray-200 sticky top-0 z-40 shadow-sm">
+        <div className="container mx-auto px-6 flex flex-wrap items-center justify-between gap-4">
+          <div className="flex items-center gap-4 flex-wrap">
+            <Select value={sortBy} onValueChange={(value: SortOption) => setSortBy(value)}>
+              <SelectTrigger className="w-44 bg-gray-50 border-gray-300">
+                <SelectValue placeholder="Ordenar por" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="relevance">Relevância</SelectItem>
+                <SelectItem value="price-low">Menor Preço</SelectItem>
+                <SelectItem value="price-high">Maior Preço</SelectItem>
+                <SelectItem value="rating">Melhor Avaliação</SelectItem>
+                <SelectItem value="newest">Mais Recentes</SelectItem>
+              </SelectContent>
+            </Select>
             <div className="flex items-center gap-2">
-              <span className="text-sm text-gray-600">{sortedProducts.length} produtos</span>
-              <Tabs value={viewMode} onValueChange={(value) => setViewMode(value as 'grid' | 'list')}>
-                <TabsList className="grid w-fit grid-cols-2">
-                  <TabsTrigger value="grid">
-                    <Grid3X3 className="h-4 w-4" />
-                  </TabsTrigger>
-                  <TabsTrigger value="list">
-                    <LayoutGrid className="h-4 w-4" />
-                  </TabsTrigger>
-                </TabsList>
-              </Tabs>
+              <span className="text-sm text-gray-600">Preço:</span>
+              <div className="w-32">
+                <Slider
+                  value={priceRange}
+                  onValueChange={setPriceRange}
+                  max={50000}
+                  step={500}
+                  className="w-full"
+                />
+              </div>
+              <span className="text-sm text-gray-600 whitespace-nowrap">
+                R$ {priceRange[0]} - R$ {priceRange[1]}
+              </span>
             </div>
+            <Tabs value={viewMode} onValueChange={(value) => setViewMode(value as 'grid' | 'list')}>
+              <TabsList className="grid w-fit grid-cols-2 bg-gray-100 border-gray-300">
+                <TabsTrigger value="grid">
+                  <Grid3X3 className="h-4 w-4" />
+                </TabsTrigger>
+                <TabsTrigger value="list">
+                  <LayoutGrid className="h-4 w-4" />
+                </TabsTrigger>
+              </TabsList>
+            </Tabs>
           </div>
+          <span className="text-sm text-gray-600">{sortedProducts.length} produtos encontrados</span>
         </div>
       </section>
-
+      {/* Produtos */}
       <section className="py-12">
         <div className="container mx-auto px-6">
           <motion.div
-        className={`grid gap-6 ${
-          viewMode === 'grid' 
-            ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4' 
-            : 'grid-cols-1 max-w-4xl mx-auto'
-        }`}
-        layout
+            className={`grid gap-8 ${viewMode === 'grid' ? 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4' : 'grid-cols-1 max-w-4xl mx-auto'}`}
+            layout
           >
-        <AnimatePresence>
-          {sortedProducts.map((product, index) => (
-            <motion.div
-              key={product.id}
-              layout
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.4, delay: index * 0.1 }}
-            >
-              <ProductCard product={product} />
-            </motion.div>
-          ))}
-        </AnimatePresence>
-      </motion.div>
-          
+            <AnimatePresence>
+              {sortedProducts.map((product, index) => (
+                <motion.div
+                  key={product.id}
+                  layout
+                  initial={{ opacity: 0, y: 50 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  transition={{ duration: 0.4, delay: index * 0.1 }}
+                >
+                  <ProductCard product={product} />
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </motion.div>
           {sortedProducts.length === 0 && (
             <motion.div
               className="text-center py-16"

@@ -52,24 +52,16 @@ export function SimpleProductCard({
     >
       <Card className="overflow-hidden border-0 shadow-sm hover:shadow-xl transition-all duration-300 bg-white">
         <div className="relative aspect-square overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100">
-          {/* Product Image */}
+          {/* Product Image with fallback */}
           <Link href={`/product/${id}`}>
-            {image && image.trim() !== '' ? (
-              <Image
-                src={image}
-                alt={name}
-                fill
-                className="object-cover transition-transform duration-700 group-hover:scale-110"
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-                onError={(e) => {
-                  e.currentTarget.style.display = 'none'
-                }}
-              />
-            ) : (
-              <div className="w-full h-full flex items-center justify-center bg-gray-200">
-                <span className="text-gray-400 text-sm">Sem imagem</span>
-              </div>
-            )}
+            <Image
+              src={image && image.trim() !== '' ? (image.startsWith('/products/') ? image : `/products/${image.replace(/^\/+/, '')}`) : '/products/fallback-product.png'}
+              alt={name}
+              fill
+              className="object-cover transition-transform duration-700 group-hover:scale-110"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+              onError={(e) => { e.currentTarget.src = '/fallback-product.png'; }}
+            />
           </Link>
 
           {/* Badges */}

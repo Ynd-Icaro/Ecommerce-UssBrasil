@@ -1,6 +1,7 @@
 // ========== CONFIGURAÇÃO CENTRALIZADA DE PRODUTOS USS BRASIL ==========
 
 export interface Product {
+  [x: string]: number
   id: number
   name: string
   price: number

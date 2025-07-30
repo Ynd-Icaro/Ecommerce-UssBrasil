@@ -48,7 +48,7 @@ const appleCategories = {
         name: 'MacBook Pro', 
         href: '/categories/macbook-pro', 
         price: 'A partir de R$ 19.999', 
-        image: '/Produtos/Macbook Pro.png',
+        image: '/products/macbook-pro.png',
         description: 'Performance de nível profissional.',
         isNew: true
       },
@@ -56,7 +56,7 @@ const appleCategories = {
         name: 'iMac', 
         href: '/categories/imac', 
         price: 'A partir de R$ 14.999', 
-        image: '/Produtos/Imac.png',
+        image: '/products/imac.png',
         description: 'Diz olá para o iMac.',
         isNew: false
       },
@@ -64,7 +64,7 @@ const appleCategories = {
         name: 'Mac mini', 
         href: '/categories/mac-mini', 
         price: 'A partir de R$ 5.999', 
-        image: '/Produtos/MacMini.png',
+        image: '/products/macmini.png',
         description: 'Pequeno no tamanho. Grande no desempenho.',
         isNew: false
       },
@@ -72,7 +72,7 @@ const appleCategories = {
         name: 'Mac Studio', 
         href: '/categories/mac-studio', 
         price: 'A partir de R$ 18.999', 
-        image: '/Produtos/MacStudio.png',
+        image: '/products/macstudio.png',
         description: 'Supercharged for pros.',
         isNew: false
       },
@@ -80,7 +80,7 @@ const appleCategories = {
         name: 'Mac Pro', 
         href: '/categories/mac-pro', 
         price: 'A partir de R$ 62.999', 
-        image: '/Produtos/Mac Pro.png',
+        image: '/products/mac-pro.png',
         description: 'The ultimate Mac.',
         isNew: false
       }
@@ -96,7 +96,7 @@ const appleCategories = {
         name: 'iPhone 16 Pro', 
         href: '/categories/iphone-16-pro', 
         price: 'A partir de R$ 10.499', 
-        image: '/Produtos/Iphone 16 Pro.png',
+        image: '/products/iphone-16-pro.png',
         description: 'iPhone Pro. Forjado em titânio.',
         isNew: true
       },
@@ -104,7 +104,7 @@ const appleCategories = {
         name: 'iPhone 16', 
         href: '/categories/iphone-16', 
         price: 'A partir de R$ 7.999', 
-        image: '/Produtos/Iphone 16.png',
+        image: '/products/iphone-16.png',
         description: 'Um salto colorido.',
         isNew: true
       },
@@ -112,7 +112,7 @@ const appleCategories = {
         name: 'iPhone 15', 
         href: '/categories/iphone-15', 
         price: 'A partir de R$ 6.499', 
-        image: '/Produtos/Iphone 15.png',
+        image: '/products/iphone-15.png',
         description: 'Novo. Mais novo. Azul.',
         isNew: false
       }
@@ -128,7 +128,7 @@ const appleCategories = {
         name: 'Apple Watch Series 10', 
         href: '/categories/watch-series-10', 
         price: 'A partir de R$ 4.699', 
-        image: '/Produtos/Watch Series 10.png',
+        image: '/products/watch-series-10.png',
         description: 'Mais fino. Mais inteligente. Mais brilhante.',
         isNew: true
       },
@@ -136,7 +136,7 @@ const appleCategories = {
         name: 'Apple Watch Ultra 2', 
         href: '/categories/watch-ultra-2', 
         price: 'A partir de R$ 8.299', 
-        image: '/Imagens/Watch Ultra 2.png',
+        image: '/products/watch-ultra-2.png',
         description: 'A aventura te chama.',
         isNew: false
       },
@@ -144,7 +144,7 @@ const appleCategories = {
         name: 'Apple Watch SE', 
         href: '/categories/watch-se', 
         price: 'A partir de R$ 2.799', 
-        image: '/Produtos/Watch SE.png',
+        image: '/products/watch-se.png',
         description: 'Recursos poderosos. Preço acessível.',
         isNew: false
       }
@@ -160,7 +160,7 @@ const appleCategories = {
         name: 'iPad Pro', 
         href: '/categories/ipad-pro', 
         price: 'A partir de R$ 10.499', 
-        image: '/Produtos/Ipad Pro.png',
+        image: '/products/ipad-pro.png',
         description: 'Supercharged by M4.',
         isNew: true
       },
@@ -168,7 +168,7 @@ const appleCategories = {
         name: 'iPad Air', 
         href: '/categories/ipad-air', 
         price: 'A partir de R$ 6.499', 
-        image: '/Produtos/IpadAir.png',
+        image: '/products/ipad-air.png',
         description: 'Sério. Divertido. Completo.',
         isNew: false
       },
@@ -176,7 +176,7 @@ const appleCategories = {
         name: 'iPad', 
         href: '/categories/ipad', 
         price: 'A partir de R$ 3.499', 
-        image: '/Produtos/Ipad.png',
+        image: '/products/ipad.png',
         description: 'O iPad colorido para tudo.',
         isNew: false
       },
@@ -184,7 +184,7 @@ const appleCategories = {
         name: 'iPad mini', 
         href: '/categories/ipad-mini', 
         price: 'A partir de R$ 4.299', 
-        image: '/Produtos/IpadMini.png',
+        image: '/products/ipad-mini.png',
         description: 'Mega potência. Mini formato.',
         isNew: false
       }
@@ -200,7 +200,7 @@ const appleCategories = {
         name: 'AirPods 4', 
         href: '/categories/airpods-4', 
         price: 'A partir de R$ 1.299', 
-        image: '/Produtos/Air Pods 4',
+        image: '/products/air-pods-4.png',
         description: 'Redesenhados. Reengenhados.',
         isNew: true
       },
@@ -208,7 +208,7 @@ const appleCategories = {
         name: 'AirPods Pro 2', 
         href: '/categories/airpods-pro-2', 
         price: 'A partir de R$ 2.499', 
-        image: '/Produtos/Air Pods Pro 2',
+        image: '/products/air-pods-pro-2.png',
         description: 'Adaptativo. Intuitivo. Icônico.',
         isNew: false
       },
@@ -216,7 +216,7 @@ const appleCategories = {
         name: 'AirPods Max', 
         href: '/categories/airpods-max', 
         price: 'A partir de R$ 4.999', 
-        image: '/Produtos/Air Pods Max.png',
+        image: '/products/air-pods-max.png',
         description: 'Cancelamento de ruído sem igual.',
         isNew: false
       }
@@ -225,14 +225,14 @@ const appleCategories = {
 }
 
 const mockProducts = [
-  { id: 1, name: 'iPhone 16 Pro', price: 'R$ 10.499', image: '/Produtos/Iphone 16 Pro.png', category: 'iPhone' },
-  { id: 2, name: 'iPhone 16', price: 'R$ 7.499', image: '/Produtos/Iphone 16.png', category: 'iPhone' },
-  { id: 3, name: 'MacBook Pro', price: 'R$ 19.999', image: '/Produtos/Macbook Pro.png', category: 'Mac' },
-  { id: 4, name: 'MacBook Air', price: 'R$ 11.999', image: '/Produtos/Macbook Air.png', category: 'Mac' },
-  { id: 5, name: 'iPad Pro', price: 'R$ 10.999', image: '/Produtos/Ipad Pro.png', category: 'iPad' },
-  { id: 6, name: 'Apple Watch Ultra 2', price: 'R$ 6.999', image: '/Imagens/Watch Ultra 2.png', category: 'Watch' },
-  { id: 7, name: 'AirPods Pro 2', price: 'R$ 2.499', image: '/Produtos/Air Pods Pro 2', category: 'AirPods' },
-  { id: 8, name: 'AirPods Max', price: 'R$ 4.999', image: '/Produtos/Air Pods Max.png', category: 'AirPods' }
+  { id: 1, name: 'iPhone 16 Pro', price: 'R$ 10.499', image: '/products/iphone-16-pro.png', category: 'iPhone' },
+  { id: 2, name: 'iPhone 16', price: 'R$ 7.499', image: '/products/iphone-16.png', category: 'iPhone' },
+  { id: 3, name: 'MacBook Pro', price: 'R$ 19.999', image: '/products/macbook-pro.png', category: 'Mac' },
+  { id: 4, name: 'MacBook Air', price: 'R$ 11.999', image: '/products/macbook-air.png', category: 'Mac' },
+  { id: 5, name: 'iPad Pro', price: 'R$ 10.999', image: '/products/ipad-pro.png', category: 'iPad' },
+  { id: 6, name: 'Apple Watch Ultra 2', price: 'R$ 6.999', image: '/products/watch-ultra-2.png', category: 'Watch' },
+  { id: 7, name: 'AirPods Pro 2', price: 'R$ 2.499', image: '/products/air-pods-pro-2.png', category: 'AirPods' },
+  { id: 8, name: 'AirPods Max', price: 'R$ 4.999', image: '/products/air-pods-max.png', category: 'AirPods' }
 ]
 
 export default function Navbar() {

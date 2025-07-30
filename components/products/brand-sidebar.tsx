@@ -56,7 +56,7 @@ const BrandPreviewCard: React.FC<BrandPreviewCardProps> = ({ brand, isVisible, o
           >
             <div className="aspect-square bg-gray-50 rounded-lg overflow-hidden mb-2 relative">
               <Image
-                src={product.image}
+                src={product.images?.main && product.images.main.startsWith('/products/') ? product.images.main : `/products/${product.images?.main?.replace(/^\/+/, '')}`}
                 alt={product.name}
                 fill
                 className="object-cover group-hover:scale-105 transition-transform duration-300"

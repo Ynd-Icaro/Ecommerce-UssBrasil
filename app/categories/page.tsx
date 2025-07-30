@@ -1,5 +1,4 @@
-'use client'
-
+"use client"
 import { useState, useMemo } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -41,6 +40,16 @@ type ViewMode = 'grid' | 'list'
 type SortOption = 'relevance' | 'price-low' | 'price-high' | 'rating' | 'newest'
 
 export default function PremiumCategoriesPage() {
+  // Estado para controle de produtos visíveis por categoria
+  const [visibleCounts, setVisibleCounts] = useState<{ [key: string]: number }>({})
+
+  // Função para mostrar mais produtos de uma categoria
+  const handleShowMore = (categoriaNome: string, total: number) => {
+    setVisibleCounts((prev) => ({
+      ...prev,
+      [categoriaNome]: Math.min((prev[categoriaNome] || 8) + 8, total)
+    }))
+  }
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedCategories, setSelectedCategories] = useState<string[]>([])
   const [selectedBrands, setSelectedBrands] = useState<string[]>([])
@@ -64,29 +73,73 @@ export default function PremiumCategoriesPage() {
 
   const allBrands = useMemo(() => {
     const brands = new Set<string>()
-    allProducts.forEach(product => brands.add((product as any).brand ?? (product as any).marca))
-    return Array.from(brands).sort()
+    allProducts.forEach((product: any) => {
+      const brand = (product as any).brand ?? (product as any).marca
+      if (typeof brand === 'string' && brand.trim() !== '') brands.add(brand)
+    })
+    return Array.from(brands).filter(b => typeof b === 'string' && b.trim() !== '').sort()
   }, [allProducts])
 
   const allOrigins = useMemo(() => {
     const origins = new Set<string>()
-    allProducts.forEach(product => {
+    allProducts.forEach((product: any) => {
       const origin = (product as any).origin ?? (product as any).origem
-      if (origin) origins.add(origin)
+      if (typeof origin === 'string' && origin.trim() !== '') origins.add(origin)
     })
-    return Array.from(origins).sort()
+    return Array.from(origins).filter(o => typeof o === 'string' && o.trim() !== '').sort()
   }, [allProducts])
 
   // Produtos filtrados
   const filteredProducts = useMemo(() => {
-    let filtered = allProducts
+    // Normaliza todos os produtos para garantir propriedades consistentes conforme types/index.ts
+    const normalized = allProducts.map((product: any) => ({
+      id: String(product.id ?? product.ID ?? product.codigo ?? product.sku ?? ''),
+      name: product.name ?? product.nome ?? '',
+      slug: product.slug ?? '',
+      classe: product.classe ?? product.class ?? '',
+      categoria: product.categoria ?? product.category ?? '',
+      price: typeof product.price === 'number' ? product.price : (typeof product.preco === 'number' ? product.preco : 0),
+      originalPrice: typeof product.originalPrice === 'number' ? product.originalPrice : (typeof product.precoOriginal === 'number' ? product.precoOriginal : undefined),
+      discountPrice: typeof product.discountPrice === 'number' ? product.discountPrice : undefined,
+      rating: typeof product.rating === 'number' ? product.rating : 0,
+      reviews: typeof product.reviews === 'number' ? product.reviews : 0,
+      totalReviews: typeof product.totalReviews === 'number' ? product.totalReviews : 0,
+      isNew: product.isNew ?? false,
+      isFeatured: product.isFeatured ?? false,
+      isOnSale: product.isOnSale ?? false,
+      discount: typeof product.discount === 'number' ? product.discount : 0,
+      description: product.description ?? product.descricao ?? '',
+      features: Array.isArray(product.features) ? product.features : [],
+      images: product.images ?? { main: product.image ?? product.imagem ?? '' },
+      videos: Array.isArray(product.videos) ? product.videos : undefined,
+      colors: Array.isArray(product.colors) ? product.colors : [],
+      storage: Array.isArray(product.storage) ? product.storage : [],
+      sizes: Array.isArray(product.sizes) ? product.sizes : [],
+      specifications: product.specifications ?? {},
+      stock: typeof product.stock === 'number' ? product.stock : (typeof product.estoque === 'number' ? product.estoque : 0),
+      status: product.status ?? 'ACTIVE',
+      tags: Array.isArray(product.tags) ? product.tags : [],
+      sku: product.sku ?? '',
+      barcode: product.barcode ?? '',
+      paymentOptions: typeof product.paymentOptions === 'number' ? product.paymentOptions : undefined,
+      createdAt: product.createdAt ?? '',
+      updatedAt: product.updatedAt ?? '',
+      brand: product.brand ?? product.marca ?? '',
+      origin: product.origin ?? product.origem ?? '',
+      badge: product.badge,
+      isExclusive: product.isExclusive ?? false,
+      flag: product.flag ?? '',
+      subcategory: product.subcategory ?? ''
+    }))
+
+    let filtered = normalized
 
     // Filtro por busca
     if (searchTerm) {
       filtered = filtered.filter(product =>
-        (product.nome ?? '').toLowerCase().includes(searchTerm.toLowerCase()) ||
-        (product.descricao ?? '').toLowerCase().includes(searchTerm.toLowerCase()) ||
-        (product.marca ?? '').toLowerCase().includes(searchTerm.toLowerCase())
+        product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        product.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        product.brand.toLowerCase().includes(searchTerm.toLowerCase())
       )
     }
 
@@ -100,37 +153,37 @@ export default function PremiumCategoriesPage() {
     // Filtro por marcas
     if (selectedBrands.length > 0) {
       filtered = filtered.filter(product =>
-        selectedBrands.includes((product as any).brand ?? (product as any).marca)
+        selectedBrands.includes(product.brand)
       )
     }
 
     // Filtro por origem
     if (selectedOrigins.length > 0) {
       filtered = filtered.filter(product =>
-        selectedOrigins.includes((product as any).origin ?? (product as any).origem)
+        selectedOrigins.includes(product.origin)
       )
     }
 
     // Filtro por preço
     filtered = filtered.filter(product =>
-      typeof product.preco === 'number' &&
-      product.preco >= priceRange[0] &&
-      product.preco <= priceRange[1]
+      typeof product.price === 'number' &&
+      product.price >= priceRange[0] &&
+      product.price <= priceRange[1]
     )
 
     // Ordenação
     switch (sortBy) {
       case 'price-low':
-        filtered.sort((a, b) => (a.preco ?? 0) - (b.preco ?? 0))
+        filtered.sort((a, b) => a.price - b.price)
         break
       case 'price-high':
-        filtered.sort((a, b) => (b.preco ?? 0) - (a.preco ?? 0))
+        filtered.sort((a, b) => b.price - a.price)
         break
       case 'rating':
-        filtered.sort((a, b) => ((b as any).rating ?? 0) - ((a as any).rating ?? 0))
+        filtered.sort((a, b) => b.rating - a.rating)
         break
       case 'newest':
-        filtered.sort((a, b) => ((b as any)?.isNew ? 1 : 0) - ((a as any)?.isNew ? 1 : 0))
+        filtered.sort((a, b) => (b.isNew ? 1 : 0) - (a.isNew ? 1 : 0))
         break
       default:
         // relevance - manter ordem original
@@ -141,9 +194,9 @@ export default function PremiumCategoriesPage() {
   }, [searchTerm, selectedCategories, selectedBrands, selectedOrigins, priceRange, sortBy, allProducts])
 
   const toggleFavorite = (productId: string) => {
-    setFavorites(prev =>
+    setFavorites((prev: string[]) =>
       prev.includes(productId)
-        ? prev.filter(id => id !== productId)
+        ? prev.filter((id: string) => id !== productId)
         : [...prev, productId]
     )
   }
@@ -166,16 +219,15 @@ export default function PremiumCategoriesPage() {
       animate={{ opacity: 1, y: 0 }}
       className="group"
     >
-      <Card className="overflow-hidden hover:shadow-lg transition-all duration-300">
-        <div className="relative">
+      <Card className="overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 bg-white flex flex-col h-full">
+        <div className="relative w-full aspect-[4/3] bg-gray-50 flex items-center justify-center">
           <Image
             src={product.image}
             alt={product.name}
-            width={300}
-            height={200}
-            className="w-full h-48 object-contain bg-gray-50 group-hover:scale-105 transition-transform duration-300"
+            width={320}
+            height={240}
+            className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
           />
-          
           {/* Badges */}
           <div className="absolute top-3 left-3 flex flex-col gap-2">
             {product.badge && (
@@ -194,12 +246,10 @@ export default function PremiumCategoriesPage() {
               </Badge>
             )}
           </div>
-
           {/* Flag */}
           <div className="absolute top-3 right-3">
             <span className="text-2xl">{product.flag}</span>
           </div>
-
           {/* Action buttons */}
           <div className="absolute bottom-3 right-3 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
             <Button
@@ -215,12 +265,11 @@ export default function PremiumCategoriesPage() {
             </Button>
           </div>
         </div>
-
-        <CardContent className="p-4">
-          <div className="mb-2">
+        <CardContent className="p-4 flex flex-col flex-1">
+          <div className="mb-2 flex flex-col gap-1">
             <div className="flex items-center justify-between mb-1">
-              <span className="text-sm text-gray-500">{product.brand}</span>
-              <span className="text-sm text-gray-500">{product.origin}</span>
+              <span className="text-xs text-gray-500 font-medium">{product.brand}</span>
+              <span className="text-xs text-gray-500 font-medium">{product.origin}</span>
             </div>
             <h3 className="font-semibold text-lg text-gray-900 line-clamp-2">
               {product.name}
@@ -229,7 +278,6 @@ export default function PremiumCategoriesPage() {
               {product.description}
             </p>
           </div>
-
           {/* Rating */}
           <div className="flex items-center mb-3">
             <div className="flex items-center">
@@ -244,36 +292,32 @@ export default function PremiumCategoriesPage() {
                 />
               ))}
             </div>
-            <span className="text-sm text-gray-500 ml-2">
+            <span className="text-xs text-gray-500 ml-2">
               {product.rating} ({product.reviews})
             </span>
           </div>
-
           {/* Features */}
-          <div className="mb-4">
-            <div className="flex flex-wrap gap-1">
-              {product.features.slice(0, 3).map((feature) => (
-                <Badge key={feature} variant="secondary" className="text-xs">
-                  {feature}
-                </Badge>
-              ))}
-              {product.features.length > 3 && (
-                <Badge variant="outline" className="text-xs">
-                  +{product.features.length - 3}
-                </Badge>
-              )}
-            </div>
+          <div className="mb-4 flex flex-wrap gap-1">
+            {product.features.slice(0, 3).map((feature: any) => (
+              <Badge key={feature} variant="secondary" className="text-xs">
+                {feature}
+              </Badge>
+            ))}
+            {product.features.length > 3 && (
+              <Badge variant="outline" className="text-xs">
+                +{product.features.length - 3}
+              </Badge>
+            )}
           </div>
-
-          {/* Price */}
+          {/* Price & Stock */}
           <div className="flex items-center justify-between mb-4">
             <div>
-              <span className="text-2xl font-bold text-green-600">
+              <span className="text-xl font-bold text-green-600">
                 {formatPrice(product.price)}
               </span>
               {product.originalPrice && product.originalPrice > product.price && (
                 <div className="flex items-center gap-2">
-                  <span className="text-sm text-gray-500 line-through">
+                  <span className="text-xs text-gray-500 line-through">
                     {formatPrice(product.originalPrice)}
                   </span>
                   <Badge className="bg-red-100 text-red-800 text-xs">
@@ -283,14 +327,13 @@ export default function PremiumCategoriesPage() {
               )}
             </div>
             <div className="text-right">
-              <div className="text-sm text-gray-600">
+              <div className={`text-xs font-semibold ${product.stock > 0 ? 'text-green-600' : 'text-red-500'}`}>
                 {product.stock > 0 ? `${product.stock} em estoque` : 'Esgotado'}
               </div>
             </div>
           </div>
-
           <Button 
-            className="w-full" 
+            className="w-full mt-auto" 
             disabled={product.stock === 0}
             onClick={() => toast.success(`${product.name} adicionado ao carrinho!`)}
           >
@@ -308,25 +351,27 @@ export default function PremiumCategoriesPage() {
       <div>
         <h3 className="font-semibold mb-3">Categorias</h3>
         <div className="space-y-2">
-          {premiumCategories.map((category) => (
-            <div key={category.id} className="flex items-center space-x-2">
-              <Checkbox
-                id={category.id}
-                checked={selectedCategories.includes(category.id)}
-                onCheckedChange={(checked) => {
-                  if (checked) {
-                    setSelectedCategories([...selectedCategories, category.id])
-                  } else {
-                    setSelectedCategories(selectedCategories.filter(id => id !== category.id))
-                  }
-                }}
-              />
-              <label htmlFor={category.id} className="text-sm flex items-center">
-                <span className="mr-2">{category.icon}</span>
-                {category.name}
-              </label>
-            </div>
-          ))}
+          {premiumCategories
+            .filter(category => typeof category.id === 'string' && category.id.trim() !== '')
+            .map((category: { id: string; icon: React.ReactNode; name: string }) => (
+              <div key={category.id} className="flex items-center space-x-2">
+                <Checkbox
+                  id={category.id}
+                  checked={selectedCategories.includes(category.id)}
+                  onCheckedChange={(checked: any) => {
+                    if (checked) {
+                      setSelectedCategories([...selectedCategories, category.id])
+                    } else {
+                      setSelectedCategories(selectedCategories.filter((id: string) => id !== category.id))
+                    }
+                  }}
+                />
+                <label htmlFor={category.id} className="text-sm flex items-center">
+                  <span className="mr-2">{category.icon}</span>
+                  {category.name}
+                </label>
+              </div>
+            ))}
         </div>
       </div>
 
@@ -336,24 +381,26 @@ export default function PremiumCategoriesPage() {
       <div>
         <h3 className="font-semibold mb-3">Marcas</h3>
         <div className="space-y-2 max-h-48 overflow-y-auto">
-          {allBrands.map((brand) => (
-            <div key={brand} className="flex items-center space-x-2">
-              <Checkbox
-                id={brand}
-                checked={selectedBrands.includes(brand)}
-                onCheckedChange={(checked) => {
-                  if (checked) {
-                    setSelectedBrands([...selectedBrands, brand])
-                  } else {
-                    setSelectedBrands(selectedBrands.filter(b => b !== brand))
-                  }
-                }}
-              />
-              <label htmlFor={brand} className="text-sm">
-                {brand}
-              </label>
-            </div>
-          ))}
+          {allBrands
+            .filter(brand => typeof brand === 'string' && brand.trim() !== '')
+            .map((brand: string) => (
+              <div key={brand} className="flex items-center space-x-2">
+                <Checkbox
+                  id={brand}
+                  checked={selectedBrands.includes(brand)}
+                  onCheckedChange={(checked: any) => {
+                    if (checked) {
+                      setSelectedBrands([...selectedBrands, brand])
+                    } else {
+                      setSelectedBrands(selectedBrands.filter((b: string) => b !== brand))
+                    }
+                  }}
+                />
+                <label htmlFor={brand} className="text-sm">
+                  {brand}
+                </label>
+              </div>
+            ))}
         </div>
       </div>
 
@@ -363,24 +410,26 @@ export default function PremiumCategoriesPage() {
       <div>
         <h3 className="font-semibold mb-3">Origem</h3>
         <div className="space-y-2">
-          {allOrigins.map((origin) => (
-            <div key={origin} className="flex items-center space-x-2">
-              <Checkbox
-                id={origin}
-                checked={selectedOrigins.includes(origin)}
-                onCheckedChange={(checked) => {
-                  if (checked) {
-                    setSelectedOrigins([...selectedOrigins, origin])
-                  } else {
-                    setSelectedOrigins(selectedOrigins.filter(o => o !== origin))
-                  }
-                }}
-              />
-              <label htmlFor={origin} className="text-sm">
-                {origin}
-              </label>
-            </div>
-          ))}
+          {allOrigins
+            .filter(origin => typeof origin === 'string' && origin.trim() !== '')
+            .map((origin: string) => (
+              <div key={origin} className="flex items-center space-x-2">
+                <Checkbox
+                  id={origin}
+                  checked={selectedOrigins.includes(origin)}
+                  onCheckedChange={(checked: any) => {
+                    if (checked) {
+                      setSelectedOrigins([...selectedOrigins, origin])
+                    } else {
+                      setSelectedOrigins(selectedOrigins.filter((o: string) => o !== origin))
+                    }
+                  }}
+                />
+                <label htmlFor={origin} className="text-sm">
+                  {origin}
+                </label>
+              </div>
+            ))}
         </div>
       </div>
 
@@ -409,10 +458,10 @@ export default function PremiumCategoriesPage() {
 
   // Exemplo de renderização dos produtos por categoria
   const categorias = [
-    { nome: 'Apple', produtos: produtosApple },
-    { nome: 'JBL', produtos: produtosJBL },
-    { nome: 'Dji', produtos: produtosDji },
-    { nome: 'Xiomi', produtos: produtosXiomi }
+    { nome: 'Apple', produtos: produtosApple, video: '/videos/iphone.mp4', gradient: 'from-blue-600 via-purple-600 to-indigo-700' },
+    { nome: 'JBL', produtos: produtosJBL, video: '/videos/jbl.mp4', gradient: 'from-orange-500 via-yellow-500 to-red-600' },
+    { nome: 'Dji', produtos: produtosDji, video: '/videos/dji.mp4', gradient: 'from-emerald-500 via-teal-500 to-cyan-600' },
+    { nome: 'Xiomi', produtos: produtosXiomi, video: '/videos/xiomi.mp4', gradient: 'from-orange-500 via-red-500 to-pink-600' }
   ]
 
   return (
@@ -428,9 +477,8 @@ export default function PremiumCategoriesPage() {
           </p>
         </div>
 
-        {/* Search and Filters */}
+        {/* Search and Filters Modernos */}
         <div className="flex flex-col lg:flex-row gap-6 mb-8">
-          {/* Search */}
           <div className="flex-1">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
@@ -438,16 +486,14 @@ export default function PremiumCategoriesPage() {
                 type="text"
                 placeholder="Buscar produtos, marcas ou categorias..."
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                onChange={(e: { target: { value: any } }) => setSearchTerm(e.target.value)}
                 className="pl-10"
               />
             </div>
           </div>
-
-          {/* Sort */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 flex-wrap">
             <Select value={sortBy} onValueChange={(value: SortOption) => setSortBy(value)}>
-              <SelectTrigger className="w-48">
+              <SelectTrigger className="w-44 bg-gray-50 border-gray-300">
                 <SelectValue placeholder="Ordenar por" />
               </SelectTrigger>
               <SelectContent>
@@ -458,8 +504,22 @@ export default function PremiumCategoriesPage() {
                 <SelectItem value="newest">Lançamentos</SelectItem>
               </SelectContent>
             </Select>
-
-            {/* View Mode */}
+            <div className="flex items-center gap-2">
+              <span className="text-sm text-gray-600">Preço:</span>
+              <div className="w-32">
+                <Slider
+                  value={priceRange}
+                  onValueChange={setPriceRange}
+                  max={10000}
+                  min={0}
+                  step={100}
+                  className="w-full"
+                />
+              </div>
+              <span className="text-sm text-gray-600 whitespace-nowrap">
+                R$ {priceRange[0]} - R$ {priceRange[1]}
+              </span>
+            </div>
             <div className="flex border rounded-lg overflow-hidden">
               <Button
                 variant={viewMode === 'grid' ? 'default' : 'ghost'}
@@ -478,8 +538,6 @@ export default function PremiumCategoriesPage() {
                 <List className="h-4 w-4" />
               </Button>
             </div>
-
-            {/* Mobile Filter Button */}
             <Sheet>
               <SheetTrigger asChild>
                 <Button variant="outline" size="sm" className="lg:hidden">
@@ -498,9 +556,7 @@ export default function PremiumCategoriesPage() {
             </Sheet>
           </div>
         </div>
-
         <div className="flex gap-8">
-          {/* Sidebar Filters (Desktop) */}
           <div className="hidden lg:block w-64 flex-shrink-0">
             <div className="bg-white rounded-lg p-6 sticky top-8">
               <div className="flex items-center justify-between mb-4">
@@ -521,23 +577,15 @@ export default function PremiumCategoriesPage() {
               <FilterSidebar />
             </div>
           </div>
-
-          {/* Products Grid */}
           <div className="flex-1">
             <div className="mb-4 flex items-center justify-between">
               <p className="text-gray-600">
                 {filteredProducts.length} produtos encontrados
               </p>
             </div>
-
             {filteredProducts.length > 0 ? (
-              <div className={`grid gap-6 ${
-                viewMode === 'grid' 
-                  ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' 
-                  : 'grid-cols-1'
-              }`}>
-                {filteredProducts.map((product) => {
-                  // Map product to Product type
+              <div className={`grid gap-6 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4`}> 
+                {filteredProducts.map((product: { id: any }, idx: number) => {
                   const mappedProduct: Product = {
                     id: String(product.id),
                     name: (product as any).name ?? (product as any).nome ?? '',
@@ -559,7 +607,7 @@ export default function PremiumCategoriesPage() {
                     subcategory: ''
                   };
                   return (
-                    <ProductCard key={mappedProduct.id} product={mappedProduct} />
+                    <ProductCard key={mappedProduct.id + '-' + idx} product={mappedProduct} />
                   );
                 })}
               </div>
@@ -578,27 +626,71 @@ export default function PremiumCategoriesPage() {
             )}
           </div>
         </div>
-
-        {/* Exemplo de renderização dos produtos por categoria */}
+        {/* Renderização dos produtos por categoria com vídeo quando disponível */}
         <section className="py-24 bg-background">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-4xl font-bold mb-8 text-foreground">Produtos por Categoria</h2>
             {categorias.map(categoria => (
-              <div key={categoria.nome} className="mb-12">
-                <h3 className="text-2xl font-semibold mb-4">{categoria.nome}</h3>
-                <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                  {categoria.produtos.map(produto => (
+              <div key={categoria.nome} className="mb-16">
+                {/* Video da categoria se existir */}
+                {categoria.video && (
+                  <div className={`relative h-64 mb-8 rounded-2xl overflow-hidden shadow-lg bg-gradient-to-r ${categoria.gradient}`}>
+                    <video
+                      src={categoria.video}
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      className="absolute inset-0 w-full h-full object-cover opacity-40"
+                    />
+                    <div className="absolute inset-0 bg-black/30" />
+                    <div className="relative z-10 flex items-center h-full px-8">
+                      <h3 className="text-3xl font-bold text-white drop-shadow-lg">{categoria.nome}</h3>
+                    </div>
+                  </div>
+                )}
+                <div className="flex flex-wrap gap-6 justify-center">
+                  {(categoria.produtos
+                    .map((produto: any) => ({
+                      id: String(produto.id ?? produto.ID ?? produto.codigo ?? produto.sku ?? ''),
+                      name: produto.name ?? produto.nome ?? '',
+                      description: produto.description ?? produto.descricao ?? '',
+                      price: typeof produto.price === 'number' ? produto.price : (typeof produto.preco === 'number' ? produto.preco : 0),
+                      originalPrice: typeof produto.originalPrice === 'number' ? produto.originalPrice : (typeof produto.precoOriginal === 'number' ? produto.precoOriginal : undefined),
+                      image: produto.image ?? produto.imagem ?? (produto.images?.main ?? ''),
+                      category: produto.category ?? produto.categoria ?? '',
+                      brand: produto.brand ?? produto.marca ?? '',
+                      origin: produto.origin ?? produto.origem ?? '',
+                      badge: produto.badge,
+                      isNew: produto.isNew ?? false,
+                      isExclusive: produto.isExclusive ?? false,
+                      flag: produto.flag ?? '',
+                      rating: produto.rating ?? 0,
+                      reviews: produto.reviews ?? 0,
+                      features: produto.features ?? [],
+                      stock: typeof produto.stock === 'number' ? produto.stock : (typeof produto.estoque === 'number' ? produto.estoque : 0),
+                      subcategory: produto.subcategory ?? ''
+                    }))
+                    .slice(0, visibleCounts[categoria.nome] || 8)
+                  ).map((produto, idx) => (
                     <SimpleProductCard
-                      key={produto.id}
+                      key={produto.id + '-' + idx}
                       id={produto.id}
-                      name={produto.nome ?? ''}
-                      price={`R$ ${(produto.preco ?? 0).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`}
-                      originalPrice={typeof (produto as any).precoOriginal === 'number' ? `R$ ${(produto as any).precoOriginal.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}` : undefined}
-                      image={(produto as any).imagem ?? (produto as any).image ?? '' }
-                      category={produto.categoria}
-                      isNew={(produto as any)?.isNew}
+                      name={produto.name}
+                      price={`R$ ${(produto.price ?? 0).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`}
+                      originalPrice={typeof produto.originalPrice === 'number' ? `R$ ${produto.originalPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}` : undefined}
+                      image={produto.image}
+                      isNew={produto.isNew}
+                      category={produto.category}
                     />
                   ))}
+                  {categoria.produtos.length > (visibleCounts[categoria.nome] || 8) && (
+                    <div className="w-full flex justify-center mt-6">
+                      <Button variant="outline" onClick={() => handleShowMore(categoria.nome, categoria.produtos.length)}>
+                        Mostrar mais
+                      </Button>
+                    </div>
+                  )}
                 </div>
               </div>
             ))}
