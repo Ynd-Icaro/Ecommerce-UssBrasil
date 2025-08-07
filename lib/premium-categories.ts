@@ -39,7 +39,7 @@ export const premiumCategories: Category[] = [
   {
     id: 'tech-innovation',
     name: 'Tecnologia & Inovação',
-    icon: '',
+    icon: 'device-mobile', // Example: use your icon set identifier
     description: 'Dispositivos de última geração importados diretamente dos EUA e Ásia',
     color: 'blue',
     gradient: 'from-blue-500 to-purple-600',
@@ -55,7 +55,7 @@ export const premiumCategories: Category[] = [
             description: 'Original dos EUA com chip A17 Pro e câmera profissional',
             price: 8999,
             originalPrice: 9999,
-            image: '/produtos/Iphone 16 Pro.png',
+            image: '/fallback-product.pngApple/Iphone 16 Pro.png',
             category: 'tech-innovation',
             subcategory: 'smartphones',
             brand: 'Apple',
@@ -74,7 +74,7 @@ export const premiumCategories: Category[] = [
             description: 'Smartphone topo de linha com S Pen e câmera 200MP',
             price: 7999,
             originalPrice: 8999,
-            image: '/produtos/smartphone.svg',
+            image: '/fallback-product.png',
             category: 'tech-innovation',
             subcategory: 'smartphones',
             brand: 'Samsung',
@@ -90,7 +90,7 @@ export const premiumCategories: Category[] = [
             description: 'Edição Global com Leica Camera System',
             price: 4299,
             originalPrice: 4799,
-            image: '/produtos/smartphone.svg',
+            image: '/fallback-product.png',
             category: 'tech-innovation',
             subcategory: 'smartphones',
             brand: 'Xiaomi',
@@ -114,7 +114,7 @@ export const premiumCategories: Category[] = [
             description: 'O smartwatch mais avançado com chip S9 e Double Tap',
             price: 3299,
             originalPrice: 3599,
-            image: '/produtos/Watch Series 10.png',
+            image: '/fallback-product.pngApple/Watch Series 10.png',
             category: 'tech-innovation',
             subcategory: 'smartwatches',
             brand: 'Apple',
@@ -131,7 +131,7 @@ export const premiumCategories: Category[] = [
             description: 'Monitoramento avançado de saúde e bateria de longa duração',
             price: 1899,
             originalPrice: 2199,
-            image: '/produtos/watch.svg',
+            image: '/fallback-product.png',
             category: 'tech-innovation',
             subcategory: 'smartwatches',
             brand: 'Samsung',
@@ -154,7 +154,7 @@ export const premiumCategories: Category[] = [
             description: 'Tela Liquid Retina XDR com chip M4 revolucionário',
             price: 7999,
             originalPrice: 8999,
-            image: '/produtos/Ipad Pro.png',
+            image: '/fallback-product.pngApple/Ipad Pro.png',
             category: 'tech-innovation',
             subcategory: 'tablets-gadgets',
             brand: 'Apple',
@@ -172,7 +172,7 @@ export const premiumCategories: Category[] = [
             description: 'Tablet premium com tela AMOLED e S Pen inclusa',
             price: 4999,
             originalPrice: 5999,
-            image: '/produtos/Ipad.png',
+            image: '/fallback-product.pngApple/Ipad.png',
             category: 'tech-innovation',
             subcategory: 'tablets-gadgets',
             brand: 'Samsung',
@@ -189,7 +189,7 @@ export const premiumCategories: Category[] = [
   {
     id: 'electric-mobility',
     name: 'Mobilidade Elétrica',
-    icon: '',
+    icon: 'electric-scooter', // Example: use your icon set identifier
     description: 'Veículos elétricos premium para mobilidade urbana sustentável',
     color: 'green',
     gradient: 'from-green-500 to-teal-600',
@@ -205,7 +205,7 @@ export const premiumCategories: Category[] = [
             description: '45km de autonomia com design elegante e robusto',
             price: 2799,
             originalPrice: 3199,
-            image: '/produtos/scooter.svg',
+            image: '/fallback-product.pngscooter.svg',
             category: 'electric-mobility',
             subcategory: 'electric-scooters',
             brand: 'Xiaomi',
@@ -222,7 +222,7 @@ export const premiumCategories: Category[] = [
             description: 'Potência e equilíbrio perfeitos para longas distâncias',
             price: 3299,
             originalPrice: 3799,
-            image: '/produtos/scooter.svg',
+            image: '/fallback-product.pngscooter.svg',
             category: 'electric-mobility',
             subcategory: 'electric-scooters',
             brand: 'Segway',
@@ -245,7 +245,7 @@ export const premiumCategories: Category[] = [
             description: 'Skate elétrico premium com autonomia de até 50km',
             price: 5999,
             originalPrice: 6999,
-            image: '/produtos/skate.svg',
+            image: '/fallback-product.pngskate.svg',
             category: 'electric-mobility',
             subcategory: 'electric-skates',
             brand: 'Evolve',
@@ -262,7 +262,7 @@ export const premiumCategories: Category[] = [
   {
     id: 'drones-aerial',
     name: 'Drones & Aéreo',
-    icon: '',
+    icon: 'drone', // Example: use your icon set identifier
     description: 'Drones profissionais e equipamentos aéreos de última geração',
     color: 'purple',
     gradient: 'from-purple-500 to-pink-600',
@@ -278,7 +278,7 @@ export const premiumCategories: Category[] = [
             description: '4K, sensor obstáculo, ultraleve com ActiveTrack 360°',
             price: 4299,
             originalPrice: 4799,
-            image: '/produtos/drone.svg',
+            image: '/fallback-product.pngdrone.svg',
             category: 'drones-aerial',
             subcategory: 'professional-drones',
             brand: 'DJI',
@@ -296,7 +296,7 @@ export const premiumCategories: Category[] = [
             description: 'Drone com sensor 1" e vídeo 6K',
             price: 5999,
             originalPrice: 6499,
-            image: '/produtos/drone.svg',
+            image: '/fallback-product.pngdrone.svg',
             category: 'drones-aerial',
             subcategory: 'professional-drones',
             brand: 'Autel',
@@ -313,7 +313,7 @@ export const premiumCategories: Category[] = [
   {
     id: 'audio-style',
     name: 'Som e Estilo',
-    icon: '',
+    icon: 'headphones', // Example: use your icon set identifier
     description: 'Áudio premium e acessórios de estilo para audiophiles',
     color: 'yellow',
     gradient: 'from-yellow-500 to-orange-600',
@@ -329,7 +329,7 @@ export const premiumCategories: Category[] = [
             description: 'Cancelamento ativo de ruído com chip H2',
             price: 1899,
             originalPrice: 2199,
-            image: '/produtos/Air Pods Pro 2',
+            image: '/fallback-product.pngAir Pods Pro 2',
             category: 'audio-style',
             subcategory: 'headphones-audio',
             brand: 'Apple',
@@ -346,7 +346,7 @@ export const premiumCategories: Category[] = [
             description: 'Fone de ouvido com cancelamento de ruído líder de mercado',
             price: 2499,
             originalPrice: 2999,
-            image: '/produtos/headphones.svg',
+            image: '/fallback-product.pngheadphones.svg',
             category: 'audio-style',
             subcategory: 'headphones-audio',
             brand: 'Sony',
@@ -363,7 +363,7 @@ export const premiumCategories: Category[] = [
   {
     id: 'entertainment-lifestyle',
     name: 'Entretenimento & Estilo de Vida',
-    icon: '',
+    icon: 'gamepad', // Example: use your icon set identifier
     description: 'Consoles retrô, games portáteis e entretenimento premium',
     color: 'red',
     gradient: 'from-red-500 to-pink-600',
@@ -379,7 +379,7 @@ export const premiumCategories: Category[] = [
             description: 'Jogos retrô em HD com Android 11 e emulação perfeita',
             price: 899,
             originalPrice: 1199,
-            image: '/produtos/gaming.svg',
+            image: '/fallback-product.pnggaming.svg',
             category: 'entertainment-lifestyle',
             subcategory: 'retro-gaming',
             brand: 'Retroid',
@@ -395,7 +395,7 @@ export const premiumCategories: Category[] = [
             description: 'Clássicos na palma da mão com design retrô autêntico',
             price: 459,
             originalPrice: 599,
-            image: '/produtos/gaming.svg',
+            image: '/fallback-product.pnggaming.svg',
             category: 'entertainment-lifestyle',
             subcategory: 'retro-gaming',
             brand: 'Anbernic',
@@ -412,7 +412,7 @@ export const premiumCategories: Category[] = [
   {
     id: 'smart-accessories',
     name: 'Acessórios Inteligentes',
-    icon: '',
+    icon: 'plug', // Example: use your icon set identifier
     description: 'Acessórios premium e inteligentes para seus dispositivos',
     color: 'gray',
     gradient: 'from-gray-500 to-slate-600',
@@ -428,7 +428,7 @@ export const premiumCategories: Category[] = [
             description: 'Carregador wireless magnético original da Apple',
             price: 299,
             originalPrice: 399,
-            image: '/produtos/charger.svg',
+            image: '/fallback-product.pngcharger.svg',
             category: 'smart-accessories',
             subcategory: 'chargers-cables',
             brand: 'Apple',
@@ -445,7 +445,7 @@ export const premiumCategories: Category[] = [
             description: 'Carregador rápido USB-C com tecnologia PowerIQ',
             price: 199,
             originalPrice: 249,
-            image: '/produtos/charger.svg',
+            image: '/fallback-product.pngcharger.svg',
             category: 'smart-accessories',
             subcategory: 'chargers-cables',
             brand: 'Anker',
@@ -491,7 +491,9 @@ export const getAllProducts = () => {
   const products: Product[] = []
   premiumCategories.forEach(category => {
     category.subcategories.forEach(subcategory => {
-      subcategory.products.forEach(product => products.push(product))
+      subcategory.products.forEach(product => {
+        products.push(product)
+      })
     })
   })
   return products

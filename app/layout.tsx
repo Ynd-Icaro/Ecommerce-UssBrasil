@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import ConditionalNavbar from '@/components/conditional-navbar'
+import Navbar from '@/components/navbar'
 import ToastWrapper from '@/components/toast-wrapper'
 import { ThemeProvider } from '@/hooks/use-theme'
 import { Toaster } from 'sonner'
@@ -58,7 +58,7 @@ export default function RootLayout({
           <FavoritesProvider>
             <CartProvider>
               <Toaster position="top-center" richColors />
-              <ConditionalNavbar />
+              <Navbar />
               <main className="min-h-screen">
                 {children}
               </main>

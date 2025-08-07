@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { AnalyticsCard } from '@/components/admin/AnalyticsCardFixed'
+import { AnalyticsCard } from '@/components/admin/AnalyticsCard'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -23,6 +23,7 @@ import {
   Search
 } from 'lucide-react'
 import { Input } from '@/components/ui/input'
+import ProductImage from '@/components/admin/ProductImage'
 
 const dashboardData = {
   overview: [
@@ -223,11 +224,11 @@ export default function AdminDashboard() {
                         className="flex items-center justify-between p-4 rounded-xl border bg-white hover:shadow-md transition-all duration-200"
                       >
                         <div className="flex items-center space-x-4">
-                          <div className="w-16 h-16 rounded-xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200">
-                            <img
+                          <div className="w-16 h-16 rounded-xl overflow-hidden">
+                            <ProductImage
                               src={product.image}
                               alt={product.name}
-                              className="w-full h-full object-cover"
+                              size="md"
                             />
                           </div>
                           <div>

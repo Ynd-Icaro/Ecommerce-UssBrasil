@@ -148,32 +148,62 @@ const MobileSidebar = ({ sidebarOpen, setSidebarOpen }: { sidebarOpen: boolean, 
             animate={{ x: 0 }}
             exit={{ x: '-100%' }}
             transition={{ duration: 0.3, ease: 'easeInOut' }}
-            className="fixed top-0 left-0 h-full w-72 bg-white/80 backdrop-blur-xl border-r border-white/20 shadow-2xl z-40 flex flex-col"
+            className="fixed top-0 left-0 h-full w-80 bg-white/95 backdrop-blur-xl border-r border-white/20 shadow-2xl z-40 flex flex-col"
           >
-            <div className="flex items-center justify-between p-6 h-[88px] border-b border-black/5">
-              <Link href="/admin" className="text-2xl font-bold bg-gradient-to-r from-slate-900 to-slate-600 bg-clip-text text-transparent">
-                Uss Brasil
+            {/* Header */}
+            <div className="flex items-center justify-between p-6 h-[88px] border-b border-black/5 bg-gradient-to-r from-[#20b2aa] to-[#1a9999] text-white">
+              <Link href="/admin" className="text-2xl font-bold" onClick={() => setSidebarOpen(false)}>
+                USS BRASIL
               </Link>
-              <Button variant="ghost" size="icon" onClick={() => setSidebarOpen(false)} className="rounded-full">
+              <Button variant="ghost" size="icon" onClick={() => setSidebarOpen(false)} className="rounded-full text-white hover:bg-white/20">
                 <X />
               </Button>
             </div>
-            <nav className="flex-1 px-4 py-6 space-y-2">
+            
+            {/* Navigation */}
+            <nav className="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
               {sidebarItems.map((item) => (
                 <Link key={item.name} href={item.href} onClick={() => setSidebarOpen(false)}>
-                  <div
-                    className={`flex items-center p-3 rounded-lg cursor-pointer transition-colors ${
+                  <motion.div
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className={`flex items-center p-4 rounded-lg cursor-pointer transition-all ${
                       pathname === item.href
-                        ? 'bg-gradient-to-r from-[#00CED1] to-[#20B2AA] text-white shadow-md'
-                        : 'hover:bg-white/50 text-slate-700'
+                        ? 'bg-gradient-to-r from-[#20b2aa] to-[#1a9999] text-white shadow-lg'
+                        : 'hover:bg-gray-50 text-slate-700 hover:shadow-md'
                     }`}
                   >
                     <item.icon className="h-6 w-6 mr-4" />
                     <span className="font-semibold">{item.name}</span>
-                  </div>
+                  </motion.div>
                 </Link>
               ))}
             </nav>
+            
+            {/* Footer com perfil */}
+            <div className="p-4 border-t border-black/5 bg-gray-50">
+              <div className="flex items-center space-x-3">
+                <Avatar className="h-12 w-12">
+                  <AvatarImage src="https://github.com/shadcn.png" alt="Admin" />
+                  <AvatarFallback className="bg-[#20b2aa] text-white">AD</AvatarFallback>
+                </Avatar>
+                <div className="flex-1">
+                  <p className="font-semibold text-slate-800">Admin</p>
+                  <p className="text-sm text-slate-500">admin@ussbrasil.com</p>
+                </div>
+              </div>
+              
+              {/* Botões de ação rápida */}
+              <div className="flex space-x-2 mt-4">
+                <Button variant="outline" size="sm" className="flex-1">
+                  <Settings className="h-4 w-4 mr-2" />
+                  Config
+                </Button>
+                <Button variant="outline" size="sm" className="flex-1">
+                  Sair
+                </Button>
+              </div>
+            </div>
           </motion.div>
         </>
       )}
@@ -191,19 +221,32 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
       <MobileSidebar sidebarOpen={mobileSidebarOpen} setSidebarOpen={setMobileSidebarOpen} />
       
       <div className="flex-1 flex flex-col">
-        <header className="lg:hidden flex items-center justify-between p-4 h-[88px] bg-white/70 backdrop-blur-xl border-b border-white/20 shadow-lg sticky top-0 z-10">
-          <Button variant="ghost" size="icon" onClick={() => setMobileSidebarOpen(true)}>
-            <Menu />
-          </Button>
-          <Link href="/admin" className="text-xl font-bold bg-gradient-to-r from-slate-900 to-slate-600 bg-clip-text text-transparent">
-            Uss Brasil
-          </Link>
-          <Avatar className="h-10 w-10">
-            <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-            <AvatarFallback>CN</AvatarFallback>
-          </Avatar>
+        <header className="lg:hidden flex items-center justify-between p-4 h-[72px] bg-gradient-to-r from-[#20b2aa] to-[#1a9999] text-white shadow-lg sticky top-0 z-10">
+          <div className="flex items-center space-x-3">
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              onClick={() => setMobileSidebarOpen(true)}
+              className="text-white hover:bg-white/20 rounded-lg"
+            >
+              <Menu className="h-5 w-5" />
+            </Button>
+            <Link href="/admin" className="text-xl font-bold">
+              USS BRASIL
+            </Link>
+          </div>
+          
+          <div className="flex items-center space-x-2">
+            <Button variant="ghost" size="icon" className="text-white hover:bg-white/20 rounded-lg">
+              <BarChart3 className="h-5 w-5" />
+            </Button>
+            <Avatar className="h-9 w-9 ring-2 ring-white/30">
+              <AvatarImage src="https://github.com/shadcn.png" alt="Admin" />
+              <AvatarFallback className="bg-white/20 text-white">AD</AvatarFallback>
+            </Avatar>
+          </div>
         </header>
-        <main className="flex-1">
+        <main className="flex-1 p-4 lg:p-0">
           {children}
         </main>
       </div>

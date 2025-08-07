@@ -4,233 +4,377 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { 
   Settings, 
-  User, 
   Bell, 
   Shield, 
   Palette, 
   Save,
   Store,
-  Mail,
-  Phone,
-  MapPin,
-  FileText,
-  ToggleLeft,
-  ToggleRight,
-  Lock,
-  Clock,
-  Languages,
-  Sun,
-  Moon
+  AlertTriangle
 } from 'lucide-react'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Switch } from '@/components/ui/switch'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { toast } from 'sonner'
-import AdminLayout from '@/components/admin-layout'
+import PageHeader from '@/components/admin/PageHeader'
 
 export default function AdminSettingsPage() {
   const [settings, setSettings] = useState({
-    storeName: 'Ecomuss',
-    storeDescription: 'A melhor loja de produtos Apple do Brasil.',
-    storeEmail: 'contato@ecomuss.com',
+    storeName: 'USSBRASIL',
+    storeDescription: 'A melhor loja de produtos importados do Brasil com tecnologia de ponta e entrega rápida',
+    storeEmail: 'contato@ussbrasil.com',
     storePhone: '(11) 98765-4321',
     storeAddress: 'Av. Paulista, 1234, São Paulo - SP',
     emailNotifications: true,
     smsNotifications: false,
+    pushNotifications: true,
     twoFactorAuth: true,
     passwordExpiry: '90',
-    theme: 'light',
+    theme: 'dark',
     locale: 'pt-BR',
+    currency: 'BRL',
+    timezone: 'America/Sao_Paulo',
+    autoBackup: true,
+    analyticsEnabled: true,
+    cookieConsent: true
   })
 
+  const [activeTab, setActiveTab] = useState('store')
+
   const handleSave = () => {
-    toast.success('Configurações salvas com sucesso!', {
-      description: 'As alterações foram aplicadas em todo o sistema.',
-      icon: <Save className="h-5 w-5 text-emerald-500" />,
-    })
+    console.log('Settings saved:', settings)
   }
 
   const handleInputChange = (field: string, value: any) => {
     setSettings(prev => ({ ...prev, [field]: value }))
   }
 
-  const springTransition = { type: "spring" as const, stiffness: 300, damping: 30 }
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
-  }
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20, scale: 0.95 },
-    visible: { opacity: 1, y: 0, scale: 1, transition: springTransition }
-  }
-
-  const renderSection = (title: string, icon: React.ReactNode, children: React.ReactNode) => (
-    <motion.div variants={itemVariants}>
-      <Card className="bg-white/60 backdrop-blur-xl rounded-2xl shadow-lg border border-white/20 overflow-hidden">
-        <CardHeader className="border-b border-black/5 p-6">
-          <CardTitle className="flex items-center text-xl font-semibold text-slate-800">
-            {icon}
-            {title}
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="p-6 space-y-6">
-          {children}
-        </CardContent>
-      </Card>
+  const SettingCard = ({ icon, title, children }: { icon: React.ReactNode, title: string, children: React.ReactNode }) => (
+    <motion.div
+      initial={{ y: 20, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      className="bg-[#0C1A33]/90 backdrop-blur-sm border border-[#0E7466]/30 rounded-xl p-4 lg:p-6"
+    >
+      <div className="flex items-center space-x-2 lg:space-x-3 mb-4 lg:mb-6">
+        <div className="p-2 rounded-lg bg-[#0E7466]/20 text-[#0E7466]">
+          {icon}
+        </div>
+        <h3 className="text-xl font-bold text-white">{title}</h3>
+      </div>
+      <div className="space-y-4">
+        {children}
+      </div>
     </motion.div>
   )
 
-  const renderSettingRow = (label: string, description: string, control: React.ReactNode) => (
-    <div className="flex items-center justify-between p-4 rounded-lg hover:bg-white/50 transition-colors">
-      <div>
-        <Label className="font-semibold text-slate-700">{label}</Label>
-        <p className="text-sm text-slate-500">{description}</p>
+  const SettingRow = ({ 
+    label, 
+    description, 
+    children 
+  }: { 
+    label: string
+    description: string
+    children: React.ReactNode 
+  }) => (
+    <div className="flex items-center justify-between p-4 rounded-lg bg-white/5 hover:bg-white/10 transition-colors">
+      <div className="flex-1">
+        <label className="text-white font-medium">{label}</label>
+        <p className="text-gray-400 text-sm">{description}</p>
       </div>
-      {control}
+      <div className="ml-4">
+        {children}
+      </div>
     </div>
   )
 
+  const Switch = ({ checked, onChange }: { checked: boolean, onChange: (checked: boolean) => void }) => (
+    <button
+      onClick={() => onChange(!checked)}
+      className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+        checked ? 'bg-[#0E7466]' : 'bg-gray-600'
+      }`}
+    >
+      <span
+        className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+          checked ? 'translate-x-6' : 'translate-x-1'
+        }`}
+      />
+    </button>
+  )
+
+  const tabs = [
+    { id: 'store', label: 'Loja', icon: Store },
+    { id: 'notifications', label: 'Notificações', icon: Bell },
+    { id: 'security', label: 'Segurança', icon: Shield },
+    { id: 'appearance', label: 'Aparência', icon: Palette },
+    { id: 'system', label: 'Sistema', icon: Settings }
+  ]
+
   return (
-    <AdminLayout>
-      <motion.div 
-        className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 p-4 sm:p-6 lg:p-8"
-        initial="hidden"
-        animate="visible"
-        variants={containerVariants}
+    <div className="space-y-6">
+      <PageHeader
+        title="Configurações"
+        description="Gerencie as configurações do sistema e da loja"
+        breadcrumbs={[
+          { label: 'Admin', href: '/admin' },
+          { label: 'Configurações' }
+        ]}
+        actions={
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={handleSave}
+            className="flex items-center space-x-2 bg-gradient-to-r from-[#0E7466] to-[#0C6157] 
+                     text-white px-6 py-2.5 rounded-xl font-medium hover:shadow-lg transition-all"
+          >
+            <Save className="w-5 h-5" />
+            <span>Salvar Alterações</span>
+          </motion.button>
+        }
+      />
+
+      {/* Tabs Navigation */}
+      <motion.div
+        initial={{ y: 20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        className="bg-[#0C1A33]/90 backdrop-blur-sm border border-[#0E7466]/30 rounded-xl p-2"
       >
-        <div className="max-w-6xl mx-auto">
-          {/* Header */}
-          <motion.header variants={itemVariants} className="mb-10">
-            <div className="bg-white/70 backdrop-blur-xl rounded-3xl p-6 shadow-lg border border-white/20 flex items-center justify-between">
-              <div>
-                <h1 className="text-4xl font-bold bg-gradient-to-r from-slate-900 to-slate-600 bg-clip-text text-transparent tracking-tight">
-                  Configurações
-                </h1>
-                <p className="text-gray-600 mt-1">
-                  Ajuste as preferências gerais do sistema e da loja.
-                </p>
-              </div>
-              <Button 
-                className="bg-gradient-to-r from-[#00CED1] to-[#20B2AA] text-white font-bold py-3 px-6 rounded-xl shadow-lg hover:scale-105 transition-transform"
-                onClick={handleSave}
+        <div className="flex space-x-1 overflow-x-auto">
+          {tabs.map((tab) => {
+            const Icon = tab.icon
+            return (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`flex items-center space-x-2 px-4 py-2.5 rounded-lg transition-all whitespace-nowrap ${
+                  activeTab === tab.id
+                    ? 'bg-[#0E7466] text-white'
+                    : 'text-gray-400 hover:text-white hover:bg-white/10'
+                }`}
               >
-                <Save className="mr-2 h-5 w-5" />
-                Salvar Alterações
-              </Button>
-            </div>
-          </motion.header>
-
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Left Column */}
-            <motion.div className="lg:col-span-2 space-y-8" variants={containerVariants}>
-              {renderSection("Informações da Loja", <Store className="mr-3 h-6 w-6 text-[#00CED1]" />, (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <Label htmlFor="storeName">Nome da Loja</Label>
-                    <Input id="storeName" value={settings.storeName} onChange={e => handleInputChange('storeName', e.target.value)} className="bg-white/80"/>
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="storeEmail">Email de Contato</Label>
-                    <Input id="storeEmail" type="email" value={settings.storeEmail} onChange={e => handleInputChange('storeEmail', e.target.value)} className="bg-white/80"/>
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="storePhone">Telefone</Label>
-                    <Input id="storePhone" value={settings.storePhone} onChange={e => handleInputChange('storePhone', e.target.value)} className="bg-white/80"/>
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="storeAddress">Endereço</Label>
-                    <Input id="storeAddress" value={settings.storeAddress} onChange={e => handleInputChange('storeAddress', e.target.value)} className="bg-white/80"/>
-                  </div>
-                  <div className="md:col-span-2 space-y-2">
-                    <Label htmlFor="storeDescription">Descrição Curta</Label>
-                    <Input id="storeDescription" value={settings.storeDescription} onChange={e => handleInputChange('storeDescription', e.target.value)} className="bg-white/80"/>
-                  </div>
-                </div>
-              ))}
-
-              {renderSection("Segurança", <Shield className="mr-3 h-6 w-6 text-[#00CED1]" />, (
-                <>
-                  {renderSettingRow(
-                    "Autenticação de Dois Fatores (2FA)",
-                    "Adiciona uma camada extra de segurança ao fazer login.",
-                    <Switch checked={settings.twoFactorAuth} onCheckedChange={v => handleInputChange('twoFactorAuth', v)} />
-                  )}
-                  <div className="border-t border-black/5"></div>
-                  {renderSettingRow(
-                    "Expiração de Senha",
-                    "Força a redefinição de senha após um período.",
-                    <Select value={settings.passwordExpiry} onValueChange={v => handleInputChange('passwordExpiry', v)}>
-                      <SelectTrigger className="w-[180px] bg-white/80">
-                        <SelectValue placeholder="Selecionar período" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="30">30 dias</SelectItem>
-                        <SelectItem value="60">60 dias</SelectItem>
-                        <SelectItem value="90">90 dias</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  )}
-                </>
-              ))}
-            </motion.div>
-
-            {/* Right Column */}
-            <motion.div className="space-y-8" variants={containerVariants}>
-              {renderSection("Notificações", <Bell className="mr-3 h-6 w-6 text-[#00CED1]" />, (
-                <>
-                  {renderSettingRow(
-                    "Notificações por Email",
-                    "Receber alertas sobre pedidos e atividades.",
-                    <Switch checked={settings.emailNotifications} onCheckedChange={v => handleInputChange('emailNotifications', v)} />
-                  )}
-                  <div className="border-t border-black/5"></div>
-                  {renderSettingRow(
-                    "Notificações por SMS",
-                    "Receber alertas críticos por mensagem de texto.",
-                    <Switch checked={settings.smsNotifications} onCheckedChange={v => handleInputChange('smsNotifications', v)} />
-                  )}
-                </>
-              ))}
-
-              {renderSection("Aparência e Idioma", <Palette className="mr-3 h-6 w-6 text-[#00CED1]" />, (
-                <>
-                  {renderSettingRow(
-                    "Tema Visual",
-                    "Escolha entre o modo claro ou escuro.",
-                    <Select value={settings.theme} onValueChange={v => handleInputChange('theme', v)}>
-                      <SelectTrigger className="w-[180px] bg-white/80">
-                        <SelectValue placeholder="Selecionar tema" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="light"><Sun className="inline mr-2 h-4 w-4"/> Claro</SelectItem>
-                        <SelectItem value="dark"><Moon className="inline mr-2 h-4 w-4"/> Escuro</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  )}
-                  <div className="border-t border-black/5"></div>
-                  {renderSettingRow(
-                    "Idioma",
-                    "Define o idioma padrão da interface.",
-                    <Select value={settings.locale} onValueChange={v => handleInputChange('locale', v)}>
-                      <SelectTrigger className="w-[180px] bg-white/80">
-                        <SelectValue placeholder="Selecionar idioma" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="pt-BR">Português (BR)</SelectItem>
-                        <SelectItem value="en-US">English (US)</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  )}
-                </>
-              ))}
-            </motion.div>
-          </div>
+                <Icon className="w-4 h-4" />
+                <span className="font-medium">{tab.label}</span>
+              </button>
+            )
+          })}
         </div>
       </motion.div>
-    </AdminLayout>
+
+      {/* Tab Content */}
+      <div className="space-y-6">
+        {activeTab === 'store' && (
+          <SettingCard icon={<Store className="w-5 h-5" />} title="Informações da Loja">
+            <SettingRow label="Nome da Loja" description="Nome que aparecerá no site e emails">
+              <input
+                type="text"
+                value={settings.storeName}
+                onChange={(e) => handleInputChange('storeName', e.target.value)}
+                className="px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white 
+                         focus:outline-none focus:border-[#0E7466] focus:ring-2 focus:ring-[#0E7466]/20"
+              />
+            </SettingRow>
+
+            <SettingRow label="Descrição" description="Descrição da loja para SEO">
+              <textarea
+                value={settings.storeDescription}
+                onChange={(e) => handleInputChange('storeDescription', e.target.value)}
+                rows={2}
+                className="px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white 
+                         focus:outline-none focus:border-[#0E7466] focus:ring-2 focus:ring-[#0E7466]/20
+                         resize-none min-w-[300px]"
+              />
+            </SettingRow>
+
+            <SettingRow label="Email" description="Email principal da loja">
+              <input
+                type="email"
+                value={settings.storeEmail}
+                onChange={(e) => handleInputChange('storeEmail', e.target.value)}
+                className="px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white 
+                         focus:outline-none focus:border-[#0E7466] focus:ring-2 focus:ring-[#0E7466]/20"
+              />
+            </SettingRow>
+
+            <SettingRow label="Telefone" description="Telefone de contato">
+              <input
+                type="tel"
+                value={settings.storePhone}
+                onChange={(e) => handleInputChange('storePhone', e.target.value)}
+                className="px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white 
+                         focus:outline-none focus:border-[#0E7466] focus:ring-2 focus:ring-[#0E7466]/20"
+              />
+            </SettingRow>
+
+            <SettingRow label="Endereço" description="Endereço físico da loja">
+              <input
+                type="text"
+                value={settings.storeAddress}
+                onChange={(e) => handleInputChange('storeAddress', e.target.value)}
+                className="px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white 
+                         focus:outline-none focus:border-[#0E7466] focus:ring-2 focus:ring-[#0E7466]/20
+                         min-w-[300px]"
+              />
+            </SettingRow>
+          </SettingCard>
+        )}
+
+        {activeTab === 'notifications' && (
+          <SettingCard icon={<Bell className="w-5 h-5" />} title="Configurações de Notificações">
+            <SettingRow 
+              label="Notificações por Email" 
+              description="Receber alertas e relatórios por email"
+            >
+              <Switch
+                checked={settings.emailNotifications}
+                onChange={(checked) => handleInputChange('emailNotifications', checked)}
+              />
+            </SettingRow>
+
+            <SettingRow 
+              label="Notificações SMS" 
+              description="Receber alertas urgentes por SMS"
+            >
+              <Switch
+                checked={settings.smsNotifications}
+                onChange={(checked) => handleInputChange('smsNotifications', checked)}
+              />
+            </SettingRow>
+
+            <SettingRow 
+              label="Push Notifications" 
+              description="Notificações no navegador"
+            >
+              <Switch
+                checked={settings.pushNotifications}
+                onChange={(checked) => handleInputChange('pushNotifications', checked)}
+              />
+            </SettingRow>
+          </SettingCard>
+        )}
+
+        {activeTab === 'security' && (
+          <SettingCard icon={<Shield className="w-5 h-5" />} title="Configurações de Segurança">
+            <SettingRow 
+              label="Autenticação de Dois Fatores" 
+              description="Camada extra de segurança para login"
+            >
+              <Switch
+                checked={settings.twoFactorAuth}
+                onChange={(checked) => handleInputChange('twoFactorAuth', checked)}
+              />
+            </SettingRow>
+
+            <SettingRow label="Expiração de Senha" description="Dias para expirar senha">
+              <select
+                value={settings.passwordExpiry}
+                onChange={(e) => handleInputChange('passwordExpiry', e.target.value)}
+                className="px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white 
+                         focus:outline-none focus:border-[#0E7466] focus:ring-2 focus:ring-[#0E7466]/20"
+              >
+                <option value="30" className="bg-[#0C1A33]">30 dias</option>
+                <option value="60" className="bg-[#0C1A33]">60 dias</option>
+                <option value="90" className="bg-[#0C1A33]">90 dias</option>
+                <option value="never" className="bg-[#0C1A33]">Nunca</option>
+              </select>
+            </SettingRow>
+
+            <div className="p-4 rounded-lg bg-yellow-500/10 border border-yellow-500/30">
+              <div className="flex items-center space-x-2 text-yellow-400 mb-2">
+                <AlertTriangle className="w-4 h-4" />
+                <span className="font-medium">Recomendação de Segurança</span>
+              </div>
+              <p className="text-yellow-300 text-sm">
+                Mantenha sempre a autenticação de dois fatores ativada e senhas fortes.
+              </p>
+            </div>
+          </SettingCard>
+        )}
+
+        {activeTab === 'appearance' && (
+          <SettingCard icon={<Palette className="w-5 h-5" />} title="Aparência e Tema">
+            <SettingRow label="Tema" description="Tema visual da interface">
+              <select
+                value={settings.theme}
+                onChange={(e) => handleInputChange('theme', e.target.value)}
+                className="px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white 
+                         focus:outline-none focus:border-[#0E7466] focus:ring-2 focus:ring-[#0E7466]/20"
+              >
+                <option value="dark" className="bg-[#0C1A33]">Escuro</option>
+                <option value="light" className="bg-[#0C1A33]">Claro</option>
+                <option value="auto" className="bg-[#0C1A33]">Automático</option>
+              </select>
+            </SettingRow>
+
+            <SettingRow label="Idioma" description="Idioma da interface">
+              <select
+                value={settings.locale}
+                onChange={(e) => handleInputChange('locale', e.target.value)}
+                className="px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white 
+                         focus:outline-none focus:border-[#0E7466] focus:ring-2 focus:ring-[#0E7466]/20"
+              >
+                <option value="pt-BR" className="bg-[#0C1A33]">Português (Brasil)</option>
+                <option value="en-US" className="bg-[#0C1A33]">English (US)</option>
+                <option value="es-ES" className="bg-[#0C1A33]">Español</option>
+              </select>
+            </SettingRow>
+
+            <SettingRow label="Moeda" description="Moeda padrão da loja">
+              <select
+                value={settings.currency}
+                onChange={(e) => handleInputChange('currency', e.target.value)}
+                className="px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white 
+                         focus:outline-none focus:border-[#0E7466] focus:ring-2 focus:ring-[#0E7466]/20"
+              >
+                <option value="BRL" className="bg-[#0C1A33]">Real (R$)</option>
+                <option value="USD" className="bg-[#0C1A33]">Dólar ($)</option>
+                <option value="EUR" className="bg-[#0C1A33]">Euro (€)</option>
+              </select>
+            </SettingRow>
+          </SettingCard>
+        )}
+
+        {activeTab === 'system' && (
+          <SettingCard icon={<Settings className="w-5 h-5" />} title="Configurações do Sistema">
+            <SettingRow 
+              label="Backup Automático" 
+              description="Backup diário dos dados"
+            >
+              <Switch
+                checked={settings.autoBackup}
+                onChange={(checked) => handleInputChange('autoBackup', checked)}
+              />
+            </SettingRow>
+
+            <SettingRow 
+              label="Analytics" 
+              description="Coleta de dados de uso"
+            >
+              <Switch
+                checked={settings.analyticsEnabled}
+                onChange={(checked) => handleInputChange('analyticsEnabled', checked)}
+              />
+            </SettingRow>
+
+            <SettingRow 
+              label="Consentimento de Cookies" 
+              description="Mostrar banner de cookies"
+            >
+              <Switch
+                checked={settings.cookieConsent}
+                onChange={(checked) => handleInputChange('cookieConsent', checked)}
+              />
+            </SettingRow>
+
+            <SettingRow label="Fuso Horário" description="Fuso horário do sistema">
+              <select
+                value={settings.timezone}
+                onChange={(e) => handleInputChange('timezone', e.target.value)}
+                className="px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white 
+                         focus:outline-none focus:border-[#0E7466] focus:ring-2 focus:ring-[#0E7466]/20"
+              >
+                <option value="America/Sao_Paulo" className="bg-[#0C1A33]">São Paulo (GMT-3)</option>
+                <option value="America/New_York" className="bg-[#0C1A33]">New York (GMT-5)</option>
+                <option value="Europe/London" className="bg-[#0C1A33]">London (GMT+0)</option>
+              </select>
+            </SettingRow>
+          </SettingCard>
+        )}
+      </div>
+    </div>
   )
 }

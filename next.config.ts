@@ -16,6 +16,14 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async rewrites() {
+    return [
+      {
+        source: '/Ecommerce-UssBrasil/public/:path*',
+        destination: '/:path*',
+      },
+    ];
+  },
   serverExternalPackages: ['@prisma/client', 'prisma'],
   eslint: {
     ignoreDuringBuilds: true,

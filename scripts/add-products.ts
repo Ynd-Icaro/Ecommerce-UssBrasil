@@ -22,7 +22,7 @@ async function addSampleProducts() {
         discountPrice: 7499.99,
         stock: 10,
         featured: true,
-        images: '/Produtos/Iphone 16 Pro.png',
+        images: '/Produtos/Apple/Iphone 16 Pro.png',
         categoryId: iphoneCategory.id,
         specifications: JSON.stringify({
           screen: '6.3" Super Retina XDR',
@@ -40,7 +40,7 @@ async function addSampleProducts() {
         price: 12999.99,
         stock: 5,
         featured: true,
-        images: '/Produtos/Macbook Pro.png',
+        images: '/fallback-product.png',
         categoryId: macCategory.id,
         specifications: JSON.stringify({
           screen: '14.2" Liquid Retina XDR',
@@ -58,7 +58,7 @@ async function addSampleProducts() {
         price: 5999.99,
         stock: 15,
         featured: true,
-        images: '/Produtos/Iphone 16.png',
+        images: '/Produtos/Apple/Iphone 16.png',
         categoryId: iphoneCategory.id,
         specifications: JSON.stringify({
           screen: '6.1" Super Retina XDR',
