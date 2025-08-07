@@ -35,8 +35,7 @@ const featuredProducts = [
     name: 'iPhone 16 Pro',
     tagline: 'Titanium. Tão forte. Tão leve. Tão Pro.',
     price: 7999.99,
-    discountPrice: 7499.99,
-    image: '/Produtos/Iphone 16 Pro.png',
+    image: '/produtos/Iphone 16 Pro.png',
     video: '/Videos/IphoneVideo.mp4',
     colors: ['Natural Titanium', 'Blue Titanium', 'White Titanium', 'Black Titanium']
   },
@@ -45,7 +44,7 @@ const featuredProducts = [
     name: 'MacBook Pro',
     tagline: 'Superpowered by M3 Pro',
     price: 12999.99,
-    image: '/Produtos/Macbook Pro.png',
+    image: '/produtos/Macbook Pro.png',
     video: '/Videos/Macs Video.mp4',
     colors: ['Space Gray', 'Silver']
   },
@@ -55,13 +54,28 @@ const featuredProducts = [
     tagline: 'Lovable. Drawable. Magical.',
     price: 5999.99,
     discountPrice: 5499.99,
-    image: '/Produtos/Ipad Pro.png',
+    image: '/produtos/Ipad Pro.png',
     video: '/Videos/IpadVideo.mp4',
     colors: ['Space Gray', 'Silver']
   }
 ]
 
 export default function Home() {
+  // Bloco de logo USSBRASIL e slogan
+  const LogoBlock = () => (
+    <div className="flex flex-col items-center mt-8 mb-8">
+      <div className="flex items-center space-x-2">
+        <svg width={32} height={32} viewBox="0 0 32 32" aria-label="USSBRASIL símbolo">
+          <rect x="4" y="8" width="24" height="4" rx="2" fill="#0E7466" />
+          <rect x="4" y="16" width="24" height="4" rx="2" fill="#0E7466" />
+        </svg>
+        <span className="text-[2rem] font-bold" style={{ color: '#0C1A33' }}>USSBRASIL</span>
+      </div>
+      <span className="mt-2 text-base font-medium" style={{ color: '#0E7466' }}>
+        Conectando você ao futuro.
+      </span>
+    </div>
+  );
   const [currentSlide, setCurrentSlide] = useState(0)
 
   useEffect(() => {
@@ -89,8 +103,9 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-white">
+      <LogoBlock />
       {/* Hero Carousel */}
-      <section className="relative h-[70vh] bg-gradient-to-br from-gray-50 to-white overflow-hidden">
+      <section className="relative h-[70vh] bg-gradient-to-br from-[#0E7466] to-white overflow-hidden">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentSlide}
@@ -109,13 +124,13 @@ export default function Home() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2, duration: 0.6 }}
                   >
-                    <Badge className="bg-[#00CED1] text-white mb-4">
+                    <Badge className="bg-[#0E7466] text-white mb-4">
                       Novo
                     </Badge>
-                    <h1 className="text-4xl md:text-6xl font-bold text-gray-900 leading-tight">
+                    <h1 className="text-4xl md:text-6xl font-bold" style={{ color: '#0C1A33' }}>
                       {featuredProducts[currentSlide].name}
                     </h1>
-                    <p className="text-xl text-gray-600 mt-4">
+                    <p className="text-xl mt-4" style={{ color: '#0E7466' }}>
                       {featuredProducts[currentSlide].tagline}
                     </p>
                   </motion.div>
@@ -129,22 +144,22 @@ export default function Home() {
                     <div className="flex items-center space-x-4">
                       {featuredProducts[currentSlide].discountPrice ? (
                         <>
-                          <span className="text-3xl font-bold text-[#00CED1]">
+                          <span className="text-3xl font-bold" style={{ color: '#0E7466', textShadow: '0 1px 4px #0C1A33' }}>
                             {formatCurrency(featuredProducts[currentSlide].discountPrice!)}
                           </span>
-                          <span className="text-xl text-gray-500 line-through">
+                          <span className="text-xl" style={{ color: '#0C1A33', textDecoration: 'line-through' }}>
                             {formatCurrency(featuredProducts[currentSlide].price)}
                           </span>
                         </>
                       ) : (
-                        <span className="text-3xl font-bold text-gray-900">
+                        <span className="text-3xl font-bold" style={{ color: '#0C1A33' }}>
                           {formatCurrency(featuredProducts[currentSlide].price)}
                         </span>
                       )}
                     </div>
 
                     <div className="flex items-center space-x-4">
-                      <Button className="bg-[#00CED1] hover:bg-[#20B2AA] text-white px-8 py-3 rounded-full">
+                      <Button className="bg-[#0E7466] hover:bg-[#0C1A33] text-white px-8 py-3 rounded-full border-2 border-[#0C1A33]">
                         Comprar Agora
                       </Button>
                       <Button variant="outline" className="px-8 py-3 rounded-full">
@@ -154,16 +169,16 @@ export default function Home() {
 
                     {/* Color Options */}
                     <div className="flex items-center space-x-3">
-                      <span className="text-sm text-gray-600">Cores:</span>
+                      <span className="text-sm" style={{ color: '#0E7466' }}>Cores:</span>
                       {featuredProducts[currentSlide].colors.map((color, index) => (
                         <div
                           key={index}
-                          className="w-6 h-6 rounded-full border-2 border-gray-300"
+                          className="w-6 h-6 rounded-full border-2 border-[#0C1A33]"
                           style={{
-                            backgroundColor: color.includes('Gray') ? '#6B7280' :
-                                           color.includes('Blue') ? '#3B82F6' :
+                            backgroundColor: color.includes('Gray') ? '#0C1A33' :
+                                           color.includes('Blue') ? '#0E7466' :
                                            color.includes('White') || color.includes('Silver') ? '#F3F4F6' :
-                                           '#1F2937'
+                                           '#0E7466'
                           }}
                         />
                       ))}
@@ -215,7 +230,7 @@ export default function Home() {
             <button
               key={index}
               className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                index === currentSlide ? 'bg-[#00CED1] scale-125' : 'bg-gray-300'
+                index === currentSlide ? 'bg-[#0E7466] scale-125' : 'bg-gray-300'
               }`}
               onClick={() => setCurrentSlide(index)}
             />
@@ -224,7 +239,7 @@ export default function Home() {
       </section>
 
       {/* Company Info Banner */}
-      <section className="bg-gradient-to-r from-[#00CED1] to-[#20B2AA] text-white py-16">
+      <section className="bg-gradient-to-r from-[#0E7466] to-[#0C1A33] text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <motion.div
@@ -233,10 +248,10 @@ export default function Home() {
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
             >
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                UssBrasil - Shopping Della
+              <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: '#0C1A33' }}>
+                USSBRASIL - Shopping Della
               </h2>
-              <p className="text-xl opacity-90 mb-6">
+              <p className="text-xl opacity-90 mb-6" style={{ color: '#0E7466' }}>
                 Especializada em produtos Apple Premium
               </p>
               <p className="text-lg opacity-80 max-w-2xl mx-auto">
@@ -338,22 +353,22 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               {
-                icon: '🎯',
+                icon: '',
                 title: 'Produtos Originais',
                 description: '100% autênticos direto da Apple'
               },
               {
-                icon: '🚚',
+                icon: '',
                 title: 'Entrega Rápida',
                 description: 'Receba em casa ou retire na loja'
               },
               {
-                icon: '🛡️',
+                icon: '',
                 title: 'Garantia Apple',
                 description: 'Cobertura completa e suporte técnico'
               },
               {
-                icon: '💬',
+                icon: '',
                 title: 'Atendimento Expert',
                 description: 'Consultoria especializada em Apple'
               }
@@ -376,7 +391,7 @@ export default function Home() {
       </section>
 
       {/* Newsletter Section */}
-      <section className="py-16 bg-gradient-to-r from-gray-900 to-gray-800 text-white">
+      <section className="py-16 bg-gradient-to-r from-[#0C1A33] to-[#0E7466] text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -396,7 +411,7 @@ export default function Home() {
                 placeholder="Seu melhor email"
                 className="flex-1 bg-white/10 border-white/20 text-white placeholder:text-white/70"
               />
-              <Button className="bg-[#00CED1] hover:bg-[#20B2AA] text-white px-8">
+              <Button className="bg-[#0E7466] hover:bg-[#0C1A33] text-white px-8">
                 Inscrever-se
               </Button>
             </div>
@@ -426,25 +441,25 @@ export default function Home() {
               </p>
               <div className="space-y-4">
                 <div className="flex items-center">
-                  <div className="w-6 h-6 bg-[#00CED1] rounded-full flex items-center justify-center mr-3">
-                    <span className="text-white text-sm">📍</span>
+              <div className="w-6 h-6 bg-[#0E7466] rounded-full flex items-center justify-center mr-3">
+                    <span className="text-white text-sm"></span>
                   </div>
                   <span className="text-gray-700">Shopping Della - Loja 123, Criciúma - SC</span>
                 </div>
                 <div className="flex items-center">
                   <div className="w-6 h-6 bg-[#00CED1] rounded-full flex items-center justify-center mr-3">
-                    <span className="text-white text-sm">🕒</span>
+                    <span className="text-white text-sm"></span>
                   </div>
                   <span className="text-gray-700">Segunda a Sábado: 10h às 22h | Domingo: 14h às 20h</span>
                 </div>
                 <div className="flex items-center">
                   <div className="w-6 h-6 bg-[#00CED1] rounded-full flex items-center justify-center mr-3">
-                    <span className="text-white text-sm">📞</span>
+                    <span className="text-white text-sm"></span>
                   </div>
                   <span className="text-gray-700">(48) 3431-0000</span>
                 </div>
               </div>
-              <Button className="mt-6 bg-[#00CED1] hover:bg-[#20B2AA] text-white">
+              <Button className="mt-6 bg-[#0E7466] hover:bg-[#0C1A33] text-white">
                 Como Chegar
               </Button>
             </motion.div>
@@ -463,12 +478,12 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12">
+      <footer className="bg-[#0C1A33] text-white py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
               <div className="flex items-center space-x-2 mb-4">
-                <div className="w-8 h-8 bg-gradient-to-r from-[#00CED1] to-[#20B2AA] rounded-lg flex items-center justify-center">
+                <div className="w-8 h-8 bg-gradient-to-r from-[#0E7466] to-[#0C1A33] rounded-lg flex items-center justify-center">
                   <span className="text-white font-bold text-sm">U</span>
                 </div>
                 <span className="text-xl font-bold">UssBrasil</span>

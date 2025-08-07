@@ -43,7 +43,7 @@ export function ProductCard({ product }: ProductCardProps) {
 
   return (
     <motion.div
-      className="group relative flex flex-col overflow-hidden rounded-2xl bg-white shadow-md border border-gray-200/80 hover:shadow-xl transition-all duration-300 ease-in-out"
+      className="group relative flex flex-col overflow-hidden rounded-2xl bg-white shadow-md border border-gray-200 hover:shadow-xl transition-all duration-300 ease-in-out"
       whileHover={{ y: -5 }}
     >
       <div className="relative aspect-square w-full overflow-hidden">
@@ -68,7 +68,7 @@ export function ProductCard({ product }: ProductCardProps) {
         <div className="absolute top-3 left-3 flex flex-col gap-2">
             {product.isNew && <Badge className="bg-blue-500 text-white border-none">Novo</Badge>}
             {product.originalPrice && (
-                <Badge variant="destructive">
+                <Badge className="bg-red-500 text-white border-none">
                     -{Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)}%
                 </Badge>
             )}

@@ -3,18 +3,12 @@
 import { useState } from "react"
 import { useParams } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
-import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Card, CardContent } from "@/components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Slider } from "@/components/ui/slider"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import {
-  Heart,
-  ShoppingCart,
-  Star,
   SlidersHorizontal,
   Grid3X3,
   LayoutGrid,
@@ -24,7 +18,7 @@ import {
   VolumeX
 } from "lucide-react"
 import { useVideoCategories } from "@/hooks/use-video-categories"
-import { ProductCard } from "@/components/ProductCard"
+import { ProductCard } from '@/components/product/ProductCard'
 
 const categoryData = {
   iphone: {
@@ -72,7 +66,7 @@ const mockProducts = [
     originalPrice: 10999,
     rating: 4.9,
     reviews: 2847,
-    image: "/Produtos/Iphone 16 Pro.png",
+    image: "/produtos/Iphone 16 Pro.png",
     category: "iphone",
     isNew: true,
     inStock: true
@@ -84,7 +78,7 @@ const mockProducts = [
     originalPrice: 21999,
     rating: 4.8,
     reviews: 1542,
-    image: "/Produtos/Macbook Pro.png",
+    image: "/produtos/Macbook Pro.png",
     category: "mac",
     isNew: true,
     inStock: true
@@ -96,7 +90,7 @@ const mockProducts = [
     originalPrice: 7999,
     rating: 4.7,
     reviews: 892,
-    image: "/Produtos/Watch Ultra 2.png",
+    image: "/produtos/Watch Ultra 2.png",
     category: "watch",
     isNew: false,
     inStock: true
@@ -105,46 +99,45 @@ const mockProducts = [
 
 type SortOption = 'relevance' | 'price-low' | 'price-high' | 'rating' | 'newest'
 
-export default function CategoryPage() {
-  const params = useParams()
-  const category = params.category as string
-  const { videoCategories } = useVideoCategories()
-  
-  const [sortBy, setSortBy] = useState<SortOption>('relevance')
-  const [priceRange, setPriceRange] = useState([0, 50000])
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
-  const [isVideoPlaying, setIsVideoPlaying] = useState(true)
-  const [isVideoMuted, setIsVideoMuted] = useState(true)
-  
-  const categoryInfo = categoryData[category as keyof typeof categoryData]
-  
-  const categoryVideo = categoryInfo ? 
-    videoCategories.find(vc => 
-      categoryInfo.videoKeywords.some(keyword => 
-        vc.keywords.includes(keyword)
-      )
-    )?.videoPath : null
-  
-  const filteredProducts = mockProducts.filter(product => 
-    product.category === category &&
-    product.price >= priceRange[0] &&
-    product.price <= priceRange[1]
-  )
+export default function PremiumCategoriesPage() {
+  const params = useParams();
+  const category = typeof params?.category === "string" ? params.category : Array.isArray(params?.category) ? params.category[0] : "";
+  const categoryInfo = categoryData[category as keyof typeof categoryData];
+
+  // Video logic (mocked for now)
+  const [isVideoPlaying, setIsVideoPlaying] = useState(true);
+  const [isVideoMuted, setIsVideoMuted] = useState(true);
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [sortBy, setSortBy] = useState<SortOption>('relevance');
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, 50000]);
+
+  // Mock video url based on category
+  const categoryVideo = categoryInfo
+    ? `/videos/${category}.mp4`
+    : undefined;
+
+  // Filter and sort products
+  const filteredProducts = mockProducts.filter(
+    (product) =>
+      product.category === category &&
+      product.price >= priceRange[0] &&
+      product.price <= priceRange[1]
+  );
 
   const sortedProducts = [...filteredProducts].sort((a, b) => {
     switch (sortBy) {
       case 'price-low':
-        return a.price - b.price
+        return a.price - b.price;
       case 'price-high':
-        return b.price - a.price
+        return b.price - a.price;
       case 'rating':
-        return b.rating - a.rating
+        return b.rating - a.rating;
       case 'newest':
-        return a.isNew ? -1 : 1
+        return a.isNew ? -1 : 1;
       default:
-        return 0
+        return 0;
     }
-  })
+  });
 
   if (!categoryInfo) {
     return (
@@ -156,7 +149,7 @@ export default function CategoryPage() {
           </Link>
         </div>
       </div>
-    )
+    );
   }
 
   return (
@@ -176,7 +169,7 @@ export default function CategoryPage() {
               </video>
             </div>
           )}
-          
+
           <div className="absolute top-6 right-6 flex gap-2 z-20">
             <Button
               variant="outline"
@@ -195,7 +188,7 @@ export default function CategoryPage() {
               {isVideoMuted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
             </Button>
           </div>
-          
+
           <div className="absolute inset-0 bg-black/40" />
           <div className="relative z-10 h-full flex items-center">
             <div className="container mx-auto px-6">
@@ -213,7 +206,7 @@ export default function CategoryPage() {
                 >
                   {categoryInfo.title}
                 </motion.h1>
-                
+
                 <motion.p
                   className="text-xl lg:text-2xl mb-4 text-white/90"
                   initial={{ opacity: 0, x: -30 }}
@@ -222,7 +215,7 @@ export default function CategoryPage() {
                 >
                   {categoryInfo.subtitle}
                 </motion.p>
-                
+
                 <motion.p
                   className="text-lg text-white/80 mb-8 leading-relaxed"
                   initial={{ opacity: 0, y: 20 }}
@@ -231,7 +224,7 @@ export default function CategoryPage() {
                 >
                   {categoryInfo.description}
                 </motion.p>
-                
+
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -255,7 +248,7 @@ export default function CategoryPage() {
                 <SlidersHorizontal className="h-4 w-4 mr-2" />
                 Filtros
               </Button>
-              
+
               <Select value={sortBy} onValueChange={(value: SortOption) => setSortBy(value)}>
                 <SelectTrigger className="w-48">
                   <SelectValue placeholder="Ordenar por" />
@@ -268,13 +261,13 @@ export default function CategoryPage() {
                   <SelectItem value="newest">Mais Recentes</SelectItem>
                 </SelectContent>
               </Select>
-              
+
               <div className="flex items-center gap-2">
                 <span className="text-sm text-gray-600">Preço:</span>
                 <div className="w-32">
                   <Slider
                     value={priceRange}
-                    onValueChange={setPriceRange}
+                    onValueChange={(value) => setPriceRange([value[0], value[1]])}
                     max={50000}
                     step={500}
                     className="w-full"
@@ -285,7 +278,7 @@ export default function CategoryPage() {
                 </span>
               </div>
             </div>
-            
+
             <div className="flex items-center gap-2">
               <span className="text-sm text-gray-600">{sortedProducts.length} produtos</span>
               <Tabs value={viewMode} onValueChange={(value) => setViewMode(value as 'grid' | 'list')}>
@@ -306,29 +299,39 @@ export default function CategoryPage() {
       <section className="py-12">
         <div className="container mx-auto px-6">
           <motion.div
-        className={`grid gap-6 ${
-          viewMode === 'grid' 
-            ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4' 
-            : 'grid-cols-1 max-w-4xl mx-auto'
-        }`}
-        layout
+            className={`grid gap-6 ${
+              viewMode === 'grid'
+                ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
+                : 'grid-cols-1 max-w-4xl mx-auto'
+            }`}
+            layout
           >
-        <AnimatePresence>
-          {sortedProducts.map((product, index) => (
-            <motion.div
-              key={product.id}
-              layout
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.4, delay: index * 0.1 }}
-            >
-              <ProductCard product={product} />
-            </motion.div>
-          ))}
-        </AnimatePresence>
-      </motion.div>
-          
+            <AnimatePresence>
+              {sortedProducts.map((product, index) => (
+                <motion.div
+                  key={product.id}
+                  layout
+                  initial={{ opacity: 0, y: 50 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  transition={{ duration: 0.4, delay: index * 0.1 }}
+                >
+                  <ProductCard
+                    id={String(product.id)}
+                    name={product.name}
+                    price={String(product.price)}
+                    originalPrice={product.originalPrice ? String(product.originalPrice) : undefined}
+                    image={product.image}
+                    category={product.category}
+                    rating={product.rating}
+                    reviews={product.reviews}
+                    isNew={product.isNew}
+                  />
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </motion.div>
+
           {sortedProducts.length === 0 && (
             <motion.div
               className="text-center py-16"
@@ -344,8 +347,8 @@ export default function CategoryPage() {
               <Button
                 variant="outline"
                 onClick={() => {
-                  setPriceRange([0, 50000])
-                  setSortBy('relevance')
+                  setPriceRange([0, 50000]);
+                  setSortBy('relevance');
                 }}
               >
                 Limpar Filtros
@@ -355,5 +358,5 @@ export default function CategoryPage() {
         </div>
       </section>
     </div>
-  )
+  );
 }

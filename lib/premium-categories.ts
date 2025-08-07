@@ -1,4 +1,3 @@
-// Categorias de Produtos Importados Premium
 export interface Product {
   id: string
   name: string
@@ -9,7 +8,6 @@ export interface Product {
   category: string
   subcategory: string
   brand: string
-  origin: string
   flag: string
   features: string[]
   rating: number
@@ -41,7 +39,7 @@ export const premiumCategories: Category[] = [
   {
     id: 'tech-innovation',
     name: 'Tecnologia & Inovação',
-    icon: '🚀',
+    icon: '',
     description: 'Dispositivos de última geração importados diretamente dos EUA e Ásia',
     color: 'blue',
     gradient: 'from-blue-500 to-purple-600',
@@ -57,11 +55,10 @@ export const premiumCategories: Category[] = [
             description: 'Original dos EUA com chip A17 Pro e câmera profissional',
             price: 8999,
             originalPrice: 9999,
-            image: '/Produtos/Iphone 16 Pro.png',
+            image: '/produtos/Iphone 16 Pro.png',
             category: 'tech-innovation',
             subcategory: 'smartphones',
             brand: 'Apple',
-            origin: 'EUA',
             flag: '🇺🇸',
             features: ['Chip A17 Pro', 'Titanium', 'Camera 48MP', '5G mmWave'],
             rating: 4.9,
@@ -72,39 +69,37 @@ export const premiumCategories: Category[] = [
             isExclusive: true
           },
           {
+            id: 'galaxy-s24-ultra',
+            name: 'Samsung Galaxy S24 Ultra',
+            description: 'Smartphone topo de linha com S Pen e câmera 200MP',
+            price: 7999,
+            originalPrice: 8999,
+            image: '/produtos/smartphone.svg',
+            category: 'tech-innovation',
+            subcategory: 'smartphones',
+            brand: 'Samsung',
+            flag: '🇰🇷',
+            features: ['Snapdragon 8 Gen 3', 'S Pen', 'Camera 200MP', '5G'],
+            rating: 4.8,
+            reviews: 2100,
+            stock: 20
+          },
+          {
             id: 'xiaomi-14-ultra',
             name: 'Xiaomi 14 Ultra',
             description: 'Edição Global com Leica Camera System',
             price: 4299,
             originalPrice: 4799,
-            image: '/Produtos/smartphone.svg',
+            image: '/produtos/smartphone.svg',
             category: 'tech-innovation',
             subcategory: 'smartphones',
             brand: 'Xiaomi',
-            origin: 'China',
             flag: '🇨🇳',
             features: ['Snapdragon 8 Gen 3', 'Leica Camera', '120W Fast Charge'],
             rating: 4.7,
             reviews: 1523,
             stock: 18,
             badge: 'Global Edition'
-          },
-          {
-            id: 'oneplus-12',
-            name: 'OnePlus 12',
-            description: 'Alta performance com OxygenOS e carregamento superveloce',
-            price: 3799,
-            originalPrice: 4199,
-            image: '/Produtos/smartphone.svg',
-            category: 'tech-innovation',
-            subcategory: 'smartphones',
-            brand: 'OnePlus',
-            origin: 'China',
-            flag: '🇨🇳',
-            features: ['Snapdragon 8 Gen 3', 'OxygenOS 14', '100W SuperVOOC'],
-            rating: 4.6,
-            reviews: 987,
-            stock: 12
           }
         ]
       },
@@ -119,11 +114,10 @@ export const premiumCategories: Category[] = [
             description: 'O smartwatch mais avançado com chip S9 e Double Tap',
             price: 3299,
             originalPrice: 3599,
-            image: '/Produtos/Watch Series 10.png',
+            image: '/produtos/Watch Series 10.png',
             category: 'tech-innovation',
             subcategory: 'smartwatches',
             brand: 'Apple',
-            origin: 'EUA',
             flag: '🇺🇸',
             features: ['Chip S9', 'Double Tap', 'Always-On Display', 'ECG'],
             rating: 4.8,
@@ -132,21 +126,20 @@ export const premiumCategories: Category[] = [
             badge: 'Original Apple'
           },
           {
-            id: 'amazfit-gtr-4',
-            name: 'Amazfit GTR 4',
-            description: 'Design refinado com bateria de 14 dias',
-            price: 899,
-            originalPrice: 1199,
-            image: '/Produtos/watch.svg',
+            id: 'galaxy-watch-6',
+            name: 'Samsung Galaxy Watch 6',
+            description: 'Monitoramento avançado de saúde e bateria de longa duração',
+            price: 1899,
+            originalPrice: 2199,
+            image: '/produtos/watch.svg',
             category: 'tech-innovation',
             subcategory: 'smartwatches',
-            brand: 'Amazfit',
-            origin: 'China',
-            flag: '🇨🇳',
-            features: ['14 dias bateria', '150+ esportes', 'GPS duplo', 'Alexa'],
-            rating: 4.5,
-            reviews: 734,
-            stock: 28
+            brand: 'Samsung',
+            flag: '🇰🇷',
+            features: ['Monitoramento ECG', 'GPS', 'Bateria 40h', 'Resistente à água'],
+            rating: 4.6,
+            reviews: 900,
+            stock: 24
           }
         ]
       },
@@ -161,11 +154,10 @@ export const premiumCategories: Category[] = [
             description: 'Tela Liquid Retina XDR com chip M4 revolucionário',
             price: 7999,
             originalPrice: 8999,
-            image: '/Produtos/Ipad Pro.png',
+            image: '/produtos/Ipad Pro.png',
             category: 'tech-innovation',
             subcategory: 'tablets-gadgets',
             brand: 'Apple',
-            origin: 'EUA',
             flag: '🇺🇸',
             features: ['Chip M4', 'Liquid Retina XDR', 'Face ID', 'Thunderbolt'],
             rating: 4.9,
@@ -175,21 +167,20 @@ export const premiumCategories: Category[] = [
             isNew: true
           },
           {
-            id: 'xiaomi-pad-6',
-            name: 'Xiaomi Pad 6',
-            description: 'Experiência cinematográfica com tela 2.8K',
-            price: 1899,
-            originalPrice: 2299,
-            image: '/Produtos/Ipad.png',
+            id: 'galaxy-tab-s9',
+            name: 'Samsung Galaxy Tab S9',
+            description: 'Tablet premium com tela AMOLED e S Pen inclusa',
+            price: 4999,
+            originalPrice: 5999,
+            image: '/produtos/Ipad.png',
             category: 'tech-innovation',
             subcategory: 'tablets-gadgets',
-            brand: 'Xiaomi',
-            origin: 'China',
-            flag: '🇨🇳',
-            features: ['Tela 2.8K', 'Snapdragon 870', '8840mAh', 'Quad speakers'],
-            rating: 4.4,
-            reviews: 892,
-            stock: 22
+            brand: 'Samsung',
+            flag: '🇰🇷',
+            features: ['Tela AMOLED', 'S Pen', 'Snapdragon 8 Gen 2', 'Quad speakers'],
+            rating: 4.7,
+            reviews: 800,
+            stock: 12
           }
         ]
       }
@@ -198,7 +189,7 @@ export const premiumCategories: Category[] = [
   {
     id: 'electric-mobility',
     name: 'Mobilidade Elétrica',
-    icon: '🛴',
+    icon: '',
     description: 'Veículos elétricos premium para mobilidade urbana sustentável',
     color: 'green',
     gradient: 'from-green-500 to-teal-600',
@@ -214,11 +205,10 @@ export const premiumCategories: Category[] = [
             description: '45km de autonomia com design elegante e robusto',
             price: 2799,
             originalPrice: 3199,
-            image: '/Produtos/scooter.svg',
+            image: '/produtos/scooter.svg',
             category: 'electric-mobility',
             subcategory: 'electric-scooters',
             brand: 'Xiaomi',
-            origin: 'China',
             flag: '🇨🇳',
             features: ['45km autonomia', '25km/h', 'App Mi Home', 'Freios duplos'],
             rating: 4.6,
@@ -232,11 +222,10 @@ export const premiumCategories: Category[] = [
             description: 'Potência e equilíbrio perfeitos para longas distâncias',
             price: 3299,
             originalPrice: 3799,
-            image: '/Produtos/scooter.svg',
+            image: '/produtos/scooter.svg',
             category: 'electric-mobility',
             subcategory: 'electric-scooters',
             brand: 'Segway',
-            origin: 'China',
             flag: '🇨🇳',
             features: ['65km autonomia', 'IPX5', '30km/h', 'Pneus 10"'],
             rating: 4.7,
@@ -251,21 +240,20 @@ export const premiumCategories: Category[] = [
         description: 'Skates elétricos inovadores com tecnologia avançada',
         products: [
           {
-            id: 'hiboy-s22',
-            name: 'Hiboy S22',
-            description: 'Suspensão dupla e controle remoto wireless',
-            price: 1599,
-            originalPrice: 1899,
-            image: '/Produtos/skate.svg',
+            id: 'evolve-bamboo-gtr',
+            name: 'Evolve Bamboo GTR',
+            description: 'Skate elétrico premium com autonomia de até 50km',
+            price: 5999,
+            originalPrice: 6999,
+            image: '/produtos/skate.svg',
             category: 'electric-mobility',
             subcategory: 'electric-skates',
-            brand: 'Hiboy',
-            origin: 'EUA',
-            flag: '🇺🇸',
-            features: ['Suspensão dupla', 'Controle remoto', '38km autonomia', 'LED RGB'],
-            rating: 4.3,
-            reviews: 456,
-            stock: 25
+            brand: 'Evolve',
+            flag: '🇦🇺',
+            features: ['Autonomia 50km', 'Controle remoto', 'LED RGB', 'Suspensão dupla'],
+            rating: 4.5,
+            reviews: 320,
+            stock: 10
           }
         ]
       }
@@ -274,7 +262,7 @@ export const premiumCategories: Category[] = [
   {
     id: 'drones-aerial',
     name: 'Drones & Aéreo',
-    icon: '📷',
+    icon: '',
     description: 'Drones profissionais e equipamentos aéreos de última geração',
     color: 'purple',
     gradient: 'from-purple-500 to-pink-600',
@@ -290,11 +278,10 @@ export const premiumCategories: Category[] = [
             description: '4K, sensor obstáculo, ultraleve com ActiveTrack 360°',
             price: 4299,
             originalPrice: 4799,
-            image: '/Produtos/drone.svg',
+            image: '/produtos/drone.svg',
             category: 'drones-aerial',
             subcategory: 'professional-drones',
             brand: 'DJI',
-            origin: 'China',
             flag: '🇨🇳',
             features: ['4K/60fps', 'ActiveTrack 360°', '34min voo', '249g'],
             rating: 4.8,
@@ -304,21 +291,20 @@ export const premiumCategories: Category[] = [
             isNew: true
           },
           {
-            id: 'fimi-x8-se',
-            name: 'FIMI X8 SE',
-            description: 'Compacto e potente com gimbal 3 eixos',
-            price: 2799,
-            originalPrice: 3299,
-            image: '/Produtos/drone.svg',
+            id: 'autel-evo-lite',
+            name: 'Autel EVO Lite+',
+            description: 'Drone com sensor 1" e vídeo 6K',
+            price: 5999,
+            originalPrice: 6499,
+            image: '/produtos/drone.svg',
             category: 'drones-aerial',
             subcategory: 'professional-drones',
-            brand: 'FIMI',
-            origin: 'China',
+            brand: 'Autel',
             flag: '🇨🇳',
-            features: ['4K HDR', 'Gimbal 3 eixos', '35min voo', '790g'],
-            rating: 4.5,
-            reviews: 567,
-            stock: 15
+            features: ['Sensor 1"', 'Vídeo 6K', '40min voo', 'Gimbal 3 eixos'],
+            rating: 4.6,
+            reviews: 400,
+            stock: 8
           }
         ]
       }
@@ -327,7 +313,7 @@ export const premiumCategories: Category[] = [
   {
     id: 'audio-style',
     name: 'Som e Estilo',
-    icon: '🎧',
+    icon: '',
     description: 'Áudio premium e acessórios de estilo para audiophiles',
     color: 'yellow',
     gradient: 'from-yellow-500 to-orange-600',
@@ -343,11 +329,10 @@ export const premiumCategories: Category[] = [
             description: 'Cancelamento ativo de ruído com chip H2',
             price: 1899,
             originalPrice: 2199,
-            image: '/Produtos/Air Pods Pro 2',
+            image: '/produtos/Air Pods Pro 2',
             category: 'audio-style',
             subcategory: 'headphones-audio',
             brand: 'Apple',
-            origin: 'EUA',
             flag: '🇺🇸',
             features: ['Chip H2', 'ANC avançado', 'Spatial Audio', '6h bateria'],
             rating: 4.9,
@@ -356,21 +341,20 @@ export const premiumCategories: Category[] = [
             badge: 'Original Apple'
           },
           {
-            id: 'xiaomi-buds-4-pro',
-            name: 'Xiaomi Buds 4 Pro',
-            description: 'Dolby Atmos com ANC e design premium',
-            price: 499,
-            originalPrice: 699,
-            image: '/Produtos/headphones.svg',
+            id: 'sony-wh-1000xm5',
+            name: 'Sony WH-1000XM5',
+            description: 'Fone de ouvido com cancelamento de ruído líder de mercado',
+            price: 2499,
+            originalPrice: 2999,
+            image: '/produtos/headphones.svg',
             category: 'audio-style',
             subcategory: 'headphones-audio',
-            brand: 'Xiaomi',
-            origin: 'China',
-            flag: '🇨🇳',
-            features: ['Dolby Atmos', 'ANC -48dB', '9h bateria', 'LDAC'],
-            rating: 4.6,
-            reviews: 1234,
-            stock: 67
+            brand: 'Sony',
+            flag: '🇯🇵',
+            features: ['ANC', '30h bateria', 'LDAC', 'Multipoint'],
+            rating: 4.8,
+            reviews: 2100,
+            stock: 30
           }
         ]
       }
@@ -379,7 +363,7 @@ export const premiumCategories: Category[] = [
   {
     id: 'entertainment-lifestyle',
     name: 'Entretenimento & Estilo de Vida',
-    icon: '🎮',
+    icon: '',
     description: 'Consoles retrô, games portáteis e entretenimento premium',
     color: 'red',
     gradient: 'from-red-500 to-pink-600',
@@ -395,11 +379,10 @@ export const premiumCategories: Category[] = [
             description: 'Jogos retrô em HD com Android 11 e emulação perfeita',
             price: 899,
             originalPrice: 1199,
-            image: '/Produtos/gaming.svg',
+            image: '/produtos/gaming.svg',
             category: 'entertainment-lifestyle',
             subcategory: 'retro-gaming',
             brand: 'Retroid',
-            origin: 'China',
             flag: '🇨🇳',
             features: ['Android 11', '4GB RAM', 'Tela 4.7"', '10000+ jogos'],
             rating: 4.7,
@@ -412,11 +395,10 @@ export const premiumCategories: Category[] = [
             description: 'Clássicos na palma da mão com design retrô autêntico',
             price: 459,
             originalPrice: 599,
-            image: '/Produtos/gaming.svg',
+            image: '/produtos/gaming.svg',
             category: 'entertainment-lifestyle',
             subcategory: 'retro-gaming',
             brand: 'Anbernic',
-            origin: 'China',
             flag: '🇨🇳',
             features: ['Linux OS', '64GB storage', 'Tela IPS', '5000+ jogos'],
             rating: 4.4,
@@ -430,7 +412,7 @@ export const premiumCategories: Category[] = [
   {
     id: 'smart-accessories',
     name: 'Acessórios Inteligentes',
-    icon: '🧳',
+    icon: '',
     description: 'Acessórios premium e inteligentes para seus dispositivos',
     color: 'gray',
     gradient: 'from-gray-500 to-slate-600',
@@ -446,17 +428,32 @@ export const premiumCategories: Category[] = [
             description: 'Carregador wireless magnético original da Apple',
             price: 299,
             originalPrice: 399,
-            image: '/Produtos/charger.svg',
+            image: '/produtos/charger.svg',
             category: 'smart-accessories',
             subcategory: 'chargers-cables',
             brand: 'Apple',
-            origin: 'EUA',
             flag: '🇺🇸',
             features: ['15W wireless', 'Magnético', 'Certificado MFi', 'Original'],
             rating: 4.8,
             reviews: 2345,
             stock: 89,
             badge: 'Original Apple'
+          },
+          {
+            id: 'anker-powerport',
+            name: 'Anker PowerPort III',
+            description: 'Carregador rápido USB-C com tecnologia PowerIQ',
+            price: 199,
+            originalPrice: 249,
+            image: '/produtos/charger.svg',
+            category: 'smart-accessories',
+            subcategory: 'chargers-cables',
+            brand: 'Anker',
+            flag: '🇨🇳',
+            features: ['USB-C', 'PowerIQ', 'Compacto', '20W'],
+            rating: 4.7,
+            reviews: 1200,
+            stock: 50
           }
         ]
       }
@@ -467,14 +464,12 @@ export const premiumCategories: Category[] = [
 export const getBrandsByCategory = (categoryId: string) => {
   const category = premiumCategories.find(cat => cat.id === categoryId)
   if (!category) return []
-  
   const brands = new Set<string>()
   category.subcategories.forEach(sub => {
     sub.products.forEach(product => {
       brands.add(product.brand)
     })
   })
-  
   return Array.from(brands)
 }
 
@@ -496,7 +491,7 @@ export const getAllProducts = () => {
   const products: Product[] = []
   premiumCategories.forEach(category => {
     category.subcategories.forEach(subcategory => {
-      products.forEach(product => products.push(product))
+      subcategory.products.forEach(product => products.push(product))
     })
   })
   return products

@@ -58,10 +58,10 @@ const products = [
       "/Produtos/Iphone 16/Normal x Plus/iPhone 16 Pro Max - White Titanium.png"
     ],
     colors: [
-      { name: "Titânio Natural", code: "#E8E8E8", image: "/Produtos/Iphone 16 Pro.png" },
-      { name: "Titânio Azul", code: "#4A6FA5", image: "/Produtos/Iphone 16/Normal x Plus/iPhone 16 Pro Max - Blue Titanium.png" },
-      { name: "Titânio Branco", code: "#F8F8F8", image: "/Produtos/Iphone 16/Normal x Plus/iPhone 16 Pro Max - White Titanium.png" },
-      { name: "Titânio Preto", code: "#1F1F1F", image: "/Produtos/Iphone 16 Pro.png" }
+      { name: "Titânio Natural", code: "#E8E8E8", image: "/produtos/Iphone 16 Pro.png" },
+      { name: "Titânio Azul", code: "#4A6FA5", image: "/produtos/Iphone 16/Normal x Plus/iPhone 16 Pro Max - Blue Titanium.png" },
+      { name: "Titânio Branco", code: "#F8F8F8", image: "/produtos/Iphone 16/Normal x Plus/iPhone 16 Pro Max - White Titanium.png" },
+      { name: "Titânio Preto", code: "#1F1F1F", image: "/produtos/Iphone 16 Pro.png" }
     ],
     storage: [
       { capacity: "128GB", price: 10499, available: true },
@@ -128,11 +128,11 @@ const products = [
     isNew: true,
     images: ["/Produtos/Iphone 16.png"],
     colors: [
-      { name: "Rosa", code: "#FFB3D9", image: "/Produtos/Iphone 16.png" },
-      { name: "Verde-água", code: "#7FFFD4", image: "/Produtos/Iphone 16.png" },
-      { name: "Ultramarino", code: "#4169E1", image: "/Produtos/Iphone 16.png" },
-      { name: "Branco", code: "#FFFFFF", image: "/Produtos/Iphone 16.png" },
-      { name: "Preto", code: "#000000", image: "/Produtos/Iphone 16.png" }
+      { name: "Rosa", code: "#FFB3D9", image: "/produtos/Iphone 16.png" },
+      { name: "Verde-água", code: "#7FFFD4", image: "/produtos/Iphone 16.png" },
+      { name: "Ultramarino", code: "#4169E1", image: "/produtos/Iphone 16.png" },
+      { name: "Branco", code: "#FFFFFF", image: "/produtos/Iphone 16.png" },
+      { name: "Preto", code: "#000000", image: "/produtos/Iphone 16.png" }
     ],
     storage: [
       { capacity: "128GB", price: 7499, available: true },

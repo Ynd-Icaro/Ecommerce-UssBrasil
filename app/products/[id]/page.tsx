@@ -11,7 +11,7 @@ import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useProductsDatabase } from '@/lib/use-products-database';
-import { SimpleProductCard } from '@/components/product/SimpleProductCard';
+import { ProductCard } from '@/components/product/ProductCard';
 import { VideoPlayer } from '@/components/video/VideoPlayer';
 import { 
   ShoppingCart, 
@@ -548,7 +548,7 @@ export default function ProductPage({ params }: ProductPageProps) {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                 >
-                  <SimpleProductCard
+                  <ProductCard
                     id={relatedProduct.id}
                     name={relatedProduct.name}
                     price={formatCurrency(relatedProduct.price)}

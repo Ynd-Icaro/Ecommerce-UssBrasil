@@ -6,7 +6,7 @@ import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { VideoPlayer } from '@/components/video/VideoPlayer'
-import { SimpleProductCard } from '@/components/product/SimpleProductCard'
+import { ProductCard } from '@/components/product/ProductCard'
 import { 
   ArrowRight, 
   Play, 
@@ -27,7 +27,7 @@ const featuredProducts = [
     name: 'iPhone 16 Pro',
     price: 'R$ 10.499',
     originalPrice: 'R$ 11.999',
-    image: '/Produtos/Iphone 16 Pro.png',
+    image: '/produtos/Iphone 16 Pro.png',
     category: 'iPhone',
     rating: 4.9,
     isNew: true,
@@ -37,7 +37,7 @@ const featuredProducts = [
     id: '2',
     name: 'MacBook Pro M3',
     price: 'R$ 19.999',
-    image: '/Produtos/Macbook Pro.png',
+    image: '/produtos/Macbook Pro.png',
     category: 'Mac',
     rating: 4.8,
     isNew: true,
@@ -47,7 +47,7 @@ const featuredProducts = [
     id: '3',
     name: 'iPad Pro M4',
     price: 'R$ 10.499',
-    image: '/Produtos/Ipad Pro.png',
+    image: '/produtos/Ipad Pro.png',
     category: 'iPad',
     rating: 4.7,
     isNew: true,
@@ -57,7 +57,7 @@ const featuredProducts = [
     id: '4',
     name: 'Apple Watch Series 10',
     price: 'R$ 4.699',
-    image: '/Produtos/Watch Series 10.png',
+    image: '/produtos/Watch Series 10.png',
     category: 'Apple Watch',
     rating: 4.8,
     isNew: true,
@@ -104,7 +104,7 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-gray-900 to-gray-700">
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#0E7466] to-[#0C1A33]">
         <div className="absolute inset-0">
           <VideoPlayer
             src="/Videos/IphoneVideo.mp4"
@@ -113,7 +113,7 @@ export default function HomePage() {
             loop
             className="w-full h-full object-cover opacity-30"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0C1A33]/80 to-transparent"></div>
         </div>
         
         <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
@@ -136,7 +136,7 @@ export default function HomePage() {
               O iPhone mais poderoso de todos os tempos. Camera Control. Chip A18 Pro. E muito mais.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Button size="lg" className="bg-white text-gray-900 hover:bg-gray-100 px-8 py-4 text-lg">
+              <Button size="lg" className="bg-[#0E7466] hover:bg-[#0C1A33] text-white px-8 py-4 text-lg border-2 border-[#0C1A33]">
                 Comprar a partir de R$ 10.499
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
@@ -170,7 +170,7 @@ export default function HomePage() {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20" style={{ backgroundColor: '#0C1A33' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -179,10 +179,10 @@ export default function HomePage() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
+            <h2 className="text-4xl sm:text-5xl font-bold mb-4" style={{ color: '#0E7466', textShadow: '0 2px 8px #0C1A33' }}>
               Por que escolher a USS Brasil?
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl max-w-3xl mx-auto" style={{ color: '#0E7466', fontWeight: 500 }}>
               A experiência Apple completa com o melhor atendimento do Brasil
             </p>
           </motion.div>
@@ -216,8 +216,8 @@ export default function HomePage() {
                 <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center">
                   <feature.icon className="h-8 w-8 text-white" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">{feature.title}</h3>
-                <p className="text-gray-600">{feature.description}</p>
+                <h3 className="text-xl font-semibold mb-2" style={{ color: '#0C1A33' }}>{feature.title}</h3>
+                <p style={{ color: '#0E7466' }}>{feature.description}</p>
               </motion.div>
             ))}
           </div>
@@ -225,7 +225,7 @@ export default function HomePage() {
       </section>
 
       {/* Categories Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20" style={{ backgroundColor: '#0E7466' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -234,10 +234,10 @@ export default function HomePage() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
+            <h2 className="text-4xl sm:text-5xl font-bold mb-4" style={{ color: '#0C1A33', textShadow: '0 2px 8px #0E7466' }}>
               Explore todos os produtos Apple
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl max-w-3xl mx-auto" style={{ color: '#0C1A33', fontWeight: 500 }}>
               Descubra o ecossistema Apple completo na USS Brasil
             </p>
           </motion.div>
@@ -254,7 +254,7 @@ export default function HomePage() {
                 className="group"
               >
                 <Link href={category.href} className="block">
-                  <div className="relative aspect-square rounded-3xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200">
+                  <div className="relative aspect-square rounded-3xl overflow-hidden bg-gradient-to-br from-[#0E7466] to-[#0C1A33]">
                     <VideoPlayer
                       src={category.video}
                       autoplay
@@ -277,7 +277,7 @@ export default function HomePage() {
       </section>
 
       {/* Featured Products */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20" style={{ backgroundColor: '#0C1A33' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -286,10 +286,10 @@ export default function HomePage() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
+            <h2 className="text-4xl sm:text-5xl font-bold mb-4" style={{ color: '#0E7466', textShadow: '0 2px 8px #0C1A33' }}>
               Produtos em destaque
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl max-w-3xl mx-auto" style={{ color: '#0E7466', fontWeight: 500 }}>
               Os lançamentos mais recentes da Apple com preços especiais
             </p>
           </motion.div>
@@ -303,7 +303,7 @@ export default function HomePage() {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true }}
               >
-                <SimpleProductCard {...product} />
+                <ProductCard {...product} />
               </motion.div>
             ))}
           </div>
@@ -326,7 +326,7 @@ export default function HomePage() {
       </section>
 
       {/* Newsletter Section */}
-      <section className="py-20 bg-gradient-to-br from-gray-900 to-gray-700">
+      <section className="py-20 bg-gradient-to-br from-[#0E7466] to-[#0C1A33]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -347,7 +347,7 @@ export default function HomePage() {
                 placeholder="Seu melhor email"
                 className="flex-1 px-6 py-4 rounded-xl border-0 bg-white/10 backdrop-blur-sm text-white placeholder-white/70 focus:ring-2 focus:ring-blue-500 focus:outline-none"
               />
-              <Button size="lg" className="bg-white text-gray-900 hover:bg-gray-100 px-8">
+              <Button size="lg" className="bg-[#0E7466] hover:bg-[#0C1A33] text-white px-8 border-2 border-[#0C1A33]">
                 Assinar
               </Button>
             </div>

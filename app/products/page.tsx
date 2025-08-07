@@ -106,7 +106,7 @@ export default function ProdutosPage() {
             >
               <h1 className="text-4xl lg:text-6xl font-semibold tracking-tight text-neutral-900 mb-6">
                 Todos os
-                <span className="bg-gradient-to-r from-[#00CED1] to-[#20B2AA] bg-clip-text text-transparent"> Produtos</span>
+                <span className="bg-gradient-to-r from-[#0E7466] to-[#0C1A33] bg-clip-text text-transparent"> Produtos</span>
               </h1>
               
               <p className="text-xl text-neutral-600 max-w-3xl mx-auto leading-relaxed mb-8">
@@ -119,7 +119,7 @@ export default function ProdutosPage() {
       </section>
 
       {/* Categories Grid */}
-      <section className="py-16 bg-white">
+      <section className="py-16" style={{ backgroundColor: '#0C1A33' }}>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl lg:text-4xl font-semibold text-neutral-900 mb-4">
@@ -143,7 +143,7 @@ export default function ProdutosPage() {
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                 >
                   <Link href={`/categories/${category.slug}`}>
-                    <Card className="group border-0 shadow-md hover:shadow-xl transition-all duration-300 rounded-2xl bg-white overflow-hidden h-[320px] cursor-pointer">
+                    <Card className="group border-0 shadow-md hover:shadow-xl transition-all duration-300 rounded-2xl" style={{ backgroundColor: '#0E7466' }}>
                       <CardContent className="p-0 h-full relative">
                         {/* Background Gradient */}
                         <div className={`absolute inset-0 bg-gradient-to-br ${category.bannerGradient} opacity-90`}></div>
@@ -160,16 +160,16 @@ export default function ProdutosPage() {
 
                         {/* Play Button Overlay */}
                         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                          <div className="bg-white/20 backdrop-blur-sm rounded-full p-4">
-                            <Play className="h-8 w-8 text-white fill-white" />
+                          <div className="bg-[#0C1A33]/20 backdrop-blur-sm rounded-full p-4">
+                            <Play className="h-8 w-8" style={{ color: '#0E7466', fill: '#0E7466' }} />
                           </div>
                         </div>
 
                         {/* Content */}
-                        <div className="relative z-10 p-6 h-full flex flex-col justify-between text-white">
+                        <div className="relative z-10 p-6 h-full flex flex-col justify-between" style={{ color: '#0C1A33' }}>
                           <div>
                             <IconComponent className="h-8 w-8 mb-4 opacity-80" />
-                            <Badge className="mb-3 bg-white/20 backdrop-blur-sm text-white border-white/30">
+                            <Badge className="mb-3 bg-[#0E7466]/20 backdrop-blur-sm text-[#0C1A33] border-[#0C1A33]/30">
                               {categoryProducts.length} produtos
                             </Badge>
                           </div>
@@ -178,7 +178,7 @@ export default function ProdutosPage() {
                             <h3 className="text-xl font-semibold mb-2">
                               {category.name}
                             </h3>
-                            <p className="text-white/80 text-sm mb-4">
+                            <p className="text-[#0E7466] text-sm mb-4">
                               {category.description}
                             </p>
                             
@@ -219,7 +219,7 @@ export default function ProdutosPage() {
             <select
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
-              className="px-4 py-2 border border-neutral-300 rounded-xl text-sm focus:border-[#00CED1] focus:ring-[#00CED1] bg-white"
+              className="px-4 py-2 border border-[#0E7466] rounded-xl text-sm focus:border-[#0C1A33] focus:ring-[#0C1A33]" style={{ backgroundColor: '#0C1A33', color: '#fff' }}
             >
               <option value="all">Todas as categorias</option>
               {categories.map(cat => (
@@ -286,26 +286,27 @@ export default function ProdutosPage() {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
                 {viewMode === 'grid' ? (
-                  <Card className="border-0 shadow-md hover:shadow-xl transition-all duration-300 rounded-2xl bg-white overflow-hidden group">
+                  <Card className="border-0 shadow-md hover:shadow-xl transition-all duration-300 rounded-2xl" style={{ backgroundColor: '#0E7466' }}>
                     <CardContent className="p-0">
                       {/* Image */}
                       <div className="relative aspect-[4/3] bg-gradient-to-br from-neutral-50 to-neutral-100 overflow-hidden">
                         <Image
-                          src={product.images.main}
+                          src={product.images?.main ? product.images.main : '/produtos/fallback-product.png'}
                           alt={product.name}
                           fill
                           className="object-contain p-8 group-hover:scale-105 transition-transform duration-300"
+                          onError={(e) => { e.currentTarget.src = '/produtos/fallback-product.png' }}
                         />
                         
                         {/* Badges */}
                         <div className="absolute top-3 left-3 flex flex-col gap-2">
                           {product.isNew && (
-                            <Badge className="bg-gradient-to-r from-green-500 to-green-600 text-white border-0 shadow-md text-xs">
+                            <Badge className="bg-gradient-to-r from-[#0E7466] to-[#0C1A33] text-white border-0 shadow-md text-xs">
                               Novo
                             </Badge>
                           )}
                           {product.originalPrice && product.originalPrice > product.price && (
-                            <Badge className="bg-gradient-to-r from-red-500 to-red-600 text-white border-0 shadow-md text-xs">
+                            <Badge className="bg-gradient-to-r from-[#0C1A33] to-[#0E7466] text-white border-0 shadow-md text-xs">
                               -{getDiscountPercentage(product.originalPrice, product.price)}%
                             </Badge>
                           )}
@@ -349,7 +350,7 @@ export default function ProdutosPage() {
 
                         {/* Action Button */}
                         <Link href={`/products/${product.id}`}>
-                          <Button className="w-full bg-gradient-to-r from-[#00CED1] to-[#20B2AA] hover:from-[#20B2AA] hover:to-[#00CED1] text-white font-medium rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 text-sm">
+                          <Button className="w-full bg-gradient-to-r from-[#0E7466] to-[#0C1A33] hover:from-[#0C1A33] hover:to-[#0E7466] text-white font-medium rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 text-sm">
                             <ShoppingCart className="h-3 w-3 mr-2" />
                             Ver Produto
                           </Button>
@@ -358,16 +359,17 @@ export default function ProdutosPage() {
                     </CardContent>
                   </Card>
                 ) : (
-                  <Card className="border-0 shadow-md hover:shadow-lg transition-all duration-300 rounded-2xl bg-white overflow-hidden">
+                  <Card className="border-0 shadow-md hover:shadow-lg transition-all duration-300 rounded-2xl" style={{ backgroundColor: '#0E7466' }}>
                     <CardContent className="p-6">
                       <div className="flex items-center gap-6">
                         {/* Image */}
                         <div className="relative w-24 h-20 bg-gradient-to-br from-neutral-50 to-neutral-100 rounded-xl overflow-hidden flex-shrink-0">
                           <Image
-                            src={product.images.main}
+                            src={product.images?.main ? product.images.main : '/produtos/fallback-product.png'}
                             alt={product.name}
                             fill
                             className="object-contain p-3"
+                            onError={(e) => { e.currentTarget.src = '/produtos/fallback-product.png' }}
                           />
                         </div>
 
@@ -406,7 +408,7 @@ export default function ProdutosPage() {
                                 )}
                               </div>
                               <Link href={`/products/${product.id}`}>
-                                <Button size="sm" className="bg-gradient-to-r from-[#00CED1] to-[#20B2AA] hover:from-[#20B2AA] hover:to-[#00CED1] text-white rounded-xl">
+                                <Button size="sm" className="bg-gradient-to-r from-[#0E7466] to-[#0C1A33] hover:from-[#0C1A33] hover:to-[#0E7466] text-white rounded-xl">
                                   Ver Produto
                                 </Button>
                               </Link>
