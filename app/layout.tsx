@@ -1,32 +1,58 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import Navbar from '@/components/navbar'
+import FixedNavbar from '@/components/navbar-fixed'
+import ModernFooter from '@/components/navigation/modern-footer'
 import ToastWrapper from '@/components/toast-wrapper'
+import GlobalModals from '@/components/modals'
 import { ThemeProvider } from '@/hooks/use-theme'
 import { Toaster } from 'sonner'
 import { CartProvider } from '@/contexts/CartContext'
 import { FavoritesProvider } from '@/contexts/FavoritesContext'
+import { ModalProvider } from '@/contexts/ModalContext'
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
 
 
 export const metadata: Metadata = {
-  title: 'UssBrasil - Importados Premium',
-  description: 'A melhor loja de produtos importados do Brasil com tecnologia de ponta e entrega rápida',
+  title: 'USS Brasil - Produtos Premium & Tecnologia de Ponta',
+  description: 'Descubra os melhores produtos Apple, JBL, DJI, Xiaomi e Geonav. Tecnologia premium com entrega expressa e garantia oficial.',
   metadataBase: new URL('https://ussbrasil.netlify.app'),
+  keywords: [
+    'USS Brasil',
+    'Apple',
+    'iPhone',
+    'MacBook',
+    'JBL',
+    'DJI',
+    'Xiaomi',
+    'Geonav',
+    'produtos importados',
+    'tecnologia premium',
+    'loja online',
+    'eletrônicos'
+  ],
   openGraph: {
-    title: 'UssBrasil - Importados Premium',
-    description: 'A melhor loja de produtos importados do Brasil com tecnologia de ponta e entrega rápida',
+    title: 'USS Brasil - Produtos Premium & Tecnologia de Ponta',
+    description: 'Descubra os melhores produtos Apple, JBL, DJI, Xiaomi e Geonav. Tecnologia premium com entrega expressa e garantia oficial.',
     type: 'website',
     locale: 'pt_BR',
     url: 'https://ussbrasil.netlify.app',
-    siteName: 'UssBrasil',
+    siteName: 'USS Brasil',
+    images: [
+      {
+        url: '/Empresa/02.png',
+        width: 800,
+        height: 600,
+        alt: 'USS Brasil - Logo',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'UssBrasil - Importados Premium',
-    description: 'A melhor loja de produtos importados do Brasil com tecnologia de ponta e entrega rápida',
+    title: 'USS Brasil - Produtos Premium & Tecnologia de Ponta',
+    description: 'Descubra os melhores produtos Apple, JBL, DJI, Xiaomi e Geonav. Tecnologia premium com entrega expressa e garantia oficial.',
+    images: ['/Empresa/02.png'],
   },
   robots: {
     index: true,
@@ -44,6 +70,9 @@ export const metadata: Metadata = {
     shortcut: '/favicon-16x16.png',
     apple: '/apple-touch-icon.png',
   },
+  verification: {
+    google: 'your-google-verification-code',
+  },
 }
 
 export default function RootLayout({
@@ -57,11 +86,15 @@ export default function RootLayout({
         <ThemeProvider>
           <FavoritesProvider>
             <CartProvider>
-              <Toaster position="top-center" richColors />
-              <Navbar />
-              <main className="min-h-screen">
-                {children}
-              </main>
+              <ModalProvider>
+                <Toaster position="top-center" richColors />
+                <FixedNavbar />
+                <main className="min-h-screen">
+                  {children}
+                </main>
+                <ModernFooter />
+                <GlobalModals />
+              </ModalProvider>
             </CartProvider>
           </FavoritesProvider>
         </ThemeProvider>

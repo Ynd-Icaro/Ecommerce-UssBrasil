@@ -22,7 +22,9 @@ interface ChartProps {
   type: 'line' | 'area' | 'bar' | 'pie'
   dataKey: string
   xAxisKey?: string
+  secondaryDataKey?: string
   color?: string
+  secondaryColor?: string
   gradient?: boolean
   height?: number
 }
@@ -48,7 +50,9 @@ export default function AdminChart({
   type, 
   dataKey, 
   xAxisKey = 'name',
+  secondaryDataKey,
   color = '#0E7466',
+  secondaryColor = '#3B82F6',
   gradient = false,
   height = 300 
 }: ChartProps) {
@@ -81,6 +85,16 @@ export default function AdminChart({
               dot={{ fill: color, strokeWidth: 2, r: 4 }}
               activeDot={{ r: 6, stroke: color, strokeWidth: 2 }}
             />
+            {secondaryDataKey && (
+              <Line 
+                type="monotone" 
+                dataKey={secondaryDataKey} 
+                stroke={secondaryColor} 
+                strokeWidth={2}
+                dot={{ fill: secondaryColor, strokeWidth: 2, r: 3 }}
+                activeDot={{ r: 5, stroke: secondaryColor, strokeWidth: 2 }}
+              />
+            )}
           </LineChart>
         )
 
@@ -93,6 +107,12 @@ export default function AdminChart({
                   <stop offset="5%" stopColor={color} stopOpacity={0.8}/>
                   <stop offset="95%" stopColor={color} stopOpacity={0.1}/>
                 </linearGradient>
+                {secondaryDataKey && (
+                  <linearGradient id="secondaryAreaGradient" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor={secondaryColor} stopOpacity={0.8}/>
+                    <stop offset="95%" stopColor={secondaryColor} stopOpacity={0.1}/>
+                  </linearGradient>
+                )}
               </defs>
             )}
             <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
@@ -106,6 +126,16 @@ export default function AdminChart({
               strokeWidth={3}
               fill={gradient ? "url(#areaGradient)" : color} 
             />
+            {secondaryDataKey && (
+              <Area 
+                type="monotone" 
+                dataKey={secondaryDataKey} 
+                stroke={secondaryColor} 
+                strokeWidth={2}
+                fill={gradient ? "url(#secondaryAreaGradient)" : secondaryColor} 
+                fillOpacity={0.6}
+              />
+            )}
           </AreaChart>
         )
 

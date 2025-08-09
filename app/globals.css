@@ -4,49 +4,194 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 224 71.4% 4.1%;
-    --card: 0 0% 100%;
-    --card-foreground: 224 71.4% 4.1%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 224 71.4% 4.1%;
-    --primary: 220.9 39.3% 11%;
-    --primary-foreground: 210 20% 98%;
-    --secondary: 220 14.3% 95.9%;
-    --secondary-foreground: 220.9 39.3% 11%;
-    --muted: 220 14.3% 95.9%;
-    --muted-foreground: 220 8.9% 46.1%;
-    --accent: 220 14.3% 95.9%;
-    --accent-foreground: 220.9 39.3% 11%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 20% 98%;
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 224 71.4% 4.1%;
+    /* USS Brasil Color Palette - Light Mode */
+    --uss-primary: 199 100% 22%; /* #034a6e */
+    --uss-primary-light: 199 100% 32%; /* #06618f */
+    --uss-primary-dark: 199 100% 15%; /* #02344f */
+    --uss-secondary: 184 60% 57%; /* #54c4cf */
+    --uss-secondary-light: 184 64% 64%; /* #6fd4dc */
+    --uss-secondary-dark: 184 49% 46%; /* #3ea0a8 */
+    
+    /* Neutral Colors */
+    --uss-black: 0 0% 0%; /* #000000 */
+    --uss-gray-900: 0 0% 10%; /* #1a1a1a */
+    --uss-gray-700: 0 0% 18%; /* #2d2d2d */
+    --uss-gray-500: 0 0% 43%; /* #6e6e6e */
+    --uss-gray-300: 0 0% 74%; /* #bdbdbd */
+    --uss-white: 0 0% 100%; /* #ffffff */
+    --uss-off-white: 210 20% 98%; /* #f8f9fa */
+    
+    /* Status Colors */
+    --uss-success: 134 61% 41%; /* #28a745 */
+    --uss-warning: 45 100% 51%; /* #ffc107 */
+    --uss-error: 354 70% 54%; /* #dc3545 */
+    --uss-info: 188 82% 42%; /* #17a2b8 */
+    
+    /* Design System Variables */
+    --background: var(--uss-white);
+    --foreground: var(--uss-gray-900);
+    --card: var(--uss-white);
+    --card-foreground: var(--uss-gray-900);
+    --popover: var(--uss-white);
+    --popover-foreground: var(--uss-gray-900);
+    --primary: var(--uss-primary);
+    --primary-foreground: var(--uss-white);
+    --secondary: var(--uss-secondary);
+    --secondary-foreground: var(--uss-white);
+    --muted: var(--uss-off-white);
+    --muted-foreground: var(--uss-gray-500);
+    --accent: var(--uss-secondary-light);
+    --accent-foreground: var(--uss-gray-900);
+    --destructive: var(--uss-error);
+    --destructive-foreground: var(--uss-white);
+    --border: var(--uss-gray-300);
+    --input: var(--uss-off-white);
+    --ring: var(--uss-primary);
     --radius: 0.5rem;
+    
+    /* Gradient Variables */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--uss-primary)), hsl(var(--uss-primary-light)));
+    --gradient-secondary: linear-gradient(135deg, hsl(var(--uss-secondary)), hsl(var(--uss-secondary-light)));
   }
 
   .dark {
-    --background: 224 71.4% 4.1%;
-    --foreground: 210 20% 98%;
-    --card: 224 71.4% 4.1%;
-    --card-foreground: 210 20% 98%;
-    --popover: 224 71.4% 4.1%;
-    --popover-foreground: 210 20% 98%;
-    --primary: 210 20% 98%;
-    --primary-foreground: 220.9 39.3% 11%;
-    --secondary: 215 27.9% 16.9%;
-    --secondary-foreground: 210 20% 98%;
-    --muted: 215 27.9% 16.9%;
-    --muted-foreground: 217.9 10.6% 64.9%;
-    --accent: 215 27.9% 16.9%;
-    --accent-foreground: 210 20% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 20% 98%;
-    --border: 215 27.9% 16.9%;
-    --input: 215 27.9% 16.9%;
-    --ring: 216 12.2% 83.9%;
+    /* USS Brasil Color Palette - Dark Mode */
+    --background: var(--uss-gray-900);
+    --foreground: var(--uss-white);
+    --card: var(--uss-gray-900);
+    --card-foreground: var(--uss-white);
+    --popover: var(--uss-gray-700);
+    --popover-foreground: var(--uss-white);
+    --primary: var(--uss-secondary-light);
+    --primary-foreground: var(--uss-gray-900);
+    --secondary: var(--uss-primary-light);
+    --secondary-foreground: var(--uss-white);
+    --muted: var(--uss-gray-700);
+    --muted-foreground: var(--uss-gray-300);
+    --accent: var(--uss-secondary);
+    --accent-foreground: var(--uss-gray-900);
+    --destructive: var(--uss-error);
+    --destructive-foreground: var(--uss-white);
+    --border: var(--uss-gray-700);
+    --input: var(--uss-gray-700);
+    --ring: var(--uss-secondary-light);
   }
+}
+
+@theme inline {
+  --color-uss-primary: #034a6e;
+  --color-uss-primary-light: #06618f;
+  --color-uss-primary-dark: #02344f;
+  --color-uss-secondary: #54c4cf;
+  --color-uss-secondary-light: #6fd4dc;
+  --color-uss-secondary-dark: #3ea0a8;
+  --color-uss-black: #000000;
+  --color-uss-gray-900: #1a1a1a;
+  --color-uss-gray-700: #2d2d2d;
+  --color-uss-gray-500: #6e6e6e;
+  --color-uss-gray-300: #bdbdbd;
+  --color-uss-white: #ffffff;
+  --color-uss-off-white: #f8f9fa;
+  --color-uss-success: #28a745;
+  --color-uss-warning: #ffc107;
+  --color-uss-error: #dc3545;
+  --color-uss-info: #17a2b8;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  
+  /* USS Brasil Utility Classes */
+  .btn-uss-primary {
+    @apply bg-uss-primary hover:bg-uss-primary-dark text-white font-medium px-6 py-3 rounded-md transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5;
+  }
+  
+  .btn-uss-secondary {
+    @apply bg-uss-secondary hover:bg-uss-secondary-dark text-white font-medium px-6 py-3 rounded-md transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5;
+  }
+  
+  .gradient-uss-primary {
+    background: linear-gradient(135deg, #034a6e, #06618f);
+  }
+  
+  .gradient-uss-secondary {
+    background: linear-gradient(135deg, #54c4cf, #6fd4dc);
+  }
+  
+  .text-gradient-uss {
+    background: linear-gradient(135deg, #034a6e, #54c4cf);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .card-uss {
+    @apply bg-white border border-uss-gray-300 rounded-lg shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 dark:bg-uss-gray-700 dark:border-uss-gray-500;
+  }
+  
+  .reflection-effect {
+    position: relative;
+  }
+  
+  .reflection-effect::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0) 70%);
+    transform: scaleY(-1);
+    pointer-events: none;
+  }
+  
+  .dark .reflection-effect::after {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
+  }
+}
+
+/* USS Brasil Input Focus States */
+input:focus, textarea:focus, select:focus {
+  @apply ring-2 ring-uss-primary/20 border-uss-primary;
+}
+
+.dark input:focus, .dark textarea:focus, .dark select:focus {
+  @apply ring-uss-secondary-light/30 border-uss-secondary-light;
+}
+
+/* USS Brasil Animation Classes */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-uss {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(3, 74, 110, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(3, 74, 110, 0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.animate-pulse-uss {
+  animation: pulse-uss 2s infinite;
 }
 
 @theme inline {

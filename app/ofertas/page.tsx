@@ -1,8 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { Star, Clock, Flame, Zap, ShoppingCart, Heart, ArrowRight, Tag, Percent } from 'lucide-react'
+import { Star, Clock, Flame, Zap, ShoppingCart, Heart, Tag, Percent, Filter, Grid, List, Search, X } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import data from '@/db.json'
@@ -13,20 +13,20 @@ interface Product {
   brand: string
   description: string
   price: number
-  discountPrice: number | null
+  discountPrice?: number | null
   image: string
-  images: string[]
+  images?: string[]
   category: string
   stock: number
   status: 'active'
-  tags: string[]
+  tags?: string[]
   featured: boolean
-  rating: number
-  totalReviews: number
-  colors: string[]
-  createdAt: string
-  specifications: object
-  paymentOptions: number
+  rating?: number
+  totalReviews?: number
+  colors?: string[]
+  createdAt?: string
+  specifications?: object
+  paymentOptions?: number
 }
 
 interface Offer extends Product {
@@ -47,7 +47,6 @@ const calculateDiscount = (original: number, discounted: number | null) => {
 // Função para ajustar caminhos das imagens
 const fixImagePath = (path: string) => {
   if (!path) return '/fallback-product.png'
-  // Remove o prefixo se existe e garante que começa com /
   if (path.startsWith('Ecommerce-UssBrasil/public/')) {
     return `/${path.replace('Ecommerce-UssBrasil/public/', '')}`
   }
@@ -60,11 +59,11 @@ const createOffersFromProducts = (products: Product[]): Offer[] => {
     .filter(product => product.discountPrice && product.discountPrice < product.price)
     .map((product, index) => ({
       ...product,
-      discount: calculateDiscount(product.price, product.discountPrice),
+      discount: calculateDiscount(product.price, product.discountPrice || null),
       timeLeft: index % 2 === 0 ? '2d 14h 32m' : '1d 8h 45m',
       isFlashSale: index % 3 === 0,
-      isLimitedStock: product.stock < 15,
-      stockCount: product.stock < 15 ? product.stock : undefined,
+      isLimitedStock: (product.stock || 0) < 15,
+      stockCount: (product.stock || 0) < 15 ? product.stock : undefined,
       badge: product.featured ? 'Mais Vendido' : undefined
     }))
     .sort((a, b) => b.discount - a.discount)
@@ -73,19 +72,67 @@ const createOffersFromProducts = (products: Product[]): Offer[] => {
 const offers: Offer[] = createOffersFromProducts(data.products as Product[])
 
 export default function OffersPage() {
-  const [filter, setFilter] = useState<'all' | 'flash' | 'limited'>('all')
+  const [filter, setFilter] = useState<'all' | 'flash' | 'limited' | 'category'>('all')
   const [sortBy, setSortBy] = useState<'discount' | 'price' | 'rating'>('discount')
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
+  const [searchQuery, setSearchQuery] = useState('')
+  const [selectedCategory, setSelectedCategory] = useState('')
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, 10000])
+  const [showFilters, setShowFilters] = useState(false)
+
+  // Categorias únicas
+  const categories = [...new Set(offers.map(offer => offer.category))]
+
+  // Timer para ofertas relâmpago
+  const [timeLeft, setTimeLeft] = useState({
+    days: 2,
+    hours: 14,
+    minutes: 32,
+    seconds: 45
+  })
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft(prev => {
+        if (prev.seconds > 0) {
+          return { ...prev, seconds: prev.seconds - 1 }
+        } else if (prev.minutes > 0) {
+          return { ...prev, minutes: prev.minutes - 1, seconds: 59 }
+        } else if (prev.hours > 0) {
+          return { ...prev, hours: prev.hours - 1, minutes: 59, seconds: 59 }
+        } else if (prev.days > 0) {
+          return { ...prev, days: prev.days - 1, hours: 23, minutes: 59, seconds: 59 }
+        }
+        return prev
+      })
+    }, 1000)
+
+    return () => clearInterval(timer)
+  }, [])
 
   const filteredOffers = offers
     .filter(offer => {
-      if (filter === 'flash') return offer.isFlashSale
-      if (filter === 'limited') return offer.isLimitedStock
+      // Filtro por tipo
+      if (filter === 'flash' && !offer.isFlashSale) return false
+      if (filter === 'limited' && !offer.isLimitedStock) return false
+      
+      // Filtro por categoria
+      if (selectedCategory && offer.category !== selectedCategory) return false
+      
+      // Filtro por busca
+      if (searchQuery && !offer.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
+          !offer.brand.toLowerCase().includes(searchQuery.toLowerCase())) return false
+      
+      // Filtro por preço
+      const price = offer.discountPrice || offer.price
+      if (price < priceRange[0] || price > priceRange[1]) return false
+      
       return true
     })
     .sort((a, b) => {
       if (sortBy === 'discount') return b.discount - a.discount
       if (sortBy === 'price') return (a.discountPrice || a.price) - (b.discountPrice || b.price)
-      if (sortBy === 'rating') return b.rating - a.rating
+      if (sortBy === 'rating') return (b.rating || 0) - (a.rating || 0)
       return 0
     })
 
@@ -97,299 +144,359 @@ export default function OffersPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#f0f0f0] via-white to-[#f8f9fa] pt-20">
-      <div className="container mx-auto px-4 py-8">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-12"
-        >
-          <div className="flex items-center justify-center mb-4">
-            <Tag className="h-8 w-8 text-[#0E7466] mr-3" />
-            <h1 className="text-4xl lg:text-6xl font-bold bg-gradient-to-r from-[#0C1A33] to-[#0E7466] bg-clip-text text-transparent">
-              Ofertas Especiais
-            </h1>
-            <Flame className="h-8 w-8 text-orange-500 ml-3" />
-          </div>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Aproveite nossos descontos exclusivos e produtos com preços incríveis!
-          </p>
-        </motion.div>
+    <div className="min-h-screen bg-gray-50 pt-24">
+      {/* Hero Section */}
+      <div className="bg-gradient-to-br from-uss-primary via-uss-secondary to-purple-600 text-white py-16">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-center"
+          >
+            <div className="flex items-center justify-center mb-6">
+              <Flame className="h-10 w-10 mr-3 text-orange-300" />
+              <h1 className="text-5xl lg:text-7xl font-bold">
+                Super Ofertas
+              </h1>
+              <Percent className="h-10 w-10 ml-3 text-green-300" />
+            </div>
+            <p className="text-xl lg:text-2xl opacity-90 max-w-3xl mx-auto mb-8">
+              Descontos de até 70% em produtos selecionados. Aproveite antes que acabem!
+            </p>
+            
+            {/* Contador de tempo */}
+            <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 max-w-md mx-auto">
+              <h3 className="text-lg font-semibold mb-4 flex items-center justify-center">
+                <Clock className="h-5 w-5 mr-2" />
+                Ofertas terminam em:
+              </h3>
+              <div className="grid grid-cols-4 gap-2 text-center">
+                <div className="bg-white/20 rounded-lg p-3">
+                  <div className="text-2xl font-bold">{timeLeft.days.toString().padStart(2, '0')}</div>
+                  <div className="text-xs opacity-75">DIAS</div>
+                </div>
+                <div className="bg-white/20 rounded-lg p-3">
+                  <div className="text-2xl font-bold">{timeLeft.hours.toString().padStart(2, '0')}</div>
+                  <div className="text-xs opacity-75">HORAS</div>
+                </div>
+                <div className="bg-white/20 rounded-lg p-3">
+                  <div className="text-2xl font-bold">{timeLeft.minutes.toString().padStart(2, '0')}</div>
+                  <div className="text-xs opacity-75">MIN</div>
+                </div>
+                <div className="bg-white/20 rounded-lg p-3">
+                  <div className="text-2xl font-bold">{timeLeft.seconds.toString().padStart(2, '0')}</div>
+                  <div className="text-xs opacity-75">SEG</div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </div>
 
-        {/* Filters */}
+      <div className="container mx-auto px-4 py-8">
+        {/* Filtros e Controles */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-8"
+          className="bg-white rounded-2xl shadow-lg p-6 mb-8"
         >
-          <div className="flex flex-wrap gap-2">
+          {/* Barra de busca e controles principais */}
+          <div className="flex flex-col lg:flex-row gap-4 items-center justify-between mb-6">
+            <div className="relative flex-1 max-w-md">
+              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+              <input
+                type="text"
+                placeholder="Buscar ofertas..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-uss-primary/20 focus:border-uss-primary"
+              />
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery('')}
+                  className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              )}
+            </div>
+
+            <div className="flex items-center gap-4">
+              <button
+                onClick={() => setShowFilters(!showFilters)}
+                className="flex items-center space-x-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-xl transition-colors"
+              >
+                <Filter className="h-4 w-4" />
+                <span>Filtros</span>
+              </button>
+
+              <div className="flex items-center bg-gray-100 rounded-xl p-1">
+                <button
+                  onClick={() => setViewMode('grid')}
+                  className={`p-2 rounded-lg transition-colors ${
+                    viewMode === 'grid' ? 'bg-white shadow-sm' : 'hover:bg-gray-200'
+                  }`}
+                >
+                  <Grid className="h-4 w-4" />
+                </button>
+                <button
+                  onClick={() => setViewMode('list')}
+                  className={`p-2 rounded-lg transition-colors ${
+                    viewMode === 'list' ? 'bg-white shadow-sm' : 'hover:bg-gray-200'
+                  }`}
+                >
+                  <List className="h-4 w-4" />
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Filtros rápidos */}
+          <div className="flex flex-wrap gap-2 mb-4">
             <button
               onClick={() => setFilter('all')}
-              className={`px-6 py-3 rounded-full font-medium transition-all ${
+              className={`px-4 py-2 rounded-full font-medium transition-all ${
                 filter === 'all'
-                  ? 'bg-[#0E7466] text-white shadow-lg'
-                  : 'bg-white text-gray-600 hover:bg-gray-50'
+                  ? 'bg-uss-primary text-white shadow-lg'
+                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
               }`}
             >
-              Todas as Ofertas
+              Todas ({offers.length})
             </button>
             <button
               onClick={() => setFilter('flash')}
-              className={`px-6 py-3 rounded-full font-medium transition-all ${
+              className={`px-4 py-2 rounded-full font-medium transition-all ${
                 filter === 'flash'
                   ? 'bg-red-500 text-white shadow-lg'
-                  : 'bg-white text-gray-600 hover:bg-gray-50'
+                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
               }`}
             >
               <Zap className="w-4 h-4 inline mr-1" />
-              Flash Sale
+              Flash Sale ({offers.filter(o => o.isFlashSale).length})
             </button>
             <button
               onClick={() => setFilter('limited')}
-              className={`px-6 py-3 rounded-full font-medium transition-all ${
+              className={`px-4 py-2 rounded-full font-medium transition-all ${
                 filter === 'limited'
                   ? 'bg-orange-500 text-white shadow-lg'
-                  : 'bg-white text-gray-600 hover:bg-gray-50'
+                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
               }`}
             >
-              Estoque Limitado
+              Estoque Limitado ({offers.filter(o => o.isLimitedStock).length})
             </button>
           </div>
 
-          <div className="flex items-center space-x-2">
-            <span className="text-gray-600 font-medium">Ordenar por:</span>
-            <select
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value as 'discount' | 'price' | 'rating')}
-              className="bg-white border border-gray-300 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#0E7466]"
+          {/* Filtros avançados */}
+          {showFilters && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              className="border-t pt-4 grid grid-cols-1 md:grid-cols-3 gap-4"
             >
-              <option value="discount">Maior Desconto</option>
-              <option value="price">Menor Preço</option>
-              <option value="rating">Melhor Avaliação</option>
-            </select>
-          </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Categoria</label>
+                <select
+                  value={selectedCategory}
+                  onChange={(e) => setSelectedCategory(e.target.value)}
+                  className="w-full border border-gray-300 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-uss-primary/20"
+                >
+                  <option value="">Todas as categorias</option>
+                  {categories.map(category => (
+                    <option key={category} value={category}>{category}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Ordenar por</label>
+                <select
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value as 'discount' | 'price' | 'rating')}
+                  className="w-full border border-gray-300 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-uss-primary/20"
+                >
+                  <option value="discount">Maior Desconto</option>
+                  <option value="price">Menor Preço</option>
+                  <option value="rating">Melhor Avaliação</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Faixa de Preço: {formatCurrency(priceRange[0])} - {formatCurrency(priceRange[1])}
+                </label>
+                <div className="flex items-center space-x-2">
+                  <input
+                    type="range"
+                    min="0"
+                    max="10000"
+                    value={priceRange[0]}
+                    onChange={(e) => setPriceRange([Number(e.target.value), priceRange[1]])}
+                    className="flex-1"
+                  />
+                  <input
+                    type="range"
+                    min="0"
+                    max="10000"
+                    value={priceRange[1]}
+                    onChange={(e) => setPriceRange([priceRange[0], Number(e.target.value)])}
+                    className="flex-1"
+                  />
+                </div>
+              </div>
+            </motion.div>
+          )}
         </motion.div>
 
-        {/* Flash Sale Banner */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.3 }}
-          className="bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500 rounded-3xl p-8 mb-12 relative overflow-hidden"
-        >
-          <div className="absolute inset-0 bg-black/10"></div>
-          <div className="relative z-10 text-white text-center">
-            <div className="flex items-center justify-center mb-4">
-              <Zap className="h-8 w-8 mr-2" />
-              <h2 className="text-3xl font-bold">OFERTAS RELÂMPAGO</h2>
-              <Zap className="h-8 w-8 ml-2" />
-            </div>
-            <p className="text-xl mb-6">Descontos de até 50% por tempo limitado!</p>
-            <div className="flex items-center justify-center space-x-8 text-lg font-bold">
-              <div className="text-center">
-                <div className="text-3xl">02</div>
-                <div className="text-sm opacity-75">DIAS</div>
+        {/* Produtos */}
+        <div className={`grid gap-6 ${
+          viewMode === 'grid' 
+            ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4' 
+            : 'grid-cols-1'
+        }`}>
+          {filteredOffers.map((offer, index) => (
+            <motion.div
+              key={offer.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.1 }}
+              className={`bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group ${
+                viewMode === 'list' ? 'flex items-center' : ''
+              }`}
+            >
+              {/* Badge de desconto */}
+              {offer.discount > 0 && (
+                <div className="absolute top-4 left-4 z-10 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold">
+                  -{offer.discount}%
+                </div>
+              )}
+
+              {/* Flash Sale Badge */}
+              {offer.isFlashSale && (
+                <div className="absolute top-4 right-4 z-10 bg-yellow-400 text-yellow-900 px-2 py-1 rounded-full text-xs font-bold flex items-center">
+                  <Zap className="h-3 w-3 mr-1" />
+                  FLASH
+                </div>
+              )}
+
+              {/* Imagem */}
+              <div className={`relative ${viewMode === 'list' ? 'w-48 h-48' : 'h-64'} overflow-hidden`}>
+                <Image
+                  src={fixImagePath(offer.image)}
+                  alt={offer.name}
+                  fill
+                  className="object-contain group-hover:scale-110 transition-transform duration-300"
+                />
               </div>
-              <div className="text-2xl">:</div>
-              <div className="text-center">
-                <div className="text-3xl">14</div>
-                <div className="text-sm opacity-75">HORAS</div>
-              </div>
-              <div className="text-2xl">:</div>
-              <div className="text-center">
-                <div className="text-3xl">32</div>
-                <div className="text-sm opacity-75">MIN</div>
-              </div>
-            </div>
-          </div>
-        </motion.div>
 
-        {/* Products Grid */}
-        {filteredOffers.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredOffers.map((offer, index) => (
-              <motion.div
-                key={offer.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                className="bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group"
-              >
-                {/* Product Image */}
-                <div className="relative">
-                  <div className="aspect-square bg-gray-100 flex items-center justify-center overflow-hidden">
-                    <Image
-                      src={fixImagePath(offer.image)}
-                      alt={offer.name}
-                      width={400}
-                      height={400}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement
-                        target.src = '/fallback-product.png'
-                      }}
-                    />
-                  </div>
-
-                  {/* Badges */}
-                  <div className="absolute top-4 left-4 space-y-2">
-                    {offer.isFlashSale && (
-                      <div className="bg-red-500 text-white px-3 py-1 rounded-full text-xs font-bold flex items-center">
-                        <Zap className="w-3 h-3 mr-1" />
-                        FLASH
-                      </div>
-                    )}
-                    {offer.badge && (
-                      <div className="bg-[#0E7466] text-white px-3 py-1 rounded-full text-xs font-bold">
-                        {offer.badge}
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Discount Badge */}
-                  <div className="absolute top-4 right-4">
-                    <div className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-2 rounded-full font-bold text-lg">
-                      -{offer.discount}%
-                    </div>
-                  </div>
-
-                  {/* Wishlist Button */}
-                  <button className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white rounded-full p-3 shadow-lg opacity-0 group-hover:opacity-100 transition-all hover:scale-110">
-                    <Heart className="w-5 h-5 text-gray-600" />
+              {/* Conteúdo */}
+              <div className={`p-6 ${viewMode === 'list' ? 'flex-1' : ''}`}>
+                <div className="flex items-start justify-between mb-2">
+                  <span className="text-sm text-gray-500 font-medium">{offer.brand}</span>
+                  <button className="text-gray-400 hover:text-red-500 transition-colors">
+                    <Heart className="h-5 w-5" />
                   </button>
                 </div>
 
-                {/* Product Info */}
-                <div className="p-6">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-[#0E7466] text-sm font-medium bg-[#0E7466]/10 px-3 py-1 rounded-full">
-                      {offer.category}
-                    </span>
-                    {offer.isLimitedStock && offer.stockCount && (
-                      <span className="text-red-500 text-xs font-bold">
-                        Apenas {offer.stockCount} restantes
-                      </span>
-                    )}
-                  </div>
+                <h3 className="font-bold text-gray-900 mb-2 line-clamp-2">{offer.name}</h3>
 
-                  <h3 className="text-xl font-bold text-[#0C1A33] mb-3 line-clamp-2">
-                    {offer.name}
-                  </h3>
-
-                  {/* Rating */}
-                  <div className="flex items-center mb-4">
-                    <div className="flex text-yellow-400">
+                {/* Rating */}
+                {offer.rating && (
+                  <div className="flex items-center mb-3">
+                    <div className="flex items-center">
                       {[...Array(5)].map((_, i) => (
                         <Star
                           key={i}
-                          className={`w-4 h-4 ${
-                            i < Math.floor(offer.rating) ? 'fill-current' : ''
+                          className={`h-4 w-4 ${
+                            i < offer.rating! ? 'text-yellow-400 fill-current' : 'text-gray-300'
                           }`}
                         />
                       ))}
                     </div>
-                    <span className="text-gray-600 text-sm ml-2">
-                      {offer.rating} ({offer.totalReviews} avaliações)
+                    <span className="text-sm text-gray-500 ml-2">
+                      ({offer.totalReviews || 0})
                     </span>
                   </div>
+                )}
 
-                  {/* Prices */}
-                  <div className="mb-4">
-                    <div className="flex items-center space-x-2 mb-1">
-                      <span className="text-gray-400 line-through text-lg">
+                {/* Preços */}
+                <div className="mb-4">
+                  {offer.discountPrice ? (
+                    <div>
+                      <span className="text-2xl font-bold text-uss-primary">
+                        {formatCurrency(offer.discountPrice)}
+                      </span>
+                      <span className="text-sm text-gray-500 line-through ml-2">
                         {formatCurrency(offer.price)}
                       </span>
-                      <span className="text-red-500 font-bold text-sm">
-                        -{offer.discount}%
-                      </span>
                     </div>
-                    <div className="text-3xl font-bold text-[#0C1A33]">
-                      {formatCurrency(offer.discountPrice || offer.price)}
-                    </div>
-                    <div className="text-sm text-gray-600">
-                      Economia de {formatCurrency(offer.price - (offer.discountPrice || offer.price))}
-                    </div>
-                  </div>
-
-                  {/* Time Left */}
-                  {offer.isFlashSale && (
-                    <div className="bg-red-50 border border-red-200 rounded-2xl p-3 mb-4">
-                      <div className="flex items-center text-red-600">
-                        <Clock className="w-4 h-4 mr-2" />
-                        <span className="text-sm font-medium">
-                          Termina em: {offer.timeLeft}
-                        </span>
-                      </div>
-                    </div>
+                  ) : (
+                    <span className="text-2xl font-bold text-gray-900">
+                      {formatCurrency(offer.price)}
+                    </span>
                   )}
-
-                  {/* Actions */}
-                  <div className="space-y-3">
-                    <button className="w-full bg-gradient-to-r from-[#0E7466] to-[#0C6157] text-white py-4 rounded-2xl font-semibold hover:from-[#0C6157] hover:to-[#0A5449] transition-all duration-300 transform hover:scale-105 flex items-center justify-center">
-                      <ShoppingCart className="w-5 h-5 mr-2" />
-                      Adicionar ao Carrinho
-                    </button>
-
-                    <Link
-                      href={`/produto/${offer.id}`}
-                      className="w-full text-center border-2 border-[#0E7466] text-[#0E7466] py-3 rounded-2xl font-semibold hover:bg-[#0E7466] hover:text-white transition-all duration-300 flex items-center justify-center"
-                    >
-                      Ver Detalhes
-                      <ArrowRight className="w-4 h-4 ml-2" />
-                    </Link>
-                  </div>
                 </div>
-              </motion.div>
-            ))}
-          </div>
-        ) : (
-          <div className="text-center py-16">
-            <Percent className="h-24 w-24 mx-auto mb-6 text-gray-300" />
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">
+
+                {/* Estoque limitado */}
+                {offer.isLimitedStock && offer.stockCount && (
+                  <div className="mb-4">
+                    <div className="flex items-center justify-between text-sm text-orange-600 mb-1">
+                      <span>Restam apenas {offer.stockCount}</span>
+                      <span>{Math.round((offer.stockCount / 20) * 100)}%</span>
+                    </div>
+                    <div className="w-full bg-gray-200 rounded-full h-2">
+                      <div
+                        className="bg-orange-500 h-2 rounded-full"
+                        style={{ width: `${Math.round((offer.stockCount / 20) * 100)}%` }}
+                      ></div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Botões */}
+                <div className="flex gap-2">
+                  <Link
+                    href={`/product/${offer.id}`}
+                    className="flex-1 bg-uss-primary hover:bg-uss-primary/90 text-white px-4 py-3 rounded-xl font-medium transition-colors text-center"
+                  >
+                    Ver Detalhes
+                  </Link>
+                  <button className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-3 rounded-xl transition-colors">
+                    <ShoppingCart className="h-5 w-5" />
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Resultado vazio */}
+        {filteredOffers.length === 0 && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-center py-16"
+          >
+            <Tag className="h-16 w-16 text-gray-300 mx-auto mb-4" />
+            <h3 className="text-xl font-semibold text-gray-900 mb-2">
               Nenhuma oferta encontrada
             </h3>
-            <p className="text-gray-600 mb-8">
-              Não há ofertas disponíveis no momento para os filtros selecionados.
+            <p className="text-gray-500 mb-6">
+              Tente ajustar os filtros ou buscar por outros termos
             </p>
             <button
               onClick={() => {
                 setFilter('all')
-                setSortBy('discount')
+                setSearchQuery('')
+                setSelectedCategory('')
+                setPriceRange([0, 10000])
               }}
-              className="bg-[#0E7466] text-white px-8 py-3 rounded-2xl font-semibold hover:bg-[#0C6157] transition-colors"
+              className="bg-uss-primary text-white px-6 py-3 rounded-xl hover:bg-uss-primary/90 transition-colors"
             >
-              Ver Todas as Ofertas
+              Limpar Filtros
             </button>
-          </div>
+          </motion.div>
         )}
-
-        {/* Newsletter Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8 }}
-          className="mt-16 bg-gradient-to-r from-[#0C1A33] to-[#0E2142] rounded-3xl p-12 text-center text-white"
-        >
-          <Percent className="h-16 w-16 mx-auto mb-6 text-[#0E7466]" />
-          <h2 className="text-3xl font-bold mb-4">
-            Não Perca Nenhuma Oferta!
-          </h2>
-          <p className="text-xl mb-8 text-gray-300">
-            Cadastre-se em nossa newsletter e seja o primeiro a saber sobre ofertas exclusivas
-          </p>
-          <div className="flex flex-col sm:flex-row max-w-md mx-auto gap-4">
-            <input
-              type="email"
-              placeholder="Seu melhor e-mail"
-              className="flex-1 px-6 py-4 rounded-2xl text-black focus:outline-none focus:ring-2 focus:ring-[#0E7466]"
-            />
-            <button className="bg-[#0E7466] hover:bg-[#0C6157] px-8 py-4 rounded-2xl font-semibold transition-colors">
-              Cadastrar
-            </button>
-          </div>
-        </motion.div>
       </div>
     </div>
   )

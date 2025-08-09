@@ -1,0 +1,267 @@
+:root {
+  /* Brand Colors */
+  --brand-blue: #034a6e;
+  --brand-blue-50: #f0f7fb;
+  --brand-blue-100: #e1eff7;
+  --brand-blue-200: #c3dfef;
+  --brand-blue-300: #a5cfe7;
+  --brand-blue-400: #87bfdf;
+  --brand-blue-500: #06618f;
+  --brand-blue-600: #034a6e;
+  --brand-blue-700: #02415c;
+  --brand-blue-800: #02374f;
+  --brand-blue-900: #02344f;
+
+  --brand-cyan: #54c4cf;
+  --brand-cyan-50: #f0fcfd;
+  --brand-cyan-100: #e1f9fb;
+  --brand-cyan-200: #c3f3f7;
+  --brand-cyan-300: #a5edf3;
+  --brand-cyan-400: #87e7ef;
+  --brand-cyan-500: #54c4cf;
+  --brand-cyan-600: #42a0a8;
+  --brand-cyan-700: #377c81;
+  --brand-cyan-800: #2c585a;
+  --brand-cyan-900: #213433;
+
+  --brand-gold: #d4af37;
+  --brand-gold-50: #fdfbf4;
+  --brand-gold-100: #fbf7e9;
+  --brand-gold-200: #f7efd3;
+  --brand-gold-300: #f3e7bd;
+  --brand-gold-400: #efdfa7;
+  --brand-gold-500: #d4af37;
+  --brand-gold-600: #b8992f;
+  --brand-gold-700: #9c8327;
+  --brand-gold-800: #806d1f;
+  --brand-gold-900: #645717;
+
+  /* Neutrals Light Mode */
+  --bg-light: #f5f7fa;
+  --bg-dark: #ffffff;
+  --text-dark: #1a1a1a;
+  --text-light: #6b7280;
+  --muted: #bdbdbd;
+
+  /* shadcn/ui Variables - Light Mode */
+  --background: 0 0% 100%;
+  --foreground: 222.2 84% 4.9%;
+  --card: 0 0% 100%;
+  --card-foreground: 222.2 84% 4.9%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 222.2 84% 4.9%;
+  --primary: 203 91% 32%;
+  --primary-foreground: 210 40% 98%;
+  --secondary: 185 47% 56%;
+  --secondary-foreground: 222.2 84% 4.9%;
+  --muted: 210 40% 96%;
+  --muted-foreground: 215.4 16.3% 46.9%;
+  --accent: 210 40% 96%;
+  --accent-foreground: 222.2 84% 4.9%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 210 40% 98%;
+  --border: 214.3 31.8% 91.4%;
+  --input: 214.3 31.8% 91.4%;
+  --ring: 203 91% 32%;
+  --radius: 0.5rem;
+}
+
+.dark {
+  /* Neutrals Dark Mode */
+  --bg-light: #0d1b22;
+  --bg-dark: #1a1a1a;
+  --text-dark: #ffffff;
+  --text-light: #d1d5db;
+  --muted: #6b7280;
+
+  /* shadcn/ui Variables - Dark Mode */
+  --background: 222.2 84% 4.9%;
+  --foreground: 210 40% 98%;
+  --card: 222.2 84% 4.9%;
+  --card-foreground: 210 40% 98%;
+  --popover: 222.2 84% 4.9%;
+  --popover-foreground: 210 40% 98%;
+  --primary: 203 91% 32%;
+  --primary-foreground: 210 40% 98%;
+  --secondary: 185 47% 56%;
+  --secondary-foreground: 210 40% 98%;
+  --muted: 217.2 32.6% 17.5%;
+  --muted-foreground: 215 20.2% 65.1%;
+  --accent: 217.2 32.6% 17.5%;
+  --accent-foreground: 210 40% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 210 40% 98%;
+  --border: 217.2 32.6% 17.5%;
+  --input: 217.2 32.6% 17.5%;
+  --ring: 203 91% 32%;
+}
+
+/* CSS Reset and Base Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  line-height: 1.5;
+}
+
+/* Smooth transitions for theme changes */
+* {
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+/* Focus styles */
+*:focus-visible {
+  outline: 2px solid var(--brand-cyan);
+  outline-offset: 2px;
+}
+
+/* Selection styles */
+::selection {
+  background-color: var(--brand-cyan-200);
+  color: var(--brand-blue-900);
+}
+
+/* Scrollbar styles */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-light);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--muted);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--brand-blue-500);
+}
+
+/* Button focus styles */
+button:focus-visible {
+  outline: 2px solid var(--brand-cyan);
+  outline-offset: 2px;
+}
+
+/* Link focus styles */
+a:focus-visible {
+  outline: 2px solid var(--brand-cyan);
+  outline-offset: 2px;
+  text-decoration: none;
+}
+
+/* Image optimization */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Loading animation */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  animation: fade-in 0.3s ease-out;
+}
+
+/* Hover animations */
+.hover-scale {
+  transition: transform 0.2s ease;
+}
+
+.hover-scale:hover {
+  transform: scale(1.02);
+}
+
+/* Brand button styles */
+.btn-brand-primary {
+  background: linear-gradient(135deg, var(--brand-blue-600), var(--brand-blue-500));
+  color: white;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+.btn-brand-primary:hover {
+  background: linear-gradient(135deg, var(--brand-blue-700), var(--brand-blue-600));
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(3, 74, 110, 0.3);
+}
+
+.btn-brand-secondary {
+  background: transparent;
+  color: var(--brand-blue-600);
+  border: 2px solid var(--brand-cyan-500);
+  transition: all 0.2s ease;
+}
+
+.btn-brand-secondary:hover {
+  background: var(--brand-cyan-500);
+  color: white;
+  transform: translateY(-1px);
+}
+
+/* VIP styles */
+.vip-badge {
+  background: linear-gradient(135deg, var(--brand-gold-500), var(--brand-gold-400));
+  color: var(--brand-gold-900);
+  font-weight: 600;
+}
+
+/* Loading spinner */
+.spinner {
+  border: 2px solid var(--muted);
+  border-top: 2px solid var(--brand-blue-600);
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Utilities */
+.text-gradient-brand {
+  background: linear-gradient(135deg, var(--brand-blue-600), var(--brand-cyan-500));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.shadow-brand {
+  box-shadow: 0 4px 14px 0 rgba(3, 74, 110, 0.15);
+}
+
+.shadow-brand-lg {
+  box-shadow: 0 10px 25px -3px rgba(3, 74, 110, 0.1), 0 4px 6px -2px rgba(3, 74, 110, 0.05);
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+  
+  .hover-scale:hover {
+    transform: none;
+  }
+}

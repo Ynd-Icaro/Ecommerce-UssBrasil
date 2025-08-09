@@ -1,65 +1,80 @@
 'use client'
 
 import { useState } from 'react'
-import { motion } from 'framer-motion'
-import { Minus, Plus, Trash2, ShoppingBag, ArrowLeft, ArrowRight } from 'lucide-react'
-import Link from 'next/link'
+import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
+import Link from 'next/link'
+import { 
+  Plus, 
+  Minus, 
+  X, 
+  ShoppingBag, 
+  Heart,
+  Shield,
+  Truck,
+  CreditCard,
+  ArrowRight,
+  ArrowLeft,
+  Gift,
+  AlertCircle,
+  CheckCircle
+} from 'lucide-react'
 
 interface CartItem {
   id: string
   name: string
+  brand: string
   price: number
   originalPrice?: number
   quantity: number
   image: string
-  category: string
-  size?: string
   color?: string
+  storage?: string
+  warranty: string
+  inStock: boolean
 }
 
-const mockCartItems: CartItem[] = [
-  {
-    id: '1',
-    name: 'Smartphone Samsung Galaxy A54',
-    price: 1299.99,
-    originalPrice: 1599.99,
-    quantity: 1,
-    image: '/images/Apple/iphone-15-pro.jpg',
-    category: 'Eletrônicos',
-    color: 'Preto'
-  },
-  {
-    id: '2',
-    name: 'Notebook Dell Inspiron 15',
-    price: 2499.99,
-    quantity: 1,
-    image: '/fallback-product.png',
-    category: 'Informática'
-  },
-  {
-    id: '3',
-    name: 'Fone de Ouvido JBL Tune 770NC',
-    price: 399.99,
-    originalPrice: 499.99,
-    quantity: 2,
-    image: '/images/JBL/fone-jbl.jpg',
-    category: 'Áudio',
-    color: 'Azul'
-  },
-  {
-    id: '4',
-    name: 'Smart TV LG 55" 4K UHD',
-    price: 2199.99,
-    originalPrice: 2699.99,
-    quantity: 1,
-    image: '/fallback-product.png',
-    category: 'TV e Home Theater'
-  }
-]
+const CartPage = () => {
+  const [cartItems, setCartItems] = useState<CartItem[]>([
+    {
+      id: '1',
+      name: 'iPhone 15 Pro Max',
+      brand: 'Apple',
+      price: 8999.00,
+      originalPrice: 9999.00,
+      quantity: 1,
+      image: '/Produtos/iphone15promax.png',
+      color: 'Titânio Natural',
+      storage: '256GB',
+      warranty: '1 ano',
+      inStock: true
+    },
+    {
+      id: '2',
+      name: 'JBL Charge 5',
+      brand: 'JBL',
+      price: 699.00,
+      quantity: 2,
+      image: '/Produtos/jblcharge5.png',
+      color: 'Azul',
+      warranty: '1 ano',
+      inStock: true
+    },
+    {
+      id: '3',
+      name: 'DJI Mini 4 Pro',
+      brand: 'DJI',
+      price: 4299.00,
+      quantity: 1,
+      image: '/Produtos/djimini4pro.png',
+      warranty: '1 ano',
+      inStock: false
+    }
+  ])
 
-export default function CartPage() {
-  const [cartItems, setCartItems] = useState(mockCartItems)
+  const [promoCode, setPromoCode] = useState('')
+  const [appliedPromo, setAppliedPromo] = useState<string | null>(null)
+  const [isPromoValid, setIsPromoValid] = useState(false)
 
   const updateQuantity = (id: string, newQuantity: number) => {
     if (newQuantity <= 0) {
@@ -67,45 +82,89 @@ export default function CartPage() {
       return
     }
     
-    setCartItems(items =>
-      items.map(item =>
+    setCartItems(prev => 
+      prev.map(item => 
         item.id === id ? { ...item, quantity: newQuantity } : item
       )
     )
   }
 
   const removeItem = (id: string) => {
-    setCartItems(items => items.filter(item => item.id !== id))
+    setCartItems(prev => prev.filter(item => item.id !== id))
   }
 
-  const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0)
-  const shipping = 29.99
-  const total = subtotal + shipping
+  const applyPromoCode = () => {
+    // Simular validação de cupom
+    const validCodes = ['USS10', 'WELCOME15', 'VIP20']
+    if (validCodes.includes(promoCode.toUpperCase())) {
+      setAppliedPromo(promoCode.toUpperCase())
+      setIsPromoValid(true)
+    } else {
+      setIsPromoValid(false)
+    }
+  }
 
-  const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0)
+  const removePromoCode = () => {
+    setAppliedPromo(null)
+    setPromoCode('')
+    setIsPromoValid(false)
+  }
+
+  const getSubtotal = () => {
+    return cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0)
+  }
+
+  const getDiscount = () => {
+    if (!appliedPromo) return 0
+    const subtotal = getSubtotal()
+    switch (appliedPromo) {
+      case 'USS10': return subtotal * 0.1
+      case 'WELCOME15': return subtotal * 0.15
+      case 'VIP20': return subtotal * 0.2
+      default: return 0
+    }
+  }
+
+  const getShipping = () => {
+    const subtotal = getSubtotal()
+    return subtotal > 500 ? 0 : 29.90
+  }
+
+  const getTotal = () => {
+    return getSubtotal() - getDiscount() + getShipping()
+  }
+
+  const formatPrice = (price: number) => {
+    return new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL'
+    }).format(price)
+  }
 
   if (cartItems.length === 0) {
     return (
-      <div className="min-h-screen bg-[#f0f0f0] pt-20">
-        <div className="container mx-auto px-4 py-16">
+      <div className="min-h-screen bg-gradient-to-br from-uss-gray-50 to-white pt-20 pb-12">
+        <div className="container mx-auto px-4">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-center max-w-md mx-auto"
+            className="max-w-md mx-auto text-center py-16"
           >
-            <ShoppingBag className="h-24 w-24 text-gray-400 mx-auto mb-8" />
-            <h1 className="text-3xl font-bold text-[#0C1A33] mb-4">
+            <div className="bg-gradient-uss-primary p-6 rounded-full w-20 h-20 mx-auto mb-6 flex items-center justify-center">
+              <ShoppingBag className="h-10 w-10 text-white" />
+            </div>
+            <h1 className="text-2xl font-bold text-uss-gray-900 mb-4">
               Seu carrinho está vazio
             </h1>
-            <p className="text-gray-600 mb-8">
-              Adicione alguns produtos para começar suas compras!
+            <p className="text-uss-gray-600 mb-8">
+              Que tal dar uma olhada nos nossos produtos incríveis?
             </p>
             <Link
-              href="/produtos"
-              className="inline-flex items-center bg-gradient-to-r from-[#0E7466] to-[#0C6157] text-white px-8 py-4 rounded-2xl font-semibold hover:from-[#0C6157] hover:to-[#0A5449] transition-all duration-300 transform hover:scale-105"
+              href="/products"
+              className="inline-flex items-center space-x-2 bg-gradient-uss-primary text-white px-8 py-3 rounded-lg font-medium hover:shadow-lg transition-all duration-300"
             >
-              <ArrowLeft className="h-5 w-5 mr-2" />
-              Continuar comprando
+              <span>Explorar Produtos</span>
+              <ArrowRight className="h-5 w-5" />
             </Link>
           </motion.div>
         </div>
@@ -114,174 +173,277 @@ export default function CartPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#f0f0f0] pt-20">
-      <div className="container mx-auto px-4 py-8">
+    <div className="min-h-screen bg-gradient-to-br from-uss-gray-50 to-white pt-20 pb-12">
+      <div className="container mx-auto px-4">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: -20 }}
+          initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
           className="mb-8"
         >
-          <h1 className="text-4xl font-bold text-[#0C1A33] mb-4">
-            Seu Carrinho
+          <h1 className="text-3xl font-bold text-uss-gray-900 mb-2">
+            Carrinho de Compras
           </h1>
-          <p className="text-gray-600">
-            {totalItems} {totalItems === 1 ? 'item' : 'itens'} no seu carrinho
+          <p className="text-uss-gray-600">
+            {cartItems.length} {cartItems.length === 1 ? 'item' : 'itens'} no seu carrinho
           </p>
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Items do Carrinho */}
+          {/* Cart Items */}
           <div className="lg:col-span-2 space-y-4">
-            {cartItems.map((item, index) => (
-              <motion.div
-                key={item.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                className="bg-white rounded-3xl p-6 shadow-lg hover:shadow-xl transition-shadow"
-              >
-                <div className="flex flex-col sm:flex-row gap-6">
-                  {/* Imagem do Produto */}
-                  <div className="w-full sm:w-32 h-32 bg-gray-100 rounded-2xl flex items-center justify-center overflow-hidden">
-                    <div className="text-gray-400 text-center">
-                      <ShoppingBag className="h-12 w-12 mx-auto mb-2" />
-                      <span className="text-xs">Imagem</span>
-                    </div>
-                  </div>
-
-                  {/* Detalhes do Produto */}
-                  <div className="flex-1">
-                    <div className="flex flex-col sm:flex-row justify-between">
-                      <div className="flex-1 mb-4 sm:mb-0">
-                        <h3 className="text-xl font-bold text-[#0C1A33] mb-2">
-                          {item.name}
-                        </h3>
-                        <p className="text-gray-600 text-sm mb-2">
-                          Categoria: {item.category}
-                        </p>
-                        {item.color && (
-                          <p className="text-gray-600 text-sm mb-2">
-                            Cor: {item.color}
-                          </p>
-                        )}
-                        {item.size && (
-                          <p className="text-gray-600 text-sm mb-2">
-                            Tamanho: {item.size}
-                          </p>
-                        )}
-                        <div className="flex items-center space-x-2">
-                          <span className="text-2xl font-bold text-[#0E7466]">
-                            R$ {item.price.toFixed(2)}
+            <AnimatePresence>
+              {cartItems.map((item, index) => (
+                <motion.div
+                  key={item.id}
+                  initial={{ opacity: 0, x: -30 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -30 }}
+                  transition={{ duration: 0.3, delay: index * 0.1 }}
+                  className="bg-white rounded-2xl p-6 shadow-lg border border-uss-gray-100"
+                >
+                  <div className="flex flex-col sm:flex-row items-start space-y-4 sm:space-y-0 sm:space-x-6">
+                    {/* Product Image */}
+                    <div className="relative w-full sm:w-24 h-32 sm:h-24 bg-gradient-to-br from-uss-gray-50 to-uss-gray-100 rounded-xl overflow-hidden">
+                      <Image
+                        src={item.image}
+                        alt={item.name}
+                        fill
+                        className="object-contain p-2"
+                        onError={(e) => {
+                          e.currentTarget.src = '/fallback-product.png'
+                        }}
+                      />
+                      {!item.inStock && (
+                        <div className="absolute inset-0 bg-red-500/20 flex items-center justify-center">
+                          <span className="text-red-600 text-xs font-medium bg-white px-2 py-1 rounded">
+                            Indisponível
                           </span>
-                          {item.originalPrice && (
-                            <span className="text-gray-400 line-through">
-                              R$ {item.originalPrice.toFixed(2)}
-                            </span>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Product Details */}
+                    <div className="flex-1 space-y-2">
+                      <div className="flex items-start justify-between">
+                        <div>
+                          <h3 className="font-semibold text-uss-gray-900">
+                            {item.name}
+                          </h3>
+                          <p className="text-sm text-uss-gray-600">
+                            {item.brand}
+                          </p>
+                          {(item.color || item.storage) && (
+                            <div className="flex items-center space-x-2 mt-1">
+                              {item.color && (
+                                <span className="text-xs bg-uss-gray-100 px-2 py-1 rounded">
+                                  {item.color}
+                                </span>
+                              )}
+                              {item.storage && (
+                                <span className="text-xs bg-uss-gray-100 px-2 py-1 rounded">
+                                  {item.storage}
+                                </span>
+                              )}
+                            </div>
                           )}
                         </div>
-                      </div>
-
-                      {/* Controles de Quantidade */}
-                      <div className="flex flex-col items-end space-y-4">
                         <button
                           onClick={() => removeItem(item.id)}
-                          className="text-red-500 hover:text-red-700 transition-colors"
+                          className="text-uss-gray-400 hover:text-red-500 transition-colors p-1"
                         >
-                          <Trash2 className="h-5 w-5" />
+                          <X className="h-5 w-5" />
                         </button>
+                      </div>
 
-                        <div className="flex items-center space-x-3 bg-gray-100 rounded-full p-1">
-                          <button
-                            onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                            className="w-8 h-8 bg-white rounded-full flex items-center justify-center hover:bg-gray-50 transition-colors"
-                          >
-                            <Minus className="h-4 w-4" />
-                          </button>
-                          <span className="w-8 text-center font-semibold">
-                            {item.quantity}
-                          </span>
-                          <button
-                            onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                            className="w-8 h-8 bg-white rounded-full flex items-center justify-center hover:bg-gray-50 transition-colors"
-                          >
-                            <Plus className="h-4 w-4" />
-                          </button>
+                      <div className="flex items-center justify-between">
+                        {/* Price */}
+                        <div className="space-y-1">
+                          <div className="flex items-center space-x-2">
+                            <span className="text-lg font-bold text-uss-primary">
+                              {formatPrice(item.price)}
+                            </span>
+                            {item.originalPrice && (
+                              <span className="text-sm text-uss-gray-500 line-through">
+                                {formatPrice(item.originalPrice)}
+                              </span>
+                            )}
+                          </div>
+                          <div className="flex items-center space-x-2 text-xs text-uss-gray-500">
+                            <Shield className="h-3 w-3" />
+                            <span>Garantia {item.warranty}</span>
+                          </div>
                         </div>
 
-                        <div className="text-right">
-                          <p className="text-sm text-gray-600">Subtotal</p>
-                          <p className="text-xl font-bold text-[#0C1A33]">
-                            R$ {(item.price * item.quantity).toFixed(2)}
-                          </p>
+                        {/* Quantity Controls */}
+                        <div className="flex items-center space-x-3">
+                          <div className="flex items-center bg-uss-gray-100 rounded-lg">
+                            <button
+                              onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                              className="p-2 hover:bg-uss-gray-200 rounded-l-lg transition-colors"
+                              disabled={!item.inStock}
+                            >
+                              <Minus className="h-4 w-4" />
+                            </button>
+                            <span className="px-4 py-2 font-medium">
+                              {item.quantity}
+                            </span>
+                            <button
+                              onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                              className="p-2 hover:bg-uss-gray-200 rounded-r-lg transition-colors"
+                              disabled={!item.inStock}
+                            >
+                              <Plus className="h-4 w-4" />
+                            </button>
+                          </div>
+                          <button className="text-uss-gray-400 hover:text-uss-secondary transition-colors">
+                            <Heart className="h-5 w-5" />
+                          </button>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </motion.div>
-            ))}
+                </motion.div>
+              ))}
+            </AnimatePresence>
+
+            {/* Continue Shopping */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.3 }}
+              className="pt-4"
+            >
+              <Link
+                href="/products"
+                className="inline-flex items-center space-x-2 text-uss-primary hover:text-uss-secondary transition-colors"
+              >
+                <ArrowLeft className="h-4 w-4" />
+                <span>Continuar Comprando</span>
+              </Link>
+            </motion.div>
           </div>
 
-          {/* Resumo do Pedido */}
-          <div className="lg:col-span-1">
+          {/* Order Summary */}
+          <div className="space-y-6">
+            {/* Promo Code */}
             <motion.div
-              initial={{ opacity: 0, x: 20 }}
+              initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
-              className="bg-white rounded-3xl p-8 shadow-lg sticky top-24"
+              transition={{ delay: 0.2 }}
+              className="bg-white rounded-2xl p-6 shadow-lg border border-uss-gray-100"
             >
-              <h2 className="text-2xl font-bold text-[#0C1A33] mb-6">
-                Resumo do Pedido
-              </h2>
+              <h3 className="font-semibold text-uss-gray-900 mb-4 flex items-center space-x-2">
+                <Gift className="h-5 w-5 text-uss-secondary" />
+                <span>Cupom de Desconto</span>
+              </h3>
+              
+              {appliedPromo ? (
+                <div className="flex items-center justify-between bg-green-50 border border-green-200 rounded-lg p-3">
+                  <div className="flex items-center space-x-2">
+                    <CheckCircle className="h-5 w-5 text-green-600" />
+                    <span className="text-green-700 font-medium">{appliedPromo}</span>
+                  </div>
+                  <button
+                    onClick={removePromoCode}
+                    className="text-green-600 hover:text-green-700"
+                  >
+                    <X className="h-4 w-4" />
+                  </button>
+                </div>
+              ) : (
+                <div className="space-y-3">
+                  <div className="flex space-x-2">
+                    <input
+                      type="text"
+                      placeholder="Digite seu cupom"
+                      value={promoCode}
+                      onChange={(e) => setPromoCode(e.target.value)}
+                      className="flex-1 px-3 py-2 border border-uss-gray-300 rounded-lg focus:ring-2 focus:ring-uss-secondary focus:border-transparent"
+                    />
+                    <button
+                      onClick={applyPromoCode}
+                      className="bg-gradient-uss-secondary text-white px-4 py-2 rounded-lg hover:shadow-lg transition-all duration-300"
+                    >
+                      Aplicar
+                    </button>
+                  </div>
+                  {isPromoValid === false && promoCode && (
+                    <div className="flex items-center space-x-2 text-red-600 text-sm">
+                      <AlertCircle className="h-4 w-4" />
+                      <span>Cupom inválido</span>
+                    </div>
+                  )}
+                </div>
+              )}
+            </motion.div>
 
-              <div className="space-y-4 mb-6">
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Subtotal</span>
-                  <span className="font-semibold">R$ {subtotal.toFixed(2)}</span>
+            {/* Order Summary */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.3 }}
+              className="bg-white rounded-2xl p-6 shadow-lg border border-uss-gray-100 sticky top-4"
+            >
+              <h3 className="font-semibold text-uss-gray-900 mb-6">
+                Resumo do Pedido
+              </h3>
+              
+              <div className="space-y-4">
+                <div className="flex justify-between text-uss-gray-600">
+                  <span>Subtotal</span>
+                  <span>{formatPrice(getSubtotal())}</span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Frete</span>
-                  <span className="font-semibold">R$ {shipping.toFixed(2)}</span>
+                
+                {appliedPromo && (
+                  <div className="flex justify-between text-green-600">
+                    <span>Desconto ({appliedPromo})</span>
+                    <span>-{formatPrice(getDiscount())}</span>
+                  </div>
+                )}
+                
+                <div className="flex justify-between text-uss-gray-600">
+                  <div className="flex items-center space-x-2">
+                    <Truck className="h-4 w-4" />
+                    <span>Frete</span>
+                  </div>
+                  <span>
+                    {getShipping() === 0 ? 'Grátis' : formatPrice(getShipping())}
+                  </span>
                 </div>
-                <div className="border-t pt-4">
-                  <div className="flex justify-between text-xl">
-                    <span className="font-bold text-[#0C1A33]">Total</span>
-                    <span className="font-bold text-[#0E7466]">
-                      R$ {total.toFixed(2)}
-                    </span>
+                
+                <div className="border-t border-uss-gray-200 pt-4">
+                  <div className="flex justify-between text-lg font-bold text-uss-gray-900">
+                    <span>Total</span>
+                    <span className="text-uss-primary">{formatPrice(getTotal())}</span>
                   </div>
                 </div>
               </div>
 
-              <div className="space-y-4">
-                <Link
-                  href="/checkout"
-                  className="w-full block text-center bg-gradient-to-r from-[#0E7466] to-[#0C6157] text-white py-4 rounded-2xl font-semibold hover:from-[#0C6157] hover:to-[#0A5449] transition-all duration-300 transform hover:scale-105"
-                >
-                  Finalizar Compra
-                </Link>
-
-                <Link
-                  href="/produtos"
-                  className="w-full block text-center border-2 border-[#0E7466] text-[#0E7466] py-4 rounded-2xl font-semibold hover:bg-[#0E7466] hover:text-white transition-all duration-300"
-                >
-                  <ArrowLeft className="inline h-5 w-5 mr-2" />
-                  Continuar Comprando
-                </Link>
-              </div>
-
-              {/* Informações Adicionais */}
-              <div className="mt-8 pt-6 border-t">
-                <h3 className="font-semibold text-[#0C1A33] mb-4">
-                  Informações da Compra
-                </h3>
-                <div className="space-y-2 text-sm text-gray-600">
-                  <p>✓ Frete grátis acima de R$ 199</p>
-                  <p>✓ Entrega em até 7 dias úteis</p>
-                  <p>✓ Garantia de satisfação</p>
-                  <p>✓ Pagamento seguro</p>
+              {/* Benefits */}
+              <div className="mt-6 space-y-3">
+                <div className="flex items-center space-x-3 text-sm text-uss-gray-600">
+                  <Shield className="h-4 w-4 text-uss-secondary" />
+                  <span>Compra 100% segura</span>
+                </div>
+                <div className="flex items-center space-x-3 text-sm text-uss-gray-600">
+                  <Truck className="h-4 w-4 text-uss-secondary" />
+                  <span>Frete grátis acima de R$ 500</span>
+                </div>
+                <div className="flex items-center space-x-3 text-sm text-uss-gray-600">
+                  <CreditCard className="h-4 w-4 text-uss-secondary" />
+                  <span>Parcele em até 12x sem juros</span>
                 </div>
               </div>
+
+              {/* Checkout Button */}
+              <Link
+                href="/checkout"
+                className="w-full mt-6 bg-gradient-uss-primary text-white py-4 rounded-xl font-semibold hover:shadow-xl transition-all duration-300 flex items-center justify-center space-x-2 group"
+              >
+                <span>Finalizar Compra</span>
+                <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+              </Link>
             </motion.div>
           </div>
         </div>
@@ -289,3 +451,5 @@ export default function CartPage() {
     </div>
   )
 }
+
+export default CartPage
