@@ -146,6 +146,32 @@ const ModernFooter = () => {
     '/icons/ebit.png'
   ]
 
+  const [newsletterEmail, setNewsletterEmail] = useState('')
+  const [newsletterStatus, setNewsletterStatus] = useState<'idle'|'loading'|'success'|'error'>('idle')
+  const [newsletterMessage, setNewsletterMessage] = useState('')
+
+  const subscribe = async () => {
+    if(!newsletterEmail || newsletterStatus==='loading') return
+    setNewsletterStatus('loading')
+    setNewsletterMessage('')
+    try {
+      const res = await fetch('/api/newsletter', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ email: newsletterEmail }) })
+      if(res.ok){
+        setNewsletterStatus('success')
+        setNewsletterMessage('Inscrição realizada!')
+        setNewsletterEmail('')
+      } else {
+        setNewsletterStatus('error')
+        setNewsletterMessage('Falha ao inscrever')
+      }
+    } catch(e){
+      setNewsletterStatus('error')
+      setNewsletterMessage('Erro de conexão')
+    } finally {
+      setTimeout(()=>{ setNewsletterStatus('idle'); setNewsletterMessage('') }, 4000)
+    }
+  }
+
   return (
     <footer className="bg-uss-gray-900 text-white relative overflow-hidden">
       {/* Background Pattern */}
@@ -205,16 +231,19 @@ const ModernFooter = () => {
                 <input
                   type="email"
                   placeholder="Seu melhor e-mail"
-                  className="w-full pl-10 pr-4 py-3 bg-uss-gray-800 border border-uss-gray-600 rounded-lg text-white placeholder-uss-gray-500 focus:ring-2 focus:ring-uss-secondary focus:border-transparent"
+                  value={newsletterEmail}
+                  onChange={e=>setNewsletterEmail(e.target.value)}
+                  className="w-full pl-10 pr-4 py-3 bg-uss-gray-800 border border-uss-gray-600 rounded-lg text-white placeholder-uss-gray-500 focus:ring-2 focus:ring-uss-secondary focus:border-transparent disabled:opacity-50"
+                  disabled={newsletterStatus==='loading'}
                 />
               </div>
-              <button className="w-full sm:w-auto bg-gradient-uss-secondary hover:bg-gradient-uss-primary text-white font-semibold px-6 py-3 rounded-lg transition-all duration-300 transform hover:scale-105">
-                Inscrever-se
+              <button onClick={subscribe} disabled={newsletterStatus==='loading'} className="w-full sm:w-auto bg-gradient-uss-secondary hover:bg-gradient-uss-primary text-white font-semibold px-6 py-3 rounded-lg transition-all duration-300 transform hover:scale-105 disabled:opacity-50">
+                {newsletterStatus==='loading' ? 'Enviando...' : 'Inscrever-se'}
               </button>
             </div>
             
-            <p className="text-sm text-uss-gray-500 mt-4">
-              Não enviamos spam. Seus dados estão seguros conosco.
+            <p className="text-sm text-uss-gray-500 mt-4 min-h-[1.25rem]">
+              {newsletterMessage || 'Não enviamos spam. Seus dados estão seguros conosco.'}
             </p>
           </motion.div>
         </div>
