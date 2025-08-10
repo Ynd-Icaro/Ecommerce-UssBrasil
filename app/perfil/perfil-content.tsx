@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 import { 
   User, Heart, ShoppingBag, Package, Settings, LogOut, 
   Edit, Camera, Mail, Phone, MapPin, Calendar,
-  ArrowRight, CreditCard, Shield, Bell
+  ArrowRight, CreditCard, Shield, Bell, Home, Plus, Trash2, CheckCircle, Truck, Box, CheckSquare, Clock
 } from 'lucide-react'
 import { useAuth } from '@/contexts/AuthContext'
 import { useCart } from '@/contexts/CartContext'
@@ -16,15 +16,22 @@ import { toast } from 'sonner'
 
 export default function PerfilPage() {
   const searchParams = useSearchParams()
-  const { user, logout, favorites, orders } = useAuth()
+  const { user, logout, favorites, orders, addresses, paymentMethods,
+    addAddress, removeAddress, setDefaultAddress,
+    addPaymentMethod, removePaymentMethod, setDefaultPayment,
+    updateOrderStatus } = useAuth()
   const { cartItems, cartTotal } = useCart()
   const router = useRouter()
   const [activeTab, setActiveTab] = useState('overview')
+  const [addressForm, setAddressForm] = useState({ label: '', street: '', number: '', city: '', state: '', zip: '' })
+  const [paymentForm, setPaymentForm] = useState({ brand: 'VISA', last4: '', holder: '', exp: '' })
+  const [addingAddress, setAddingAddress] = useState(false)
+  const [addingPayment, setAddingPayment] = useState(false)
 
   // Ler parâmetro da URL para definir aba ativa
   useEffect(() => {
     const tab = searchParams.get('tab')
-    if (tab && ['overview', 'orders', 'favorites', 'settings'].includes(tab)) {
+  if (tab && ['overview', 'orders', 'favorites', 'settings', 'addresses', 'payments'].includes(tab)) {
       setActiveTab(tab)
     }
   }, [searchParams])
@@ -94,8 +101,10 @@ export default function PerfilPage() {
 
   const menuItems = [
     { id: 'overview', title: 'Visão Geral', icon: User },
-    { id: 'orders', title: 'Meus Pedidos', icon: Package },
+    { id: 'orders', title: 'Pedidos', icon: Package },
     { id: 'favorites', title: 'Favoritos', icon: Heart },
+    { id: 'addresses', title: 'Endereços', icon: Home },
+    { id: 'payments', title: 'Pagamentos', icon: CreditCard },
     { id: 'settings', title: 'Configurações', icon: Settings }
   ]
 
@@ -271,43 +280,157 @@ export default function PerfilPage() {
 
             {activeTab === 'orders' && (
               <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6">
-                <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6">
-                  Meus Pedidos
-                </h2>
+                <div className="flex items-center justify-between mb-6">
+                  <h2 className="text-xl font-bold text-gray-900 dark:text-white">Pedidos</h2>
+                  <p className="text-xs text-gray-500">Simulação de fluxo: pendente → confirmado → enviado → entregue</p>
+                </div>
                 {orders.length === 0 ? (
                   <div className="text-center py-12">
                     <Package className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                    <p className="text-gray-600 dark:text-gray-400">
-                      Você ainda não fez nenhum pedido
-                    </p>
+                    <p className="text-gray-600 dark:text-gray-400">Você ainda não fez nenhum pedido</p>
                   </div>
                 ) : (
-                  <div className="space-y-4">
-                    {orders.map((order) => (
-                      <div key={order.id} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
-                        <div className="flex justify-between items-start mb-2">
-                          <h3 className="font-semibold text-gray-900 dark:text-white">
-                            Pedido #{order.id.slice(0, 8)}
-                          </h3>
-                          <span className={`px-2 py-1 rounded text-sm font-medium ${
-                            order.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
-                            order.status === 'confirmed' ? 'bg-green-100 text-green-800' :
-                            'bg-gray-100 text-gray-800'
-                          }`}>
-                            {order.status === 'pending' ? 'Pendente' : 
-                             order.status === 'confirmed' ? 'Confirmado' : order.status}
-                          </span>
+                  <div className="space-y-6">
+                    {orders.map(order => {
+                      const steps = [
+                        { id: 'pending', label: 'Pendente', icon: Clock },
+                        { id: 'confirmed', label: 'Confirmado', icon: CheckCircle },
+                        { id: 'shipped', label: 'Enviado', icon: Truck },
+                        { id: 'delivered', label: 'Entregue', icon: Box }
+                      ] as const
+                      const currentIndex = steps.findIndex(s => s.id === order.status)
+                      return (
+                        <div key={order.id} className="border border-gray-200 dark:border-gray-700 rounded-xl p-5">
+                          <div className="flex items-center justify-between mb-3">
+                            <h3 className="font-semibold text-gray-900 dark:text-white">Pedido #{order.id.slice(0,8)}</h3>
+                            <span className="text-xs text-gray-500">{new Date(order.createdAt).toLocaleDateString('pt-BR')}</span>
+                          </div>
+                          <div className="flex items-center justify-between mb-4">
+                            {steps.map((step, idx) => (
+                              <div key={step.id} className="flex-1 flex flex-col items-center">
+                                <div className={`w-8 h-8 flex items-center justify-center rounded-full text-white text-xs font-bold mb-1 ${idx <= currentIndex ? 'bg-uss-primary' : 'bg-gray-300 dark:bg-gray-600'}`}> 
+                                  <step.icon className="w-4 h-4" />
+                                </div>
+                                <span className={`text-[10px] tracking-wide ${idx <= currentIndex ? 'text-uss-primary' : 'text-gray-400'}`}>{step.label}</span>
+                                {idx < steps.length -1 && (
+                                  <div className={`h-0.5 w-full -mt-4 ${idx < currentIndex ? 'bg-uss-primary' : 'bg-gray-300 dark:bg-gray-600'}`}></div>
+                                )}
+                              </div>
+                            ))}
+                          </div>
+                          <div className="flex items-center justify-between">
+                            <p className="font-bold text-blue-600">R$ {order.total.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</p>
+                            {order.status !== 'delivered' && (
+                              <button onClick={() => {
+                                const next = steps[currentIndex + 1]
+                                if (next) updateOrderStatus(order.id, next.id)
+                              }} className="text-xs px-3 py-2 rounded-lg bg-uss-primary text-white hover:bg-uss-secondary transition">
+                                Avançar Status
+                              </button>
+                            )}
+                          </div>
                         </div>
-                        <p className="text-gray-600 dark:text-gray-400 text-sm mb-2">
-                          {new Date(order.createdAt).toLocaleDateString('pt-BR')}
-                        </p>
-                        <p className="font-bold text-blue-600">
-                          R$ {order.total.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
-                        </p>
-                      </div>
-                    ))}
+                      )
+                    })}
                   </div>
                 )}
+              </div>
+            )}
+            {activeTab === 'addresses' && (
+              <div className="space-y-6">
+                <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <h2 className="text-xl font-bold text-gray-900 dark:text-white">Endereços</h2>
+                    <button onClick={() => setAddingAddress(a => !a)} className="text-sm flex items-center gap-2 text-uss-primary hover:text-uss-secondary">
+                      <Plus className="w-4 h-4"/> {addingAddress ? 'Cancelar' : 'Adicionar'}
+                    </button>
+                  </div>
+                  {addingAddress && (
+                    <div className="mb-6 border border-dashed rounded-xl p-4 space-y-3 bg-gray-50 dark:bg-gray-700/30">
+                      <div className="grid grid-cols-2 gap-3">
+                        <input placeholder="Etiqueta (Casa)" className="input" value={addressForm.label} onChange={e=>setAddressForm(f=>({...f,label:e.target.value}))}/>
+                        <input placeholder="Rua" className="input" value={addressForm.street} onChange={e=>setAddressForm(f=>({...f,street:e.target.value}))}/>
+                        <input placeholder="Número" className="input" value={addressForm.number} onChange={e=>setAddressForm(f=>({...f,number:e.target.value}))}/>
+                        <input placeholder="Cidade" className="input" value={addressForm.city} onChange={e=>setAddressForm(f=>({...f,city:e.target.value}))}/>
+                        <input placeholder="Estado" className="input" value={addressForm.state} onChange={e=>setAddressForm(f=>({...f,state:e.target.value}))}/>
+                        <input placeholder="CEP" className="input" value={addressForm.zip} onChange={e=>setAddressForm(f=>({...f,zip:e.target.value}))}/>
+                      </div>
+                      <button onClick={()=>{
+                        if(!addressForm.street || !addressForm.city) return
+                        addAddress({ ...addressForm, city: addressForm.city, state: addressForm.state, zip: addressForm.zip, label: addressForm.label || 'Endereço', street: addressForm.street })
+                        setAddressForm({ label:'', street:'', number:'', city:'', state:'', zip:'' })
+                        setAddingAddress(false)
+                      }} className="px-4 py-2 rounded-lg bg-uss-primary text-white text-xs font-medium">Salvar Endereço</button>
+                    </div>
+                  )}
+                  {addresses.length === 0 ? (
+                    <p className="text-sm text-gray-600 dark:text-gray-400">Nenhum endereço cadastrado.</p>
+                  ) : (
+                    <div className="grid md:grid-cols-2 gap-4">
+                      {addresses.map(addr => (
+                        <div key={addr.id} className={`rounded-xl border p-4 text-sm relative ${addr.default ? 'border-uss-primary' : 'border-gray-200 dark:border-gray-700'}`}> 
+                          {addr.default && <span className="absolute top-2 right-2 text-[10px] bg-uss-primary text-white px-2 py-0.5 rounded-full">Padrão</span>}
+                          <p className="font-semibold text-gray-800 dark:text-white mb-1">{addr.label}</p>
+                          <p className="text-gray-600 dark:text-gray-400 leading-snug">{addr.street}, {addr.number} <br/> {addr.city} - {addr.state} <br/> CEP: {addr.zip}</p>
+                          <div className="flex items-center gap-2 mt-3">
+                            {!addr.default && (
+                              <button onClick={()=>setDefaultAddress(addr.id)} className="text-[10px] px-2 py-1 rounded bg-gray-200 dark:bg-gray-700 hover:bg-uss-primary hover:text-white transition">Padrão</button>
+                            )}
+                            <button onClick={()=>removeAddress(addr.id)} className="text-[10px] px-2 py-1 rounded bg-red-100 text-red-600 hover:bg-red-200 dark:bg-red-900/30 dark:text-red-300 flex items-center gap-1"><Trash2 className="w-3 h-3"/>Excluir</button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {activeTab === 'payments' && (
+              <div className="space-y-6">
+                <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <h2 className="text-xl font-bold text-gray-900 dark:text-white">Formas de Pagamento</h2>
+                    <button onClick={() => setAddingPayment(p => !p)} className="text-sm flex items-center gap-2 text-uss-primary hover:text-uss-secondary"><Plus className="w-4 h-4"/> {addingPayment ? 'Cancelar' : 'Adicionar'}</button>
+                  </div>
+                  {addingPayment && (
+                    <div className="mb-6 border border-dashed rounded-xl p-4 space-y-3 bg-gray-50 dark:bg-gray-700/30">
+                      <div className="grid grid-cols-2 gap-3">
+                        <select className="input" value={paymentForm.brand} onChange={e=>setPaymentForm(f=>({...f, brand:e.target.value}))}>
+                          <option>VISA</option><option>MASTERCARD</option><option>AMEX</option><option>PIX</option><option>BOLETO</option>
+                        </select>
+                        <input placeholder="Últimos 4" maxLength={4} className="input" value={paymentForm.last4} onChange={e=>setPaymentForm(f=>({...f,last4:e.target.value.replace(/[^0-9]/g,'')}))}/>
+                        <input placeholder="Titular" className="input col-span-2" value={paymentForm.holder} onChange={e=>setPaymentForm(f=>({...f,holder:e.target.value}))}/>
+                        <input placeholder="Validade (MM/AA)" className="input" value={paymentForm.exp} onChange={e=>setPaymentForm(f=>({...f,exp:e.target.value}))}/>
+                      </div>
+                      <button onClick={()=>{
+                        if(!paymentForm.last4 || paymentForm.last4.length<3) return
+                        addPaymentMethod({ ...paymentForm, type: paymentForm.brand === 'PIX' ? 'pix' : paymentForm.brand === 'BOLETO' ? 'boleto' : 'card' })
+                        setPaymentForm({ brand:'VISA', last4:'', holder:'', exp:'' })
+                        setAddingPayment(false)
+                      }} className="px-4 py-2 rounded-lg bg-uss-primary text-white text-xs font-medium">Salvar Método</button>
+                    </div>
+                  )}
+                  {paymentMethods.length === 0 ? (
+                    <p className="text-sm text-gray-600 dark:text-gray-400">Nenhum método de pagamento cadastrado.</p>
+                  ) : (
+                    <div className="grid md:grid-cols-2 gap-4">
+                      {paymentMethods.map(pm => (
+                        <div key={pm.id} className={`rounded-xl border p-4 text-sm relative ${pm.default ? 'border-uss-primary' : 'border-gray-200 dark:border-gray-700'}`}>
+                          {pm.default && <span className="absolute top-2 right-2 text-[10px] bg-uss-primary text-white px-2 py-0.5 rounded-full">Padrão</span>}
+                          <p className="font-semibold text-gray-800 dark:text-white mb-1">{pm.type === 'card' ? `${pm.brand} •••• ${pm.last4}` : pm.type === 'pix' ? 'Chave PIX' : 'Boleto'}</p>
+                          <p className="text-gray-600 dark:text-gray-400 leading-snug">Titular: {pm.holder || '—'}<br/>Exp: {pm.exp || '—'}</p>
+                          <div className="flex items-center gap-2 mt-3">
+                            {!pm.default && (
+                              <button onClick={()=>setDefaultPayment(pm.id)} className="text-[10px] px-2 py-1 rounded bg-gray-200 dark:bg-gray-700 hover:bg-uss-primary hover:text-white transition">Padrão</button>
+                            )}
+                            <button onClick={()=>removePaymentMethod(pm.id)} className="text-[10px] px-2 py-1 rounded bg-red-100 text-red-600 hover:bg-red-200 dark:bg-red-900/30 dark:text-red-300 flex items-center gap-1"><Trash2 className="w-3 h-3"/>Excluir</button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </div>
             )}
 

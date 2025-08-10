@@ -14,6 +14,9 @@ export default function CheckoutPage(){
   const [createdOrderId,setCreatedOrderId]=useState<string|null>(null)
   const [processing,setProcessing]=useState(false)
   const [orderDetails, setOrderDetails] = useState<any>(null)
+  const [coupon, setCoupon] = useState('')
+  const [appliedCoupon, setAppliedCoupon] = useState<{code:string,discount:number}|null>(null)
+  const [couponError, setCouponError] = useState<string>('')
   
   const canCheckout = cartItems.length>0
   
@@ -31,14 +34,15 @@ export default function CheckoutPage(){
       image:i.image 
     }))
     
-    const order = addOrder(orderItems)
+  const discount = appliedCoupon ? (cartTotal * appliedCoupon.discount) : 0
+  const order = addOrder(orderItems)
     cartItems.forEach(i=> decrementStock(String(i.id), i.quantity))
     
     // Set order details for confirmation
     setOrderDetails({
       id: order.id,
       items: orderItems,
-      total: cartTotal,
+  total: cartTotal - discount,
       createdAt: new Date().toISOString()
     })
     
@@ -108,6 +112,18 @@ export default function CheckoutPage(){
     )
   }
 
+  const validateCoupon = () => {
+    const code = coupon.trim().toUpperCase()
+    const available: Record<string, number> = { 'USS10':0.10, 'USS20':0.20, 'FRETEGRATIS':0, 'WELCOME5':0.05 }
+    if(!code){ setCouponError('Informe um cupom'); return }
+    if(!available[code]) { setCouponError('Cupom inválido'); return }
+    setAppliedCoupon({ code, discount: available[code] })
+    setCouponError('')
+  }
+
+  const discountValue = appliedCoupon ? cartTotal * appliedCoupon.discount : 0
+  const finalTotal = cartTotal - discountValue
+
   return (
     <div className="pt-28 pb-20 min-h-screen bg-gray-50">
       <div className="container mx-auto px-4 max-w-4xl">
@@ -160,15 +176,40 @@ export default function CheckoutPage(){
                     <span>Subtotal</span>
                     <span>R$ {cartTotal.toLocaleString('pt-BR',{minimumFractionDigits:2})}</span>
                   </div>
+                  {appliedCoupon && discountValue>0 && (
+                    <div className="flex justify-between text-green-600 font-medium">
+                      <span>Cupom {appliedCoupon.code}</span>
+                      <span>- R$ {discountValue.toLocaleString('pt-BR',{minimumFractionDigits:2})}</span>
+                    </div>
+                  )}
                   <div className="flex justify-between">
                     <span>Frete</span>
                     <span className="text-green-600 font-medium">Grátis</span>
                   </div>
                   <div className="flex justify-between text-lg font-semibold border-t pt-3">
                     <span>Total</span>
-                    <span className="text-uss-primary">R$ {cartTotal.toLocaleString('pt-BR',{minimumFractionDigits:2})}</span>
+                    <span className="text-uss-primary">R$ {finalTotal.toLocaleString('pt-BR',{minimumFractionDigits:2})}</span>
                   </div>
                 </div>
+              </div>
+
+              {/* Coupon */}
+              <div className="pt-2 border-t">
+                {!appliedCoupon ? (
+                  <div className="flex flex-col gap-2">
+                    <div className="flex gap-2">
+                      <input value={coupon} onChange={e=>setCoupon(e.target.value)} placeholder="Cupom" className="flex-1 input text-xs" />
+                      <button onClick={validateCoupon} className="px-3 py-2 rounded-lg bg-gray-900 text-white text-xs font-medium hover:bg-uss-primary transition">Aplicar</button>
+                    </div>
+                    {couponError && <p className="text-[10px] text-red-500">{couponError}</p>}
+                    <p className="text-[10px] text-gray-400">Cupons de teste: USS10, USS20, WELCOME5</p>
+                  </div>
+                ) : (
+                  <div className="flex items-center justify-between bg-green-50 text-green-700 text-xs px-3 py-2 rounded-lg">
+                    <span>Cupom {appliedCoupon.code} aplicado</span>
+                    <button onClick={()=>{ setAppliedCoupon(null); setCoupon('') }} className="text-[10px] underline">Remover</button>
+                  </div>
+                )}
               </div>
 
               {/* Delivery Info */}

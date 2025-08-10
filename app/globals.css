@@ -618,3 +618,30 @@ input:focus, textarea:focus, select:focus {
 ::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(180deg, #0284C7, #1E3A8A);
 }
+
+/* Simple input utility for profile management forms (avoid @apply for compatibility) */
+.input {
+  width: 100%;
+  border: 1px solid #d1d5db; /* gray-300 */
+  background: #ffffff;
+  color: #0f172a;
+  border-radius: 0.5rem; /* rounded-lg */
+  padding: 0.5rem 0.75rem; /* px-3 py-2 */
+  font-size: 0.875rem; /* text-sm */
+  line-height: 1.25rem;
+  transition: border-color .2s, box-shadow .2s, background .2s, color .2s;
+}
+.dark .input {
+  background: #1f2937; /* gray-800 */
+  border-color: #4b5563; /* gray-600 */
+  color: #f1f5f9;
+}
+.input:focus {
+  outline: none;
+  border-color: var(--uss-primary);
+  box-shadow: 0 0 0 2px rgba(14,165,233,.3);
+}
+.dark .input:focus {
+  border-color: var(--uss-secondary-light);
+  box-shadow: 0 0 0 2px rgba(59,130,246,.35);
+}
