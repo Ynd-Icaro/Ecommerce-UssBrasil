@@ -38,6 +38,7 @@ export interface Brand {
 // Cache para melhor performance
 let cachedProducts: Product[] | null = null
 let cachedBrands: Brand[] | null = null
+let productsVersion = 0
 
 // Função para obter todos os produtos
 export function getAllProducts(): Product[] {
@@ -69,6 +70,20 @@ export function getAllProducts(): Product[] {
     return []
   }
 }
+
+// Decrementar estoque (imutável no JSON fonte, apenas em memória)
+export function decrementStock(productId: string, quantity: number) {
+  if (!cachedProducts) getAllProducts()
+  if (!cachedProducts) return
+  const p = cachedProducts.find(p=>p.id===productId)
+  if (p) {
+    p.stock = Math.max(0, p.stock - quantity)
+    productsVersion++
+  }
+}
+
+// Expor versão para possíveis re-renders
+export function getProductsVersion(){ return productsVersion }
 
 // Função para obter todas as marcas e categorias
 export function getAllBrands(): Brand[] {

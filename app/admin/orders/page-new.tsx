@@ -148,34 +148,6 @@ export default function AdminOrdersPage() {
       }
     },
     {
-      id: '4',
-      number: '#12844',
-      customer: {
-        name: 'João Pereira',
-        email: 'joao.pereira@email.com'
-      },
-      items: [
-        {
-          id: '4',
-          name: 'Samsung Galaxy S24 Ultra',
-          quantity: 1,
-          price: 6999.99,
-          image: '/fallback-product.png'
-        }
-      ],
-      total: 6999.99,
-      status: 'pending',
-      paymentStatus: 'pending',
-      paymentMethod: 'Boleto',
-      createdAt: '2024-01-14T14:20:00Z',
-      shippingAddress: {
-        street: 'Rua do Comércio, 789',
-        city: 'Rio de Janeiro',
-        state: 'RJ',
-        zipCode: '20040-020'
-      }
-    },
-    {
       id: '5',
       number: '#12843',
       customer: {

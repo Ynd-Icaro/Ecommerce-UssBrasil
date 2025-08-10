@@ -15,12 +15,15 @@ import {
   LogIn,
   UserPlus,
   LogOut,
-  UserCircle
+  UserCircle,
+  Sun,
+  Moon
 } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useModal } from '@/contexts/ModalContext'
 import { useCart } from '@/contexts/CartContext'
-import { useFavorites } from '@/contexts/FavoritesContext'
+import { useAuth } from '@/contexts/AuthContext'
+import { useTheme } from '@/hooks/use-theme'
 import data from '@/db.json'
 
 // Tipos
@@ -127,7 +130,8 @@ export default function FixedNavbar() {
   // Hooks dos contextos
   const { openCart, openFavorites, openProfile } = useModal()
   const { cartCount } = useCart()
-  const { favorites } = useFavorites()
+  const { favorites } = useAuth()
+  const { theme, toggleTheme } = useTheme()
   const favoritesCount = favorites.length
 
   // Scroll effect
@@ -175,24 +179,28 @@ export default function FixedNavbar() {
   }
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      isScrolled ? 'bg-white/65 backdrop-blur-md shadow-lg' : 'bg-white/65 backdrop-blur-md'
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+      isScrolled 
+        ? 'bg-white/95 dark:bg-uss-dark/95 backdrop-blur-xl shadow-xl border-b border-uss-gray-light/20 dark:border-uss-gray/30' 
+        : 'bg-white/90 dark:bg-uss-dark/90 backdrop-blur-lg border-b border-uss-gray-light/10 dark:border-uss-gray/20'
     }`}>
       
       {/* PRIMEIRA PARTE DO NAVBAR - Logo, Busca, Ações */}
-      <nav className="container mx-auto px-4 border-b border-gray-200/30">
-        <div className="flex items-center justify-between h-16">
+      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-20">
           
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2 z-50">
-            <Image
-              src="/Empresa/02.png"
-              alt="Logo"
-              width={120}
-              height={40}
-              className="h-10 w-auto"
-              priority
-            />
+          <Link href="/" className="flex items-center space-x-3 z-50 group">
+            <div className="relative">
+              <Image
+                src="/Empresa/02.png"
+                alt="USS Brasil - Tecnologia Premium"
+                width={140}
+                height={45}
+                className="h-12 w-auto transition-transform duration-300 group-hover:scale-105"
+                priority
+              />
+            </div>
           </Link>
 
           {/* Busca Central */}

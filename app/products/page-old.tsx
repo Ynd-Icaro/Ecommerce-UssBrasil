@@ -801,9 +801,9 @@ export default function ProductsPage() {
         case 'price-desc':
           return (b.discountPrice || b.price) - (a.discountPrice || a.price)
         case 'rating':
-          return b.rating - a.rating
+          return (b.rating || 0) - (a.rating || 0)
         case 'newest':
-          return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+          return new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime()
         default:
           return a.name.localeCompare(b.name)
       }

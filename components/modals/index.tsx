@@ -1,15 +1,17 @@
 'use client'
 
-import CartModal from './CartModal'
-import FavoritesModal from './FavoritesModal'
-import ProfileModal from './ProfileModal'
+import React from 'react'
+import { useModal } from '@/contexts/ModalContext'
+import AuthModal from './auth-modal'
+import CartModal from './cart-modal'
 
 export default function GlobalModals() {
+  const { authModalOpen, setAuthModalOpen, cartModalOpen, setCartModalOpen } = useModal()
+
   return (
     <>
-      <CartModal />
-      <FavoritesModal />
-      <ProfileModal />
+      <AuthModal isOpen={authModalOpen} onClose={() => setAuthModalOpen(false)} />
+      <CartModal isOpen={cartModalOpen} onClose={() => setCartModalOpen(false)} />
     </>
   )
 }

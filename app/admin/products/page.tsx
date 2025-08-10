@@ -28,6 +28,8 @@ import Link from 'next/link'
 import PageHeader from '@/components/admin/PageHeader'
 import StatCard from '@/components/admin/StatCard'
 import ProductImage from '@/components/admin/ProductImage'
+import PremiumButton from '@/components/ui/PremiumButton'
+import LoadingSpinner from '@/components/ui/LoadingSpinner'
 
 interface Product {
   id: string
@@ -237,33 +239,33 @@ export default function AdminProductsPage() {
         searchPlaceholder="Pesquisar produtos..."
         actions={
           <>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="flex items-center space-x-1 lg:space-x-2 bg-white/10 backdrop-blur-xl border border-white/20 text-white px-2 lg:px-4 py-2 rounded-xl hover:bg-white/20 transition-all text-sm lg:text-base"
+            <PremiumButton
+              variant="secondary"
+              size="sm"
+              icon={<Download className="w-4 h-4" />}
+              className="hidden sm:flex"
             >
-              <Download className="w-3 h-3 lg:w-4 lg:h-4" />
-              <span className="hidden sm:inline">Exportar</span>
-            </motion.button>
+              Exportar
+            </PremiumButton>
             
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="flex items-center space-x-1 lg:space-x-2 bg-white/10 backdrop-blur-xl border border-white/20 text-white px-2 lg:px-4 py-2 rounded-xl hover:bg-white/20 transition-all text-sm lg:text-base"
+            <PremiumButton
+              variant="secondary"
+              size="sm"
+              icon={<Upload className="w-4 h-4" />}
+              className="hidden sm:flex"
             >
-              <Upload className="w-3 h-3 lg:w-4 lg:h-4" />
-              <span className="hidden sm:inline">Importar</span>
-            </motion.button>
+              Importar
+            </PremiumButton>
             
             <Link href="/admin/products/new">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="flex items-center space-x-1 lg:space-x-2 bg-gradient-to-r from-[#0E7466] to-[#0C6157] text-white px-3 lg:px-6 py-2 lg:py-2.5 rounded-xl font-medium hover:shadow-lg transition-all text-sm lg:text-base"
+              <PremiumButton
+                variant="primary"
+                size="md"
+                icon={<Plus className="w-5 h-5" />}
+                glowEffect={true}
               >
-                <Plus className="w-4 h-4 lg:w-5 lg:h-5" />
-                <span>Novo</span>
-              </motion.button>
+                Novo Produto
+              </PremiumButton>
             </Link>
           </>
         }

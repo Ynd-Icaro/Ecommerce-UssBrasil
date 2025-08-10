@@ -154,7 +154,7 @@ export default function ReportsPage() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => openModal('create')}
-            className="flex items-center space-x-2 bg-gradient-to-r from-[#0E7466] to-[#0C6157] 
+            className="flex items-center space-x-2 bg-gradient-to-r from-[#00CED1] to-[#40E0D0] 
                      text-white px-6 py-2.5 rounded-xl font-medium hover:shadow-lg transition-all"
           >
             <Plus className="w-5 h-5" />
@@ -490,7 +490,7 @@ export default function ReportsPage() {
                     >
                       Cancelar
                     </button>
-                    <button className="px-6 py-2.5 bg-gradient-to-r from-[#0E7466] to-[#0C6157] 
+                    <button className="px-6 py-2.5 bg-gradient-to-r from-[#00CED1] to-[#40E0D0] 
                                      text-white rounded-xl hover:shadow-lg transition-all">
                       Gerar Relatório
                     </button>
@@ -537,7 +537,7 @@ export default function ReportsPage() {
                     >
                       Fechar
                     </button>
-                    <button className="px-6 py-2.5 bg-gradient-to-r from-[#0E7466] to-[#0C6157] 
+                    <button className="px-6 py-2.5 bg-gradient-to-r from-[#00CED1] to-[#40E0D0] 
                                      text-white rounded-xl hover:shadow-lg transition-all">
                       Download
                     </button>
@@ -588,7 +588,7 @@ export default function ReportsPage() {
                     >
                       Cancelar
                     </button>
-                    <button className="px-6 py-2.5 bg-gradient-to-r from-[#0E7466] to-[#0C6157] 
+                    <button className="px-6 py-2.5 bg-gradient-to-r from-[#00CED1] to-[#40E0D0] 
                                      text-white rounded-xl hover:shadow-lg transition-all">
                       Enviar
                     </button>

@@ -1,3 +1,3 @@
-import ImprovedHomePage from './page-improved'
+import HomePage from './page-functional'
 
-export default ImprovedHomePage
+export default HomePage

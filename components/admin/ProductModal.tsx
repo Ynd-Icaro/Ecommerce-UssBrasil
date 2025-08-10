@@ -41,7 +41,6 @@ const categories = [
 
 const brands = [
   'Apple',
-  'Samsung',
   'Sony',
   'LG',
   'Dell',

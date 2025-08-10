@@ -144,9 +144,12 @@ export default function OffersPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-24">
+    <div className="min-h-screen pt-24" style={{ background: 'var(--uss-bg)' }}>
       {/* Hero Section */}
-      <div className="bg-gradient-to-br from-uss-primary via-uss-secondary to-purple-600 text-white py-16">
+      <div 
+        className="text-white py-16"
+        style={{ background: 'var(--uss-gradient-primary)' }}
+      >
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -154,36 +157,51 @@ export default function OffersPage() {
             className="text-center"
           >
             <div className="flex items-center justify-center mb-6">
-              <Flame className="h-10 w-10 mr-3 text-orange-300" />
+              <Flame className="h-10 w-10 mr-3" style={{ color: 'var(--uss-warning)' }} />
               <h1 className="text-5xl lg:text-7xl font-bold">
                 Super Ofertas
               </h1>
-              <Percent className="h-10 w-10 ml-3 text-green-300" />
+              <Percent className="h-10 w-10 ml-3" style={{ color: 'var(--uss-success)' }} />
             </div>
             <p className="text-xl lg:text-2xl opacity-90 max-w-3xl mx-auto mb-8">
               Descontos de até 70% em produtos selecionados. Aproveite antes que acabem!
             </p>
             
             {/* Contador de tempo */}
-            <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 max-w-md mx-auto">
+            <div 
+              className="backdrop-blur-lg rounded-2xl p-6 max-w-md mx-auto"
+              style={{ background: 'rgba(255, 255, 255, 0.1)' }}
+            >
               <h3 className="text-lg font-semibold mb-4 flex items-center justify-center">
                 <Clock className="h-5 w-5 mr-2" />
                 Ofertas terminam em:
               </h3>
               <div className="grid grid-cols-4 gap-2 text-center">
-                <div className="bg-white/20 rounded-lg p-3">
+                <div 
+                  className="rounded-lg p-3"
+                  style={{ background: 'rgba(255, 255, 255, 0.2)' }}
+                >
                   <div className="text-2xl font-bold">{timeLeft.days.toString().padStart(2, '0')}</div>
                   <div className="text-xs opacity-75">DIAS</div>
                 </div>
-                <div className="bg-white/20 rounded-lg p-3">
+                <div 
+                  className="rounded-lg p-3"
+                  style={{ background: 'rgba(255, 255, 255, 0.2)' }}
+                >
                   <div className="text-2xl font-bold">{timeLeft.hours.toString().padStart(2, '0')}</div>
                   <div className="text-xs opacity-75">HORAS</div>
                 </div>
-                <div className="bg-white/20 rounded-lg p-3">
+                <div 
+                  className="rounded-lg p-3"
+                  style={{ background: 'rgba(255, 255, 255, 0.2)' }}
+                >
                   <div className="text-2xl font-bold">{timeLeft.minutes.toString().padStart(2, '0')}</div>
                   <div className="text-xs opacity-75">MIN</div>
                 </div>
-                <div className="bg-white/20 rounded-lg p-3">
+                <div 
+                  className="rounded-lg p-3"
+                  style={{ background: 'rgba(255, 255, 255, 0.2)' }}
+                >
                   <div className="text-2xl font-bold">{timeLeft.seconds.toString().padStart(2, '0')}</div>
                   <div className="text-xs opacity-75">SEG</div>
                 </div>
@@ -198,23 +216,42 @@ export default function OffersPage() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-white rounded-2xl shadow-lg p-6 mb-8"
+          className="rounded-2xl shadow-lg p-6 mb-8"
+          style={{ background: 'var(--uss-bg-light)' }}
         >
           {/* Barra de busca e controles principais */}
           <div className="flex flex-col lg:flex-row gap-4 items-center justify-between mb-6">
             <div className="relative flex-1 max-w-md">
-              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+              <Search 
+                className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5" 
+                style={{ color: 'var(--uss-text-secondary)' }}
+              />
               <input
                 type="text"
                 placeholder="Buscar ofertas..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-uss-primary/20 focus:border-uss-primary"
+                className="w-full pl-12 pr-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:border-transparent transition-all"
+                style={{
+                  background: 'var(--uss-bg)',
+                  borderColor: 'var(--uss-border)',
+                  color: 'var(--uss-text-light)',
+                  '--tw-ring-color': 'var(--uss-primary-alpha)'
+                } as React.CSSProperties}
               />
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery('')}
-                  className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                  className="absolute right-4 top-1/2 transform -translate-y-1/2 transition-colors"
+                  style={{ color: 'var(--uss-text-secondary)' }}
+                  onMouseEnter={(e) => {
+                    const target = e.target as HTMLElement;
+                    target.style.color = 'var(--uss-text-light)';
+                  }}
+                  onMouseLeave={(e) => {
+                    const target = e.target as HTMLElement;
+                    target.style.color = 'var(--uss-text-secondary)';
+                  }}
                 >
                   <X className="h-4 w-4" />
                 </button>
@@ -224,28 +261,47 @@ export default function OffersPage() {
             <div className="flex items-center gap-4">
               <button
                 onClick={() => setShowFilters(!showFilters)}
-                className="flex items-center space-x-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-xl transition-colors"
+                className="flex items-center space-x-2 px-4 py-2 rounded-xl transition-all hover:shadow-md"
+                style={{ 
+                  background: 'var(--uss-surface)',
+                  color: 'var(--uss-text-light)'
+                }}
+                onMouseEnter={(e) => {
+                  const target = e.target as HTMLElement;
+                  target.style.background = 'var(--uss-bg)';
+                }}
+                onMouseLeave={(e) => {
+                  const target = e.target as HTMLElement;
+                  target.style.background = 'var(--uss-surface)';
+                }}
               >
                 <Filter className="h-4 w-4" />
                 <span>Filtros</span>
               </button>
 
-              <div className="flex items-center bg-gray-100 rounded-xl p-1">
+              <div 
+                className="flex items-center rounded-xl p-1"
+                style={{ background: 'var(--uss-surface)' }}
+              >
                 <button
                   onClick={() => setViewMode('grid')}
-                  className={`p-2 rounded-lg transition-colors ${
-                    viewMode === 'grid' ? 'bg-white shadow-sm' : 'hover:bg-gray-200'
-                  }`}
+                  className={`p-2 rounded-lg transition-colors`}
+                  style={{
+                    background: viewMode === 'grid' ? 'var(--uss-bg-light)' : 'transparent',
+                    boxShadow: viewMode === 'grid' ? '0 1px 2px rgba(0,0,0,0.1)' : 'none'
+                  }}
                 >
-                  <Grid className="h-4 w-4" />
+                  <Grid className="h-4 w-4" style={{ color: 'var(--uss-text-light)' }} />
                 </button>
                 <button
                   onClick={() => setViewMode('list')}
-                  className={`p-2 rounded-lg transition-colors ${
-                    viewMode === 'list' ? 'bg-white shadow-sm' : 'hover:bg-gray-200'
-                  }`}
+                  className={`p-2 rounded-lg transition-colors`}
+                  style={{
+                    background: viewMode === 'list' ? 'var(--uss-bg-light)' : 'transparent',
+                    boxShadow: viewMode === 'list' ? '0 1px 2px rgba(0,0,0,0.1)' : 'none'
+                  }}
                 >
-                  <List className="h-4 w-4" />
+                  <List className="h-4 w-4" style={{ color: 'var(--uss-text-light)' }} />
                 </button>
               </div>
             </div>
@@ -255,32 +311,35 @@ export default function OffersPage() {
           <div className="flex flex-wrap gap-2 mb-4">
             <button
               onClick={() => setFilter('all')}
-              className={`px-4 py-2 rounded-full font-medium transition-all ${
-                filter === 'all'
-                  ? 'bg-uss-primary text-white shadow-lg'
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-              }`}
+              className={`px-4 py-2 rounded-full font-medium transition-all hover:shadow-md`}
+              style={{
+                background: filter === 'all' ? 'var(--uss-primary)' : 'var(--uss-surface)',
+                color: filter === 'all' ? 'var(--uss-text)' : 'var(--uss-text-secondary)',
+                boxShadow: filter === 'all' ? '0 4px 6px rgba(0,0,0,0.1)' : 'none'
+              }}
             >
               Todas ({offers.length})
             </button>
             <button
               onClick={() => setFilter('flash')}
-              className={`px-4 py-2 rounded-full font-medium transition-all ${
-                filter === 'flash'
-                  ? 'bg-red-500 text-white shadow-lg'
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-              }`}
+              className={`px-4 py-2 rounded-full font-medium transition-all hover:shadow-md`}
+              style={{
+                background: filter === 'flash' ? 'var(--uss-error)' : 'var(--uss-surface)',
+                color: filter === 'flash' ? 'white' : 'var(--uss-text-secondary)',
+                boxShadow: filter === 'flash' ? '0 4px 6px rgba(0,0,0,0.1)' : 'none'
+              }}
             >
               <Zap className="w-4 h-4 inline mr-1" />
               Flash Sale ({offers.filter(o => o.isFlashSale).length})
             </button>
             <button
               onClick={() => setFilter('limited')}
-              className={`px-4 py-2 rounded-full font-medium transition-all ${
-                filter === 'limited'
-                  ? 'bg-orange-500 text-white shadow-lg'
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-              }`}
+              className={`px-4 py-2 rounded-full font-medium transition-all hover:shadow-md`}
+              style={{
+                background: filter === 'limited' ? 'var(--uss-warning)' : 'var(--uss-surface)',
+                color: filter === 'limited' ? 'white' : 'var(--uss-text-secondary)',
+                boxShadow: filter === 'limited' ? '0 4px 6px rgba(0,0,0,0.1)' : 'none'
+              }}
             >
               Estoque Limitado ({offers.filter(o => o.isLimitedStock).length})
             </button>
@@ -293,13 +352,20 @@ export default function OffersPage() {
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               className="border-t pt-4 grid grid-cols-1 md:grid-cols-3 gap-4"
+              style={{ borderColor: 'var(--uss-border)' }}
             >
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Categoria</label>
+                <label className="block text-sm font-medium mb-2" style={{ color: 'var(--uss-text-light)' }}>Categoria</label>
                 <select
                   value={selectedCategory}
                   onChange={(e) => setSelectedCategory(e.target.value)}
-                  className="w-full border border-gray-300 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-uss-primary/20"
+                  className="w-full border rounded-xl px-3 py-2 focus:outline-none focus:ring-2 transition-all"
+                  style={{
+                    background: 'var(--uss-bg)',
+                    borderColor: 'var(--uss-border)',
+                    color: 'var(--uss-text-light)',
+                    '--tw-ring-color': 'var(--uss-primary-alpha)'
+                  } as React.CSSProperties}
                 >
                   <option value="">Todas as categorias</option>
                   {categories.map(category => (
@@ -309,11 +375,17 @@ export default function OffersPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Ordenar por</label>
+                <label className="block text-sm font-medium mb-2" style={{ color: 'var(--uss-text-light)' }}>Ordenar por</label>
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value as 'discount' | 'price' | 'rating')}
-                  className="w-full border border-gray-300 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-uss-primary/20"
+                  className="w-full border rounded-xl px-3 py-2 focus:outline-none focus:ring-2 transition-all"
+                  style={{
+                    background: 'var(--uss-bg)',
+                    borderColor: 'var(--uss-border)',
+                    color: 'var(--uss-text-light)',
+                    '--tw-ring-color': 'var(--uss-primary-alpha)'
+                  } as React.CSSProperties}
                 >
                   <option value="discount">Maior Desconto</option>
                   <option value="price">Menor Preço</option>
@@ -322,7 +394,7 @@ export default function OffersPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium mb-2" style={{ color: 'var(--uss-text-light)' }}>
                   Faixa de Preço: {formatCurrency(priceRange[0])} - {formatCurrency(priceRange[1])}
                 </label>
                 <div className="flex items-center space-x-2">
@@ -332,7 +404,7 @@ export default function OffersPage() {
                     max="10000"
                     value={priceRange[0]}
                     onChange={(e) => setPriceRange([Number(e.target.value), priceRange[1]])}
-                    className="flex-1"
+                    className="flex-1 accent-uss-primary"
                   />
                   <input
                     type="range"
@@ -340,7 +412,7 @@ export default function OffersPage() {
                     max="10000"
                     value={priceRange[1]}
                     onChange={(e) => setPriceRange([priceRange[0], Number(e.target.value)])}
-                    className="flex-1"
+                    className="flex-1 accent-uss-primary"
                   />
                 </div>
               </div>

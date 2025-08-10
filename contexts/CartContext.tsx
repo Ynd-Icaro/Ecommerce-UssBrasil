@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { toast } from 'sonner';
+import { getProductById } from '@/lib/products-manager';
 
 interface Product {
   id: number;
@@ -53,14 +54,24 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const addToCart = (product: Product, quantity = 1) => {
     setCartItems(prevItems => {
       const existingItem = prevItems.find(item => item.id === product.id);
+      const prodData = getProductById(String(product.id));
+      const stock = prodData?.stock ?? Infinity;
       if (existingItem) {
-        toast.success(`'${product.name}' quantidade atualizada no carrinho.`);
-        return prevItems.map(item =>
-          item.id === product.id ? { ...item, quantity: item.quantity + quantity } : item
-        );
+        const newQty = Math.min(existingItem.quantity + quantity, stock);
+        if (newQty === existingItem.quantity) {
+          toast.error('Estoque máximo atingido.');
+          return prevItems;
+        }
+        toast.success(`Quantidade de '${product.name}' atualizada (${newQty}).`);
+        return prevItems.map(item => item.id === product.id ? { ...item, quantity: newQty } : item);
       } else {
+        const initialQty = Math.min(quantity, stock);
+        if (initialQty <= 0) {
+          toast.error('Produto sem estoque.');
+          return prevItems;
+        }
         toast.success(`'${product.name}' adicionado ao carrinho.`);
-        return [...prevItems, { ...product, quantity }];
+        return [...prevItems, { ...product, quantity: initialQty }];
       }
     });
   };
@@ -76,6 +87,12 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const updateQuantity = (productId: number, quantity: number) => {
+    const prodData = getProductById(String(productId));
+    const stock = prodData?.stock ?? Infinity;
+    if (quantity > stock) {
+      toast.error('Quantidade solicitada excede o estoque disponível.');
+      quantity = stock;
+    }
     if (quantity <= 0) {
       removeFromCart(productId);
     } else {

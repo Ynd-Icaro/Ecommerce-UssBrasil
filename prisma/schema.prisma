@@ -51,6 +51,11 @@ model User {
   state         String?
   zipCode       String?
   country       String?   @default("Brasil")
+  birthDate     DateTime?
+  gender        String?
+  preferences   Json?     // User preferences as JSON
+  isActive      Boolean   @default(true)
+  lastLoginAt   DateTime?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 
@@ -59,6 +64,8 @@ model User {
   orders   Order[]
   reviews  Review[]
   cartItems CartItem[]
+  wishlist Wishlist[]
+  addresses Address[]
 }
 
 model VerificationToken {
@@ -75,6 +82,12 @@ model Category {
   description String?
   image       String?
   slug        String    @unique
+  brand       Brand?
+  icon        String?
+  seoTitle    String?
+  seoDescription String?
+  sortOrder   Int       @default(0)
+  isActive    Boolean   @default(true)
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 
@@ -85,16 +98,24 @@ model Product {
   id            String   @id @default(cuid())
   name          String
   description   String
+  slug          String   @unique
   price         Float
   discountPrice Float?
   stock         Int
   status        ProductStatus @default(ACTIVE)
   featured      Boolean  @default(false)
+  brand         Brand
   images        String   // JSON string of image URLs
   categoryId    String
   rating        Float?   @default(0)
   totalReviews  Int      @default(0)
   specifications String?   // Store product specs as JSON string
+  seoTitle      String?
+  seoDescription String?
+  weight        Float?
+  dimensions    String?  // JSON string for dimensions
+  warranty      Int?     @default(12) // months
+  tags          String?  // JSON array of tags
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
@@ -102,6 +123,7 @@ model Product {
   orderItems  OrderItem[]
   reviews     Review[]
   cartItems   CartItem[]
+  wishlist    Wishlist[]
 }
 
 model CartItem {
@@ -131,10 +153,14 @@ model Order {
   shippingAddress Json        // Store shipping address as JSON
   trackingCode    String?
   notes           String?
+  couponId        String?
+  estimatedDelivery DateTime?
+  deliveredAt     DateTime?
   createdAt       DateTime    @default(now())
   updatedAt       DateTime    @updatedAt
 
   user       User        @relation(fields: [userId], references: [id])
+  coupon     Coupon?     @relation(fields: [couponId], references: [id])
   orderItems OrderItem[]
 }
 
@@ -156,6 +182,9 @@ model Review {
   productId String
   rating    Int
   comment   String?
+  images    String?  // JSON array of review images
+  verified  Boolean  @default(false) // Verified purchase
+  helpful   Int      @default(0) // Helpful votes
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -165,15 +194,108 @@ model Review {
   @@unique([userId, productId])
 }
 
+model Wishlist {
+  id        String   @id @default(cuid())
+  userId    String
+  productId String
+  createdAt DateTime @default(now())
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, productId])
+}
+
+model Newsletter {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Coupon {
+  id          String      @id @default(cuid())
+  code        String      @unique
+  description String?
+  type        CouponType
+  value       Float       // Percentage or fixed amount
+  minAmount   Float?      // Minimum order amount
+  maxAmount   Float?      // Maximum discount amount
+  usageLimit  Int?        // Total usage limit
+  usageCount  Int         @default(0)
+  userLimit   Int?        // Per user limit
+  startDate   DateTime
+  endDate     DateTime
+  isActive    Boolean     @default(true)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  orders Order[]
+}
+
+model Address {
+  id           String  @id @default(cuid())
+  userId       String
+  name         String  // Address name (e.g., "Home", "Work")
+  recipientName String
+  street       String
+  number       String
+  complement   String?
+  neighborhood String
+  city         String
+  state        String
+  zipCode      String
+  country      String  @default("Brasil")
+  isDefault    Boolean @default(false)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Analytics {
+  id        String   @id @default(cuid())
+  date      DateTime @default(now())
+  pageViews Int      @default(0)
+  visitors  Int      @default(0)
+  sales     Float    @default(0)
+  orders    Int      @default(0)
+  data      Json?    // Additional analytics data
+  createdAt DateTime @default(now())
+
+  @@unique([date])
+}
+
 enum Role {
   USER
   ADMIN
+}
+
+enum Brand {
+  APPLE
+  DJI
+  GEONAV
+  JBL
+  XIAOMI
+  SAMSUNG
+  GOOGLE
+  MICROSOFT
+  SONY
+  OTHER
 }
 
 enum ProductStatus {
   ACTIVE
   INACTIVE
   OUT_OF_STOCK
+}
+
+enum CouponType {
+  PERCENTAGE
+  FIXED_AMOUNT
+  FREE_SHIPPING
 }
 
 enum OrderStatus {

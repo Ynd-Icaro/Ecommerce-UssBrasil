@@ -19,14 +19,15 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
 import { useModal } from '@/contexts/ModalContext'
-import { useFavorites } from '@/contexts/FavoritesContext'
+import { useAuth } from '@/contexts/AuthContext'
 import { useCart } from '@/contexts/CartContext'
 import { useState } from 'react'
 import data from '@/db.json'
 
 export default function FavoritesModal() {
   const { isFavoritesOpen, closeFavorites } = useModal()
-  const { favorites, toggleFavorite, isFavorite } = useFavorites()
+  const { favorites, toggleFavorite } = useAuth()
+  const isFavorite = (productId: string) => favorites.includes(productId)
   const { addToCart } = useCart()
   const [searchTerm, setSearchTerm] = useState('')
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')

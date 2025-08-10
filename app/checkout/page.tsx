@@ -1,162 +1,105 @@
 "use client"
+import { useState } from 'react'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { useCart } from '@/contexts/CartContext'
+import { useAuth } from '@/contexts/AuthContext'
+import { decrementStock } from '@/lib/products-manager'
+import { CheckCircle, ArrowLeft, Trash2, ShoppingBag, CreditCard, Truck, MapPin } from 'lucide-react'
 
-import { useState } from "react"
-import Image from "next/image"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Separator } from "@/components/ui/separator"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { Textarea } from "@/components/ui/textarea"
-import { Badge } from "@/components/ui/badge"
-import { ArrowLeft, CreditCard, Truck, MapPin, User, Lock, CheckCircle } from "lucide-react"
-
-const orderItems = [
-  {
-    id: 1,
-    name: "iPhone 15 Pro Max",
-    brand: "Apple",
-    price: 9999,
-    quantity: 1,
-    color: "Titânio Natural",
-    storage: "256GB",
-    image: "/Produtos/Iphone 16 Pro.png",
-  },
-]
-
-export default function CheckoutPage() {
-  const [step, setStep] = useState(1) // 1: Dados, 2: Entrega, 3: Pagamento, 4: Confirmação
-  const [formData, setFormData] = useState({
-    // Dados pessoais
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    cpf: "",
-
-    // Endereço
-    cep: "",
-    street: "",
-    number: "",
-    complement: "",
-    neighborhood: "",
-    city: "",
-    state: "",
-
-    // Entrega
-    deliveryMethod: "standard",
-
-    // Pagamento
-    paymentMethod: "credit",
-    cardNumber: "",
-    cardName: "",
-    cardExpiry: "",
-    cardCvv: "",
-    installments: "1",
-
-    // Observações
-    notes: "",
-  })
-
-  const [orderConfirmed, setOrderConfirmed] = useState(false)
-
-  const subtotal = orderItems.reduce((sum, item) => sum + item.price * item.quantity, 0)
-  const deliveryFee = formData.deliveryMethod === "express" ? 49 : 0
-  const total = subtotal + deliveryFee
-
-  const handleInputChange = (field: string, value: string) => {
-    setFormData((prev) => ({ ...prev, [field]: value }))
+export default function CheckoutPage(){
+  const router = useRouter()
+  const { cartItems, cartTotal, updateQuantity, removeFromCart, clearCart } = useCart()
+  const { user, login, addOrder } = useAuth()
+  const [createdOrderId,setCreatedOrderId]=useState<string|null>(null)
+  const [processing,setProcessing]=useState(false)
+  const [orderDetails, setOrderDetails] = useState<any>(null)
+  
+  const canCheckout = cartItems.length>0
+  
+  const handleCreateOrder = () => {
+    if(!canCheckout || processing) return
+    setProcessing(true)
+    
+    if(!user) login(`guest-${Date.now()}@sessao.local`,`Visitante`)
+    
+    const orderItems = cartItems.map(i=>({ 
+      productId:String(i.id), 
+      name:i.name, 
+      price:i.price, 
+      quantity:i.quantity, 
+      image:i.image 
+    }))
+    
+    const order = addOrder(orderItems)
+    cartItems.forEach(i=> decrementStock(String(i.id), i.quantity))
+    
+    // Set order details for confirmation
+    setOrderDetails({
+      id: order.id,
+      items: orderItems,
+      total: cartTotal,
+      createdAt: new Date().toISOString()
+    })
+    
+    clearCart()
+    setCreatedOrderId(order.id)
+    setProcessing(false)
   }
 
-  const handleNextStep = () => {
-    if (step < 4) {
-      setStep(step + 1)
-    }
+  const goToOrders = () => {
+    router.push('/perfil?tab=orders')
   }
 
-  const handlePreviousStep = () => {
-    if (step > 1) {
-      setStep(step - 1)
-    }
-  }
-
-  const handleConfirmOrder = () => {
-    // Aqui você processaria o pedido
-    setOrderConfirmed(true)
-    setStep(4)
-  }
-
-  const formatCEP = (value: string) => {
-    return value.replace(/\D/g, "").replace(/(\d{5})(\d{3})/, "$1-$2")
-  }
-
-  const formatCPF = (value: string) => {
-    return value.replace(/\D/g, "").replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4")
-  }
-
-  const formatPhone = (value: string) => {
-    return value.replace(/\D/g, "").replace(/(\d{2})(\d{5})(\d{4})/, "($1) $2-$3")
-  }
-
-  if (orderConfirmed && step === 4) {
+  if (createdOrderId && orderDetails) {
     return (
-      <div className="min-h-screen bg-white">
+      <div className="pt-28 pb-20 min-h-screen bg-gray-50">
+        <div className="container mx-auto px-4 max-w-2xl">
+          <div className="bg-white p-8 rounded-xl shadow-lg text-center">
+            <CheckCircle className="h-16 w-16 text-emerald-500 mx-auto mb-6"/>
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">Pedido Confirmado!</h2>
+            <p className="text-gray-600 mb-6">
+              Seu pedido <span className="font-semibold text-uss-primary">#{createdOrderId.slice(0,8)}</span> foi criado com sucesso.
+            </p>
+            
+            {/* Order Summary */}
+            <div className="bg-gray-50 rounded-lg p-6 mb-6 text-left">
+              <h3 className="font-semibold text-gray-900 mb-4">Resumo do Pedido</h3>
+              <div className="space-y-3">
+                {orderDetails.items.map((item: any, index: number) => (
+                  <div key={index} className="flex justify-between items-center text-sm">
+                    <span className="text-gray-600">{item.quantity}x {item.name}</span>
+                    <span className="font-medium">R$ {(item.price * item.quantity).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</span>
+                  </div>
+                ))}
+                <div className="border-t pt-3 flex justify-between items-center font-semibold">
+                  <span>Total:</span>
+                  <span className="text-uss-primary">R$ {orderDetails.total.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</span>
+                </div>
+              </div>
+            </div>
 
-        <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
-          <CheckCircle className="h-24 w-24 mx-auto text-green-500 mb-6" />
-          <h1 className="text-3xl font-light mb-4">Pedido Confirmado!</h1>
-          <p className="text-gray-600 mb-8">
-            Seu pedido foi processado com sucesso. Você receberá um e-mail de confirmação em breve.
-          </p>
-
-          <Card className="text-left mb-8">
-            <CardHeader>
-              <CardTitle className="flex items-center space-x-2">
-                <span>Pedido #TS-2024-001</span>
-                <Badge className="bg-green-100 text-green-800">Confirmado</Badge>
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="flex justify-between">
-                <span>Total do pedido:</span>
-                <span className="font-semibold">R$ {total.toLocaleString()}</span>
-              </div>
-              <div className="flex justify-between">
-                <span>Forma de pagamento:</span>
-                <span>Cartão de crédito</span>
-              </div>
-              <div className="flex justify-between">
-                <span>Entrega prevista:</span>
-                <span>5-7 dias úteis</span>
-              </div>
-              <Separator />
-              <div className="space-y-2">
-                <h4 className="font-medium">Endereço de entrega:</h4>
-                <p className="text-sm text-gray-600">
-                  {formData.street}, {formData.number}
-                  <br />
-                  {formData.neighborhood} - {formData.city}, {formData.state}
-                  <br />
-                  CEP: {formData.cep}
-                </p>
-              </div>
-            </CardContent>
-          </Card>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/orders">
-              <Button variant="outline" size="lg">
-                Acompanhar Pedido
-              </Button>
-            </Link>
-            <Link href="/">
-              <Button size="lg" className="bg-black hover:bg-gray-800 text-white">
+            {/* Next Steps */}
+            <div className="bg-blue-50 rounded-lg p-4 mb-6 text-left">
+              <h4 className="font-semibold text-blue-900 mb-2">Próximos passos:</h4>
+              <ul className="text-sm text-blue-800 space-y-1">
+                <li>• Você receberá um email de confirmação</li>
+                <li>• Acompanhe seu pedido na área de pedidos</li>
+                <li>• Entrega em até 7 dias úteis</li>
+              </ul>
+            </div>
+            
+            <div className="flex gap-3 justify-center">
+              <Link href="/produtos" className="px-6 py-3 rounded-lg bg-gray-200 text-gray-700 font-medium hover:bg-gray-300 transition">
                 Continuar Comprando
-              </Button>
-            </Link>
+              </Link>
+              <button 
+                onClick={goToOrders}
+                className="px-6 py-3 rounded-lg bg-uss-primary text-white font-medium hover:bg-uss-secondary transition"
+              >
+                Ver Meus Pedidos
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -164,483 +107,106 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="pt-28 pb-20 min-h-screen bg-gray-50">
+      <div className="container mx-auto px-4 max-w-4xl">
+        <div className="flex items-center justify-between mb-6">
+          <Link href="/carrinho" className="text-sm text-uss-primary flex items-center gap-1">
+            <ArrowLeft className="h-4 w-4"/>Voltar ao Carrinho
+          </Link>
+          <h1 className="text-2xl font-bold text-gray-900">Checkout</h1>
+        </div>
 
-      {/* Progress Steps */}
-      <div className="bg-white border-b border-gray-200">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-between">
-            {[
-              { number: 1, title: "Dados Pessoais", icon: User },
-              { number: 2, title: "Entrega", icon: Truck },
-              { number: 3, title: "Pagamento", icon: CreditCard },
-              { number: 4, title: "Confirmação", icon: CheckCircle },
-            ].map((stepItem, index) => (
-              <div key={stepItem.number} className="flex items-center">
-                <div
-                  className={`flex items-center justify-center w-10 h-10 rounded-full border-2 ${
-                    step >= stepItem.number ? "bg-blue-600 border-blue-600 text-white" : "border-gray-300 text-gray-400"
-                  }`}
-                >
-                  <stepItem.icon className="h-5 w-5" />
+        <div className="grid md:grid-cols-3 gap-8">
+          {/* Cart Items */}
+          <div className="md:col-span-2 space-y-4">
+            {cartItems.length===0 && (
+              <div className="bg-white p-8 rounded-xl text-center border border-dashed">
+                <p className="text-sm text-gray-600 mb-3">Seu carrinho está vazio.</p>
+                <Link href="/produtos" className="text-uss-primary text-sm font-medium">Explorar produtos</Link>
+              </div>
+            )}
+            {cartItems.map(item=>(
+              <div key={item.id} className="bg-white p-4 rounded-lg flex gap-4 items-center border">
+                <div className="w-20 h-20 bg-gray-100 rounded flex items-center justify-center overflow-hidden">
+                  <img src={item.image} alt={item.name} className="object-contain w-full h-full" />
                 </div>
-                <div className="ml-3 hidden sm:block">
-                  <p className={`text-sm font-medium ${step >= stepItem.number ? "text-blue-600" : "text-gray-400"}`}>
-                    {stepItem.title}
-                  </p>
+                <div className="flex-1">
+                  <p className="font-medium text-sm text-gray-800 line-clamp-2">{item.name}</p>
+                  <p className="text-[11px] text-gray-500">Qtd: {item.quantity}</p>
+                  <div className="flex items-center gap-2 mt-2">
+                    <button onClick={()=>updateQuantity(item.id, Math.max(1,item.quantity-1))} className="px-2 py-1 text-xs border rounded">-</button>
+                    <span className="text-xs w-6 text-center">{item.quantity}</span>
+                    <button onClick={()=>updateQuantity(item.id, item.quantity+1)} className="px-2 py-1 text-xs border rounded">+</button>
+                  </div>
                 </div>
-                {index < 3 && (
-                  <div
-                    className={`hidden sm:block w-16 h-0.5 ml-4 ${
-                      step > stepItem.number ? "bg-blue-600" : "bg-gray-300"
-                    }`}
-                  />
-                )}
+                <div className="text-right">
+                  <p className="text-sm font-semibold text-uss-primary">R$ {(item.price*item.quantity).toLocaleString('pt-BR',{minimumFractionDigits:2})}</p>
+                  <button onClick={()=>removeFromCart(item.id)} className="mt-3 text-[11px] text-red-500 flex items-center gap-1"><Trash2 className="h-3 w-3"/>Remover</button>
+                </div>
               </div>
             ))}
           </div>
-        </div>
-      </div>
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid lg:grid-cols-3 gap-8">
-          {/* Main Content */}
-          <div className="lg:col-span-2">
-            {/* Step 1: Dados Pessoais */}
-            {step === 1 && (
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center space-x-2">
-                    <User className="h-5 w-5" />
-                    <span>Dados Pessoais</span>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <Label htmlFor="firstName">Nome *</Label>
-                      <Input
-                        id="firstName"
-                        value={formData.firstName}
-                        onChange={(e) => handleInputChange("firstName", e.target.value)}
-                        placeholder="João"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="lastName">Sobrenome *</Label>
-                      <Input
-                        id="lastName"
-                        value={formData.lastName}
-                        onChange={(e) => handleInputChange("lastName", e.target.value)}
-                        placeholder="Silva"
-                        required
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <Label htmlFor="email">E-mail *</Label>
-                    <Input
-                      id="email"
-                      type="email"
-                      value={formData.email}
-                      onChange={(e) => handleInputChange("email", e.target.value)}
-                      placeholder="joao@email.com"
-                      required
-                    />
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <Label htmlFor="phone">Telefone *</Label>
-                      <Input
-                        id="phone"
-                        value={formData.phone}
-                        onChange={(e) => handleInputChange("phone", formatPhone(e.target.value))}
-                        placeholder="(11) 99999-9999"
-                        maxLength={15}
-                        required
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="cpf">CPF *</Label>
-                      <Input
-                        id="cpf"
-                        value={formData.cpf}
-                        onChange={(e) => handleInputChange("cpf", formatCPF(e.target.value))}
-                        placeholder="000.000.000-00"
-                        maxLength={14}
-                        required
-                      />
-                    </div>
-                  </div>
-
-                  <Separator />
-
-                  <div>
-                    <h3 className="font-medium mb-4 flex items-center space-x-2">
-                      <MapPin className="h-5 w-5" />
-                      <span>Endereço de Entrega</span>
-                    </h3>
-
-                    <div className="space-y-4">
-                      <div className="grid grid-cols-3 gap-4">
-                        <div>
-                          <Label htmlFor="cep">CEP *</Label>
-                          <Input
-                            id="cep"
-                            value={formData.cep}
-                            onChange={(e) => handleInputChange("cep", formatCEP(e.target.value))}
-                            placeholder="00000-000"
-                            maxLength={9}
-                            required
-                          />
-                        </div>
-                        <div className="col-span-2">
-                          <Label htmlFor="street">Rua *</Label>
-                          <Input
-                            id="street"
-                            value={formData.street}
-                            onChange={(e) => handleInputChange("street", e.target.value)}
-                            placeholder="Rua das Flores"
-                            required
-                          />
-                        </div>
-                      </div>
-
-                      <div className="grid grid-cols-3 gap-4">
-                        <div>
-                          <Label htmlFor="number">Número *</Label>
-                          <Input
-                            id="number"
-                            value={formData.number}
-                            onChange={(e) => handleInputChange("number", e.target.value)}
-                            placeholder="123"
-                            required
-                          />
-                        </div>
-                        <div className="col-span-2">
-                          <Label htmlFor="complement">Complemento</Label>
-                          <Input
-                            id="complement"
-                            value={formData.complement}
-                            onChange={(e) => handleInputChange("complement", e.target.value)}
-                            placeholder="Apto 45"
-                          />
-                        </div>
-                      </div>
-
-                      <div>
-                        <Label htmlFor="neighborhood">Bairro *</Label>
-                        <Input
-                          id="neighborhood"
-                          value={formData.neighborhood}
-                          onChange={(e) => handleInputChange("neighborhood", e.target.value)}
-                          placeholder="Centro"
-                          required
-                        />
-                      </div>
-
-                      <div className="grid grid-cols-2 gap-4">
-                        <div>
-                          <Label htmlFor="city">Cidade *</Label>
-                          <Input
-                            id="city"
-                            value={formData.city}
-                            onChange={(e) => handleInputChange("city", e.target.value)}
-                            placeholder="São Paulo"
-                            required
-                          />
-                        </div>
-                        <div>
-                          <Label htmlFor="state">Estado *</Label>
-                          <Select value={formData.state} onValueChange={(value) => handleInputChange("state", value)}>
-                            <SelectTrigger>
-                              <SelectValue placeholder="Selecione" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value="SP">São Paulo</SelectItem>
-                              <SelectItem value="RJ">Rio de Janeiro</SelectItem>
-                              <SelectItem value="MG">Minas Gerais</SelectItem>
-                              <SelectItem value="RS">Rio Grande do Sul</SelectItem>
-                              {/* Adicionar outros estados */}
-                            </SelectContent>
-                          </Select>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            )}
-
-            {/* Step 2: Entrega */}
-            {step === 2 && (
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center space-x-2">
-                    <Truck className="h-5 w-5" />
-                    <span>Opções de Entrega</span>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <RadioGroup
-                    value={formData.deliveryMethod}
-                    onValueChange={(value) => handleInputChange("deliveryMethod", value)}
-                  >
-                    <div className="space-y-4">
-                      <div className="flex items-center space-x-3 p-4 border rounded-lg">
-                        <RadioGroupItem value="standard" id="standard" />
-                        <Label htmlFor="standard" className="flex-1 cursor-pointer">
-                          <div className="flex justify-between items-center">
-                            <div>
-                              <div className="font-medium">Entrega Padrão</div>
-                              <div className="text-sm text-gray-600">5-7 dias úteis</div>
-                            </div>
-                            <div className="text-green-600 font-medium">Grátis</div>
-                          </div>
-                        </Label>
-                      </div>
-
-                      <div className="flex items-center space-x-3 p-4 border rounded-lg">
-                        <RadioGroupItem value="express" id="express" />
-                        <Label htmlFor="express" className="flex-1 cursor-pointer">
-                          <div className="flex justify-between items-center">
-                            <div>
-                              <div className="font-medium">Entrega Expressa</div>
-                              <div className="text-sm text-gray-600">2-3 dias úteis</div>
-                            </div>
-                            <div className="font-medium">R$ 49,00</div>
-                          </div>
-                        </Label>
-                      </div>
-                    </div>
-                  </RadioGroup>
-
-                  <div className="mt-6">
-                    <Label htmlFor="notes">Observações para entrega</Label>
-                    <Textarea
-                      id="notes"
-                      value={formData.notes}
-                      onChange={(e) => handleInputChange("notes", e.target.value)}
-                      placeholder="Instruções especiais para o entregador..."
-                      rows={3}
-                    />
-                  </div>
-                </CardContent>
-              </Card>
-            )}
-
-            {/* Step 3: Pagamento */}
-            {step === 3 && (
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center space-x-2">
-                    <CreditCard className="h-5 w-5" />
-                    <span>Forma de Pagamento</span>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <RadioGroup
-                    value={formData.paymentMethod}
-                    onValueChange={(value) => handleInputChange("paymentMethod", value)}
-                  >
-                    <div className="space-y-4">
-                      <div className="flex items-center space-x-3 p-4 border rounded-lg">
-                        <RadioGroupItem value="credit" id="credit" />
-                        <Label htmlFor="credit" className="flex-1 cursor-pointer">
-                          <div className="flex items-center space-x-2">
-                            <CreditCard className="h-5 w-5" />
-                            <span className="font-medium">Cartão de Crédito</span>
-                          </div>
-                        </Label>
-                      </div>
-
-                      <div className="flex items-center space-x-3 p-4 border rounded-lg">
-                        <RadioGroupItem value="pix" id="pix" />
-                        <Label htmlFor="pix" className="flex-1 cursor-pointer">
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center space-x-2">
-                              <div className="w-5 h-5 bg-green-500 rounded"></div>
-                              <span className="font-medium">PIX</span>
-                            </div>
-                            <Badge className="bg-green-100 text-green-800">5% desconto</Badge>
-                          </div>
-                        </Label>
-                      </div>
-                    </div>
-                  </RadioGroup>
-
-                  {formData.paymentMethod === "credit" && (
-                    <div className="mt-6 space-y-4">
-                      <div>
-                        <Label htmlFor="cardNumber">Número do Cartão *</Label>
-                        <Input
-                          id="cardNumber"
-                          value={formData.cardNumber}
-                          onChange={(e) => handleInputChange("cardNumber", e.target.value)}
-                          placeholder="0000 0000 0000 0000"
-                          required
-                        />
-                      </div>
-
-                      <div>
-                        <Label htmlFor="cardName">Nome no Cartão *</Label>
-                        <Input
-                          id="cardName"
-                          value={formData.cardName}
-                          onChange={(e) => handleInputChange("cardName", e.target.value)}
-                          placeholder="João Silva"
-                          required
-                        />
-                      </div>
-
-                      <div className="grid grid-cols-2 gap-4">
-                        <div>
-                          <Label htmlFor="cardExpiry">Validade *</Label>
-                          <Input
-                            id="cardExpiry"
-                            value={formData.cardExpiry}
-                            onChange={(e) => handleInputChange("cardExpiry", e.target.value)}
-                            placeholder="MM/AA"
-                            maxLength={5}
-                            required
-                          />
-                        </div>
-                        <div>
-                          <Label htmlFor="cardCvv">CVV *</Label>
-                          <Input
-                            id="cardCvv"
-                            value={formData.cardCvv}
-                            onChange={(e) => handleInputChange("cardCvv", e.target.value)}
-                            placeholder="123"
-                            maxLength={4}
-                            required
-                          />
-                        </div>
-                      </div>
-
-                      <div>
-                        <Label htmlFor="installments">Parcelamento</Label>
-                        <Select
-                          value={formData.installments}
-                          onValueChange={(value) => handleInputChange("installments", value)}
-                        >
-                          <SelectTrigger>
-                            <SelectValue />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="1">1x de R$ {total.toLocaleString()} sem juros</SelectItem>
-                            <SelectItem value="2">2x de R$ {(total / 2).toLocaleString()} sem juros</SelectItem>
-                            <SelectItem value="3">3x de R$ {(total / 3).toLocaleString()} sem juros</SelectItem>
-                            <SelectItem value="6">6x de R$ {(total / 6).toLocaleString()} sem juros</SelectItem>
-                            <SelectItem value="12">12x de R$ {(total / 12).toLocaleString()} sem juros</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                    </div>
-                  )}
-
-                  {formData.paymentMethod === "pix" && (
-                    <div className="mt-6 p-4 bg-green-50 rounded-lg">
-                      <div className="flex items-center space-x-2 mb-2">
-                        <div className="w-4 h-4 bg-green-500 rounded"></div>
-                        <span className="font-medium text-green-800">Pagamento via PIX</span>
-                      </div>
-                      <p className="text-sm text-green-700">
-                        Após confirmar o pedido, você receberá o código PIX para pagamento. O pedido será processado
-                        após a confirmação do pagamento.
-                      </p>
-                    </div>
-                  )}
-                </CardContent>
-              </Card>
-            )}
-
-            {/* Navigation Buttons */}
-            <div className="flex justify-between mt-6">
-              <Button variant="outline" onClick={handlePreviousStep} disabled={step === 1}>
-                Voltar
-              </Button>
-
-              {step < 3 ? (
-                <Button onClick={handleNextStep}>Continuar</Button>
-              ) : (
-                <Button onClick={handleConfirmOrder} className="bg-green-600 hover:bg-green-700">
-                  <Lock className="h-4 w-4 mr-2" />
-                  Confirmar Pedido
-                </Button>
-              )}
-            </div>
-          </div>
-
-          {/* Order Summary Sidebar */}
-          <div className="lg:col-span-1">
-            <Card className="sticky top-8">
-              <CardHeader>
-                <CardTitle>Resumo do Pedido</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                {orderItems.map((item) => (
-                  <div key={item.id} className="flex items-center space-x-3">
-                    <Image
-                      src={item.image || "/placeholder.svg"}
-                      alt={item.name}
-                      width={60}
-                      height={60}
-                      className="rounded-lg object-cover"
-                    />
-                    <div className="flex-1">
-                      <h4 className="font-medium text-sm">{item.name}</h4>
-                      <p className="text-xs text-gray-600">{item.brand}</p>
-                      <p className="text-xs text-gray-600">
-                        {item.color} • {item.storage}
-                      </p>
-                      <p className="text-sm font-medium">R$ {item.price.toLocaleString()}</p>
-                    </div>
-                    <span className="text-sm text-gray-600">x{item.quantity}</span>
-                  </div>
-                ))}
-
-                <Separator />
-
-                <div className="space-y-2">
-                  <div className="flex justify-between text-sm">
+          {/* Checkout Summary */}
+          <div className="md:col-span-1">
+            <div className="bg-white p-6 rounded-xl shadow-sm border space-y-6">
+              {/* Order Summary */}
+              <div>
+                <h2 className="font-semibold text-gray-800 mb-4">Resumo do Pedido</h2>
+                <div className="space-y-3 text-sm">
+                  <div className="flex justify-between">
                     <span>Subtotal</span>
-                    <span>R$ {subtotal.toLocaleString()}</span>
+                    <span>R$ {cartTotal.toLocaleString('pt-BR',{minimumFractionDigits:2})}</span>
                   </div>
-                  <div className="flex justify-between text-sm">
-                    <span>Entrega</span>
-                    <span>{deliveryFee === 0 ? "Grátis" : `R$ ${deliveryFee.toLocaleString()}`}</span>
+                  <div className="flex justify-between">
+                    <span>Frete</span>
+                    <span className="text-green-600 font-medium">Grátis</span>
                   </div>
-                  {formData.paymentMethod === "pix" && (
-                    <div className="flex justify-between text-sm text-green-600">
-                      <span>Desconto PIX (5%)</span>
-                      <span>-R$ {(total * 0.05).toLocaleString()}</span>
-                    </div>
-                  )}
+                  <div className="flex justify-between text-lg font-semibold border-t pt-3">
+                    <span>Total</span>
+                    <span className="text-uss-primary">R$ {cartTotal.toLocaleString('pt-BR',{minimumFractionDigits:2})}</span>
+                  </div>
                 </div>
+              </div>
 
-                <Separator />
-
-                <div className="flex justify-between text-lg font-semibold">
-                  <span>Total</span>
-                  <span>
-                    R$ {formData.paymentMethod === "pix" ? (total * 0.95).toLocaleString() : total.toLocaleString()}
-                  </span>
+              {/* Delivery Info */}
+              <div className="border-t pt-4">
+                <div className="flex items-center gap-3 text-sm text-gray-600 mb-3">
+                  <Truck className="h-4 w-4 text-uss-primary" />
+                  <span>Entrega em até 7 dias úteis</span>
                 </div>
+                <div className="flex items-center gap-3 text-sm text-gray-600 mb-3">
+                  <MapPin className="h-4 w-4 text-uss-primary" />
+                  <span>Frete grátis para todo Brasil</span>
+                </div>
+                <div className="flex items-center gap-3 text-sm text-gray-600">
+                  <CreditCard className="h-4 w-4 text-uss-primary" />
+                  <span>Pagamento seguro</span>
+                </div>
+              </div>
 
-                {step === 3 && formData.paymentMethod === "credit" && (
-                  <div className="text-center text-sm text-gray-600">
-                    <p>ou {formData.installments}x de</p>
-                    <p className="font-medium">
-                      R$ {(total / Number.parseInt(formData.installments)).toLocaleString()}
-                    </p>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
+              {/* User Info */}
+              {!user && (
+                <div className="border-t pt-4">
+                  <p className="text-xs text-gray-500 mb-3">Você finalizará como visitante. Uma conta temporária será criada.</p>
+                </div>
+              )}
+
+              {/* Checkout Button */}
+              <button 
+                disabled={!canCheckout || processing} 
+                onClick={handleCreateOrder} 
+                className="w-full flex items-center justify-center gap-2 bg-uss-primary disabled:bg-gray-300 text-white text-sm py-3 rounded-lg font-medium hover:bg-uss-secondary transition-colors"
+              >
+                <ShoppingBag className="h-4 w-4"/>
+                {processing ? 'Processando...' : 'Finalizar Pedido'}
+              </button>
+
+              {/* Security Info */}
+              <div className="text-xs text-gray-500 text-center">
+                🔒 Pagamento 100% seguro e protegido
+              </div>
+            </div>
           </div>
         </div>
       </div>

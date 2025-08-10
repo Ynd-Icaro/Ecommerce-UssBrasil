@@ -154,7 +154,7 @@ export default function AnalyticsPage() {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="flex items-center space-x-2 bg-gradient-to-r from-[#0E7466] to-[#0C6157] 
+              className="flex items-center space-x-2 bg-gradient-to-r from-[#00CED1] to-[#40E0D0] 
                        text-white px-4 py-2.5 rounded-xl hover:shadow-lg transition-all"
             >
               <Download className="w-4 h-4" />
@@ -478,7 +478,7 @@ export default function AnalyticsPage() {
                 </div>
                 <div className="w-full h-3 bg-white/10 rounded-full">
                   <div 
-                    className="h-full bg-gradient-to-r from-[#0E7466] to-[#0C6157] rounded-full 
+                    className="h-full bg-gradient-to-r from-[#00CED1] to-[#1E3A8A] rounded-full 
                              transition-all duration-1000"
                     style={{ width: `${device.percentage}%` }}
                   />

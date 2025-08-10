@@ -78,7 +78,13 @@ export function QuickViewModal({ product, isOpen, onClose }: QuickViewModalProps
             {/* Badges */}
             <div className="absolute top-6 left-6 flex flex-col gap-2">
               {product.badge && (
-                <Badge className="bg-gradient-to-r from-blue-600 to-blue-700 text-white border-0 px-3 py-1.5 text-sm font-semibold shadow-lg">
+                <Badge 
+                  className="border-0 px-3 py-1.5 text-sm font-semibold text-white"
+                  style={{ 
+                    background: 'var(--uss-gradient-premium)',
+                    boxShadow: 'var(--uss-shadow-lg)'
+                  }}
+                >
                   {product.badge}
                 </Badge>
               )}
@@ -221,7 +227,19 @@ export function QuickViewModal({ product, isOpen, onClose }: QuickViewModalProps
             {/* Action Buttons */}
             <div className="space-y-4 mb-8">
               <div className="flex gap-3">
-                <Button className="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300">
+                <Button 
+                  className="flex-1 text-white py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105"
+                  style={{ 
+                    background: 'var(--uss-gradient-premium)',
+                    boxShadow: 'var(--uss-shadow-lg)'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.boxShadow = 'var(--uss-shadow-xl)'
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.boxShadow = 'var(--uss-shadow-lg)'
+                  }}
+                >
                   <ShoppingCart className="h-4 w-4 mr-2" />
                   Adicionar ao Carrinho
                 </Button>

@@ -26,7 +26,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#0C1A33] via-[#0E1B2E] to-[#1A365D]">
+    <div className="min-h-screen" style={{ background: 'var(--uss-gradient-dark)' }}>
       {/* Sidebar */}
       <AdminSidebar 
         collapsed={sidebarCollapsed}
@@ -46,13 +46,11 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
           sidebarCollapsed ? 'ml-20' : 'ml-72'
         }`}
       >
-        <div className="p-6">
-          {children}
-        </div>
+        <div className="p-6">{children}</div>
       </main>
 
       {/* Quick Action Modals */}
-      <QuickActionModals 
+      <QuickActionModals
         activeModal={activeModal}
         onClose={closeModal}
       />

@@ -147,34 +147,7 @@ export default function AdminOrdersPage() {
         zipCode: '01305-000'
       }
     },
-    {
-      id: '4',
-      number: '#12844',
-      customer: {
-        name: 'João Pereira',
-        email: 'joao.pereira@email.com'
-      },
-      items: [
-        {
-          id: '4',
-          name: 'Samsung Galaxy S24 Ultra',
-          quantity: 1,
-          price: 6999.99,
-          image: '/fallback-product.png'
-        }
-      ],
-      total: 6999.99,
-      status: 'pending',
-      paymentStatus: 'pending',
-      paymentMethod: 'Boleto',
-      createdAt: '2024-01-14T14:20:00Z',
-      shippingAddress: {
-        street: 'Rua do Comércio, 789',
-        city: 'Rio de Janeiro',
-        state: 'RJ',
-        zipCode: '20040-020'
-      }
-    },
+    
     {
       id: '5',
       number: '#12843',
@@ -373,7 +346,7 @@ export default function AdminOrdersPage() {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="flex items-center space-x-2 bg-gradient-to-r from-[#0E7466] to-[#0C6157] text-white px-6 py-2 rounded-xl shadow-lg hover:shadow-xl transition-all"
+            className="flex items-center space-x-2 bg-gradient-to-r from-[#00CED1] to-[#40E0D0] text-white px-6 py-2 rounded-xl shadow-lg hover:shadow-xl transition-all"
           >
             <Plus className="w-4 h-4" />
             <span>Novo Pedido</span>
@@ -571,7 +544,7 @@ export default function AdminOrdersPage() {
                     </td>
                     <td className="p-4">
                       <div className="flex items-center space-x-3">
-                        <div className="w-8 h-8 rounded-full bg-gradient-to-r from-[#0E7466] to-[#0C6157] flex items-center justify-center text-white text-sm font-medium">
+                        <div className="w-8 h-8 rounded-full bg-gradient-to-r from-[#00CED1] to-[#1E3A8A] flex items-center justify-center text-white text-sm font-medium">
                           {order.customer.name.charAt(0)}
                         </div>
                         <div>

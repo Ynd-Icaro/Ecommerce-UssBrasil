@@ -35,10 +35,11 @@ const fixPath = (path: string) => {
   return path
 }
 
-const products = data.products.map(p => ({
+const products = data.products.map((p: any) => ({
   ...p,
   image: fixPath(p.image),
-  images: p.images?.map(fixPath) || [fixPath(p.image)]
+  images: p.images?.map(fixPath) || [fixPath(p.image)],
+  reviews: p.reviews || { average: 0, count: 0 }
 }))
 
 // Produtos VIP (produtos mais caros e com desconto)
@@ -112,14 +113,26 @@ export default function VIPPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-uss-gray-900 via-uss-primary-dark to-uss-gray-900">
+    <div 
+      className="min-h-screen"
+      style={{ background: 'var(--uss-bg-gradient)' }}
+    >
       {/* Hero Section VIP */}
       <section className="relative overflow-hidden">
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0 bg-gradient-to-r from-uss-secondary/20 to-transparent" />
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-uss-secondary/5 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-uss-primary/5 rounded-full blur-3xl" />
+          <div 
+            className="absolute inset-0"
+            style={{ background: 'linear-gradient(to right, var(--uss-secondary-alpha), transparent)' }}
+          />
+          <div 
+            className="absolute top-0 left-1/4 w-96 h-96 rounded-full blur-3xl"
+            style={{ background: 'var(--uss-secondary-alpha)' }}
+          />
+          <div 
+            className="absolute bottom-0 right-1/4 w-96 h-96 rounded-full blur-3xl"
+            style={{ background: 'var(--uss-primary-alpha)' }}
+          />
         </div>
 
         <div className="relative z-10 container mx-auto px-4 py-20">
@@ -127,11 +140,13 @@ export default function VIPPage() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-center text-white max-w-4xl mx-auto"
+            className="text-center max-w-4xl mx-auto"
+            style={{ color: 'var(--uss-text)' }}
           >
             {/* Crown Icon */}
             <motion.div
-              className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-uss-warning to-uss-secondary rounded-full mb-8"
+              className="inline-flex items-center justify-center w-20 h-20 rounded-full mb-8"
+              style={{ background: 'var(--uss-gradient-primary)' }}
               animate={{ 
                 scale: [1, 1.1, 1],
                 rotate: [0, 5, -5, 0]
@@ -142,14 +157,17 @@ export default function VIPPage() {
                 ease: "easeInOut"
               }}
             >
-              <Crown className="h-10 w-10 text-white" />
+              <Crown className="h-10 w-10" style={{ color: 'var(--uss-text)' }} />
             </motion.div>
 
             <h1 className="text-6xl md:text-8xl font-bold mb-6">
-              Área <span className="text-transparent bg-clip-text bg-gradient-to-r from-uss-warning to-uss-secondary">VIP</span>
+              Área <span 
+                className="text-transparent bg-clip-text"
+                style={{ backgroundImage: 'var(--uss-gradient-primary)' }}
+              >VIP</span>
             </h1>
             
-            <p className="text-2xl md:text-3xl text-uss-off-white mb-8">
+            <p className="text-2xl md:text-3xl mb-8" style={{ color: 'var(--uss-text-light)' }}>
               Experiência Exclusiva & Benefícios Premium
             </p>
 
@@ -157,7 +175,11 @@ export default function VIPPage() {
               {!isVipMember ? (
                 <>
                   <motion.button
-                    className="bg-gradient-to-r from-uss-warning to-uss-secondary text-uss-gray-900 font-bold px-8 py-4 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl"
+                    className="font-bold px-8 py-4 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl"
+                    style={{
+                      background: 'var(--uss-gradient-primary)',
+                      color: 'var(--uss-text)'
+                    }}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => setIsVipMember(true)}
@@ -166,18 +188,38 @@ export default function VIPPage() {
                   </motion.button>
                   <Link
                     href="#benefits"
-                    className="border-2 border-uss-secondary text-uss-secondary font-semibold px-8 py-4 rounded-xl transition-all duration-300 hover:bg-uss-secondary hover:text-white"
+                    className="border-2 font-semibold px-8 py-4 rounded-xl transition-all duration-300"
+                    style={{
+                      borderColor: 'var(--uss-secondary)',
+                      color: 'var(--uss-secondary)'
+                    }}
+                    onMouseEnter={(e) => {
+                      const target = e.target as HTMLElement;
+                      target.style.background = 'var(--uss-secondary)';
+                      target.style.color = 'var(--uss-text)';
+                    }}
+                    onMouseLeave={(e) => {
+                      const target = e.target as HTMLElement;
+                      target.style.background = 'transparent';
+                      target.style.color = 'var(--uss-secondary)';
+                    }}
                   >
                     Ver Benefícios
                   </Link>
                 </>
               ) : (
-                <div className="bg-gradient-to-r from-uss-warning/20 to-uss-secondary/20 backdrop-blur-sm border border-uss-warning/30 rounded-xl p-6">
+                <div 
+                  className="backdrop-blur-sm border rounded-xl p-6"
+                  style={{
+                    background: 'var(--uss-primary-alpha)',
+                    borderColor: 'var(--uss-primary)'
+                  }}
+                >
                   <div className="flex items-center space-x-3 mb-2">
-                    <Crown className="h-6 w-6 text-uss-warning" />
-                    <span className="text-uss-warning font-semibold">Status: VIP ATIVO</span>
+                    <Crown className="h-6 w-6" style={{ color: 'var(--uss-primary)' }} />
+                    <span className="font-semibold" style={{ color: 'var(--uss-primary)' }}>Status: VIP ATIVO</span>
                   </div>
-                  <p className="text-uss-off-white">Bem-vindo de volta! Aproveite seus benefícios exclusivos.</p>
+                  <p style={{ color: 'var(--uss-text-light)' }}>Bem-vindo de volta! Aproveite seus benefícios exclusivos.</p>
                 </div>
               )}
             </div>
@@ -195,10 +237,11 @@ export default function VIPPage() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className="bg-white/10 backdrop-blur-sm rounded-lg p-4"
+                  className="backdrop-blur-sm rounded-lg p-4"
+                  style={{ background: 'var(--uss-surface-alpha)' }}
                 >
-                  <div className="text-2xl font-bold text-uss-secondary">{stat.value}</div>
-                  <div className="text-sm text-uss-off-white">{stat.label}</div>
+                  <div className="text-2xl font-bold" style={{ color: 'var(--uss-secondary)' }}>{stat.value}</div>
+                  <div className="text-sm" style={{ color: 'var(--uss-text-light)' }}>{stat.label}</div>
                 </motion.div>
               ))}
             </div>
@@ -207,7 +250,7 @@ export default function VIPPage() {
       </section>
 
       {/* Ofertas Limitadas VIP */}
-      <section className="py-16 bg-uss-gray-900/50">
+      <section className="py-16" style={{ background: 'var(--uss-surface-alpha)' }}>
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -216,18 +259,27 @@ export default function VIPPage() {
             transition={{ duration: 0.6 }}
             className="text-center mb-12"
           >
-            <div className="inline-flex items-center space-x-2 bg-uss-error/20 text-uss-error px-4 py-2 rounded-full mb-4">
+            <div 
+              className="inline-flex items-center space-x-2 px-4 py-2 rounded-full mb-4"
+              style={{
+                background: 'var(--uss-secondary-alpha)',
+                color: 'var(--uss-secondary)'
+              }}
+            >
               <Timer className="h-4 w-4" />
               <span className="font-semibold">OFERTA LIMITADA</span>
             </div>
             
-            <h2 className="text-4xl font-bold text-white mb-4">
-              Produtos <span className="text-transparent bg-clip-text bg-gradient-to-r from-uss-warning to-uss-secondary">Exclusivos VIP</span>
+            <h2 className="text-4xl font-bold mb-4" style={{ color: 'var(--uss-text)' }}>
+              Produtos <span 
+                className="text-transparent bg-clip-text"
+                style={{ backgroundImage: 'var(--uss-gradient-primary)' }}
+              >Exclusivos VIP</span>
             </h2>
             
             {/* Countdown Timer */}
             <div className="flex items-center justify-center space-x-4 mb-8">
-              <span className="text-white">Termina em:</span>
+              <span style={{ color: 'var(--uss-text)' }}>Termina em:</span>
               <div className="flex items-center space-x-2">
                 {[
                   { value: timeLeft.hours, label: 'Horas' },
@@ -235,11 +287,17 @@ export default function VIPPage() {
                   { value: timeLeft.seconds, label: 'Seg' }
                 ].map((time, index) => (
                   <div key={time.label} className="flex items-center">
-                    <div className="bg-uss-error text-white px-3 py-2 rounded-lg font-bold min-w-[50px]">
+                    <div 
+                      className="px-3 py-2 rounded-lg font-bold min-w-[50px]"
+                      style={{
+                        background: 'var(--uss-secondary)',
+                        color: 'var(--uss-text)'
+                      }}
+                    >
                       {time.value.toString().padStart(2, '0')}
                     </div>
-                    <div className="text-xs text-uss-gray-400 ml-1">{time.label}</div>
-                    {index < 2 && <span className="text-uss-gray-400 mx-2">:</span>}
+                    <div className="text-xs ml-1" style={{ color: 'var(--uss-text-secondary)' }}>{time.label}</div>
+                    {index < 2 && <span className="mx-2" style={{ color: 'var(--uss-text-secondary)' }}>:</span>}
                   </div>
                 ))}
               </div>
@@ -268,7 +326,7 @@ export default function VIPPage() {
       </section>
 
       {/* Benefícios VIP */}
-      <section id="benefits" className="py-16 bg-white dark:bg-uss-gray-800">
+      <section id="benefits" className="py-16" style={{ background: 'var(--uss-bg)' }}>
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -277,10 +335,13 @@ export default function VIPPage() {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl font-bold text-uss-gray-900 dark:text-white mb-4">
-              Benefícios <span className="text-transparent bg-clip-text bg-gradient-to-r from-uss-warning to-uss-secondary">Exclusivos</span>
+            <h2 className="text-4xl font-bold mb-4" style={{ color: 'var(--uss-text-light)' }}>
+              Benefícios <span 
+                className="text-transparent bg-clip-text"
+                style={{ backgroundImage: 'var(--uss-gradient-primary)' }}
+              >Exclusivos</span>
             </h2>
-            <p className="text-xl text-uss-gray-600 dark:text-uss-gray-400 max-w-2xl mx-auto">
+            <p className="text-xl max-w-2xl mx-auto" style={{ color: 'var(--uss-text-secondary)' }}>
               Descubra todas as vantagens de ser um membro VIP da USS Brasil
             </p>
           </motion.div>
@@ -293,21 +354,37 @@ export default function VIPPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="group relative bg-uss-off-white dark:bg-uss-gray-700 rounded-xl p-6 hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-uss-gray-300 dark:border-uss-gray-600 overflow-hidden"
+                className="group relative rounded-xl p-6 hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border overflow-hidden"
+                style={{
+                  background: 'var(--uss-bg-light)',
+                  borderColor: 'var(--uss-border)'
+                }}
               >
                 {/* Background Gradient */}
-                <div className="absolute inset-0 bg-gradient-to-br from-uss-warning/5 to-uss-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div 
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  style={{ background: 'var(--uss-gradient-light)' }}
+                />
                 
                 <div className="relative z-10">
-                  <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-uss-warning to-uss-secondary rounded-xl text-white mb-4 group-hover:scale-110 transition-transform duration-300">
+                  <div 
+                    className="inline-flex items-center justify-center w-16 h-16 rounded-xl mb-4 group-hover:scale-110 transition-transform duration-300"
+                    style={{
+                      background: 'var(--uss-gradient-primary)',
+                      color: 'var(--uss-text)'
+                    }}
+                  >
                     {benefit.icon}
                   </div>
                   
-                  <h3 className="text-xl font-semibold text-uss-gray-900 dark:text-white mb-3 group-hover:text-uss-primary dark:group-hover:text-uss-secondary transition-colors">
+                  <h3 
+                    className="text-xl font-semibold mb-3 transition-colors"
+                    style={{ color: 'var(--uss-text-light)' }}
+                  >
                     {benefit.title}
                   </h3>
                   
-                  <p className="text-uss-gray-600 dark:text-uss-gray-400">
+                  <p style={{ color: 'var(--uss-text-secondary)' }}>
                     {benefit.description}
                   </p>
                 </div>
@@ -375,51 +452,59 @@ export default function VIPPage() {
 
       {/* Histórico e Pontos VIP */}
       {isVipMember && (
-        <section className="py-16 bg-gradient-to-r from-uss-primary to-uss-primary-dark">
+        <section className="py-16" style={{ background: 'var(--uss-gradient-primary)' }}>
           <div className="container mx-auto px-4">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20"
+              className="backdrop-blur-sm rounded-2xl p-8 border"
+              style={{
+                background: 'var(--uss-surface-alpha)',
+                borderColor: 'var(--uss-border-light)'
+              }}
             >
               <div className="text-center mb-8">
-                <h2 className="text-3xl font-bold text-white mb-4">
+                <h2 className="text-3xl font-bold mb-4" style={{ color: 'var(--uss-text)' }}>
                   Seu Dashboard VIP
                 </h2>
-                <p className="text-uss-off-white">
+                <p style={{ color: 'var(--uss-text-light)' }}>
                   Acompanhe seus benefícios e histórico exclusivo
                 </p>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {/* Pontos VIP */}
-                <div className="bg-white/10 rounded-xl p-6 text-center">
-                  <Award className="h-12 w-12 text-uss-warning mx-auto mb-4" />
-                  <h3 className="text-2xl font-bold text-white mb-2">2.540</h3>
-                  <p className="text-uss-off-white">Pontos VIP</p>
+                <div className="rounded-xl p-6 text-center" style={{ background: 'var(--uss-surface-alpha)' }}>
+                  <Award className="h-12 w-12 mx-auto mb-4" style={{ color: 'var(--uss-primary)' }} />
+                  <h3 className="text-2xl font-bold mb-2" style={{ color: 'var(--uss-text)' }}>2.540</h3>
+                  <p style={{ color: 'var(--uss-text-light)' }}>Pontos VIP</p>
                 </div>
 
                 {/* Economia Total */}
-                <div className="bg-white/10 rounded-xl p-6 text-center">
-                  <TrendingUp className="h-12 w-12 text-uss-secondary mx-auto mb-4" />
-                  <h3 className="text-2xl font-bold text-white mb-2">R$ 3.240</h3>
-                  <p className="text-uss-off-white">Economia Total</p>
+                <div className="rounded-xl p-6 text-center" style={{ background: 'var(--uss-surface-alpha)' }}>
+                  <TrendingUp className="h-12 w-12 mx-auto mb-4" style={{ color: 'var(--uss-secondary)' }} />
+                  <h3 className="text-2xl font-bold mb-2" style={{ color: 'var(--uss-text)' }}>R$ 3.240</h3>
+                  <p style={{ color: 'var(--uss-text-light)' }}>Economia Total</p>
                 </div>
 
                 {/* Compras VIP */}
-                <div className="bg-white/10 rounded-xl p-6 text-center">
-                  <ShoppingBag className="h-12 w-12 text-uss-warning mx-auto mb-4" />
-                  <h3 className="text-2xl font-bold text-white mb-2">12</h3>
-                  <p className="text-uss-off-white">Compras VIP</p>
+                <div className="rounded-xl p-6 text-center" style={{ background: 'var(--uss-surface-alpha)' }}>
+                  <ShoppingBag className="h-12 w-12 mx-auto mb-4" style={{ color: 'var(--uss-primary)' }} />
+                  <h3 className="text-2xl font-bold mb-2" style={{ color: 'var(--uss-text)' }}>12</h3>
+                  <p style={{ color: 'var(--uss-text-light)' }}>Compras VIP</p>
                 </div>
               </div>
 
               <div className="flex items-center justify-center mt-8">
                 <Link
                   href="/profile/vip"
-                  className="bg-uss-secondary hover:bg-uss-secondary-dark text-white font-semibold px-6 py-3 rounded-xl transition-all duration-300"
+                  className="font-semibold px-6 py-3 rounded-xl transition-all duration-300 hover:shadow-lg transform hover:-translate-y-0.5"
+                  style={{
+                    background: 'var(--uss-secondary)',
+                    color: 'var(--uss-text)'
+                  }}
                 >
                   Gerenciar Plano VIP
                 </Link>
@@ -431,40 +516,48 @@ export default function VIPPage() {
 
       {/* Call to Action Final */}
       {!isVipMember && (
-        <section className="py-16 bg-gradient-to-r from-uss-gray-900 via-uss-primary-dark to-uss-gray-900">
+        <section className="py-16" style={{ background: 'var(--uss-bg-gradient)' }}>
           <div className="container mx-auto px-4 text-center">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="max-w-3xl mx-auto text-white"
+              className="max-w-3xl mx-auto"
+              style={{ color: 'var(--uss-text)' }}
             >
-              <Crown className="h-16 w-16 text-uss-warning mx-auto mb-6" />
+              <Crown className="h-16 w-16 mx-auto mb-6" style={{ color: 'var(--uss-primary)' }} />
               <h2 className="text-4xl font-bold mb-4">
                 Pronto para a Experiência VIP?
               </h2>
-              <p className="text-xl text-uss-off-white mb-8">
+              <p className="text-xl mb-8" style={{ color: 'var(--uss-text-light)' }}>
                 Junte-se aos milhares de clientes que já descobriram o que é ser tratado como realeza
               </p>
               
-              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 mb-8">
+              <div 
+                className="backdrop-blur-sm rounded-xl p-6 mb-8"
+                style={{ background: 'var(--uss-surface-alpha)' }}
+              >
                 <div className="flex items-center justify-center space-x-8 text-center">
                   <div>
-                    <div className="text-2xl font-bold text-uss-secondary">R$ 49,90</div>
-                    <div className="text-sm text-uss-off-white">por mês</div>
+                    <div className="text-2xl font-bold" style={{ color: 'var(--uss-secondary)' }}>R$ 49,90</div>
+                    <div className="text-sm" style={{ color: 'var(--uss-text-light)' }}>por mês</div>
                   </div>
-                  <div className="text-uss-gray-400">ou</div>
+                  <div style={{ color: 'var(--uss-text-secondary)' }}>ou</div>
                   <div>
-                    <div className="text-2xl font-bold text-uss-warning">R$ 399,90</div>
-                    <div className="text-sm text-uss-off-white">por ano (33% OFF)</div>
+                    <div className="text-2xl font-bold" style={{ color: 'var(--uss-primary)' }}>R$ 399,90</div>
+                    <div className="text-sm" style={{ color: 'var(--uss-text-light)' }}>por ano (33% OFF)</div>
                   </div>
                 </div>
               </div>
 
               <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4">
                 <motion.button
-                  className="bg-gradient-to-r from-uss-warning to-uss-secondary text-uss-gray-900 font-bold px-8 py-4 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl"
+                  className="font-bold px-8 py-4 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl"
+                  style={{
+                    background: 'var(--uss-gradient-primary)',
+                    color: 'var(--uss-text)'
+                  }}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => setIsVipMember(true)}

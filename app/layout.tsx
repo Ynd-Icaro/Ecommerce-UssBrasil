@@ -1,13 +1,15 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import FixedNavbar from '@/components/navbar-fixed'
+import { SessionProvider } from 'next-auth/react'
+import NavbarEnhanced from '@/components/navbar-enhanced'
 import ModernFooter from '@/components/navigation/modern-footer'
 import ToastWrapper from '@/components/toast-wrapper'
 import GlobalModals from '@/components/modals'
 import { ThemeProvider } from '@/hooks/use-theme'
 import { Toaster } from 'sonner'
 import { CartProvider } from '@/contexts/CartContext'
-import { FavoritesProvider } from '@/contexts/FavoritesContext'
+
+import { AuthProvider } from '@/contexts/AuthContext'
 import { ModalProvider } from '@/contexts/ModalContext'
 import './globals.css'
 
@@ -41,7 +43,7 @@ export const metadata: Metadata = {
     siteName: 'USS Brasil',
     images: [
       {
-        url: '/Empresa/02.png',
+        url: '/public/Empresa/02.png',
         width: 800,
         height: 600,
         alt: 'USS Brasil - Logo',
@@ -52,7 +54,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'USS Brasil - Produtos Premium & Tecnologia de Ponta',
     description: 'Descubra os melhores produtos Apple, JBL, DJI, Xiaomi e Geonav. Tecnologia premium com entrega expressa e garantia oficial.',
-    images: ['/Empresa/02.png'],
+    images: ['/public/Empresa/02.png'],
   },
   robots: {
     index: true,
@@ -84,19 +86,21 @@ export default function RootLayout({
     <html lang="pt-BR">
       <body className={inter.className}>
         <ThemeProvider>
-          <FavoritesProvider>
-            <CartProvider>
-              <ModalProvider>
-                <Toaster position="top-center" richColors />
-                <FixedNavbar />
-                <main className="min-h-screen">
-                  {children}
-                </main>
-                <ModernFooter />
-                <GlobalModals />
-              </ModalProvider>
-            </CartProvider>
-          </FavoritesProvider>
+          <SessionProvider>
+            <AuthProvider>
+                <CartProvider>
+                  <ModalProvider>
+                    <Toaster position="top-center" richColors />
+                    <NavbarEnhanced />
+                    <main className="min-h-screen">
+                      {children}
+                    </main>
+                    <ModernFooter />
+                    <GlobalModals />
+                  </ModalProvider>
+                </CartProvider>
+            </AuthProvider>
+          </SessionProvider>
         </ThemeProvider>
         <ToastWrapper />
       </body>

@@ -7,7 +7,7 @@ import { Star, Heart, ShoppingCart, Plus, Minus } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { useCart } from '@/contexts/CartContext'
-import { useFavorites } from '@/contexts/FavoritesContext'
+import { useAuth } from '@/contexts/AuthContext'
 import ProductImage from '@/components/ProductImage'
 
 export interface Product {
@@ -37,7 +37,8 @@ const formatPrice = (price: number) =>
 
 export function ProductCard({ product, className = '' }: ProductCardProps) {
   const { addToCart, getItemQuantity, updateQuantity } = useCart()
-  const { toggleFavorite, isFavorite } = useFavorites()
+  const { toggleFavorite, favorites } = useAuth()
+  const isFavorite = (productId: string) => favorites.includes(productId)
 
   if (!product || typeof product.id !== 'number') {
     return (
@@ -50,7 +51,7 @@ export function ProductCard({ product, className = '' }: ProductCardProps) {
   }
 
   const quantityInCart = getItemQuantity(product.id)
-  const favorite = isFavorite(product.id)
+  const favorite = isFavorite(String(product.id))
   const discountPercentage =
     product.originalPrice
       ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
@@ -77,7 +78,7 @@ export function ProductCard({ product, className = '' }: ProductCardProps) {
             size="icon"
             variant="ghost"
             className="rounded-full h-10 w-10 bg-white/80 backdrop-blur-md hover:bg-white shadow"
-            onClick={() => toggleFavorite(product.id)}
+            onClick={() => toggleFavorite(String(product.id))}
             aria-label={favorite ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}
           >
             <Heart className={`h-6 w-6 transition-all ${favorite ? 'text-red-500 fill-current' : 'text-gray-400'}`} />

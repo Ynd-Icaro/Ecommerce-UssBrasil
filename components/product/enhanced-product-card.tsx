@@ -15,8 +15,10 @@ import {
   Truck,
   Badge,
   Sparkles,
-  TrendingUp
+  TrendingUp,
+  Crown
 } from 'lucide-react'
+import { cn } from '@/lib/utils'
 
 interface Product {
   id: string
@@ -34,10 +36,15 @@ interface Product {
   discount?: number
   isNew?: boolean
   stock?: number
+  vip?: boolean
 }
 
 interface EnhancedProductCardProps {
   product: Product
+  layout?: 'grid' | 'list'
+  size?: 'sm' | 'md' | 'lg'
+  className?: string
+  onProductClick?: (product: Product) => void
 }
 
 const formatPrice = (price: number) =>
@@ -214,7 +221,9 @@ const EnhancedProductCard: FC<EnhancedProductCardProps> = ({ product }) => {
               className={`w-full flex items-center justify-center gap-3 px-4 py-3 rounded-xl font-semibold transition-all duration-300 ${
                 isInCart
                   ? 'bg-green-500 text-white shadow-lg shadow-green-500/25'
-                  : 'bg-white text-gray-900 hover:bg-uss-primary hover:text-white shadow-lg'
+                  : `bg-white text-gray-900 shadow-lg transition-all duration-300 ${isHovered ? 'hover:text-white' : ''}`
+              }}
+              style={!isInCart && isHovered ? { background: 'var(--uss-gradient-premium)' } : {}}
               }`}
             >
               <ShoppingCart className="h-5 w-5" />
@@ -232,7 +241,8 @@ const EnhancedProductCard: FC<EnhancedProductCardProps> = ({ product }) => {
           <motion.div
             initial={{ opacity: 0.7 }}
             animate={{ opacity: isHovered ? 1 : 0.7 }}
-            className="text-sm font-medium text-uss-primary mb-2"
+            className="text-sm font-medium mb-2"
+            style={{ color: 'var(--uss-primary)' }}
           >
             {product.brand}
           </motion.div>
@@ -242,7 +252,8 @@ const EnhancedProductCard: FC<EnhancedProductCardProps> = ({ product }) => {
             initial={{ y: 0 }}
             animate={{ y: isHovered ? -2 : 0 }}
             transition={{ duration: 0.3 }}
-            className="font-semibold text-gray-900 mb-3 line-clamp-2 text-lg leading-tight group-hover:text-uss-primary transition-colors duration-300"
+            className="font-semibold text-gray-900 mb-3 line-clamp-2 text-lg leading-tight transition-colors duration-300"
+            style={{ color: isHovered ? 'var(--uss-primary)' : '#111827' }}
           >
             {product.name}
           </motion.h3>
@@ -310,7 +321,11 @@ const EnhancedProductCard: FC<EnhancedProductCardProps> = ({ product }) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: isHovered ? 1 : 0 }}
           transition={{ duration: 0.5 }}
-          className="absolute inset-0 bg-gradient-to-r from-uss-primary/5 to-uss-secondary/5 rounded-3xl pointer-events-none"
+          className="absolute inset-0 rounded-3xl pointer-events-none transition-opacity duration-500"
+          style={{
+            background: 'var(--uss-gradient-premium)',
+            opacity: 0.05
+          }}
         />
 
         {/* Bottom Accent */}
@@ -318,7 +333,8 @@ const EnhancedProductCard: FC<EnhancedProductCardProps> = ({ product }) => {
           initial={{ scaleX: 0 }}
           animate={{ scaleX: isHovered ? 1 : 0 }}
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-uss-primary to-uss-secondary origin-left rounded-b-3xl"
+          className="absolute bottom-0 left-0 right-0 h-1 origin-left rounded-b-3xl"
+          style={{ background: 'var(--uss-gradient-premium)' }}
         />
       </Link>
     </motion.div>

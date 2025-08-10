@@ -127,7 +127,17 @@ export default function RotatingBanner({ categorySlug, videos }: RotatingBannerP
             {/* Play Button */}
             <button
               onClick={() => playVideo(currentVideo.videoUrl)}
-              className="inline-flex items-center space-x-3 bg-gradient-to-r from-[#20b2aa] to-[#1a9999] text-white px-8 py-4 rounded-full font-semibold text-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
+              className="inline-flex items-center space-x-3 text-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 transform hover:scale-105"
+              style={{ 
+                background: 'var(--uss-gradient-premium)',
+                boxShadow: 'var(--uss-shadow-2xl)'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.boxShadow = 'var(--uss-shadow-glow)'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.boxShadow = 'var(--uss-shadow-2xl)'
+              }}
             >
               <Play className="h-6 w-6" />
               <span>Assistir Vídeo</span>

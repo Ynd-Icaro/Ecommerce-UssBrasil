@@ -115,15 +115,7 @@ export default function AdminDashboard() {
       growth: 8.7,
       image: '/fallback-product.png'
     },
-    {
-      id: '3',
-      name: 'Samsung Galaxy S24 Ultra',
-      category: 'Smartphones',
-      sales: 156,
-      revenue: 187200,
-      growth: 22.4,
-      image: '/fallback-product.png'
-    },
+
     {
       id: '4',
       name: 'AirPods Pro 3ª Geração',

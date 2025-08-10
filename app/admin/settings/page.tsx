@@ -119,7 +119,7 @@ export default function AdminSettingsPage() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={handleSave}
-            className="flex items-center space-x-2 bg-gradient-to-r from-[#0E7466] to-[#0C6157] 
+            className="flex items-center space-x-2 bg-gradient-to-r from-[#00CED1] to-[#40E0D0] 
                      text-white px-6 py-2.5 rounded-xl font-medium hover:shadow-lg transition-all"
           >
             <Save className="w-5 h-5" />

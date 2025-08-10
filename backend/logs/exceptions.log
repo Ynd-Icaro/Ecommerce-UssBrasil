@@ -1,0 +1,634 @@
+{
+  error: [96msrc/controllers/product.controller.ts[0m:[93m196[0m:[93m11[0m - [91merror[0m[90m TS2353: [0mObject literal may only specify known properties, and 'isActive' does not exist in type 'ProductWhereInput'.
+  
+  [7m196[0m           isActive: true
+  [7m   [0m [91m          ~~~~~~~~[0m
+  [96msrc/controllers/product.controller.ts[0m:[93m301[0m:[93m11[0m - [91merror[0m[90m TS2353: [0mObject literal may only specify known properties, and 'sku' does not exist in type '(Without<ProductCreateInput, ProductUncheckedCreateInput> & ProductUncheckedCreateInput) | (Without<...> & ProductCreateInput)'.
+  
+  [7m301[0m           sku,
+  [7m   [0m [91m          ~~~[0m
+  
+    [96mnode_modules/.prisma/client/index.d.ts[0m:[93m9475[0m:[93m5[0m
+      [7m9475[0m     data: XOR<ProductCreateInput, ProductUncheckedCreateInput>
+      [7m    [0m [96m    ~~~~[0m
+      The expected type comes from property 'data' which is declared here on type '{ select?: ProductSelect<DefaultArgs> | null | undefined; omit?: ProductOmit<DefaultArgs> | null | undefined; include?: ProductInclude<...> | ... 1 more ... | undefined; data: (Without<...> & ProductUncheckedCreateInput) | (Without<...> & ProductCreateInput); }'
+  [96msrc/controllers/product.controller.ts[0m:[93m446[0m:[93m19[0m - [91merror[0m[90m TS2353: [0mObject literal may only specify known properties, and 'isActive' does not exist in type 'ProductSelect<DefaultArgs>'.
+  
+  [7m446[0m         select: { isActive: true }
+  [7m   [0m [91m                  ~~~~~~~~[0m
+  
+    [96mnode_modules/.prisma/client/index.d.ts[0m:[93m9268[0m:[93m5[0m
+      [7m9268[0m     select?: ProductSelect<ExtArgs> | null
+      [7m    [0m [96m    ~~~~~~[0m
+      The expected type comes from property 'select' which is declared here on type '{ select?: ProductSelect<DefaultArgs> | null | undefined; omit?: ProductOmit<DefaultArgs> | null | undefined; include?: ProductInclude<...> | ... 1 more ... | undefined; where: ProductWhereUniqueInput; }'
+  [96msrc/controllers/product.controller.ts[0m:[93m458[0m:[93m17[0m - [91merror[0m[90m TS2353: [0mObject literal may only specify known properties, and 'isActive' does not exist in type '(Without<ProductUpdateInput, ProductUncheckedUpdateInput> & ProductUncheckedUpdateInput) | (Without<...> & ProductUpdateInput)'.
+  
+  [7m458[0m         data: { isActive: !product.isActive },
+  [7m   [0m [91m                ~~~~~~~~[0m
+  
+    [96mnode_modules/.prisma/client/index.d.ts[0m:[93m9529[0m:[93m5[0m
+      [7m9529[0m     data: XOR<ProductUpdateInput, ProductUncheckedUpdateInput>
+      [7m    [0m [96m    ~~~~[0m
+      The expected type comes from property 'data' which is declared here on type '{ select?: ProductSelect<DefaultArgs> | null | undefined; omit?: ProductOmit<DefaultArgs> | null | undefined; include?: ProductInclude<...> | ... 1 more ... | undefined; data: (Without<...> & ProductUncheckedUpdateInput) | (Without<...> & ProductUpdateInput); where: ProductWhereUniqueInput; }'
+  [96msrc/controllers/product.controller.ts[0m:[93m458[0m:[93m36[0m - [91merror[0m[90m TS2339: [0mProperty 'isActive' does not exist on type '{ name: string; description: string; price: number; categoryId: string; brand: Brand; stock: number; id: string; createdAt: Date; updatedAt: Date; slug: string; discountPrice: number | null; ... 11 more ...; tags: string | null; }'.
+  
+  [7m458[0m         data: { isActive: !product.isActive },
+  [7m   [0m [91m                                   ~~~~~~~~[0m
+  [96msrc/controllers/product.controller.ts[0m:[93m462[0m:[93m11[0m - [91merror[0m[90m TS2353: [0mObject literal may only specify known properties, and 'isActive' does not exist in type 'ProductSelect<DefaultArgs>'.
+  
+  [7m462[0m           isActive: true
+  [7m   [0m [91m          ~~~~~~~~[0m
+  
+    [96mnode_modules/.prisma/client/index.d.ts[0m:[93m9517[0m:[93m5[0m
+      [7m9517[0m     select?: ProductSelect<ExtArgs> | null
+      [7m    [0m [96m    ~~~~~~[0m
+      The expected type comes from property 'select' which is declared here on type '{ select?: ProductSelect<DefaultArgs> | null | undefined; omit?: ProductOmit<DefaultArgs> | null | undefined; include?: ProductInclude<...> | ... 1 more ... | undefined; data: (Without<...> & ProductUncheckedUpdateInput) | (Without<...> & ProductUpdateInput); where: ProductWhereUniqueInput; }'
+  [96msrc/controllers/product.controller.ts[0m:[93m468[0m:[93m44[0m - [91merror[0m[90m TS2339: [0mProperty 'isActive' does not exist on type '{ name: string; description: string; price: number; categoryId: string; brand: Brand; stock: number; id: string; createdAt: Date; updatedAt: Date; slug: string; discountPrice: number | null; ... 11 more ...; tags: string | null; }'.
+  
+  [7m468[0m         message: `Produto ${updatedProduct.isActive ? 'ativado' : 'desativado'} com sucesso`,
+  [7m   [0m [91m                                           ~~~~~~~~[0m
+  ,
+  level: 'error',
+  message: 'uncaughtException: ⨯ Unable to compile TypeScript:\n' +
+    "\x1B[96msrc/controllers/product.controller.ts\x1B[0m:\x1B[93m196\x1B[0m:\x1B[93m11\x1B[0m - \x1B[91merror\x1B[0m\x1B[90m TS2353: \x1B[0mObject literal may only specify known properties, and 'isActive' does not exist in type 'ProductWhereInput'.\r\n" +
+    '\r\n' +
+    '\x1B[7m196\x1B[0m           isActive: true\r\n' +
+    '\x1B[7m   \x1B[0m \x1B[91m          ~~~~~~~~\x1B[0m\r\n' +
+    "\x1B[96msrc/controllers/product.controller.ts\x1B[0m:\x1B[93m301\x1B[0m:\x1B[93m11\x1B[0m - \x1B[91merror\x1B[0m\x1B[90m TS2353: \x1B[0mObject literal may only specify known properties, and 'sku' does not exist in type '(Without<ProductCreateInput, ProductUncheckedCreateInput> & ProductUncheckedCreateInput) | (Without<...> & ProductCreateInput)'.\r\n" +
+    '\r\n' +
+    '\x1B[7m301\x1B[0m           sku,\r\n' +
+    '\x1B[7m   \x1B[0m \x1B[91m          ~~~\x1B[0m\r\n' +
+    '\r\n' +
+    '  \x1B[96mnode_modules/.prisma/client/index.d.ts\x1B[0m:\x1B[93m9475\x1B[0m:\x1B[93m5\x1B[0m\r\n' +
+    '    \x1B[7m9475\x1B[0m     data: XOR<ProductCreateInput, ProductUncheckedCreateInput>\r\n' +
+    '    \x1B[7m    \x1B[0m \x1B[96m    ~~~~\x1B[0m\r\n' +
+    "    The expected type comes from property 'data' which is declared here on type '{ select?: ProductSelect<DefaultArgs> | null | undefined; omit?: ProductOmit<DefaultArgs> | null | undefined; include?: ProductInclude<...> | ... 1 more ... | undefined; data: (Without<...> & ProductUncheckedCreateInput) | (Without<...> & ProductCreateInput); }'\r\n" +
+    "\x1B[96msrc/controllers/product.controller.ts\x1B[0m:\x1B[93m446\x1B[0m:\x1B[93m19\x1B[0m - \x1B[91merror\x1B[0m\x1B[90m TS2353: \x1B[0mObject literal may only specify known properties, and 'isActive' does not exist in type 'ProductSelect<DefaultArgs>'.\r\n" +
+    '\r\n' +
+    '\x1B[7m446\x1B[0m         select: { isActive: true }\r\n' +
+    '\x1B[7m   \x1B[0m \x1B[91m                  ~~~~~~~~\x1B[0m\r\n' +
+    '\r\n' +
+    '  \x1B[96mnode_modules/.prisma/client/index.d.ts\x1B[0m:\x1B[93m9268\x1B[0m:\x1B[93m5\x1B[0m\r\n' +
+    '    \x1B[7m9268\x1B[0m     select?: ProductSelect<ExtArgs> | null\r\n' +
+    '    \x1B[7m    \x1B[0m \x1B[96m    ~~~~~~\x1B[0m\r\n' +
+    "    The expected type comes from property 'select' which is declared here on type '{ select?: ProductSelect<DefaultArgs> | null | undefined; omit?: ProductOmit<DefaultArgs> | null | undefined; include?: ProductInclude<...> | ... 1 more ... | undefined; where: ProductWhereUniqueInput; }'\r\n" +
+    "\x1B[96msrc/controllers/product.controller.ts\x1B[0m:\x1B[93m458\x1B[0m:\x1B[93m17\x1B[0m - \x1B[91merror\x1B[0m\x1B[90m TS2353: \x1B[0mObject literal may only specify known properties, and 'isActive' does not exist in type '(Without<ProductUpdateInput, ProductUncheckedUpdateInput> & ProductUncheckedUpdateInput) | (Without<...> & ProductUpdateInput)'.\r\n" +
+    '\r\n' +
+    '\x1B[7m458\x1B[0m         data: { isActive: !product.isActive },\r\n' +
+    '\x1B[7m   \x1B[0m \x1B[91m                ~~~~~~~~\x1B[0m\r\n' +
+    '\r\n' +
+    '  \x1B[96mnode_modules/.prisma/client/index.d.ts\x1B[0m:\x1B[93m9529\x1B[0m:\x1B[93m5\x1B[0m\r\n' +
+    '    \x1B[7m9529\x1B[0m     data: XOR<ProductUpdateInput, ProductUncheckedUpdateInput>\r\n' +
+    '    \x1B[7m    \x1B[0m \x1B[96m    ~~~~\x1B[0m\r\n' +
+    "    The expected type comes from property 'data' which is declared here on type '{ select?: ProductSelect<DefaultArgs> | null | undefined; omit?: ProductOmit<DefaultArgs> | null | undefined; include?: ProductInclude<...> | ... 1 more ... | undefined; data: (Without<...> & ProductUncheckedUpdateInput) | (Without<...> & ProductUpdateInput); where: ProductWhereUniqueInput; }'\r\n" +
+    "\x1B[96msrc/controllers/product.controller.ts\x1B[0m:\x1B[93m458\x1B[0m:\x1B[93m36\x1B[0m - \x1B[91merror\x1B[0m\x1B[90m TS2339: \x1B[0mProperty 'isActive' does not exist on type '{ name: string; description: string; price: number; categoryId: string; brand: Brand; stock: number; id: string; createdAt: Date; updatedAt: Date; slug: string; discountPrice: number | null; ... 11 more ...; tags: string | null; }'.\r\n" +
+    '\r\n' +
+    '\x1B[7m458\x1B[0m         data: { isActive: !product.isActive },\r\n' +
+    '\x1B[7m   \x1B[0m \x1B[91m                                   ~~~~~~~~\x1B[0m\r\n' +
+    "\x1B[96msrc/controllers/product.controller.ts\x1B[0m:\x1B[93m462\x1B[0m:\x1B[93m11\x1B[0m - \x1B[91merror\x1B[0m\x1B[90m TS2353: \x1B[0mObject literal may only specify known properties, and 'isActive' does not exist in type 'ProductSelect<DefaultArgs>'.\r\n" +
+    '\r\n' +
+    '\x1B[7m462\x1B[0m           isActive: true\r\n' +
+    '\x1B[7m   \x1B[0m \x1B[91m          ~~~~~~~~\x1B[0m\r\n' +
+    '\r\n' +
+    '  \x1B[96mnode_modules/.prisma/client/index.d.ts\x1B[0m:\x1B[93m9517\x1B[0m:\x1B[93m5\x1B[0m\r\n' +
+    '    \x1B[7m9517\x1B[0m     select?: ProductSelect<ExtArgs> | null\r\n' +
+    '    \x1B[7m    \x1B[0m \x1B[96m    ~~~~~~\x1B[0m\r\n' +
+    "    The expected type comes from property 'select' which is declared here on type '{ select?: ProductSelect<DefaultArgs> | null | undefined; omit?: ProductOmit<DefaultArgs> | null | undefined; include?: ProductInclude<...> | ... 1 more ... | undefined; data: (Without<...> & ProductUncheckedUpdateInput) | (Without<...> & ProductUpdateInput); where: ProductWhereUniqueInput; }'\r\n" +
+    "\x1B[96msrc/controllers/product.controller.ts\x1B[0m:\x1B[93m468\x1B[0m:\x1B[93m44\x1B[0m - \x1B[91merror\x1B[0m\x1B[90m TS2339: \x1B[0mProperty 'isActive' does not exist on type '{ name: string; description: string; price: number; categoryId: string; brand: Brand; stock: number; id: string; createdAt: Date; updatedAt: Date; slug: string; discountPrice: number | null; ... 11 more ...; tags: string | null; }'.\r\n" +
+    '\r\n' +
+    "\x1B[7m468\x1B[0m         message: `Produto ${updatedProduct.isActive ? 'ativado' : 'desativado'} com sucesso`,\r\n" +
+    '\x1B[7m   \x1B[0m \x1B[91m                                           ~~~~~~~~\x1B[0m\r\n' +
+    '\n' +
+    'TSError: ⨯ Unable to compile TypeScript:\n' +
+    "\x1B[96msrc/controllers/product.controller.ts\x1B[0m:\x1B[93m196\x1B[0m:\x1B[93m11\x1B[0m - \x1B[91merror\x1B[0m\x1B[90m TS2353: \x1B[0mObject literal may only specify known properties, and 'isActive' does not exist in type 'ProductWhereInput'.\r\n" +
+    '\r\n' +
+    '\x1B[7m196\x1B[0m           isActive: true\r\n' +
+    '\x1B[7m   \x1B[0m \x1B[91m          ~~~~~~~~\x1B[0m\r\n' +
+    "\x1B[96msrc/controllers/product.controller.ts\x1B[0m:\x1B[93m301\x1B[0m:\x1B[93m11\x1B[0m - \x1B[91merror\x1B[0m\x1B[90m TS2353: \x1B[0mObject literal may only specify known properties, and 'sku' does not exist in type '(Without<ProductCreateInput, ProductUncheckedCreateInput> & ProductUncheckedCreateInput) | (Without<...> & ProductCreateInput)'.\r\n" +
+    '\r\n' +
+    '\x1B[7m301\x1B[0m           sku,\r\n' +
+    '\x1B[7m   \x1B[0m \x1B[91m          ~~~\x1B[0m\r\n' +
+    '\r\n' +
+    '  \x1B[96mnode_modules/.prisma/client/index.d.ts\x1B[0m:\x1B[93m9475\x1B[0m:\x1B[93m5\x1B[0m\r\n' +
+    '    \x1B[7m9475\x1B[0m     data: XOR<ProductCreateInput, ProductUncheckedCreateInput>\r\n' +
+    '    \x1B[7m    \x1B[0m \x1B[96m    ~~~~\x1B[0m\r\n' +
+    "    The expected type comes from property 'data' which is declared here on type '{ select?: ProductSelect<DefaultArgs> | null | undefined; omit?: ProductOmit<DefaultArgs> | null | undefined; include?: ProductInclude<...> | ... 1 more ... | undefined; data: (Without<...> & ProductUncheckedCreateInput) | (Without<...> & ProductCreateInput); }'\r\n" +
+    "\x1B[96msrc/controllers/product.controller.ts\x1B[0m:\x1B[93m446\x1B[0m:\x1B[93m19\x1B[0m - \x1B[91merror\x1B[0m\x1B[90m TS2353: \x1B[0mObject literal may only specify known properties, and 'isActive' does not exist in type 'ProductSelect<DefaultArgs>'.\r\n" +
+    '\r\n' +
+    '\x1B[7m446\x1B[0m         select: { isActive: true }\r\n' +
+    '\x1B[7m   \x1B[0m \x1B[91m                  ~~~~~~~~\x1B[0m\r\n' +
+    '\r\n' +
+    '  \x1B[96mnode_modules/.prisma/client/index.d.ts\x1B[0m:\x1B[93m9268\x1B[0m:\x1B[93m5\x1B[0m\r\n' +
+    '    \x1B[7m9268\x1B[0m     select?: ProductSelect<ExtArgs> | null\r\n' +
+    '    \x1B[7m    \x1B[0m \x1B[96m    ~~~~~~\x1B[0m\r\n' +
+    "    The expected type comes from property 'select' which is declared here on type '{ select?: ProductSelect<DefaultArgs> | null | undefined; omit?: ProductOmit<DefaultArgs> | null | undefined; include?: ProductInclude<...> | ... 1 more ... | undefined; where: ProductWhereUniqueInput; }'\r\n" +
+    "\x1B[96msrc/controllers/product.controller.ts\x1B[0m:\x1B[93m458\x1B[0m:\x1B[93m17\x1B[0m - \x1B[91merror\x1B[0m\x1B[90m TS2353: \x1B[0mObject literal may only specify known properties, and 'isActive' does not exist in type '(Without<ProductUpdateInput, ProductUncheckedUpdateInput> & ProductUncheckedUpdateInput) | (Without<...> & ProductUpdateInput)'.\r\n" +
+    '\r\n' +
+    '\x1B[7m458\x1B[0m         data: { isActive: !product.isActive },\r\n' +
+    '\x1B[7m   \x1B[0m \x1B[91m                ~~~~~~~~\x1B[0m\r\n' +
+    '\r\n' +
+    '  \x1B[96mnode_modules/.prisma/client/index.d.ts\x1B[0m:\x1B[93m9529\x1B[0m:\x1B[93m5\x1B[0m\r\n' +
+    '    \x1B[7m9529\x1B[0m     data: XOR<ProductUpdateInput, ProductUncheckedUpdateInput>\r\n' +
+    '    \x1B[7m    \x1B[0m \x1B[96m    ~~~~\x1B[0m\r\n' +
+    "    The expected type comes from property 'data' which is declared here on type '{ select?: ProductSelect<DefaultArgs> | null | undefined; omit?: ProductOmit<DefaultArgs> | null | undefined; include?: ProductInclude<...> | ... 1 more ... | undefined; data: (Without<...> & ProductUncheckedUpdateInput) | (Without<...> & ProductUpdateInput); where: ProductWhereUniqueInput; }'\r\n" +
+    "\x1B[96msrc/controllers/product.controller.ts\x1B[0m:\x1B[93m458\x1B[0m:\x1B[93m36\x1B[0m - \x1B[91merror\x1B[0m\x1B[90m TS2339: \x1B[0mProperty 'isActive' does not exist on type '{ name: string; description: string; price: number; categoryId: string; brand: Brand; stock: number; id: string; createdAt: Date; updatedAt: Date; slug: string; discountPrice: number | null; ... 11 more ...; tags: string | null; }'.\r\n" +
+    '\r\n' +
+    '\x1B[7m458\x1B[0m         data: { isActive: !product.isActive },\r\n' +
+    '\x1B[7m   \x1B[0m \x1B[91m                                   ~~~~~~~~\x1B[0m\r\n' +
+    "\x1B[96msrc/controllers/product.controller.ts\x1B[0m:\x1B[93m462\x1B[0m:\x1B[93m11\x1B[0m - \x1B[91merror\x1B[0m\x1B[90m TS2353: \x1B[0mObject literal may only specify known properties, and 'isActive' does not exist in type 'ProductSelect<DefaultArgs>'.\r\n" +
+    '\r\n' +
+    '\x1B[7m462\x1B[0m           isActive: true\r\n' +
+    '\x1B[7m   \x1B[0m \x1B[91m          ~~~~~~~~\x1B[0m\r\n' +
+    '\r\n' +
+    '  \x1B[96mnode_modules/.prisma/client/index.d.ts\x1B[0m:\x1B[93m9517\x1B[0m:\x1B[93m5\x1B[0m\r\n' +
+    '    \x1B[7m9517\x1B[0m     select?: ProductSelect<ExtArgs> | null\r\n' +
+    '    \x1B[7m    \x1B[0m \x1B[96m    ~~~~~~\x1B[0m\r\n' +
+    "    The expected type comes from property 'select' which is declared here on type '{ select?: ProductSelect<DefaultArgs> | null | undefined; omit?: ProductOmit<DefaultArgs> | null | undefined; include?: ProductInclude<...> | ... 1 more ... | undefined; data: (Without<...> & ProductUncheckedUpdateInput) | (Without<...> & ProductUpdateInput); where: ProductWhereUniqueInput; }'\r\n" +
+    "\x1B[96msrc/controllers/product.controller.ts\x1B[0m:\x1B[93m468\x1B[0m:\x1B[93m44\x1B[0m - \x1B[91merror\x1B[0m\x1B[90m TS2339: \x1B[0mProperty 'isActive' does not exist on type '{ name: string; description: string; price: number; categoryId: string; brand: Brand; stock: number; id: string; createdAt: Date; updatedAt: Date; slug: string; discountPrice: number | null; ... 11 more ...; tags: string | null; }'.\r\n" +
+    '\r\n' +
+    "\x1B[7m468\x1B[0m         message: `Produto ${updatedProduct.isActive ? 'ativado' : 'desativado'} com sucesso`,\r\n" +
+    '\x1B[7m   \x1B[0m \x1B[91m                                           ~'... 909 more characters,
+  stack: 'TSError: ⨯ Unable to compile TypeScript:\n' +
+    "\x1B[96msrc/controllers/product.controller.ts\x1B[0m:\x1B[93m196\x1B[0m:\x1B[93m11\x1B[0m - \x1B[91merror\x1B[0m\x1B[90m TS2353: \x1B[0mObject literal may only specify known properties, and 'isActive' does not exist in type 'ProductWhereInput'.\r\n" +
+    '\r\n' +
+    '\x1B[7m196\x1B[0m           isActive: true\r\n' +
+    '\x1B[7m   \x1B[0m \x1B[91m          ~~~~~~~~\x1B[0m\r\n' +
+    "\x1B[96msrc/controllers/product.controller.ts\x1B[0m:\x1B[93m301\x1B[0m:\x1B[93m11\x1B[0m - \x1B[91merror\x1B[0m\x1B[90m TS2353: \x1B[0mObject literal may only specify known properties, and 'sku' does not exist in type '(Without<ProductCreateInput, ProductUncheckedCreateInput> & ProductUncheckedCreateInput) | (Without<...> & ProductCreateInput)'.\r\n" +
+    '\r\n' +
+    '\x1B[7m301\x1B[0m           sku,\r\n' +
+    '\x1B[7m   \x1B[0m \x1B[91m          ~~~\x1B[0m\r\n' +
+    '\r\n' +
+    '  \x1B[96mnode_modules/.prisma/client/index.d.ts\x1B[0m:\x1B[93m9475\x1B[0m:\x1B[93m5\x1B[0m\r\n' +
+    '    \x1B[7m9475\x1B[0m     data: XOR<ProductCreateInput, ProductUncheckedCreateInput>\r\n' +
+    '    \x1B[7m    \x1B[0m \x1B[96m    ~~~~\x1B[0m\r\n' +
+    "    The expected type comes from property 'data' which is declared here on type '{ select?: ProductSelect<DefaultArgs> | null | undefined; omit?: ProductOmit<DefaultArgs> | null | undefined; include?: ProductInclude<...> | ... 1 more ... | undefined; data: (Without<...> & ProductUncheckedCreateInput) | (Without<...> & ProductCreateInput); }'\r\n" +
+    "\x1B[96msrc/controllers/product.controller.ts\x1B[0m:\x1B[93m446\x1B[0m:\x1B[93m19\x1B[0m - \x1B[91merror\x1B[0m\x1B[90m TS2353: \x1B[0mObject literal may only specify known properties, and 'isActive' does not exist in type 'ProductSelect<DefaultArgs>'.\r\n" +
+    '\r\n' +
+    '\x1B[7m446\x1B[0m         select: { isActive: true }\r\n' +
+    '\x1B[7m   \x1B[0m \x1B[91m                  ~~~~~~~~\x1B[0m\r\n' +
+    '\r\n' +
+    '  \x1B[96mnode_modules/.prisma/client/index.d.ts\x1B[0m:\x1B[93m9268\x1B[0m:\x1B[93m5\x1B[0m\r\n' +
+    '    \x1B[7m9268\x1B[0m     select?: ProductSelect<ExtArgs> | null\r\n' +
+    '    \x1B[7m    \x1B[0m \x1B[96m    ~~~~~~\x1B[0m\r\n' +
+    "    The expected type comes from property 'select' which is declared here on type '{ select?: ProductSelect<DefaultArgs> | null | undefined; omit?: ProductOmit<DefaultArgs> | null | undefined; include?: ProductInclude<...> | ... 1 more ... | undefined; where: ProductWhereUniqueInput; }'\r\n" +
+    "\x1B[96msrc/controllers/product.controller.ts\x1B[0m:\x1B[93m458\x1B[0m:\x1B[93m17\x1B[0m - \x1B[91merror\x1B[0m\x1B[90m TS2353: \x1B[0mObject literal may only specify known properties, and 'isActive' does not exist in type '(Without<ProductUpdateInput, ProductUncheckedUpdateInput> & ProductUncheckedUpdateInput) | (Without<...> & ProductUpdateInput)'.\r\n" +
+    '\r\n' +
+    '\x1B[7m458\x1B[0m         data: { isActive: !product.isActive },\r\n' +
+    '\x1B[7m   \x1B[0m \x1B[91m                ~~~~~~~~\x1B[0m\r\n' +
+    '\r\n' +
+    '  \x1B[96mnode_modules/.prisma/client/index.d.ts\x1B[0m:\x1B[93m9529\x1B[0m:\x1B[93m5\x1B[0m\r\n' +
+    '    \x1B[7m9529\x1B[0m     data: XOR<ProductUpdateInput, ProductUncheckedUpdateInput>\r\n' +
+    '    \x1B[7m    \x1B[0m \x1B[96m    ~~~~\x1B[0m\r\n' +
+    "    The expected type comes from property 'data' which is declared here on type '{ select?: ProductSelect<DefaultArgs> | null | undefined; omit?: ProductOmit<DefaultArgs> | null | undefined; include?: ProductInclude<...> | ... 1 more ... | undefined; data: (Without<...> & ProductUncheckedUpdateInput) | (Without<...> & ProductUpdateInput); where: ProductWhereUniqueInput; }'\r\n" +
+    "\x1B[96msrc/controllers/product.controller.ts\x1B[0m:\x1B[93m458\x1B[0m:\x1B[93m36\x1B[0m - \x1B[91merror\x1B[0m\x1B[90m TS2339: \x1B[0mProperty 'isActive' does not exist on type '{ name: string; description: string; price: number; categoryId: string; brand: Brand; stock: number; id: string; createdAt: Date; updatedAt: Date; slug: string; discountPrice: number | null; ... 11 more ...; tags: string | null; }'.\r\n" +
+    '\r\n' +
+    '\x1B[7m458\x1B[0m         data: { isActive: !product.isActive },\r\n' +
+    '\x1B[7m   \x1B[0m \x1B[91m                                   ~~~~~~~~\x1B[0m\r\n' +
+    "\x1B[96msrc/controllers/product.controller.ts\x1B[0m:\x1B[93m462\x1B[0m:\x1B[93m11\x1B[0m - \x1B[91merror\x1B[0m\x1B[90m TS2353: \x1B[0mObject literal may only specify known properties, and 'isActive' does not exist in type 'ProductSelect<DefaultArgs>'.\r\n" +
+    '\r\n' +
+    '\x1B[7m462\x1B[0m           isActive: true\r\n' +
+    '\x1B[7m   \x1B[0m \x1B[91m          ~~~~~~~~\x1B[0m\r\n' +
+    '\r\n' +
+    '  \x1B[96mnode_modules/.prisma/client/index.d.ts\x1B[0m:\x1B[93m9517\x1B[0m:\x1B[93m5\x1B[0m\r\n' +
+    '    \x1B[7m9517\x1B[0m     select?: ProductSelect<ExtArgs> | null\r\n' +
+    '    \x1B[7m    \x1B[0m \x1B[96m    ~~~~~~\x1B[0m\r\n' +
+    "    The expected type comes from property 'select' which is declared here on type '{ select?: ProductSelect<DefaultArgs> | null | undefined; omit?: ProductOmit<DefaultArgs> | null | undefined; include?: ProductInclude<...> | ... 1 more ... | undefined; data: (Without<...> & ProductUncheckedUpdateInput) | (Without<...> & ProductUpdateInput); where: ProductWhereUniqueInput; }'\r\n" +
+    "\x1B[96msrc/controllers/product.controller.ts\x1B[0m:\x1B[93m468\x1B[0m:\x1B[93m44\x1B[0m - \x1B[91merror\x1B[0m\x1B[90m TS2339: \x1B[0mProperty 'isActive' does not exist on type '{ name: string; description: string; price: number; categoryId: string; brand: Brand; stock: number; id: string; createdAt: Date; updatedAt: Date; slug: string; discountPrice: number | null; ... 11 more ...; tags: string | null; }'.\r\n" +
+    '\r\n' +
+    "\x1B[7m468\x1B[0m         message: `Produto ${updatedProduct.isActive ? 'ativado' : 'desativado'} com sucesso`,\r\n" +
+    '\x1B[7m   \x1B[0m \x1B[91m                                           ~~~~~~~~\x1B[0m\r\n' +
+    '\n' +
+    '    at createTSError (C:\\www\\UBR\\Ecommerce-UssBrasil\\backend\\node_modules\\ts-node\\src\\index.ts:859:12)\n' +
+    '    at reportTSError (C:\\www\\UBR\\Ecommerce-UssBrasil\\backend\\node_modules\\ts-node\\src\\index.ts:863:19)\n' +
+    '    at getOutput (C:\\www\\UBR\\Ecommerce-UssBrasil\\backend\\node_modules\\ts-node\\src\\index.ts:1077:36)\n' +
+    '    at Object.compile (C:\\www\\UBR\\Ecommerce-UssBrasil\\backend\\node_modules\\ts-node\\src\\index.ts:1433:41)\n' +
+    '    at Module.m._compile (C:\\www\\UBR\\Ecommerce-UssBrasil\\backend\\node_modules\\ts-node\\src\\index.ts:1617:30)\n' +
+    '    at node:internal/modules/cjs/loader:1895:10\n' +
+    '    at Object.require.extensions.<computed> [as .ts] (C:\\www\\UBR\\Ecommerce-UssBrasil\\backend\\node_modules\\ts-node\\src\\index.ts:1621:12)\n' +
+    '    at Module.load (node:internal/modules/cjs/loader:1465:32)\n' +
+    '    at Function._load (node:internal/modules/cjs/loader:1282:12)\n' +
+    '    at TracingChannel.traceSync (node:diagnostics_channel:322:14)',
+  exception: true,
+  date: 'Sat Aug 09 2025 20:05:48 GMT-0300 (Horário Padrão de Brasília)',
+  process: {
+    pid: 208,
+    uid: null,
+    gid: null,
+    cwd: 'C:\\www\\UBR\\Ecommerce-UssBrasil\\backend',
+    execPath: 'C:\\Program Files\\nodejs\\node.exe',
+    version: 'v22.15.0',
+    argv: [
+      'C:\\www\\UBR\\Ecommerce-UssBrasil\\backend\\node_modules\\ts-node\\dist\\bin.js',
+      'C:\\www\\UBR\\Ecommerce-UssBrasil\\backend\\src\\index.ts'
+    ],
+    memoryUsage: {
+      rss: 302751744,
+      heapTotal: 252674048,
+      heapUsed: 220419640,
+      external: 8793593,
+      arrayBuffers: 5798956
+    }
+  },
+  os: { loadavg: [ 0, 0, 0 ], uptime: 40510.046 },
+  trace: [
+    {
+      column: 12,
+      file: 'C:\\www\\UBR\\Ecommerce-UssBrasil\\backend\\node_modules\\ts-node\\src\\index.ts',
+      function: 'createTSError',
+      line: 859,
+      method: null,
+      native: false
+    },
+    {
+      column: 19,
+      file: 'C:\\www\\UBR\\Ecommerce-UssBrasil\\backend\\node_modules\\ts-node\\src\\index.ts',
+      function: 'reportTSError',
+      line: 863,
+      method: null,
+      native: false
+    },
+    {
+      column: 36,
+      file: 'C:\\www\\UBR\\Ecommerce-UssBrasil\\backend\\node_modules\\ts-node\\src\\index.ts',
+      function: 'getOutput',
+      line: 1077,
+      method: null,
+      native: false
+    },
+    {
+      column: 41,
+      file: 'C:\\www\\UBR\\Ecommerce-UssBrasil\\backend\\node_modules\\ts-node\\src\\index.ts',
+      function: 'Object.compile',
+      line: 1433,
+      method: 'compile',
+      native: false
+    },
+    {
+      column: 30,
+      file: 'C:\\www\\UBR\\Ecommerce-UssBrasil\\backend\\node_modules\\ts-node\\src\\index.ts',
+      function: 'Module.m._compile',
+      line: 1617,
+      method: '_compile',
+      native: false
+    },
+    {
+      column: 10,
+      file: 'node:internal/modules/cjs/loader',
+      function: null,
+      line: 1895,
+      method: null,
+      native: false
+    },
+    {
+      column: 12,
+      file: 'C:\\www\\UBR\\Ecommerce-UssBrasil\\backend\\node_modules\\ts-node\\src\\index.ts',
+      function: 'Object.require.extensions.<computed> [as .ts]',
+      line: 1621,
+      method: 'ts]',
+      native: false
+    },
+    {
+      column: 32,
+      file: 'node:internal/modules/cjs/loader',
+      function: 'Module.load',
+      line: 1465,
+      method: 'load',
+      native: false
+    },
+    {
+      column: 12,
+      file: 'node:internal/modules/cjs/loader',
+      function: 'Function._load',
+      line: 1282,
+      method: '_load',
+      native: false
+    },
+    {
+      column: 14,
+      file: 'node:diagnostics_channel',
+      function: 'TracingChannel.traceSync',
+      line: 322,
+      method: 'traceSync',
+      native: false
+    }
+  ],
+  service: 'uss-brasil-backend',
+  timestamp: '2025-08-09 20:05:48'
+}
+{
+  error: [96msrc/controllers/product.controller.ts[0m:[93m196[0m:[93m11[0m - [91merror[0m[90m TS2353: [0mObject literal may only specify known properties, and 'isActive' does not exist in type 'ProductWhereInput'.
+  
+  [7m196[0m           isActive: true
+  [7m   [0m [91m          ~~~~~~~~[0m
+  [96msrc/controllers/product.controller.ts[0m:[93m301[0m:[93m11[0m - [91merror[0m[90m TS2353: [0mObject literal may only specify known properties, and 'sku' does not exist in type '(Without<ProductCreateInput, ProductUncheckedCreateInput> & ProductUncheckedCreateInput) | (Without<...> & ProductCreateInput)'.
+  
+  [7m301[0m           sku,
+  [7m   [0m [91m          ~~~[0m
+  
+    [96mnode_modules/.prisma/client/index.d.ts[0m:[93m9475[0m:[93m5[0m
+      [7m9475[0m     data: XOR<ProductCreateInput, ProductUncheckedCreateInput>
+      [7m    [0m [96m    ~~~~[0m
+      The expected type comes from property 'data' which is declared here on type '{ select?: ProductSelect<DefaultArgs> | null | undefined; omit?: ProductOmit<DefaultArgs> | null | undefined; include?: ProductInclude<...> | ... 1 more ... | undefined; data: (Without<...> & ProductUncheckedCreateInput) | (Without<...> & ProductCreateInput); }'
+  [96msrc/controllers/product.controller.ts[0m:[93m446[0m:[93m19[0m - [91merror[0m[90m TS2353: [0mObject literal may only specify known properties, and 'isActive' does not exist in type 'ProductSelect<DefaultArgs>'.
+  
+  [7m446[0m         select: { isActive: true }
+  [7m   [0m [91m                  ~~~~~~~~[0m
+  
+    [96mnode_modules/.prisma/client/index.d.ts[0m:[93m9268[0m:[93m5[0m
+      [7m9268[0m     select?: ProductSelect<ExtArgs> | null
+      [7m    [0m [96m    ~~~~~~[0m
+      The expected type comes from property 'select' which is declared here on type '{ select?: ProductSelect<DefaultArgs> | null | undefined; omit?: ProductOmit<DefaultArgs> | null | undefined; include?: ProductInclude<...> | ... 1 more ... | undefined; where: ProductWhereUniqueInput; }'
+  [96msrc/controllers/product.controller.ts[0m:[93m458[0m:[93m17[0m - [91merror[0m[90m TS2353: [0mObject literal may only specify known properties, and 'isActive' does not exist in type '(Without<ProductUpdateInput, ProductUncheckedUpdateInput> & ProductUncheckedUpdateInput) | (Without<...> & ProductUpdateInput)'.
+  
+  [7m458[0m         data: { isActive: !product.isActive },
+  [7m   [0m [91m                ~~~~~~~~[0m
+  
+    [96mnode_modules/.prisma/client/index.d.ts[0m:[93m9529[0m:[93m5[0m
+      [7m9529[0m     data: XOR<ProductUpdateInput, ProductUncheckedUpdateInput>
+      [7m    [0m [96m    ~~~~[0m
+      The expected type comes from property 'data' which is declared here on type '{ select?: ProductSelect<DefaultArgs> | null | undefined; omit?: ProductOmit<DefaultArgs> | null | undefined; include?: ProductInclude<...> | ... 1 more ... | undefined; data: (Without<...> & ProductUncheckedUpdateInput) | (Without<...> & ProductUpdateInput); where: ProductWhereUniqueInput; }'
+  [96msrc/controllers/product.controller.ts[0m:[93m458[0m:[93m36[0m - [91merror[0m[90m TS2339: [0mProperty 'isActive' does not exist on type '{ name: string; description: string; price: number; categoryId: string; brand: Brand; stock: number; id: string; createdAt: Date; updatedAt: Date; slug: string; discountPrice: number | null; ... 11 more ...; tags: string | null; }'.
+  
+  [7m458[0m         data: { isActive: !product.isActive },
+  [7m   [0m [91m                                   ~~~~~~~~[0m
+  [96msrc/controllers/product.controller.ts[0m:[93m462[0m:[93m11[0m - [91merror[0m[90m TS2353: [0mObject literal may only specify known properties, and 'isActive' does not exist in type 'ProductSelect<DefaultArgs>'.
+  
+  [7m462[0m           isActive: true
+  [7m   [0m [91m          ~~~~~~~~[0m
+  
+    [96mnode_modules/.prisma/client/index.d.ts[0m:[93m9517[0m:[93m5[0m
+      [7m9517[0m     select?: ProductSelect<ExtArgs> | null
+      [7m    [0m [96m    ~~~~~~[0m
+      The expected type comes from property 'select' which is declared here on type '{ select?: ProductSelect<DefaultArgs> | null | undefined; omit?: ProductOmit<DefaultArgs> | null | undefined; include?: ProductInclude<...> | ... 1 more ... | undefined; data: (Without<...> & ProductUncheckedUpdateInput) | (Without<...> & ProductUpdateInput); where: ProductWhereUniqueInput; }'
+  [96msrc/controllers/product.controller.ts[0m:[93m468[0m:[93m44[0m - [91merror[0m[90m TS2339: [0mProperty 'isActive' does not exist on type '{ name: string; description: string; price: number; categoryId: string; brand: Brand; stock: number; id: string; createdAt: Date; updatedAt: Date; slug: string; discountPrice: number | null; ... 11 more ...; tags: string | null; }'.
+  
+  [7m468[0m         message: `Produto ${updatedProduct.isActive ? 'ativado' : 'desativado'} com sucesso`,
+  [7m   [0m [91m                                           ~~~~~~~~[0m
+  ,
+  level: 'error',
+  message: 'uncaughtException: ⨯ Unable to compile TypeScript:\n' +
+    "\x1B[96msrc/controllers/product.controller.ts\x1B[0m:\x1B[93m196\x1B[0m:\x1B[93m11\x1B[0m - \x1B[91merror\x1B[0m\x1B[90m TS2353: \x1B[0mObject literal may only specify known properties, and 'isActive' does not exist in type 'ProductWhereInput'.\r\n" +
+    '\r\n' +
+    '\x1B[7m196\x1B[0m           isActive: true\r\n' +
+    '\x1B[7m   \x1B[0m \x1B[91m          ~~~~~~~~\x1B[0m\r\n' +
+    "\x1B[96msrc/controllers/product.controller.ts\x1B[0m:\x1B[93m301\x1B[0m:\x1B[93m11\x1B[0m - \x1B[91merror\x1B[0m\x1B[90m TS2353: \x1B[0mObject literal may only specify known properties, and 'sku' does not exist in type '(Without<ProductCreateInput, ProductUncheckedCreateInput> & ProductUncheckedCreateInput) | (Without<...> & ProductCreateInput)'.\r\n" +
+    '\r\n' +
+    '\x1B[7m301\x1B[0m           sku,\r\n' +
+    '\x1B[7m   \x1B[0m \x1B[91m          ~~~\x1B[0m\r\n' +
+    '\r\n' +
+    '  \x1B[96mnode_modules/.prisma/client/index.d.ts\x1B[0m:\x1B[93m9475\x1B[0m:\x1B[93m5\x1B[0m\r\n' +
+    '    \x1B[7m9475\x1B[0m     data: XOR<ProductCreateInput, ProductUncheckedCreateInput>\r\n' +
+    '    \x1B[7m    \x1B[0m \x1B[96m    ~~~~\x1B[0m\r\n' +
+    "    The expected type comes from property 'data' which is declared here on type '{ select?: ProductSelect<DefaultArgs> | null | undefined; omit?: ProductOmit<DefaultArgs> | null | undefined; include?: ProductInclude<...> | ... 1 more ... | undefined; data: (Without<...> & ProductUncheckedCreateInput) | (Without<...> & ProductCreateInput); }'\r\n" +
+    "\x1B[96msrc/controllers/product.controller.ts\x1B[0m:\x1B[93m446\x1B[0m:\x1B[93m19\x1B[0m - \x1B[91merror\x1B[0m\x1B[90m TS2353: \x1B[0mObject literal may only specify known properties, and 'isActive' does not exist in type 'ProductSelect<DefaultArgs>'.\r\n" +
+    '\r\n' +
+    '\x1B[7m446\x1B[0m         select: { isActive: true }\r\n' +
+    '\x1B[7m   \x1B[0m \x1B[91m                  ~~~~~~~~\x1B[0m\r\n' +
+    '\r\n' +
+    '  \x1B[96mnode_modules/.prisma/client/index.d.ts\x1B[0m:\x1B[93m9268\x1B[0m:\x1B[93m5\x1B[0m\r\n' +
+    '    \x1B[7m9268\x1B[0m     select?: ProductSelect<ExtArgs> | null\r\n' +
+    '    \x1B[7m    \x1B[0m \x1B[96m    ~~~~~~\x1B[0m\r\n' +
+    "    The expected type comes from property 'select' which is declared here on type '{ select?: ProductSelect<DefaultArgs> | null | undefined; omit?: ProductOmit<DefaultArgs> | null | undefined; include?: ProductInclude<...> | ... 1 more ... | undefined; where: ProductWhereUniqueInput; }'\r\n" +
+    "\x1B[96msrc/controllers/product.controller.ts\x1B[0m:\x1B[93m458\x1B[0m:\x1B[93m17\x1B[0m - \x1B[91merror\x1B[0m\x1B[90m TS2353: \x1B[0mObject literal may only specify known properties, and 'isActive' does not exist in type '(Without<ProductUpdateInput, ProductUncheckedUpdateInput> & ProductUncheckedUpdateInput) | (Without<...> & ProductUpdateInput)'.\r\n" +
+    '\r\n' +
+    '\x1B[7m458\x1B[0m         data: { isActive: !product.isActive },\r\n' +
+    '\x1B[7m   \x1B[0m \x1B[91m                ~~~~~~~~\x1B[0m\r\n' +
+    '\r\n' +
+    '  \x1B[96mnode_modules/.prisma/client/index.d.ts\x1B[0m:\x1B[93m9529\x1B[0m:\x1B[93m5\x1B[0m\r\n' +
+    '    \x1B[7m9529\x1B[0m     data: XOR<ProductUpdateInput, ProductUncheckedUpdateInput>\r\n' +
+    '    \x1B[7m    \x1B[0m \x1B[96m    ~~~~\x1B[0m\r\n' +
+    "    The expected type comes from property 'data' which is declared here on type '{ select?: ProductSelect<DefaultArgs> | null | undefined; omit?: ProductOmit<DefaultArgs> | null | undefined; include?: ProductInclude<...> | ... 1 more ... | undefined; data: (Without<...> & ProductUncheckedUpdateInput) | (Without<...> & ProductUpdateInput); where: ProductWhereUniqueInput; }'\r\n" +
+    "\x1B[96msrc/controllers/product.controller.ts\x1B[0m:\x1B[93m458\x1B[0m:\x1B[93m36\x1B[0m - \x1B[91merror\x1B[0m\x1B[90m TS2339: \x1B[0mProperty 'isActive' does not exist on type '{ name: string; description: string; price: number; categoryId: string; brand: Brand; stock: number; id: string; createdAt: Date; updatedAt: Date; slug: string; discountPrice: number | null; ... 11 more ...; tags: string | null; }'.\r\n" +
+    '\r\n' +
+    '\x1B[7m458\x1B[0m         data: { isActive: !product.isActive },\r\n' +
+    '\x1B[7m   \x1B[0m \x1B[91m                                   ~~~~~~~~\x1B[0m\r\n' +
+    "\x1B[96msrc/controllers/product.controller.ts\x1B[0m:\x1B[93m462\x1B[0m:\x1B[93m11\x1B[0m - \x1B[91merror\x1B[0m\x1B[90m TS2353: \x1B[0mObject literal may only specify known properties, and 'isActive' does not exist in type 'ProductSelect<DefaultArgs>'.\r\n" +
+    '\r\n' +
+    '\x1B[7m462\x1B[0m           isActive: true\r\n' +
+    '\x1B[7m   \x1B[0m \x1B[91m          ~~~~~~~~\x1B[0m\r\n' +
+    '\r\n' +
+    '  \x1B[96mnode_modules/.prisma/client/index.d.ts\x1B[0m:\x1B[93m9517\x1B[0m:\x1B[93m5\x1B[0m\r\n' +
+    '    \x1B[7m9517\x1B[0m     select?: ProductSelect<ExtArgs> | null\r\n' +
+    '    \x1B[7m    \x1B[0m \x1B[96m    ~~~~~~\x1B[0m\r\n' +
+    "    The expected type comes from property 'select' which is declared here on type '{ select?: ProductSelect<DefaultArgs> | null | undefined; omit?: ProductOmit<DefaultArgs> | null | undefined; include?: ProductInclude<...> | ... 1 more ... | undefined; data: (Without<...> & ProductUncheckedUpdateInput) | (Without<...> & ProductUpdateInput); where: ProductWhereUniqueInput; }'\r\n" +
+    "\x1B[96msrc/controllers/product.controller.ts\x1B[0m:\x1B[93m468\x1B[0m:\x1B[93m44\x1B[0m - \x1B[91merror\x1B[0m\x1B[90m TS2339: \x1B[0mProperty 'isActive' does not exist on type '{ name: string; description: string; price: number; categoryId: string; brand: Brand; stock: number; id: string; createdAt: Date; updatedAt: Date; slug: string; discountPrice: number | null; ... 11 more ...; tags: string | null; }'.\r\n" +
+    '\r\n' +
+    "\x1B[7m468\x1B[0m         message: `Produto ${updatedProduct.isActive ? 'ativado' : 'desativado'} com sucesso`,\r\n" +
+    '\x1B[7m   \x1B[0m \x1B[91m                                           ~~~~~~~~\x1B[0m\r\n' +
+    '\n' +
+    'TSError: ⨯ Unable to compile TypeScript:\n' +
+    "\x1B[96msrc/controllers/product.controller.ts\x1B[0m:\x1B[93m196\x1B[0m:\x1B[93m11\x1B[0m - \x1B[91merror\x1B[0m\x1B[90m TS2353: \x1B[0mObject literal may only specify known properties, and 'isActive' does not exist in type 'ProductWhereInput'.\r\n" +
+    '\r\n' +
+    '\x1B[7m196\x1B[0m           isActive: true\r\n' +
+    '\x1B[7m   \x1B[0m \x1B[91m          ~~~~~~~~\x1B[0m\r\n' +
+    "\x1B[96msrc/controllers/product.controller.ts\x1B[0m:\x1B[93m301\x1B[0m:\x1B[93m11\x1B[0m - \x1B[91merror\x1B[0m\x1B[90m TS2353: \x1B[0mObject literal may only specify known properties, and 'sku' does not exist in type '(Without<ProductCreateInput, ProductUncheckedCreateInput> & ProductUncheckedCreateInput) | (Without<...> & ProductCreateInput)'.\r\n" +
+    '\r\n' +
+    '\x1B[7m301\x1B[0m           sku,\r\n' +
+    '\x1B[7m   \x1B[0m \x1B[91m          ~~~\x1B[0m\r\n' +
+    '\r\n' +
+    '  \x1B[96mnode_modules/.prisma/client/index.d.ts\x1B[0m:\x1B[93m9475\x1B[0m:\x1B[93m5\x1B[0m\r\n' +
+    '    \x1B[7m9475\x1B[0m     data: XOR<ProductCreateInput, ProductUncheckedCreateInput>\r\n' +
+    '    \x1B[7m    \x1B[0m \x1B[96m    ~~~~\x1B[0m\r\n' +
+    "    The expected type comes from property 'data' which is declared here on type '{ select?: ProductSelect<DefaultArgs> | null | undefined; omit?: ProductOmit<DefaultArgs> | null | undefined; include?: ProductInclude<...> | ... 1 more ... | undefined; data: (Without<...> & ProductUncheckedCreateInput) | (Without<...> & ProductCreateInput); }'\r\n" +
+    "\x1B[96msrc/controllers/product.controller.ts\x1B[0m:\x1B[93m446\x1B[0m:\x1B[93m19\x1B[0m - \x1B[91merror\x1B[0m\x1B[90m TS2353: \x1B[0mObject literal may only specify known properties, and 'isActive' does not exist in type 'ProductSelect<DefaultArgs>'.\r\n" +
+    '\r\n' +
+    '\x1B[7m446\x1B[0m         select: { isActive: true }\r\n' +
+    '\x1B[7m   \x1B[0m \x1B[91m                  ~~~~~~~~\x1B[0m\r\n' +
+    '\r\n' +
+    '  \x1B[96mnode_modules/.prisma/client/index.d.ts\x1B[0m:\x1B[93m9268\x1B[0m:\x1B[93m5\x1B[0m\r\n' +
+    '    \x1B[7m9268\x1B[0m     select?: ProductSelect<ExtArgs> | null\r\n' +
+    '    \x1B[7m    \x1B[0m \x1B[96m    ~~~~~~\x1B[0m\r\n' +
+    "    The expected type comes from property 'select' which is declared here on type '{ select?: ProductSelect<DefaultArgs> | null | undefined; omit?: ProductOmit<DefaultArgs> | null | undefined; include?: ProductInclude<...> | ... 1 more ... | undefined; where: ProductWhereUniqueInput; }'\r\n" +
+    "\x1B[96msrc/controllers/product.controller.ts\x1B[0m:\x1B[93m458\x1B[0m:\x1B[93m17\x1B[0m - \x1B[91merror\x1B[0m\x1B[90m TS2353: \x1B[0mObject literal may only specify known properties, and 'isActive' does not exist in type '(Without<ProductUpdateInput, ProductUncheckedUpdateInput> & ProductUncheckedUpdateInput) | (Without<...> & ProductUpdateInput)'.\r\n" +
+    '\r\n' +
+    '\x1B[7m458\x1B[0m         data: { isActive: !product.isActive },\r\n' +
+    '\x1B[7m   \x1B[0m \x1B[91m                ~~~~~~~~\x1B[0m\r\n' +
+    '\r\n' +
+    '  \x1B[96mnode_modules/.prisma/client/index.d.ts\x1B[0m:\x1B[93m9529\x1B[0m:\x1B[93m5\x1B[0m\r\n' +
+    '    \x1B[7m9529\x1B[0m     data: XOR<ProductUpdateInput, ProductUncheckedUpdateInput>\r\n' +
+    '    \x1B[7m    \x1B[0m \x1B[96m    ~~~~\x1B[0m\r\n' +
+    "    The expected type comes from property 'data' which is declared here on type '{ select?: ProductSelect<DefaultArgs> | null | undefined; omit?: ProductOmit<DefaultArgs> | null | undefined; include?: ProductInclude<...> | ... 1 more ... | undefined; data: (Without<...> & ProductUncheckedUpdateInput) | (Without<...> & ProductUpdateInput); where: ProductWhereUniqueInput; }'\r\n" +
+    "\x1B[96msrc/controllers/product.controller.ts\x1B[0m:\x1B[93m458\x1B[0m:\x1B[93m36\x1B[0m - \x1B[91merror\x1B[0m\x1B[90m TS2339: \x1B[0mProperty 'isActive' does not exist on type '{ name: string; description: string; price: number; categoryId: string; brand: Brand; stock: number; id: string; createdAt: Date; updatedAt: Date; slug: string; discountPrice: number | null; ... 11 more ...; tags: string | null; }'.\r\n" +
+    '\r\n' +
+    '\x1B[7m458\x1B[0m         data: { isActive: !product.isActive },\r\n' +
+    '\x1B[7m   \x1B[0m \x1B[91m                                   ~~~~~~~~\x1B[0m\r\n' +
+    "\x1B[96msrc/controllers/product.controller.ts\x1B[0m:\x1B[93m462\x1B[0m:\x1B[93m11\x1B[0m - \x1B[91merror\x1B[0m\x1B[90m TS2353: \x1B[0mObject literal may only specify known properties, and 'isActive' does not exist in type 'ProductSelect<DefaultArgs>'.\r\n" +
+    '\r\n' +
+    '\x1B[7m462\x1B[0m           isActive: true\r\n' +
+    '\x1B[7m   \x1B[0m \x1B[91m          ~~~~~~~~\x1B[0m\r\n' +
+    '\r\n' +
+    '  \x1B[96mnode_modules/.prisma/client/index.d.ts\x1B[0m:\x1B[93m9517\x1B[0m:\x1B[93m5\x1B[0m\r\n' +
+    '    \x1B[7m9517\x1B[0m     select?: ProductSelect<ExtArgs> | null\r\n' +
+    '    \x1B[7m    \x1B[0m \x1B[96m    ~~~~~~\x1B[0m\r\n' +
+    "    The expected type comes from property 'select' which is declared here on type '{ select?: ProductSelect<DefaultArgs> | null | undefined; omit?: ProductOmit<DefaultArgs> | null | undefined; include?: ProductInclude<...> | ... 1 more ... | undefined; data: (Without<...> & ProductUncheckedUpdateInput) | (Without<...> & ProductUpdateInput); where: ProductWhereUniqueInput; }'\r\n" +
+    "\x1B[96msrc/controllers/product.controller.ts\x1B[0m:\x1B[93m468\x1B[0m:\x1B[93m44\x1B[0m - \x1B[91merror\x1B[0m\x1B[90m TS2339: \x1B[0mProperty 'isActive' does not exist on type '{ name: string; description: string; price: number; categoryId: string; brand: Brand; stock: number; id: string; createdAt: Date; updatedAt: Date; slug: string; discountPrice: number | null; ... 11 more ...; tags: string | null; }'.\r\n" +
+    '\r\n' +
+    "\x1B[7m468\x1B[0m         message: `Produto ${updatedProduct.isActive ? 'ativado' : 'desativado'} com sucesso`,\r\n" +
+    '\x1B[7m   \x1B[0m \x1B[91m                                           ~'... 909 more characters,
+  stack: 'TSError: ⨯ Unable to compile TypeScript:\n' +
+    "\x1B[96msrc/controllers/product.controller.ts\x1B[0m:\x1B[93m196\x1B[0m:\x1B[93m11\x1B[0m - \x1B[91merror\x1B[0m\x1B[90m TS2353: \x1B[0mObject literal may only specify known properties, and 'isActive' does not exist in type 'ProductWhereInput'.\r\n" +
+    '\r\n' +
+    '\x1B[7m196\x1B[0m           isActive: true\r\n' +
+    '\x1B[7m   \x1B[0m \x1B[91m          ~~~~~~~~\x1B[0m\r\n' +
+    "\x1B[96msrc/controllers/product.controller.ts\x1B[0m:\x1B[93m301\x1B[0m:\x1B[93m11\x1B[0m - \x1B[91merror\x1B[0m\x1B[90m TS2353: \x1B[0mObject literal may only specify known properties, and 'sku' does not exist in type '(Without<ProductCreateInput, ProductUncheckedCreateInput> & ProductUncheckedCreateInput) | (Without<...> & ProductCreateInput)'.\r\n" +
+    '\r\n' +
+    '\x1B[7m301\x1B[0m           sku,\r\n' +
+    '\x1B[7m   \x1B[0m \x1B[91m          ~~~\x1B[0m\r\n' +
+    '\r\n' +
+    '  \x1B[96mnode_modules/.prisma/client/index.d.ts\x1B[0m:\x1B[93m9475\x1B[0m:\x1B[93m5\x1B[0m\r\n' +
+    '    \x1B[7m9475\x1B[0m     data: XOR<ProductCreateInput, ProductUncheckedCreateInput>\r\n' +
+    '    \x1B[7m    \x1B[0m \x1B[96m    ~~~~\x1B[0m\r\n' +
+    "    The expected type comes from property 'data' which is declared here on type '{ select?: ProductSelect<DefaultArgs> | null | undefined; omit?: ProductOmit<DefaultArgs> | null | undefined; include?: ProductInclude<...> | ... 1 more ... | undefined; data: (Without<...> & ProductUncheckedCreateInput) | (Without<...> & ProductCreateInput); }'\r\n" +
+    "\x1B[96msrc/controllers/product.controller.ts\x1B[0m:\x1B[93m446\x1B[0m:\x1B[93m19\x1B[0m - \x1B[91merror\x1B[0m\x1B[90m TS2353: \x1B[0mObject literal may only specify known properties, and 'isActive' does not exist in type 'ProductSelect<DefaultArgs>'.\r\n" +
+    '\r\n' +
+    '\x1B[7m446\x1B[0m         select: { isActive: true }\r\n' +
+    '\x1B[7m   \x1B[0m \x1B[91m                  ~~~~~~~~\x1B[0m\r\n' +
+    '\r\n' +
+    '  \x1B[96mnode_modules/.prisma/client/index.d.ts\x1B[0m:\x1B[93m9268\x1B[0m:\x1B[93m5\x1B[0m\r\n' +
+    '    \x1B[7m9268\x1B[0m     select?: ProductSelect<ExtArgs> | null\r\n' +
+    '    \x1B[7m    \x1B[0m \x1B[96m    ~~~~~~\x1B[0m\r\n' +
+    "    The expected type comes from property 'select' which is declared here on type '{ select?: ProductSelect<DefaultArgs> | null | undefined; omit?: ProductOmit<DefaultArgs> | null | undefined; include?: ProductInclude<...> | ... 1 more ... | undefined; where: ProductWhereUniqueInput; }'\r\n" +
+    "\x1B[96msrc/controllers/product.controller.ts\x1B[0m:\x1B[93m458\x1B[0m:\x1B[93m17\x1B[0m - \x1B[91merror\x1B[0m\x1B[90m TS2353: \x1B[0mObject literal may only specify known properties, and 'isActive' does not exist in type '(Without<ProductUpdateInput, ProductUncheckedUpdateInput> & ProductUncheckedUpdateInput) | (Without<...> & ProductUpdateInput)'.\r\n" +
+    '\r\n' +
+    '\x1B[7m458\x1B[0m         data: { isActive: !product.isActive },\r\n' +
+    '\x1B[7m   \x1B[0m \x1B[91m                ~~~~~~~~\x1B[0m\r\n' +
+    '\r\n' +
+    '  \x1B[96mnode_modules/.prisma/client/index.d.ts\x1B[0m:\x1B[93m9529\x1B[0m:\x1B[93m5\x1B[0m\r\n' +
+    '    \x1B[7m9529\x1B[0m     data: XOR<ProductUpdateInput, ProductUncheckedUpdateInput>\r\n' +
+    '    \x1B[7m    \x1B[0m \x1B[96m    ~~~~\x1B[0m\r\n' +
+    "    The expected type comes from property 'data' which is declared here on type '{ select?: ProductSelect<DefaultArgs> | null | undefined; omit?: ProductOmit<DefaultArgs> | null | undefined; include?: ProductInclude<...> | ... 1 more ... | undefined; data: (Without<...> & ProductUncheckedUpdateInput) | (Without<...> & ProductUpdateInput); where: ProductWhereUniqueInput; }'\r\n" +
+    "\x1B[96msrc/controllers/product.controller.ts\x1B[0m:\x1B[93m458\x1B[0m:\x1B[93m36\x1B[0m - \x1B[91merror\x1B[0m\x1B[90m TS2339: \x1B[0mProperty 'isActive' does not exist on type '{ name: string; description: string; price: number; categoryId: string; brand: Brand; stock: number; id: string; createdAt: Date; updatedAt: Date; slug: string; discountPrice: number | null; ... 11 more ...; tags: string | null; }'.\r\n" +
+    '\r\n' +
+    '\x1B[7m458\x1B[0m         data: { isActive: !product.isActive },\r\n' +
+    '\x1B[7m   \x1B[0m \x1B[91m                                   ~~~~~~~~\x1B[0m\r\n' +
+    "\x1B[96msrc/controllers/product.controller.ts\x1B[0m:\x1B[93m462\x1B[0m:\x1B[93m11\x1B[0m - \x1B[91merror\x1B[0m\x1B[90m TS2353: \x1B[0mObject literal may only specify known properties, and 'isActive' does not exist in type 'ProductSelect<DefaultArgs>'.\r\n" +
+    '\r\n' +
+    '\x1B[7m462\x1B[0m           isActive: true\r\n' +
+    '\x1B[7m   \x1B[0m \x1B[91m          ~~~~~~~~\x1B[0m\r\n' +
+    '\r\n' +
+    '  \x1B[96mnode_modules/.prisma/client/index.d.ts\x1B[0m:\x1B[93m9517\x1B[0m:\x1B[93m5\x1B[0m\r\n' +
+    '    \x1B[7m9517\x1B[0m     select?: ProductSelect<ExtArgs> | null\r\n' +
+    '    \x1B[7m    \x1B[0m \x1B[96m    ~~~~~~\x1B[0m\r\n' +
+    "    The expected type comes from property 'select' which is declared here on type '{ select?: ProductSelect<DefaultArgs> | null | undefined; omit?: ProductOmit<DefaultArgs> | null | undefined; include?: ProductInclude<...> | ... 1 more ... | undefined; data: (Without<...> & ProductUncheckedUpdateInput) | (Without<...> & ProductUpdateInput); where: ProductWhereUniqueInput; }'\r\n" +
+    "\x1B[96msrc/controllers/product.controller.ts\x1B[0m:\x1B[93m468\x1B[0m:\x1B[93m44\x1B[0m - \x1B[91merror\x1B[0m\x1B[90m TS2339: \x1B[0mProperty 'isActive' does not exist on type '{ name: string; description: string; price: number; categoryId: string; brand: Brand; stock: number; id: string; createdAt: Date; updatedAt: Date; slug: string; discountPrice: number | null; ... 11 more ...; tags: string | null; }'.\r\n" +
+    '\r\n' +
+    "\x1B[7m468\x1B[0m         message: `Produto ${updatedProduct.isActive ? 'ativado' : 'desativado'} com sucesso`,\r\n" +
+    '\x1B[7m   \x1B[0m \x1B[91m                                           ~~~~~~~~\x1B[0m\r\n' +
+    '\n' +
+    '    at createTSError (C:\\www\\UBR\\Ecommerce-UssBrasil\\backend\\node_modules\\ts-node\\src\\index.ts:859:12)\n' +
+    '    at reportTSError (C:\\www\\UBR\\Ecommerce-UssBrasil\\backend\\node_modules\\ts-node\\src\\index.ts:863:19)\n' +
+    '    at getOutput (C:\\www\\UBR\\Ecommerce-UssBrasil\\backend\\node_modules\\ts-node\\src\\index.ts:1077:36)\n' +
+    '    at Object.compile (C:\\www\\UBR\\Ecommerce-UssBrasil\\backend\\node_modules\\ts-node\\src\\index.ts:1433:41)\n' +
+    '    at Module.m._compile (C:\\www\\UBR\\Ecommerce-UssBrasil\\backend\\node_modules\\ts-node\\src\\index.ts:1617:30)\n' +
+    '    at node:internal/modules/cjs/loader:1895:10\n' +
+    '    at Object.require.extensions.<computed> [as .ts] (C:\\www\\UBR\\Ecommerce-UssBrasil\\backend\\node_modules\\ts-node\\src\\index.ts:1621:12)\n' +
+    '    at Module.load (node:internal/modules/cjs/loader:1465:32)\n' +
+    '    at Function._load (node:internal/modules/cjs/loader:1282:12)\n' +
+    '    at TracingChannel.traceSync (node:diagnostics_channel:322:14)',
+  exception: true,
+  date: 'Sat Aug 09 2025 20:06:03 GMT-0300 (Horário Padrão de Brasília)',
+  process: {
+    pid: 6768,
+    uid: null,
+    gid: null,
+    cwd: 'C:\\www\\UBR\\Ecommerce-UssBrasil\\backend',
+    execPath: 'C:\\Program Files\\nodejs\\node.exe',
+    version: 'v22.15.0',
+    argv: [
+      'C:\\www\\UBR\\Ecommerce-UssBrasil\\backend\\node_modules\\ts-node\\dist\\bin.js',
+      'C:\\www\\UBR\\Ecommerce-UssBrasil\\backend\\src\\index.ts'
+    ],
+    memoryUsage: {
+      rss: 303669248,
+      heapTotal: 252936192,
+      heapUsed: 220215976,
+      external: 7883028,
+      arrayBuffers: 4888391
+    }
+  },
+  os: { loadavg: [ 0, 0, 0 ], uptime: 40525.14 },
+  trace: [
+    {
+      column: 12,
+      file: 'C:\\www\\UBR\\Ecommerce-UssBrasil\\backend\\node_modules\\ts-node\\src\\index.ts',
+      function: 'createTSError',
+      line: 859,
+      method: null,
+      native: false
+    },
+    {
+      column: 19,
+      file: 'C:\\www\\UBR\\Ecommerce-UssBrasil\\backend\\node_modules\\ts-node\\src\\index.ts',
+      function: 'reportTSError',
+      line: 863,
+      method: null,
+      native: false
+    },
+    {
+      column: 36,
+      file: 'C:\\www\\UBR\\Ecommerce-UssBrasil\\backend\\node_modules\\ts-node\\src\\index.ts',
+      function: 'getOutput',
+      line: 1077,
+      method: null,
+      native: false
+    },
+    {
+      column: 41,
+      file: 'C:\\www\\UBR\\Ecommerce-UssBrasil\\backend\\node_modules\\ts-node\\src\\index.ts',
+      function: 'Object.compile',
+      line: 1433,
+      method: 'compile',
+      native: false
+    },
+    {
+      column: 30,
+      file: 'C:\\www\\UBR\\Ecommerce-UssBrasil\\backend\\node_modules\\ts-node\\src\\index.ts',
+      function: 'Module.m._compile',
+      line: 1617,
+      method: '_compile',
+      native: false
+    },
+    {
+      column: 10,
+      file: 'node:internal/modules/cjs/loader',
+      function: null,
+      line: 1895,
+      method: null,
+      native: false
+    },
+    {
+      column: 12,
+      file: 'C:\\www\\UBR\\Ecommerce-UssBrasil\\backend\\node_modules\\ts-node\\src\\index.ts',
+      function: 'Object.require.extensions.<computed> [as .ts]',
+      line: 1621,
+      method: 'ts]',
+      native: false
+    },
+    {
+      column: 32,
+      file: 'node:internal/modules/cjs/loader',
+      function: 'Module.load',
+      line: 1465,
+      method: 'load',
+      native: false
+    },
+    {
+      column: 12,
+      file: 'node:internal/modules/cjs/loader',
+      function: 'Function._load',
+      line: 1282,
+      method: '_load',
+      native: false
+    },
+    {
+      column: 14,
+      file: 'node:diagnostics_channel',
+      function: 'TracingChannel.traceSync',
+      line: 322,
+      method: 'traceSync',
+      native: false
+    }
+  ],
+  service: 'uss-brasil-backend',
+  timestamp: '2025-08-09 20:06:03'
+}

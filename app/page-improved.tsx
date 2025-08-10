@@ -34,6 +34,9 @@ import {
 } from 'lucide-react'
 
 import data from '@/db.json'
+import { useCart } from '@/contexts/CartContext'
+import { useAuth } from '@/contexts/AuthContext'
+import { useModal } from '@/contexts/ModalContext'
 
 // Helpers
 const formatPrice = (price: number) =>
@@ -350,10 +353,13 @@ const BrandsSection: FC = () => {
 // Products Carousel
 const ProductsCarousel: FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0)
-  const [favorites, setFavorites] = useState<Set<string>>(new Set())
-  const [cart, setCart] = useState<Set<string>>(new Set())
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, amount: 0.3 })
+  
+  // Context hooks
+  const { addToCart } = useCart()
+  const { favorites, toggleFavorite, user } = useAuth()
+  const { openAuthModal } = useModal()
 
   const productsPerSlide = 4
   const totalSlides = Math.ceil(products.length / productsPerSlide)
@@ -366,27 +372,21 @@ const ProductsCarousel: FC = () => {
     setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides)
   }
 
-  const toggleFavorite = (productId: string) => {
-    setFavorites(prev => {
-      const newFavorites = new Set(prev)
-      if (newFavorites.has(productId)) {
-        newFavorites.delete(productId)
-      } else {
-        newFavorites.add(productId)
-      }
-      return newFavorites
-    })
+  const handleToggleFavorite = (productId: string) => {
+    if (!user) {
+      openAuthModal()
+      return
+    }
+    toggleFavorite(productId)
   }
 
-  const toggleCart = (productId: string) => {
-    setCart(prev => {
-      const newCart = new Set(prev)
-      if (newCart.has(productId)) {
-        newCart.delete(productId)
-      } else {
-        newCart.add(productId)
-      }
-      return newCart
+  const handleAddToCart = (product: any) => {
+    addToCart({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      image: product.image,
+      brand: product.brand
     })
   }
 
@@ -468,18 +468,18 @@ const ProductsCarousel: FC = () => {
                       <button
                         onClick={(e) => {
                           e.preventDefault()
-                          toggleFavorite(product.id)
+                          handleToggleFavorite(product.id)
                         }}
                         className={`p-2 rounded-full backdrop-blur-lg transition-all duration-300 ${
-                          favorites.has(product.id)
+                          favorites.includes(product.id)
                             ? 'bg-red-500 text-white'
                             : 'bg-white/90 text-gray-600 hover:bg-red-500 hover:text-white'
                         }`}
                       >
-                        <Heart className={`h-4 w-4 ${favorites.has(product.id) ? 'fill-current' : ''}`} />
+                        <Heart className={`h-4 w-4 ${favorites.includes(product.id) ? 'fill-current' : ''}`} />
                       </button>
                       
-                      <Link href={`/product/${product.id}`}>
+                      <Link href={`/produto/${product.id}`}>
                         <button className="p-2 bg-white/90 backdrop-blur-lg text-gray-600 hover:bg-uss-primary hover:text-white rounded-full transition-all duration-300">
                           <Eye className="h-4 w-4" />
                         </button>
@@ -519,16 +519,12 @@ const ProductsCarousel: FC = () => {
                     <button
                       onClick={(e) => {
                         e.preventDefault()
-                        toggleCart(product.id)
+                        handleAddToCart(product)
                       }}
-                      className={`w-full flex items-center justify-center gap-2 px-4 py-2 rounded-xl font-semibold transition-all duration-300 ${
-                        cart.has(product.id)
-                          ? 'bg-green-500 text-white'
-                          : 'bg-uss-primary text-white hover:bg-uss-secondary'
-                      }`}
+                      className="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-xl font-semibold transition-all duration-300 bg-uss-primary text-white hover:bg-uss-secondary"
                     >
                       <ShoppingCart className="h-4 w-4" />
-                      <span>{cart.has(product.id) ? 'No Carrinho' : 'Adicionar'}</span>
+                      <span>Adicionar ao Carrinho</span>
                     </button>
                   </div>
                 </div>

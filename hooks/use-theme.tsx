@@ -1,91 +1,23 @@
 'use client'
 
 import { createContext, useContext, useEffect, useState } from 'react'
+import { useAPI } from '@/hooks/use-api'
 
-type Theme = 'light' | 'dark' | 'system'
+type Theme = 'light' | 'dark'
 
 interface ThemeContextType {
   theme: Theme
   setTheme: (theme: Theme) => void
-  actualTheme: 'light' | 'dark'
   toggleTheme: () => void
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>('system')
-  const [actualTheme, setActualTheme] = useState<'light' | 'dark'>('light')
+  const [theme, setTheme] = useState<Theme>('light')
+  const { data: settings, update } = useAPI<any>('settings')
 
   useEffect(() => {
-    // Carrega tema do localStorage na inicialização
-    const savedTheme = localStorage.getItem('uss-theme') as Theme | null
-    if (savedTheme && ['light', 'dark', 'system'].includes(savedTheme)) {
-      setTheme(savedTheme)
-    }
-  }, [])
-
-  useEffect(() => {
-    // Determina o tema atual baseado na preferência
-    const determineActualTheme = () => {
-      if (theme === 'system') {
-        const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
-        setActualTheme(systemTheme)
-      } else {
-        setActualTheme(theme)
-      }
-    }
-
-    determineActualTheme()
-
-    // Escuta mudanças na preferência do sistema
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
-    const handleChange = () => {
-      if (theme === 'system') {
-        determineActualTheme()
-      }
-    }
-
-    mediaQuery.addEventListener('change', handleChange)
-    return () => mediaQuery.removeEventListener('change', handleChange)
-  }, [theme])
-
-  useEffect(() => {
-    // Aplica o tema ao document
-    const root = document.documentElement
-    root.classList.remove('light', 'dark')
-    root.classList.add(actualTheme)
-
-    // Salva no localStorage
-    localStorage.setItem('uss-theme', theme)
-
-    // Sincroniza entre abas usando storage event
-    const syncTheme = (e: StorageEvent) => {
-      if (e.key === 'uss-theme' && e.newValue) {
-        const newTheme = e.newValue as Theme
-        if (['light', 'dark', 'system'].includes(newTheme)) {
-          setTheme(newTheme)
-        }
-      }
-    }
-
-    window.addEventListener('storage', syncTheme)
-    return () => window.removeEventListener('storage', syncTheme)
-  }, [actualTheme, theme])
-
-  const toggleTheme = () => {
-    if (theme === 'light') {
-      setTheme('dark')
-    } else if (theme === 'dark') {
-      setTheme('system')
-    } else {
-      setTheme('light')
-    }
-  }
-
-  const updateTheme = (newTheme: Theme) => {
-    setTheme(newTheme)
-  }
     // Carregar tema salvo
     if (settings.length > 0) {
       const savedTheme = settings.find((s: any) => s.key === 'theme')
