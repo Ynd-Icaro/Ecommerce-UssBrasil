@@ -96,17 +96,39 @@ export default function ProductPage() {
     }
   }, [productId])
 
-  const submitReview = () => {
-    if (!user || !product || !newReview.text.trim()) return
+  useEffect(()=>{
+    // Load reviews from API
+    const load = async () => {
+      try {
+        if(!productId) return
+        const res = await fetch(`/api/reviews?productId=${productId}`)
+        if(res.ok){
+          const data = await res.json()
+          setReviews(data.map((d:any)=>({ id:d.id, user:d.author || d.user || 'Cliente', rating:d.rating, text:d.text, createdAt:d.createdAt })))
+        }
+      } catch(e){
+        console.warn('reviews load fail', e)
+      }
+    }
+    load()
+  },[productId])
+
+  const submitReview = async () => {
+    if (!user || !product || !newReview.text.trim() || submitting) return
     setSubmitting(true)
-    setTimeout(() => {
-      setReviews(prev => [
-        { id: crypto.randomUUID(), user: user.name, rating: newReview.rating, text: newReview.text.trim(), createdAt: new Date().toISOString() },
-        ...prev
-      ])
-      setNewReview({ rating: 5, text: '' })
+    try {
+      const payload = { productId: product.id, author: user.name, rating: newReview.rating, text: newReview.text.trim() }
+      const res = await fetch('/api/reviews', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) })
+      if(res.ok){
+        const saved = await res.json()
+        setReviews(prev => [ { id:saved.id, user:saved.author, rating:saved.rating, text:saved.text, createdAt:saved.createdAt }, ...prev ])
+        setNewReview({ rating:5, text:'' })
+      }
+    } catch(e){
+      console.error('submit review', e)
+    } finally {
       setSubmitting(false)
-    }, 400)
+    }
   }
 
   const handleAddToCart = () => {
