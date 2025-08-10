@@ -43,10 +43,10 @@ const ModernFooter = () => {
       title: 'Institucional',
       links: [
         { name: 'Sobre Nós', href: '/sobre' },
-        { name: 'Nossa História', href: '/sobre#historia' },
-        { name: 'Missão e Valores', href: '/sobre#valores' },
-        { name: 'Trabalhe Conosco', href: '/carreiras' },
         { name: 'Imprensa', href: '/imprensa' },
+        { name: 'Trabalhe Conosco', href: '/trabalhe-conosco' },
+        { name: 'Termos de Uso', href: '/termos' },
+        { name: 'Privacidade', href: '/privacidade' },
       ]
     },
     {
@@ -62,20 +62,21 @@ const ModernFooter = () => {
     {
       title: 'Atendimento',
       links: [
-        { name: 'Central de Ajuda', href: '/ajuda' },
-        { name: 'Como Comprar', href: '/ajuda/como-comprar' },
-        { name: 'Política de Troca', href: '/ajuda/trocas' },
-        { name: 'Garantia', href: '/ajuda/garantia' },
+        { name: 'Central de Ajuda', href: '/central-ajuda' },
+        { name: 'FAQ', href: '/faq' },
+        { name: 'Como Comprar', href: '/como-comprar' },
+        { name: 'Política de Troca', href: '/politica-troca' },
+        { name: 'Garantia', href: '/garantia' },
         { name: 'Rastreamento', href: '/rastreamento' },
       ]
     },
     {
       title: 'Minha Conta',
       links: [
-        { name: 'Login', href: '/login' },
-        { name: 'Cadastro', href: '/register' },
-        { name: 'Meus Pedidos', href: '/orders' },
-        { name: 'Lista de Desejos', href: '/favorites' },
+        { name: 'Entrar', href: '/auth/login' },
+        { name: 'Criar Conta', href: '/auth/registrar' },
+        { name: 'Recuperar Acesso', href: '/auth/recuperar' },
+        { name: 'Favoritos', href: '/favoritos' },
         { name: 'Área VIP', href: '/vip' },
       ]
     }
@@ -364,17 +365,15 @@ const ModernFooter = () => {
                 © {currentYear} USS Brasil. Todos os direitos reservados.
               </p>
               <div className="flex items-center justify-center md:justify-start space-x-4 mt-2">
-                <Link href="/politica-privacidade" className="text-xs text-uss-gray-500 hover:text-uss-secondary transition-colors">
+                <Link href="/privacidade" className="text-xs text-uss-gray-500 hover:text-uss-secondary transition-colors">
                   Política de Privacidade
                 </Link>
                 <span className="text-uss-gray-700">•</span>
-                <Link href="/termos-uso" className="text-xs text-uss-gray-500 hover:text-uss-secondary transition-colors">
+                <Link href="/termos" className="text-xs text-uss-gray-500 hover:text-uss-secondary transition-colors">
                   Termos de Uso
                 </Link>
                 <span className="text-uss-gray-700">•</span>
-                <Link href="/cookies" className="text-xs text-uss-gray-500 hover:text-uss-secondary transition-colors">
-                  Cookies
-                </Link>
+                <Link href="/faq" className="text-xs text-uss-gray-500 hover:text-uss-secondary transition-colors">FAQ</Link>
               </div>
             </div>
 
