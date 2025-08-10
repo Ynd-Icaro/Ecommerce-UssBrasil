@@ -27,6 +27,28 @@ interface Order {
   status: string 
 }
 
+interface Address {
+  id: string
+  label: string
+  street: string
+  number?: string
+  city: string
+  state: string
+  zip: string
+  complement?: string
+  default?: boolean
+}
+
+interface PaymentMethod {
+  id: string
+  brand: string
+  last4: string
+  holder: string
+  exp: string
+  default?: boolean
+  type?: 'card' | 'pix' | 'boleto'
+}
+
 interface AuthContextType {
   // NextAuth integration
   session: any
@@ -38,12 +60,21 @@ interface AuthContextType {
   user: UserProfile | null
   favorites: string[]
   orders: Order[]
+  addresses: Address[]
+  paymentMethods: PaymentMethod[]
   
   // Actions
   login: (email: string, name?: string) => void
   logout: () => void
   toggleFavorite: (id: string) => void
   addOrder: (items: OrderItem[]) => Order
+  updateOrderStatus: (orderId: string, status: string) => void
+  addAddress: (address: Omit<Address, 'id'>) => Address
+  removeAddress: (id: string) => void
+  setDefaultAddress: (id: string) => void
+  addPaymentMethod: (pm: Omit<PaymentMethod, 'id'>) => PaymentMethod
+  removePaymentMethod: (id: string) => void
+  setDefaultPayment: (id: string) => void
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
@@ -53,7 +84,9 @@ const STORAGE_KEY = 'ubr_session_v1'
 interface PersistShape { 
   user: UserProfile | null
   favorites: string[]
-  orders: Order[] 
+  orders: Order[]
+  addresses: Address[]
+  paymentMethods: PaymentMethod[]
 }
 
 export function AuthProvider({ children }: { children: ReactNode }) {
@@ -61,6 +94,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<UserProfile | null>(null)
   const [favorites, setFavorites] = useState<string[]>([])
   const [orders, setOrders] = useState<Order[]>([])
+  const [addresses, setAddresses] = useState<Address[]>([])
+  const [paymentMethods, setPaymentMethods] = useState<PaymentMethod[]>([])
 
   // Load from localStorage
   useEffect(() => {
@@ -70,7 +105,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         const parsed: PersistShape = JSON.parse(raw)
         setUser(parsed.user)
         setFavorites(parsed.favorites || [])
-        setOrders(parsed.orders || [])
+  setOrders(parsed.orders || [])
+  setAddresses(parsed.addresses || [])
+  setPaymentMethods(parsed.paymentMethods || [])
       }
     } catch (e) { 
       console.warn('session load fail', e) 
@@ -79,9 +116,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   // Persist to localStorage
   useEffect(() => {
-    const data: PersistShape = { user, favorites, orders }
+    const data: PersistShape = { user, favorites, orders, addresses, paymentMethods }
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data))
-  }, [user, favorites, orders])
+  }, [user, favorites, orders, addresses, paymentMethods])
 
   // Sync NextAuth session with local user state
   useEffect(() => {
@@ -139,6 +176,38 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return order
   }
 
+  const updateOrderStatus = (orderId: string, status: string) => {
+    setOrders(prev => prev.map(o => o.id === orderId ? { ...o, status } : o))
+  }
+
+  // Address management
+  const addAddress = (address: Omit<Address, 'id'>): Address => {
+    const newAddress: Address = { id: crypto.randomUUID(), ...address }
+    setAddresses(prev => {
+      let updated = [...prev]
+      if (newAddress.default) {
+        updated = updated.map(a => ({ ...a, default: false }))
+      }
+      return [newAddress, ...updated]
+    })
+    return newAddress
+  }
+  const removeAddress = (id: string) => setAddresses(prev => prev.filter(a => a.id !== id))
+  const setDefaultAddress = (id: string) => setAddresses(prev => prev.map(a => ({ ...a, default: a.id === id })))
+
+  // Payment methods
+  const addPaymentMethod = (pm: Omit<PaymentMethod, 'id'>): PaymentMethod => {
+    const newPm: PaymentMethod = { id: crypto.randomUUID(), ...pm }
+    setPaymentMethods(prev => {
+      let updated = [...prev]
+      if (newPm.default) updated = updated.map(p => ({ ...p, default: false }))
+      return [newPm, ...updated]
+    })
+    return newPm
+  }
+  const removePaymentMethod = (id: string) => setPaymentMethods(prev => prev.filter(p => p.id !== id))
+  const setDefaultPayment = (id: string) => setPaymentMethods(prev => prev.map(p => ({ ...p, default: p.id === id })))
+
   const value: AuthContextType = {
     // NextAuth integration
     session,
@@ -157,12 +226,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     } : user,
     favorites,
     orders,
+  addresses,
+  paymentMethods,
     
     // Actions
     login,
     logout,
     toggleFavorite,
     addOrder
+  , updateOrderStatus,
+  addAddress, removeAddress, setDefaultAddress,
+  addPaymentMethod, removePaymentMethod, setDefaultPayment
   }
 
   return (

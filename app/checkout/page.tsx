@@ -42,9 +42,11 @@ export default function CheckoutPage(){
       createdAt: new Date().toISOString()
     })
     
-    clearCart()
-    setCreatedOrderId(order.id)
-    setProcessing(false)
+  clearCart()
+  setCreatedOrderId(order.id)
+  setProcessing(false)
+  // Redirect to success page with order id param
+  router.push(`/checkout/sucesso?order=${order.id}`)
   }
 
   const goToOrders = () => {

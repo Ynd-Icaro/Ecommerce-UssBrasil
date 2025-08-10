@@ -27,6 +27,8 @@ import { useModal } from '@/contexts/ModalContext'
 import { getAllProducts, type Product } from '@/lib/products-manager'
 import { ExtendedProduct, extendProduct } from '@/types/product-extended'
 
+interface ReviewEntry { id: string; user: string; rating: number; text: string; createdAt: string }
+
 const formatPrice = (price: number) => `R$ ${price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`
 
 const fixPath = (path: string) => {
@@ -49,6 +51,9 @@ export default function ProductPage() {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0)
   const [loading, setLoading] = useState(true)
   const [relatedProducts, setRelatedProducts] = useState<ExtendedProduct[]>([])
+  const [reviews, setReviews] = useState<ReviewEntry[]>([])
+  const [newReview, setNewReview] = useState({ rating: 5, text: '' })
+  const [submitting, setSubmitting] = useState(false)
 
   const productId = params.id as string
 
@@ -90,6 +95,19 @@ export default function ProductPage() {
       loadProduct()
     }
   }, [productId])
+
+  const submitReview = () => {
+    if (!user || !product || !newReview.text.trim()) return
+    setSubmitting(true)
+    setTimeout(() => {
+      setReviews(prev => [
+        { id: crypto.randomUUID(), user: user.name, rating: newReview.rating, text: newReview.text.trim(), createdAt: new Date().toISOString() },
+        ...prev
+      ])
+      setNewReview({ rating: 5, text: '' })
+      setSubmitting(false)
+    }, 400)
+  }
 
   const handleAddToCart = () => {
     if (!product) return
@@ -411,6 +429,55 @@ export default function ProductPage() {
             </div>
           </div>
         )}
+
+        {/* Reviews Section */}
+        <div className="mt-20">
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">Avaliações de Clientes</h2>
+          {user ? (
+            <div className="mb-10 bg-white rounded-xl border p-6 space-y-4">
+              <div className="flex items-center gap-3">
+                <span className="text-sm text-gray-600">Sua Nota:</span>
+                <div className="flex items-center gap-1">
+                  {[1,2,3,4,5].map(r => (
+                    <button key={r} onClick={() => setNewReview(n => ({ ...n, rating: r }))} className={`p-1 rounded ${newReview.rating >= r ? 'text-yellow-400' : 'text-gray-300'} hover:scale-110 transition`}> 
+                      <Star className="h-5 w-5 fill-current" />
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <textarea
+                placeholder="Compartilhe sua experiência com este produto"
+                value={newReview.text}
+                onChange={e => setNewReview(n => ({ ...n, text: e.target.value }))}
+                className="w-full rounded-lg border border-gray-300 focus:border-uss-primary focus:ring-uss-primary text-sm min-h-[120px] p-3"
+              />
+              <button disabled={submitting || !newReview.text.trim()} onClick={submitReview} className="px-5 py-3 rounded-lg bg-uss-primary text-white text-sm font-medium disabled:opacity-50 hover:bg-uss-secondary transition">
+                {submitting ? 'Enviando...' : 'Enviar Avaliação'}
+              </button>
+            </div>
+          ) : (
+            <div className="mb-10 bg-white rounded-xl border p-6 text-sm text-gray-600">
+              Faça login para escrever uma avaliação.
+            </div>
+          )}
+          <div className="space-y-4">
+            {reviews.length === 0 && (
+              <p className="text-sm text-gray-600">Nenhuma avaliação ainda. Seja o primeiro a avaliar!</p>
+            )}
+            {reviews.map(r => (
+              <div key={r.id} className="bg-white rounded-xl border p-5">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-sm font-semibold text-gray-800">{r.user}</span>
+                  <span className="text-xs text-gray-500">{new Date(r.createdAt).toLocaleDateString('pt-BR')}</span>
+                </div>
+                <div className="flex items-center gap-1 mb-2">
+                  {[...Array(5)].map((_,i)=>(<Star key={i} className={`h-4 w-4 ${i < r.rating ? 'text-yellow-400 fill-current' : 'text-gray-300'}`} />))}
+                </div>
+                <p className="text-sm text-gray-700 leading-relaxed">{r.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   )
