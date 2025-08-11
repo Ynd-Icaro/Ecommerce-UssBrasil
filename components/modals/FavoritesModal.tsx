@@ -35,7 +35,7 @@ export default function FavoritesModal() {
 
   // Buscar produtos completos pelos IDs dos favoritos
   const favoriteProducts = data.products.filter((product: any) => 
-    favorites.includes(parseInt(product.id))
+  favorites.includes(String(product.id))
   )
 
   const formatPrice = (price: number) => {
@@ -61,7 +61,7 @@ export default function FavoritesModal() {
   }
 
   const handleRemoveFromFavorites = (productId: string) => {
-    toggleFavorite(parseInt(productId))
+  toggleFavorite(String(productId))
   }
 
   const handleClearFavorites = () => {

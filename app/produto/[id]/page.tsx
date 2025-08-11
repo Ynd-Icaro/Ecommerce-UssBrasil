@@ -417,7 +417,7 @@ export default function ProductPage() {
             <h2 className="text-2xl font-bold text-gray-900 mb-8">Produtos Relacionados</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {relatedProducts.map((relatedProduct) => (
-                <Link key={relatedProduct.id} href={`/produto/${relatedProduct.id}`}>
+                <Link key={relatedProduct.id} href={`/produtos/${relatedProduct.category?.toLowerCase().replace(/\s+/g, '-') || 'geral'}/${relatedProduct.id}`}>
                   <div className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group">
                     <div className="relative aspect-square bg-gray-50 p-4">
                       <Image

@@ -1,0 +1,595 @@
+/* ==========================================
+   USS BRASIL - SISTEMA DE DESIGN UNIFICADO
+   Design System Complete v2.0
+   ========================================== */
+
+@import "tailwindcss";
+
+:root {
+  /* ==========================================
+     TOKENS DE CORES - USS BRASIL
+     ========================================== */
+  
+  /* Cores Primárias da Marca */
+  --uss-primary-50: #e6f3f8;
+  --uss-primary-100: #cce7f1;
+  --uss-primary-200: #99cfe3;
+  --uss-primary-300: #66b7d5;
+  --uss-primary-400: #339fc7;
+  --uss-primary-500: #034a6e;  /* Cor principal */
+  --uss-primary-600: #065a84;
+  --uss-primary-700: #024158;
+  --uss-primary-800: #012a3a;
+  --uss-primary-900: #01131c;
+
+  /* Cores Accent - Turquesa */
+  --uss-accent-50: #e6fbfc;
+  --uss-accent-100: #b3f4f7;
+  --uss-accent-200: #80ecf1;
+  --uss-accent-300: #54c4cf;  /* Cor accent principal */
+  --uss-accent-400: #4db8c4;
+  --uss-accent-500: #46acb9;
+  --uss-accent-600: #3f9fae;
+  --uss-accent-700: #389394;
+  --uss-accent-800: #318780;
+  --uss-accent-900: #2a7b6c;
+
+  /* Cores Neutras Modernas */
+  --uss-gray-50: #f9fafb;
+  --uss-gray-100: #f3f4f6;
+  --uss-gray-200: #e5e7eb;
+  --uss-gray-300: #d1d5db;
+  --uss-gray-400: #9ca3af;
+  --uss-gray-500: #6b7280;
+  --uss-gray-600: #4b5563;
+  --uss-gray-700: #374151;
+  --uss-gray-800: #1f2937;
+  --uss-gray-900: #111827;
+  --uss-gray-950: #030712;
+
+  /* Cores de Sistema */
+  --uss-success: #10b981;
+  --uss-success-light: #d1fae5;
+  --uss-warning: #f59e0b;
+  --uss-warning-light: #fef3c7;
+  --uss-error: #ef4444;
+  --uss-error-light: #fee2e2;
+  --uss-info: #3b82f6;
+  --uss-info-light: #dbeafe;
+
+  /* ==========================================
+     TOKENS DE TIPOGRAFIA
+     ========================================== */
+  
+  /* Font Families */
+  --font-primary: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  /* Font Sizes */
+  --text-xs: 0.75rem;      /* 12px */
+  --text-sm: 0.875rem;     /* 14px */
+  --text-base: 1rem;       /* 16px */
+  --text-lg: 1.125rem;     /* 18px */
+  --text-xl: 1.25rem;      /* 20px */
+  --text-2xl: 1.5rem;      /* 24px */
+  --text-3xl: 1.875rem;    /* 30px */
+  --text-4xl: 2.25rem;     /* 36px */
+  --text-5xl: 3rem;        /* 48px */
+  --text-6xl: 3.75rem;     /* 60px */
+
+  /* Font Weights */
+  --font-light: 300;
+  --font-normal: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+  --font-extrabold: 800;
+
+  /* Line Heights */
+  --leading-tight: 1.25;
+  --leading-snug: 1.375;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.625;
+  --leading-loose: 2;
+
+  /* ==========================================
+     TOKENS DE ESPAÇAMENTO
+     ========================================== */
+  
+  --space-1: 0.25rem;      /* 4px */
+  --space-2: 0.5rem;       /* 8px */
+  --space-3: 0.75rem;      /* 12px */
+  --space-4: 1rem;         /* 16px */
+  --space-5: 1.25rem;      /* 20px */
+  --space-6: 1.5rem;       /* 24px */
+  --space-8: 2rem;         /* 32px */
+  --space-10: 2.5rem;      /* 40px */
+  --space-12: 3rem;        /* 48px */
+  --space-16: 4rem;        /* 64px */
+  --space-20: 5rem;        /* 80px */
+  --space-24: 6rem;        /* 96px */
+  --space-32: 8rem;        /* 128px */
+
+  /* ==========================================
+     TOKENS DE BORDAS E RAIO
+     ========================================== */
+  
+  --radius-none: 0;
+  --radius-sm: 0.125rem;    /* 2px */
+  --radius-base: 0.375rem;  /* 6px */
+  --radius-md: 0.5rem;      /* 8px */
+  --radius-lg: 0.75rem;     /* 12px */
+  --radius-xl: 1rem;        /* 16px */
+  --radius-2xl: 1.5rem;     /* 24px */
+  --radius-full: 9999px;
+
+  /* Border Widths */
+  --border-0: 0;
+  --border-1: 1px;
+  --border-2: 2px;
+  --border-4: 4px;
+  --border-8: 8px;
+
+  /* ==========================================
+     TOKENS DE SOMBRAS
+     ========================================== */
+  
+  --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-base: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-md: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  --shadow-2xl: 0 50px 100px -20px rgb(0 0 0 / 0.25);
+
+  /* Colored Shadows */
+  --shadow-primary: 0 4px 14px 0 rgb(3 74 110 / 0.2);
+  --shadow-accent: 0 4px 14px 0 rgb(84 196 207 / 0.2);
+  --shadow-success: 0 4px 14px 0 rgb(16 185 129 / 0.2);
+  --shadow-error: 0 4px 14px 0 rgb(239 68 68 / 0.2);
+
+  /* ==========================================
+     TOKENS DE ANIMAÇÃO
+     ========================================== */
+  
+  /* Duration */
+  --duration-75: 75ms;
+  --duration-100: 100ms;
+  --duration-150: 150ms;
+  --duration-200: 200ms;
+  --duration-300: 300ms;
+  --duration-500: 500ms;
+  --duration-700: 700ms;
+  --duration-1000: 1000ms;
+
+  /* Easing */
+  --ease-linear: linear;
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+  /* ==========================================
+     TEMA LIGHT MODE
+     ========================================== */
+  
+  --bg-primary: var(--uss-gray-50);
+  --bg-secondary: #ffffff;
+  --bg-tertiary: var(--uss-gray-100);
+  --bg-accent: var(--uss-primary-50);
+  
+  --text-primary: var(--uss-gray-900);
+  --text-secondary: var(--uss-gray-600);
+  --text-tertiary: var(--uss-gray-400);
+  --text-accent: var(--uss-primary-600);
+  
+  --border-primary: var(--uss-gray-200);
+  --border-secondary: var(--uss-gray-300);
+  --border-accent: var(--uss-primary-200);
+  
+  --glass-bg: rgba(255, 255, 255, 0.8);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --backdrop-blur: blur(12px);
+}
+
+/* ==========================================
+   TEMA DARK MODE
+   ========================================== */
+
+.dark {
+  --bg-primary: var(--uss-gray-950);
+  --bg-secondary: var(--uss-gray-900);
+  --bg-tertiary: var(--uss-gray-800);
+  --bg-accent: var(--uss-primary-900);
+  
+  --text-primary: var(--uss-gray-50);
+  --text-secondary: var(--uss-gray-300);
+  --text-tertiary: var(--uss-gray-500);
+  --text-accent: var(--uss-accent-300);
+  
+  --border-primary: var(--uss-gray-700);
+  --border-secondary: var(--uss-gray-600);
+  --border-accent: var(--uss-primary-700);
+  
+  --glass-bg: rgba(17, 24, 39, 0.8);
+  --glass-border: rgba(84, 196, 207, 0.1);
+  
+  /* Dark mode shadows */
+  --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+  --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.3), 0 1px 2px -1px rgb(0 0 0 / 0.3);
+  --shadow-base: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+  --shadow-md: 0 10px 15px -3px rgb(0 0 0 / 0.3), 0 4px 6px -4px rgb(0 0 0 / 0.3);
+  --shadow-lg: 0 20px 25px -5px rgb(0 0 0 / 0.3), 0 8px 10px -6px rgb(0 0 0 / 0.3);
+  --shadow-xl: 0 25px 50px -12px rgb(0 0 0 / 0.4);
+  --shadow-2xl: 0 50px 100px -20px rgb(0 0 0 / 0.4);
+}
+
+/* ==========================================
+   CLASSES UTILITÁRIAS GLOBAIS
+   ========================================== */
+
+* {
+  border-color: var(--border-primary);
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-primary);
+  line-height: var(--leading-normal);
+  font-weight: var(--font-normal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color var(--duration-300) var(--ease-in-out);
+}
+
+/* ==========================================
+   SCROLLBAR CUSTOMIZADO
+   ========================================== */
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-base);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-secondary);
+  border-radius: var(--radius-base);
+  transition: background-color var(--duration-200) var(--ease-in-out);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--uss-primary-500);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-secondary) var(--bg-tertiary);
+}
+
+/* ==========================================
+   CLASSES DE COMPONENTES BASE
+   ========================================== */
+
+.uss-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: var(--space-4);
+  padding-right: var(--space-4);
+}
+
+.uss-container-wide {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding-left: var(--space-6);
+  padding-right: var(--space-6);
+}
+
+.uss-container-full {
+  max-width: 100%;
+  padding-left: var(--space-4);
+  padding-right: var(--space-4);
+}
+
+/* ==========================================
+   GLASSMORPHISM
+   ========================================== */
+
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: var(--backdrop-blur);
+  border: var(--border-1) solid var(--glass-border);
+}
+
+.glass-strong {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border: var(--border-1) solid rgba(255, 255, 255, 0.3);
+}
+
+.dark .glass-strong {
+  background: rgba(17, 24, 39, 0.95);
+  border: var(--border-1) solid rgba(84, 196, 207, 0.2);
+}
+
+/* ==========================================
+   ANIMAÇÕES E TRANSIÇÕES
+   ========================================== */
+
+.transition-smooth {
+  transition: all var(--duration-300) var(--ease-in-out);
+}
+
+.transition-fast {
+  transition: all var(--duration-150) var(--ease-in-out);
+}
+
+.transition-slow {
+  transition: all var(--duration-500) var(--ease-in-out);
+}
+
+.hover-lift {
+  transition: transform var(--duration-200) var(--ease-out);
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+}
+
+.hover-scale {
+  transition: transform var(--duration-200) var(--ease-out);
+}
+
+.hover-scale:hover {
+  transform: scale(1.05);
+}
+
+.hover-glow {
+  transition: box-shadow var(--duration-300) var(--ease-in-out);
+}
+
+.hover-glow:hover {
+  box-shadow: var(--shadow-primary);
+}
+
+/* ==========================================
+   KEYFRAMES E ANIMAÇÕES
+   ========================================== */
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { 
+    opacity: 0; 
+    transform: translateY(20px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+@keyframes slideDown {
+  from { 
+    opacity: 0; 
+    transform: translateY(-20px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+@keyframes slideLeft {
+  from { 
+    opacity: 0; 
+    transform: translateX(20px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateX(0); 
+  }
+}
+
+@keyframes slideRight {
+  from { 
+    opacity: 0; 
+    transform: translateX(-20px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateX(0); 
+  }
+}
+
+@keyframes scaleIn {
+  from { 
+    opacity: 0; 
+    transform: scale(0.95); 
+  }
+  to { 
+    opacity: 1; 
+    transform: scale(1); 
+  }
+}
+
+@keyframes bounce {
+  0%, 20%, 53%, 80%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  40%, 43% {
+    transform: translate3d(0, -8px, 0);
+  }
+  70% {
+    transform: translate3d(0, -4px, 0);
+  }
+  90% {
+    transform: translate3d(0, -2px, 0);
+  }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+@keyframes skeleton {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Classes de animação */
+.animate-fade-in {
+  animation: fadeIn var(--duration-500) var(--ease-out);
+}
+
+.animate-slide-up {
+  animation: slideUp var(--duration-500) var(--ease-out);
+}
+
+.animate-slide-down {
+  animation: slideDown var(--duration-500) var(--ease-out);
+}
+
+.animate-slide-left {
+  animation: slideLeft var(--duration-500) var(--ease-out);
+}
+
+.animate-slide-right {
+  animation: slideRight var(--duration-500) var(--ease-out);
+}
+
+.animate-scale-in {
+  animation: scaleIn var(--duration-300) var(--ease-out);
+}
+
+.animate-bounce {
+  animation: bounce var(--duration-1000) infinite;
+}
+
+.animate-pulse {
+  animation: pulse var(--duration-1000) infinite;
+}
+
+/* ==========================================
+   ESTADOS DE LOADING E SKELETON
+   ========================================== */
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--bg-tertiary) 25%,
+    var(--border-primary) 50%,
+    var(--bg-tertiary) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton var(--duration-1000) infinite;
+  border-radius: var(--radius-base);
+}
+
+/* ==========================================
+   FOCUS E ACESSIBILIDADE
+   ========================================== */
+
+.focus-ring {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  transition: outline-color var(--duration-150) var(--ease-in-out);
+}
+
+.focus-ring:focus {
+  outline-color: var(--uss-primary-500);
+}
+
+.focus-ring:focus-visible {
+  outline-color: var(--uss-primary-500);
+  outline-style: solid;
+}
+
+/* ==========================================
+   RESPONSIVIDADE
+   ========================================== */
+
+@media (max-width: 640px) {
+  .uss-container,
+  .uss-container-wide,
+  .uss-container-full {
+    padding-left: var(--space-4);
+    padding-right: var(--space-4);
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --text-3xl: 1.5rem;    /* 24px */
+    --text-4xl: 1.875rem;  /* 30px */
+    --text-5xl: 2.25rem;   /* 36px */
+    --text-6xl: 3rem;      /* 48px */
+  }
+}
+
+/* ==========================================
+   PRINT STYLES
+   ========================================== */
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  
+  .glass,
+  .glass-strong {
+    background: white !important;
+    backdrop-filter: none !important;
+    border: var(--border-1) solid #e5e7eb !important;
+  }
+}
+
+/* ==========================================
+   MOTION PREFERENCES
+   ========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .animate-fade-in,
+  .animate-slide-up,
+  .animate-slide-down,
+  .animate-slide-left,
+  .animate-slide-right,
+  .animate-scale-in,
+  .animate-bounce,
+  .animate-pulse {
+    animation: none !important;
+  }
+}

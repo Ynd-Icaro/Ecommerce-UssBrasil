@@ -109,8 +109,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
           >
             {/* Header */}
             <div 
-              className="relative p-6 text-white"
-              style={{ background: 'var(--uss-gradient-premium)' }}
+              className="relative p-6 text-white bg-primary"
             >
               <button
                 onClick={onClose}
@@ -142,7 +141,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                       placeholder="Nome completo"
                       value={formData.name}
                       onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-                      className="w-full pl-12 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white"
+                      className="w-full pl-12 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white"
                       required
                     />
                   </div>
@@ -155,7 +154,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                     placeholder="Email"
                     value={formData.email}
                     onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
-                    className="w-full pl-12 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white"
+                    className="w-full pl-12 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white"
                     required
                   />
                 </div>
@@ -167,7 +166,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                     placeholder="Senha"
                     value={formData.password}
                     onChange={(e) => setFormData(prev => ({ ...prev, password: e.target.value }))}
-                    className="w-full pl-12 pr-12 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white"
+                    className="w-full pl-12 pr-12 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white"
                     required
                   />
                   <button
@@ -187,7 +186,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                       placeholder="Confirmar senha"
                       value={formData.confirmPassword}
                       onChange={(e) => setFormData(prev => ({ ...prev, confirmPassword: e.target.value }))}
-                      className="w-full pl-12 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white"
+                      className="w-full pl-12 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white"
                       required
                     />
                   </div>
@@ -196,19 +195,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full text-white py-3 rounded-lg font-semibold transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-105"
-                  style={{ 
-                    background: 'var(--uss-gradient-premium)',
-                    boxShadow: 'var(--uss-shadow-md)'
-                  }}
-                  onMouseEnter={(e) => {
-                    if (!e.currentTarget.disabled) {
-                      e.currentTarget.style.boxShadow = 'var(--uss-shadow-xl)'
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.boxShadow = 'var(--uss-shadow-md)'
-                  }}
+                  className="w-full bg-primary hover:bg-secondary text-white py-3 rounded-lg font-semibold transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-105"
                 >
                   {loading ? 'Processando...' : (mode === 'login' ? 'Entrar' : 'Criar Conta')}
                 </button>

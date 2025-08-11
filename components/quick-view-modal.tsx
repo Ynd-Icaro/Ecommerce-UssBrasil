@@ -66,7 +66,7 @@ export function QuickViewModal({ product, isOpen, onClose }: QuickViewModalProps
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto p-0 bg-white rounded-2xl">
         <div className="grid md:grid-cols-2 gap-0">
           {/* Product Image */}
-          <div className="relative aspect-square bg-gradient-to-br from-gray-50 via-gray-50 to-gray-100 p-8">
+          <div className="relative aspect-square bg-gray-50 p-8">
             <Image
               src={product.image || "/placeholder.svg"}
               alt={product.name}
@@ -79,17 +79,13 @@ export function QuickViewModal({ product, isOpen, onClose }: QuickViewModalProps
             <div className="absolute top-6 left-6 flex flex-col gap-2">
               {product.badge && (
                 <Badge 
-                  className="border-0 px-3 py-1.5 text-sm font-semibold text-white"
-                  style={{ 
-                    background: 'var(--uss-gradient-premium)',
-                    boxShadow: 'var(--uss-shadow-lg)'
-                  }}
+                  className="bg-primary text-white border-0 px-3 py-1.5 text-sm font-semibold shadow-lg"
                 >
                   {product.badge}
                 </Badge>
               )}
               {product.discount > 0 && (
-                <Badge className="bg-gradient-to-r from-red-500 to-red-600 text-white border-0 px-3 py-1.5 text-sm font-semibold shadow-lg">
+                <Badge className="bg-red-600 text-white border-0 px-3 py-1.5 text-sm font-semibold shadow-lg">
                   -{product.discount}% OFF
                 </Badge>
               )}
@@ -228,17 +224,7 @@ export function QuickViewModal({ product, isOpen, onClose }: QuickViewModalProps
             <div className="space-y-4 mb-8">
               <div className="flex gap-3">
                 <Button 
-                  className="flex-1 text-white py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105"
-                  style={{ 
-                    background: 'var(--uss-gradient-premium)',
-                    boxShadow: 'var(--uss-shadow-lg)'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.boxShadow = 'var(--uss-shadow-xl)'
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.boxShadow = 'var(--uss-shadow-lg)'
-                  }}
+                  className="flex-1 bg-primary hover:bg-secondary text-white py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105"
                 >
                   <ShoppingCart className="h-4 w-4 mr-2" />
                   Adicionar ao Carrinho
@@ -250,7 +236,7 @@ export function QuickViewModal({ product, isOpen, onClose }: QuickViewModalProps
                   <Heart className="h-4 w-4" />
                 </Button>
               </div>
-              <Link href={`/product/${product.id}`} onClick={onClose}>
+              <Link href={`/produtos/${product.category?.toLowerCase().replace(/\s+/g, '-') || 'geral'}/${product.id}`} onClick={onClose}>
                 <Button
                   variant="outline"
                   className="w-full py-3 rounded-xl border-gray-200 bg-transparent hover:bg-gray-50"

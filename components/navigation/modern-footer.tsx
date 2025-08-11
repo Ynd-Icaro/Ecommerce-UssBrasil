@@ -173,15 +173,15 @@ const ModernFooter = () => {
   }
 
   return (
-    <footer className="bg-uss-gray-900 text-white relative overflow-hidden">
+    <footer className="bg-[var(--bg-tertiary)] text-[var(--text-primary)] relative overflow-hidden">
       {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-uss-secondary rounded-full blur-3xl" />
+      <div className="absolute inset-0 opacity-20">
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-uss-accent rounded-full blur-3xl" />
         <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-uss-primary rounded-full blur-3xl" />
       </div>
 
       {/* Benefits Section */}
-      <div className="relative z-10 border-b border-uss-gray-700">
+      <div className="relative z-10 border-b border-[var(--border-primary)]">
         <div className="container mx-auto px-4 py-12">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {benefits.map((benefit, index) => (
@@ -193,13 +193,13 @@ const ModernFooter = () => {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 className="text-center group"
               >
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-uss-primary rounded-full mb-4 group-hover:scale-110 transition-transform duration-300">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-uss-primary rounded-full mb-4 group-hover:scale-110 transition-transform duration-300">
                   {benefit.icon}
                 </div>
-                <h3 className="text-lg font-semibold mb-2 group-hover:text-uss-secondary transition-colors">
+                <h3 className="text-lg font-semibold mb-2 group-hover:text-uss-accent transition-colors text-[var(--text-primary)]">
                   {benefit.title}
                 </h3>
-                <p className="text-uss-gray-400">
+                <p className="text-[var(--text-secondary)]">
                   {benefit.description}
                 </p>
               </motion.div>
@@ -209,7 +209,7 @@ const ModernFooter = () => {
       </div>
 
       {/* Newsletter Section */}
-      <div className="relative z-10 border-b border-uss-gray-700">
+      <div className="relative z-10 border-b border-[var(--border-primary)]">
         <div className="container mx-auto px-4 py-12">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -218,31 +218,31 @@ const ModernFooter = () => {
             transition={{ duration: 0.6 }}
             className="max-w-4xl mx-auto text-center"
           >
-            <h2 className="text-3xl font-bold mb-4">
-              Fique por Dentro das <span className="text-gradient-uss bg-clip-text">Novidades</span>
+            <h2 className="text-3xl font-bold mb-4 text-[var(--text-primary)]">
+              Fique por Dentro das <span className="text-uss-accent">Novidades</span>
             </h2>
-            <p className="text-xl text-uss-gray-400 mb-8">
+            <p className="text-xl text-[var(--text-secondary)] mb-8">
               Receba ofertas exclusivas, lançamentos e dicas dos melhores produtos
             </p>
             
             <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4 max-w-md mx-auto">
               <div className="relative flex-1 w-full">
-                <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-uss-gray-500 h-5 w-5" />
+                <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[var(--text-tertiary)] h-5 w-5" />
                 <input
                   type="email"
                   placeholder="Seu melhor e-mail"
                   value={newsletterEmail}
                   onChange={e=>setNewsletterEmail(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 bg-uss-gray-800 border border-uss-gray-600 rounded-lg text-white placeholder-uss-gray-500 focus:ring-2 focus:ring-uss-secondary focus:border-transparent disabled:opacity-50"
+                  className="input-uss disabled:opacity-50"
                   disabled={newsletterStatus==='loading'}
                 />
               </div>
-              <button onClick={subscribe} disabled={newsletterStatus==='loading'} className="w-full sm:w-auto bg-gradient-uss-secondary hover:bg-gradient-uss-primary text-white font-semibold px-6 py-3 rounded-lg transition-all duration-300 transform hover:scale-105 disabled:opacity-50">
+              <button onClick={subscribe} disabled={newsletterStatus==='loading'} className="btn-uss-primary w-full sm:w-auto px-6 py-3 disabled:opacity-50">
                 {newsletterStatus==='loading' ? 'Enviando...' : 'Inscrever-se'}
               </button>
             </div>
             
-            <p className="text-sm text-uss-gray-500 mt-4 min-h-[1.25rem]">
+            <p className="text-sm text-[var(--text-tertiary)] mt-4 min-h-[1.25rem]">
               {newsletterMessage || 'Não enviamos spam. Seus dados estão seguros conosco.'}
             </p>
           </motion.div>
@@ -265,7 +265,7 @@ const ModernFooter = () => {
                 />
               </Link>
               
-              <p className="text-uss-gray-400 leading-relaxed">
+              <p className="text-[var(--text-secondary)] leading-relaxed">
                 USS Brasil é a sua loja de tecnologia premium. Oferecemos os melhores produtos 
                 Apple, JBL, DJI, Xiaomi e Geonav com garantia oficial e entrega expressa.
               </p>
@@ -273,20 +273,20 @@ const ModernFooter = () => {
               {/* Contact Info */}
               <div className="space-y-3">
                 <div className="flex items-center space-x-3">
-                  <Phone className="h-5 w-5 text-uss-secondary" />
-                  <a href="tel:+5511999999999" className="text-uss-gray-400 hover:text-white transition-colors">
+                  <Phone className="h-5 w-5 text-uss-accent" />
+                  <a href="tel:+5511999999999" className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors">
                     (11) 99999-9999
                   </a>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <Mail className="h-5 w-5 text-uss-secondary" />
-                  <a href="mailto:contato@ussbrasil.com.br" className="text-uss-gray-400 hover:text-white transition-colors">
+                  <Mail className="h-5 w-5 text-uss-accent" />
+                  <a href="mailto:contato@ussbrasil.com.br" className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors">
                     contato@ussbrasil.com.br
                   </a>
                 </div>
                 <div className="flex items-start space-x-3">
-                  <MapPin className="h-5 w-5 text-uss-secondary mt-0.5" />
-                  <span className="text-uss-gray-400">
+                  <MapPin className="h-5 w-5 text-uss-accent mt-0.5" />
+                  <span className="text-[var(--text-secondary)]">
                     Av. Paulista, 1000 - Bela Vista<br />
                     São Paulo, SP - CEP: 01310-100
                   </span>
@@ -304,7 +304,7 @@ const ModernFooter = () => {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 className="space-y-4"
               >
-                <h3 className="text-lg font-semibold text-white">
+                <h3 className="text-lg font-semibold text-[var(--text-primary)]">
                   {section.title}
                 </h3>
                 <ul className="space-y-2">
@@ -312,7 +312,7 @@ const ModernFooter = () => {
                     <li key={link.name}>
                       <Link
                         href={link.href}
-                        className="text-uss-gray-400 hover:text-uss-secondary transition-colors text-sm"
+                        className="text-[var(--text-secondary)] hover:text-uss-accent transition-colors text-sm"
                       >
                         {link.name}
                       </Link>
@@ -326,12 +326,12 @@ const ModernFooter = () => {
       </div>
 
       {/* Payment Methods & Security */}
-      <div className="relative z-10 border-t border-uss-gray-700">
+      <div className="relative z-10 border-t border-[var(--border-primary)]">
         <div className="container mx-auto px-4 py-8">
           <div className="flex flex-col lg:flex-row items-center justify-between space-y-6 lg:space-y-0">
             {/* Payment Methods */}
             <div className="text-center lg:text-left">
-              <h4 className="text-sm font-medium text-uss-gray-400 mb-3">
+              <h4 className="text-sm font-medium text-[var(--text-secondary)] mb-3">
                 Formas de Pagamento
               </h4>
               <div className="flex items-center justify-center lg:justify-start space-x-3">
@@ -397,18 +397,18 @@ const ModernFooter = () => {
                 <Link href="/privacidade" className="text-xs text-uss-gray-500 hover:text-uss-secondary transition-colors">
                   Política de Privacidade
                 </Link>
-                <span className="text-uss-gray-700">•</span>
-                <Link href="/termos" className="text-xs text-uss-gray-500 hover:text-uss-secondary transition-colors">
+                <span className="text-[var(--border-primary)]">•</span>
+                <Link href="/termos" className="text-xs text-[var(--text-tertiary)] hover:text-uss-accent transition-colors">
                   Termos de Uso
                 </Link>
-                <span className="text-uss-gray-700">•</span>
-                <Link href="/faq" className="text-xs text-uss-gray-500 hover:text-uss-secondary transition-colors">FAQ</Link>
+                <span className="text-[var(--border-primary)]">•</span>
+                <Link href="/faq" className="text-xs text-[var(--text-tertiary)] hover:text-uss-accent transition-colors">FAQ</Link>
               </div>
             </div>
 
             {/* Social Links */}
             <div className="flex items-center space-x-4">
-              <span className="text-sm text-uss-gray-400 hidden sm:block">
+              <span className="text-sm text-[var(--text-secondary)] hidden sm:block">
                 Siga-nos:
               </span>
               <div className="flex items-center space-x-3">
@@ -418,7 +418,7 @@ const ModernFooter = () => {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`p-2 bg-uss-gray-800 rounded-full text-uss-gray-400 ${social.color} transition-all duration-300 hover:scale-110`}
+                    className={`p-2 bg-[var(--bg-primary)] rounded-full text-[var(--text-secondary)] ${social.color} transition-all duration-300 hover:scale-110 hover:text-uss-accent`}
                     aria-label={social.name}
                   >
                     {social.icon}
@@ -431,11 +431,11 @@ const ModernFooter = () => {
       </div>
 
       {/* Made with Love */}
-      <div className="relative z-10 bg-gradient-uss-primary">
+      <div className="relative z-10 bg-uss-primary">
         <div className="container mx-auto px-4 py-3">
           <p className="text-center text-sm text-white flex items-center justify-center space-x-1">
             <span>Feito com</span>
-            <Heart className="h-4 w-4 text-uss-secondary fill-current animate-pulse" />
+            <Heart className="h-4 w-4 text-uss-accent fill-current animate-pulse" />
             <span>pela equipe USS Brasil</span>
           </p>
         </div>
@@ -448,7 +448,7 @@ const ModernFooter = () => {
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0 }}
           onClick={scrollToTop}
-          className="fixed bottom-8 right-8 z-50 p-3 bg-gradient-uss-primary text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110"
+          className="fixed bottom-8 right-8 z-50 p-3 bg-uss-primary text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110 hover:bg-uss-primary-hover"
         >
           <ArrowUp className="h-5 w-5" />
         </motion.button>

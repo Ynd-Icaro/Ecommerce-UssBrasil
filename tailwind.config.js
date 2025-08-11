@@ -42,12 +42,31 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        // USS Brasil Brand Colors - Design System Atualizado
-        'uss-blue': {
-          DEFAULT: '#034A6E',
-          50: '#f0f8fc',
-          100: '#e1f0f8',
-          200: '#c3e1f1',
+        // USS Brasil - Sistema de Cores Institucional
+        'uss': {
+          // Cores Primárias
+          'primary': '#034a6e',        // Azul Profundo
+          'primary-hover': '#065a84',  // Azul Médio  
+          'accent': '#54c4cf',         // Turquesa Suave
+          'cta': '#007aff',           // Azul Elétrico
+          'silver': '#c0c7cd',        // Prata Metálico
+          
+          // Light Mode
+          'bg-primary': '#ffffff',     // Branco Puro
+          'bg-secondary': '#f5f7fa',   // Cinza Neve
+          'bg-tertiary': '#e5e8eb',    // Cinza Chumbo Claro
+          'text-primary': '#1a1a1a',   // Texto Principal
+          'text-secondary': '#6b7280', // Texto Secundário
+          'border': '#e5e8eb',         // Bordas
+          
+          // Dark Mode
+          'dark-bg-primary': '#0d1b22',   // Preto Intenso
+          'dark-bg-secondary': '#121f28', // Azul Antracito
+          'dark-bg-tertiary': '#1d2d38',  // Cinza Aço
+          'dark-text-primary': '#ffffff', // Texto Principal Dark
+          'dark-text-secondary': '#d1d5db', // Texto Secundário Dark
+          'dark-border': '#374151',       // Bordas Dark
+          
           300: '#94cce6',
           400: '#5eb0d7',
           500: '#3996c4',

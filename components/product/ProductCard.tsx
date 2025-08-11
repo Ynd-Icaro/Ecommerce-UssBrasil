@@ -63,7 +63,7 @@ export function ProductCard({ product, className = '' }: ProductCardProps) {
       whileHover={{ y: -8, scale: 1.02 }}
     >
       <div className="relative aspect-square w-full overflow-hidden">
-        <Link href={`/product/${product.id}`}>
+        <Link href={`/produtos/${product.category?.toLowerCase().replace(/\s+/g, '-') || 'geral'}/${product.id}`}>
           <ProductImage
             src={product.image}
             alt={product.name}
@@ -107,7 +107,7 @@ export function ProductCard({ product, className = '' }: ProductCardProps) {
         )}
         <h3 className="text-lg sm:text-xl font-semibold text-gray-900 flex-grow mb-2">
           <Link
-            href={`/product/${product.id}`}
+            href={`/produtos/${product.category?.toLowerCase().replace(/\s+/g, '-') || 'geral'}/${product.id}`}
             className="hover:text-blue-600 transition-colors"
           >
             {product.name}

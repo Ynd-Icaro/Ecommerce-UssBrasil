@@ -70,8 +70,7 @@ export default function CartModal({ isOpen, onClose }: CartModalProps) {
           >
             {/* Header */}
             <div 
-              className="p-4 text-white"
-              style={{ background: 'var(--uss-gradient-premium)' }}
+              className="p-4 text-white bg-primary"
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
@@ -180,12 +179,12 @@ export default function CartModal({ isOpen, onClose }: CartModalProps) {
                         <p className="font-semibold">2-3 dias</p>
                       </div>
                       <div className="text-center">
-                        <Truck className="w-4 h-4 mx-auto text-blue-600 mb-1" />
+                        <Truck className="w-4 h-4 mx-auto text-primary mb-1" />
                         <p className="text-gray-600 dark:text-gray-400">Frete</p>
                         <p className="font-semibold text-green-600">Grátis</p>
                       </div>
                       <div className="text-center">
-                        <CreditCard className="w-4 h-4 mx-auto text-blue-600 mb-1" />
+                        <CreditCard className="w-4 h-4 mx-auto text-primary mb-1" />
                         <p className="text-gray-600 dark:text-gray-400">Parcelas</p>
                         <p className="font-semibold">12x s/juros</p>
                       </div>
@@ -196,7 +195,7 @@ export default function CartModal({ isOpen, onClose }: CartModalProps) {
                   <div className="p-4 bg-gray-50 dark:bg-gray-800 border-t">
                     <div className="flex items-center justify-between mb-4">
                       <span className="text-lg font-semibold text-gray-900 dark:text-white">Total:</span>
-                      <span className="text-2xl font-bold text-blue-600">
+                      <span className="text-2xl font-bold text-primary">
                         R$ {cartTotal.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
                       </span>
                     </div>
@@ -204,17 +203,7 @@ export default function CartModal({ isOpen, onClose }: CartModalProps) {
                     <div className="space-y-2">
                       <button
                         onClick={handleCheckout}
-                        className="w-full text-white py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105"
-                        style={{ 
-                          background: 'var(--uss-gradient-premium)',
-                          boxShadow: 'var(--uss-shadow-md)'
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.boxShadow = 'var(--uss-shadow-xl)'
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.boxShadow = 'var(--uss-shadow-md)'
-                        }}
+                        className="w-full bg-primary hover:bg-secondary text-white py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105"
                       >
                         Finalizar Compra
                       </button>

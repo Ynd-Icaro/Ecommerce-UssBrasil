@@ -211,12 +211,6 @@ const ProfessionalNavbar = () => {
                   className="h-12 w-auto lg:h-14"
                 />
               </div>
-              <div className="hidden sm:block">
-                <h1 className="text-xl lg:text-2xl font-bold text-[#1a365d]">
-                  USS Brasil
-                </h1>
-                <p className="text-xs text-gray-600">Tecnologia Premium</p>
-              </div>
             </Link>
 
             {/* Desktop Navigation */}

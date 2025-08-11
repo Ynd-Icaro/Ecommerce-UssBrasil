@@ -479,7 +479,7 @@ const ProductsCarousel: FC = () => {
                         <Heart className={`h-4 w-4 ${favorites.includes(product.id) ? 'fill-current' : ''}`} />
                       </button>
                       
-                      <Link href={`/produto/${product.id}`}>
+                      <Link href={`/produtos/${product.category?.toLowerCase().replace(/\s+/g, '-') || 'geral'}/${product.id}`}>
                         <button className="p-2 bg-white/90 backdrop-blur-lg text-gray-600 hover:bg-uss-primary hover:text-white rounded-full transition-all duration-300">
                           <Eye className="h-4 w-4" />
                         </button>

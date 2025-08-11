@@ -1,0 +1,293 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    /* ==========================================
+       USS BRASIL - SISTEMA DE CORES INSTITUCIONAL
+       Padrão Oficial para Todo o Sistema
+       ========================================== */
+    
+    /* Cores Primárias - Identidade USS Brasil */
+    --uss-primary: #034a6e;          /* Azul Profundo - Principal */
+    --uss-primary-hover: #065a84;    /* Azul Médio - Hover */
+    --uss-accent: #54c4cf;           /* Turquesa Suave - Detalhes */
+    --uss-primary-dark: #022a3d;     /* Azul Mais Escuro */
+
+    /* Cores de Apoio */
+    --uss-cta: #007aff;              /* Azul Elétrico - CTA/Destaque */
+    --uss-silver: #c0c7cd;           /* Prata Metálico - Ícones/Skeleton */
+    --uss-success: #28a745;          /* Verde Sucesso */
+    --uss-warning: #ffc107;          /* Amarelo Aviso */
+    --uss-error: #dc3545;            /* Vermelho Erro */
+
+    /* ==========================================
+       LIGHT MODE - Cores Neutras Claras
+       ========================================== */
+    --bg-primary: #ffffff;           /* Branco Puro */
+    --bg-secondary: #f5f7fa;         /* Cinza Neve */
+    --bg-tertiary: #e5e8eb;          /* Cinza Chumbo Claro */
+    --text-primary: #1a1a1a;         /* Texto Principal */
+    --text-secondary: #6b7280;       /* Texto Secundário */
+    --text-tertiary: #9ca3af;        /* Texto Terciário */
+    --border-primary: #e5e8eb;       /* Bordas Principais */
+    --border-secondary: #d1d5db;     /* Bordas Secundárias */
+    --border-hover: var(--uss-primary); /* Bordas no Hover */
+
+    /* Sombras Light Mode */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+
+    /* Glassmorphism Light */
+    --glass-bg: rgba(255, 255, 255, 0.8);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --backdrop-blur: blur(12px);
+  }
+
+  .dark {
+    /* ==========================================
+       DARK MODE - Cores Neutras Escuras
+       ========================================== */
+    --bg-primary: #0d1b22;           /* Preto Intenso */
+    --bg-secondary: #121f28;         /* Azul Antracito */
+    --bg-tertiary: #1d2d38;          /* Cinza Aço */
+    --text-primary: #ffffff;         /* Texto Principal */
+    --text-secondary: #d1d5db;       /* Texto Secundário */
+    --text-tertiary: #9ca3af;        /* Texto Terciário */
+    --border-primary: #374151;       /* Bordas Principais */
+    --border-secondary: #4b5563;     /* Bordas Secundárias */
+    --border-hover: var(--uss-accent); /* Bordas no Hover */
+
+    /* Sombras Dark Mode */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.3), 0 4px 6px -4px rgb(0 0 0 / 0.3);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.3), 0 8px 10px -6px rgb(0 0 0 / 0.3);
+
+    /* Glassmorphism Dark */
+    --glass-bg: rgba(13, 27, 34, 0.8);
+    --glass-border: rgba(84, 196, 207, 0.1);
+  }
+
+  /* ==========================================
+     RESET E BASE STYLES
+     ========================================== */
+  * {
+    border-color: var(--border-primary);
+  }
+
+  body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: ui-sans-serif, system-ui, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Scrollbar Styling */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--uss-silver);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--uss-primary);
+  }
+
+  /* ==========================================
+     CLASSES UTILITÁRIAS USS BRASIL
+     ========================================== */
+  
+  /* Backgrounds */
+  .bg-uss-primary { background-color: var(--uss-primary); }
+  .bg-uss-primary-hover { background-color: var(--uss-primary-hover); }
+  .bg-uss-accent { background-color: var(--uss-accent); }
+  .bg-uss-cta { background-color: var(--uss-cta); }
+  .bg-uss-success { background-color: var(--uss-success); }
+  .bg-uss-warning { background-color: var(--uss-warning); }
+  .bg-uss-error { background-color: var(--uss-error); }
+
+  /* Text Colors */
+  .text-uss-primary { color: var(--uss-primary); }
+  .text-uss-accent { color: var(--uss-accent); }
+  .text-uss-cta { color: var(--uss-cta); }
+
+  /* Border Colors */
+  .border-uss-primary { border-color: var(--uss-primary); }
+  .border-uss-accent { border-color: var(--uss-accent); }
+
+  /* Focus States */
+  .focus-uss-primary:focus {
+    outline: 2px solid var(--uss-primary);
+    outline-offset: 2px;
+  }
+
+  /* Glassmorphism */
+  .glass {
+    background: var(--glass-bg);
+    backdrop-filter: var(--backdrop-blur);
+    border: 1px solid var(--glass-border);
+  }
+
+  /* Hover Transitions */
+  .hover-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  /* ==========================================
+     COMPONENTES BASE
+     ========================================== */
+
+  /* Botões USS Brasil */
+  .btn-uss-primary {
+    background-color: var(--uss-primary);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    transition: all 0.25s ease-in-out;
+    border: none;
+    cursor: pointer;
+  }
+
+  .btn-uss-primary:hover {
+    background-color: var(--uss-primary-hover);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .btn-uss-primary:active {
+    transform: translateY(0);
+  }
+
+  .btn-uss-secondary {
+    background-color: transparent;
+    color: var(--uss-primary);
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    transition: all 0.25s ease-in-out;
+    border: 2px solid var(--uss-primary);
+    cursor: pointer;
+  }
+
+  .btn-uss-secondary:hover {
+    background-color: var(--uss-primary);
+    color: white;
+  }
+
+  /* Cards USS Brasil */
+  .card-uss {
+    background: var(--bg-primary);
+    border-radius: 1rem;
+    border: 1px solid var(--border-primary);
+    box-shadow: var(--shadow-sm);
+    transition: all 0.25s ease-in-out;
+  }
+
+  .card-uss:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+
+  /* Inputs USS Brasil */
+  .input-uss {
+    background: var(--bg-primary);
+    border: 2px solid var(--border-primary);
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem;
+    color: var(--text-primary);
+    transition: all 0.25s ease-in-out;
+    width: 100%;
+  }
+
+  .input-uss:focus {
+    outline: none;
+    border-color: var(--uss-primary);
+    box-shadow: 0 0 0 3px rgba(3, 74, 110, 0.1);
+  }
+
+  /* Navbar Blur Effect */
+  .navbar-blur {
+    backdrop-filter: blur(12px);
+    background: var(--glass-bg);
+    border-bottom: 1px solid var(--glass-border);
+  }
+
+  /* Loading Skeleton */
+  .skeleton {
+    background: linear-gradient(90deg, var(--bg-secondary) 25%, var(--bg-tertiary) 50%, var(--bg-secondary) 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+  }
+
+  @keyframes loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+
+  /* Animations */
+  .fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+
+  .slide-up {
+    animation: slideUp 0.5s ease-in-out;
+  }
+
+  .scale-in {
+    animation: scaleIn 0.3s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes slideUp {
+    from { 
+      opacity: 0; 
+      transform: translateY(20px); 
+    }
+    to { 
+      opacity: 1; 
+      transform: translateY(0); 
+    }
+  }
+
+  @keyframes scaleIn {
+    from { 
+      opacity: 0; 
+      transform: scale(0.95); 
+    }
+    to { 
+      opacity: 1; 
+      transform: scale(1); 
+    }
+  }
+
+  /* Responsive Typography */
+  .text-responsive-sm { font-size: clamp(0.875rem, 2vw, 1rem); }
+  .text-responsive-base { font-size: clamp(1rem, 2.5vw, 1.125rem); }
+  .text-responsive-lg { font-size: clamp(1.125rem, 3vw, 1.25rem); }
+  .text-responsive-xl { font-size: clamp(1.25rem, 4vw, 1.5rem); }
+  .text-responsive-2xl { font-size: clamp(1.5rem, 5vw, 2rem); }
+  .text-responsive-3xl { font-size: clamp(2rem, 6vw, 3rem); }
+
+  /* Print Styles */
+  @media print {
+    .no-print { display: none !important; }
+    body { background: white !important; color: black !important; }
+  }
+}

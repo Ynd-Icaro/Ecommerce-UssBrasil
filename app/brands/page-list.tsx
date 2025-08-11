@@ -250,7 +250,7 @@ const ProductCarousel = ({ products, brandName }: ProductCarouselProps) => {
             transition={{ delay: index * 0.1 }}
             className="group"
           >
-            <Link href={`/product/${product.id}`}>
+            <Link href={`/produtos/${product.category?.toLowerCase().replace(/\s+/g, '-') || 'geral'}/${product.id}`}>
               <Card className="overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105">
                 <CardContent className="p-0">
                   {/* Product Image */}

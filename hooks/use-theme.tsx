@@ -1,7 +1,6 @@
 'use client'
 
 import { createContext, useContext, useEffect, useState } from 'react'
-import { useAPI } from '@/hooks/use-api'
 
 type Theme = 'light' | 'dark'
 
@@ -15,49 +14,44 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState<Theme>('light')
-  const { data: settings, update } = useAPI<any>('settings')
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
-    // Carregar tema salvo
-    if (settings.length > 0) {
-      const savedTheme = settings.find((s: any) => s.key === 'theme')
-      if (savedTheme) {
-        setTheme(savedTheme.value)
-      }
+    setMounted(true)
+    // Carregar tema salvo do localStorage
+    const savedTheme = localStorage.getItem('uss-theme') as Theme
+    if (savedTheme && (savedTheme === 'light' || savedTheme === 'dark')) {
+      setTheme(savedTheme)
+    } else {
+      // Detectar preferência do sistema
+      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+      setTheme(systemTheme)
     }
-  }, [settings])
+  }, [])
 
   useEffect(() => {
+    if (!mounted) return
+    
     // Aplicar tema no HTML
     document.documentElement.classList.remove('light', 'dark')
     document.documentElement.classList.add(theme)
-  }, [theme])
-
-  const handleSetTheme = async (newTheme: Theme) => {
-    setTheme(newTheme)
     
-    // Salvar no json-server
-    const existingTheme = settings.find((s: any) => s.key === 'theme')
-    if (existingTheme) {
-      await update(existingTheme.id, { ...existingTheme, value: newTheme })
-    } else {
-      // Criar nova configuração
-      await fetch('http://localhost:3001/settings', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          key: 'theme',
-          value: newTheme,
-          label: 'Tema da Aplicação'
-        })
-      })
-    }
+    // Salvar no localStorage
+    localStorage.setItem('uss-theme', theme)
+  }, [theme, mounted])
+
+  const handleSetTheme = (newTheme: Theme) => {
+    setTheme(newTheme)
   }
 
   const toggleTheme = () => {
-    handleSetTheme(theme === 'light' ? 'dark' : 'light')
+    const newTheme = theme === 'light' ? 'dark' : 'light'
+    handleSetTheme(newTheme)
+  }
+
+  // Prevenir hidratação mismatch
+  if (!mounted) {
+    return <>{children}</>
   }
 
   return (

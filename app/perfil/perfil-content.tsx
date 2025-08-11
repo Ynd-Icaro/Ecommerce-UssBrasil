@@ -95,7 +95,7 @@ export default function PerfilPage() {
       icon: Package,
       color: 'text-green-600',
       bgColor: 'bg-green-100 dark:bg-green-900/30',
-      href: '/pedidos'
+      href: '/meus-pedidos'
     }
   ]
 

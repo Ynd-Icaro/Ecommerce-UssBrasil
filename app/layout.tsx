@@ -1,16 +1,13 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { SessionProvider } from 'next-auth/react'
-import NavbarEnhanced from '@/components/navbar-enhanced'
-import ModernFooter from '@/components/navigation/modern-footer'
 import ToastWrapper from '@/components/toast-wrapper'
-import GlobalModals from '@/components/modals'
 import { ThemeProvider } from '@/hooks/use-theme'
 import { Toaster } from 'sonner'
 import { CartProvider } from '@/contexts/CartContext'
-
 import { AuthProvider } from '@/contexts/AuthContext'
 import { ModalProvider } from '@/contexts/ModalContext'
+import LayoutWrapper from './LayoutWrapper'
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -83,20 +80,28 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="pt-BR">
-      <body className={inter.className}>
+    <html lang="pt-BR" className="scroll-smooth">
+      <body className={`${inter.className} bg-[var(--bg-primary)] text-[var(--text-primary)] antialiased transition-colors duration-300`}>
         <ThemeProvider>
           <SessionProvider>
             <AuthProvider>
                 <CartProvider>
                   <ModalProvider>
-                    <Toaster position="top-center" richColors />
-                    <NavbarEnhanced />
-                    <main className="min-h-screen">
+                    <Toaster 
+                      position="top-center" 
+                      richColors 
+                      className="toast-uss"
+                      toastOptions={{
+                        style: {
+                          background: 'var(--bg-primary)',
+                          color: 'var(--text-primary)',
+                          border: '1px solid var(--border-primary)',
+                        },
+                      }}
+                    />
+                    <LayoutWrapper>
                       {children}
-                    </main>
-                    <ModernFooter />
-                    <GlobalModals />
+                    </LayoutWrapper>
                   </ModalProvider>
                 </CartProvider>
             </AuthProvider>

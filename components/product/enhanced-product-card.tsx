@@ -101,7 +101,7 @@ const EnhancedProductCard: FC<EnhancedProductCardProps> = ({ product }) => {
       onHoverEnd={() => setIsHovered(false)}
       className="group relative bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100"
     >
-      <Link href={`/product/${product.id}`}>
+      <Link href={`/produtos/${product.category?.toLowerCase().replace(/\s+/g, '-') || 'geral'}/${product.id}`}>
         {/* Product Image Container */}
         <div className="relative aspect-square overflow-hidden bg-gray-50 rounded-t-3xl">
           {/* Image */}

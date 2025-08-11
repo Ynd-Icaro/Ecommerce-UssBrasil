@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, type Variants } from 'framer-motion'
 import { 
   X, 
   Mail, 
@@ -223,58 +223,36 @@ export default function ProfessionalLoginModal({ isOpen, onClose, onLoginSuccess
   }
 
   const modalVariants = {
-    hidden: { opacity: 0, scale: 0.8, y: 100 },
-    visible: { 
-      opacity: 1, 
-      scale: 1, 
-      y: 0,
-      transition: { 
-        type: "spring", 
-        damping: 25, 
-        stiffness: 500,
-        duration: 0.3
-      }
-    },
-    exit: { 
-      opacity: 0, 
-      scale: 0.8, 
-      y: 100,
-      transition: { duration: 0.2 }
-    }
-  }
+    hidden: { opacity: 0, scale: 0.9, y: 60 },
+    visible: { opacity: 1, scale: 1, y: 0, transition: { type: 'spring', damping: 24, stiffness: 340 } },
+    exit: { opacity: 0, scale: 0.9, y: 40, transition: { duration: 0.18 } }
+  } satisfies Variants
 
   const successVariants = {
-    hidden: { scale: 0, rotate: -180 },
-    visible: { 
-      scale: 1, 
-      rotate: 0,
-      transition: { 
-        type: "spring", 
-        damping: 15, 
-        stiffness: 300 
-      }
-    }
-  }
+    hidden: { scale: 0.8, rotate: -8 },
+    visible: { scale: 1, rotate: 0, transition: { type: 'spring', damping: 18, stiffness: 260 } }
+  } satisfies Variants
 
   if (!isOpen) return null
 
   return (
     <AnimatePresence>
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50"
-        onClick={onClose}
-      >
+      {isOpen && (
         <motion.div
-          variants={modalVariants}
-          initial="hidden"
-          animate="visible"
-          exit="exit"
-          onClick={(e) => e.stopPropagation()}
-          className="bg-white rounded-3xl shadow-2xl w-full max-w-md relative overflow-hidden"
+          className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onClick={onClose}
         >
+          <motion.div
+            variants={modalVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            onClick={(e) => e.stopPropagation()}
+            className="bg-white rounded-3xl shadow-2xl w-full max-w-md relative overflow-hidden"
+          >
           {/* Success State */}
           {isSuccess && (
             <motion.div
@@ -787,8 +765,9 @@ export default function ProfessionalLoginModal({ isOpen, onClose, onLoginSuccess
               </motion.button>
             </div>
           </div>
+          </motion.div>
         </motion.div>
-      </motion.div>
+      )}
     </AnimatePresence>
   )
 }
