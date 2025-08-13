@@ -1,0 +1,1079 @@
+{
+  "products": [
+    {
+      "id": "apple-iphone-16-pro",
+      "name": "iPhone 16 Pro",
+      "slug": "iphone-16-pro",
+      "brand": "Apple",
+      "category": "smartphones",
+      "subcategory": "iphone",
+      "price": 10499,
+      "originalPrice": 12999,
+      "discountPercentage": 19,
+      "description": "iPhone 16 Pro com chip A18 Pro, sistema de câmera Pro com Controle da Câmera e a maior bateria já vista em um iPhone Pro.",
+      "shortDescription": "iPhone Pro. Forjado em titânio.",
+      "specifications": {
+        "screen": "6,3 polegadas Super Retina XDR",
+        "processor": "Chip A18 Pro",
+        "storage": ["128GB", "256GB", "512GB", "1TB"],
+        "camera": "Sistema de câmera Pro 48MP",
+        "battery": "Até 27 horas de reprodução de vídeo",
+        "material": "Titânio",
+        "colors": ["Titânio Natural", "Titânio Azul", "Titânio Branco", "Titânio Preto"]
+      },
+      "colors": [
+        {
+          "name": "Titânio Natural",
+          "code": "#E6D7C3",
+          "image": "/Produtos/Apple/iphone-16-pro-Max-Titanio-natural.webp"
+        },
+        {
+          "name": "Titânio Branco",
+          "code": "#F8F9FA",
+          "image": "/Produtos/Apple/iphone-16-pro-Max-Titanio-branco.webp"
+        },
+        {
+          "name": "Titânio Deserto",
+          "code": "#C4965A",
+          "image": "/Produtos/Apple/iphone-16-pro-Max-Titânio-deserto.webp"
+        },
+        {
+          "name": "Titânio Preto",
+          "code": "#1C1C1E",
+          "image": "/Produtos/Apple/iphone-16-pro-Max-Titânio-preto.webp"
+        }
+      ],
+      "mainImage": "/Produtos/Apple/Iphone 16 Pro.png",
+      "images": [
+        "/Produtos/Apple/iphone-16-pro-Max-Apresentacao.webp",
+        "/Produtos/Apple/iphone-16-pro-Max-Titanio-natural.webp",
+        "/Produtos/Apple/iphone-16-pro-Max-Titanio-branco.webp",
+        "/Produtos/Apple/iphone-16-pro-Max-Titânio-deserto.webp",
+        "/Produtos/Apple/iphone-16-pro-Max-Titânio-preto.webp"
+      ],
+      "stock": 25,
+      "rating": 4.9,
+      "reviews": 324,
+      "tags": ["novo", "destaque", "premium"],
+      "isNew": true,
+      "isFeatured": true,
+      "isOnSale": true
+    },
+    {
+      "id": "apple-iphone-16",
+      "name": "iPhone 16",
+      "slug": "iphone-16",
+      "brand": "Apple",
+      "category": "smartphones",
+      "subcategory": "iphone",
+      "price": 7999,
+      "originalPrice": 8999,
+      "discountPercentage": 11,
+      "description": "iPhone 16 com chip A18, Controle da Câmera, câmera Ultra-angular com macro e até 22 horas de reprodução de vídeo.",
+      "shortDescription": "Um salto colorido.",
+      "specifications": {
+        "screen": "6,1 polegadas Super Retina XDR",
+        "processor": "Chip A18",
+        "storage": ["128GB", "256GB", "512GB"],
+        "camera": "Sistema de câmera dupla 48MP",
+        "battery": "Até 22 horas de reprodução de vídeo",
+        "material": "Alumínio",
+        "colors": ["Preto", "Branco", "Rosa", "Verde-acinzentado", "Ultramarino"]
+      },
+      "colors": [
+        {
+          "name": "Preto",
+          "code": "#1C1C1E",
+          "image": "/Produtos/Apple/iphone-16-Preto.webp"
+        },
+        {
+          "name": "Branco",
+          "code": "#F8F9FA",
+          "image": "/Produtos/Apple/iphone-16-Branco.webp"
+        },
+        {
+          "name": "Rosa",
+          "code": "#FF6B9D",
+          "image": "/Produtos/Apple/iphone-16-Rosa.webp"
+        },
+        {
+          "name": "Verde-acinzentado",
+          "code": "#5E7C5E",
+          "image": "/Produtos/Apple/iphone-16-Verde-acinzentado.webp"
+        },
+        {
+          "name": "Ultramarino",
+          "code": "#1E3A8A",
+          "image": "/Produtos/Apple/iphone-16-Ultramarino.webp"
+        }
+      ],
+      "mainImage": "/Produtos/Apple/Iphone 16.png",
+      "images": [
+        "/Produtos/Apple/Iphone-16-Banner.webp",
+        "/Produtos/Apple/iphone-16-Preto.webp",
+        "/Produtos/Apple/iphone-16-Branco.webp",
+        "/Produtos/Apple/iphone-16-Rosa.webp",
+        "/Produtos/Apple/iphone-16-Verde-acinzentado.webp",
+        "/Produtos/Apple/iphone-16-Ultramarino.webp"
+      ],
+      "stock": 40,
+      "rating": 4.8,
+      "reviews": 189,
+      "tags": ["novo", "destaque"],
+      "isNew": true,
+      "isFeatured": true,
+      "isOnSale": true
+    },
+    {
+      "id": "apple-iphone-15",
+      "name": "iPhone 15",
+      "slug": "iphone-15",
+      "brand": "Apple",
+      "category": "smartphones",
+      "subcategory": "iphone",
+      "price": 6499,
+      "originalPrice": 7999,
+      "discountPercentage": 19,
+      "description": "iPhone 15 com chip A16 Bionic, câmera Principal de 48MP e conector USB-C.",
+      "shortDescription": "Novo. Mais novo. Azul.",
+      "specifications": {
+        "screen": "6,1 polegadas Super Retina XDR",
+        "processor": "Chip A16 Bionic",
+        "storage": ["128GB", "256GB", "512GB"],
+        "camera": "Sistema de câmera dupla 48MP",
+        "battery": "Até 20 horas de reprodução de vídeo",
+        "material": "Alumínio",
+        "colors": ["Preto", "Azul", "Verde", "Amarelo", "Rosa"]
+      },
+      "colors": [
+        {
+          "name": "Preto",
+          "code": "#1C1C1E",
+          "image": "/Produtos/Apple/Iphone-15-Preto.webp"
+        },
+        {
+          "name": "Azul",
+          "code": "#1E3A8A",
+          "image": "/Produtos/Apple/Iphone-15-Azul.webp"
+        },
+        {
+          "name": "Verde",
+          "code": "#059669",
+          "image": "/Produtos/Apple/Iphone-15-Verde.webp"
+        },
+        {
+          "name": "Amarelo",
+          "code": "#FCD34D",
+          "image": "/Produtos/Apple/Iphone-15-Amarelo.webp"
+        },
+        {
+          "name": "Rosa",
+          "code": "#FF6B9D",
+          "image": "/Produtos/Apple/Iphone-15-Rosa.webp"
+        }
+      ],
+      "mainImage": "/Produtos/Apple/Iphone-15-Apresentação.webp",
+      "images": [
+        "/Produtos/Apple/Iphone-15-Apresentação.webp",
+        "/Produtos/Apple/Iphone-15-Preto.webp",
+        "/Produtos/Apple/Iphone-15-Azul.webp",
+        "/Produtos/Apple/Iphone-15-Verde.webp",
+        "/Produtos/Apple/Iphone-15-Amarelo.webp",
+        "/Produtos/Apple/Iphone-15-Rosa.webp"
+      ],
+      "stock": 15,
+      "rating": 4.7,
+      "reviews": 256,
+      "tags": ["oferta", "popular"],
+      "isNew": false,
+      "isFeatured": true,
+      "isOnSale": true
+    },
+    {
+      "id": "apple-macbook-pro",
+      "name": "MacBook Pro",
+      "slug": "macbook-pro",
+      "brand": "Apple",
+      "category": "notebooks",
+      "subcategory": "macbook",
+      "price": 19999,
+      "originalPrice": 22999,
+      "discountPercentage": 13,
+      "description": "MacBook Pro com chip M3 Pro oferece performance excepcional para profissionais criativos e desenvolvedores.",
+      "shortDescription": "Performance de nível profissional.",
+      "specifications": {
+        "screen": "14 polegadas Liquid Retina XDR",
+        "processor": "Chip M3 Pro",
+        "memory": ["18GB", "36GB"],
+        "storage": ["512GB", "1TB", "2TB", "4TB"],
+        "graphics": "GPU de 18 núcleos",
+        "battery": "Até 18 horas",
+        "ports": "3x Thunderbolt 4, HDMI, SDXC, MagSafe 3"
+      },
+      "colors": [
+        {
+          "name": "Cinza Espacial",
+          "code": "#4A5568",
+          "image": "/Produtos/Apple/Macbook Pro.png"
+        },
+        {
+          "name": "Prata",
+          "code": "#E2E8F0",
+          "image": "/Produtos/Apple/Macbook Pro.png"
+        }
+      ],
+      "mainImage": "/Produtos/Apple/Macbook Pro.png",
+      "images": ["/Produtos/Apple/Macbook Pro.png"],
+      "stock": 8,
+      "rating": 4.9,
+      "reviews": 87,
+      "tags": ["novo", "profissional", "premium"],
+      "isNew": true,
+      "isFeatured": true,
+      "isOnSale": true
+    },
+    {
+      "id": "apple-macbook-air",
+      "name": "MacBook Air",
+      "slug": "macbook-air",
+      "brand": "Apple",
+      "category": "notebooks",
+      "subcategory": "macbook",
+      "price": 10499,
+      "originalPrice": 11999,
+      "discountPercentage": 13,
+      "description": "MacBook Air com chip M3 é extraordinariamente fino, incrivelmente poderoso e funciona o dia todo com uma única carga.",
+      "shortDescription": "Extraordinariamente fino. Incrivelmente poderoso.",
+      "specifications": {
+        "screen": "13,6 polegadas Liquid Retina",
+        "processor": "Chip M3",
+        "memory": ["8GB", "16GB", "24GB"],
+        "storage": ["256GB", "512GB", "1TB", "2TB"],
+        "graphics": "GPU de 10 núcleos",
+        "battery": "Até 18 horas",
+        "weight": "1,24 kg"
+      },
+      "colors": [
+        {
+          "name": "Meia-noite",
+          "code": "#1C1C1E",
+          "image": "/Produtos/Apple/Macbook Air.png"
+        },
+        {
+          "name": "Luz das estrelas",
+          "code": "#F8F9FA",
+          "image": "/Produtos/Apple/Macbook Air.png"
+        },
+        {
+          "name": "Cinza Espacial",
+          "code": "#4A5568",
+          "image": "/Produtos/Apple/Macbook Air.png"
+        },
+        {
+          "name": "Prata",
+          "code": "#E2E8F0",
+          "image": "/Produtos/Apple/Macbook Air.png"
+        }
+      ],
+      "mainImage": "/Produtos/Apple/Macbook Air.png",
+      "images": ["/Produtos/Apple/Macbook Air.png"],
+      "stock": 20,
+      "rating": 4.8,
+      "reviews": 142,
+      "tags": ["popular", "leve"],
+      "isNew": false,
+      "isFeatured": true,
+      "isOnSale": true
+    },
+    {
+      "id": "apple-ipad-pro",
+      "name": "iPad Pro",
+      "slug": "ipad-pro",
+      "brand": "Apple",
+      "category": "tablets",
+      "subcategory": "ipad",
+      "price": 10499,
+      "originalPrice": 11999,
+      "discountPercentage": 13,
+      "description": "iPad Pro com chip M4 oferece desempenho e recursos profissionais em um design incrivelmente fino.",
+      "shortDescription": "Supercharged by M4.",
+      "specifications": {
+        "screen": "11 ou 13 polegadas Ultra Retina XDR",
+        "processor": "Chip M4",
+        "storage": ["256GB", "512GB", "1TB", "2TB"],
+        "camera": "Sistema de câmera Pro 12MP",
+        "connectivity": ["Wi-Fi", "Wi-Fi + Cellular"],
+        "compatibility": "Apple Pencil Pro, Magic Keyboard"
+      },
+      "colors": [
+        {
+          "name": "Cinza Espacial",
+          "code": "#4A5568",
+          "image": "/Produtos/Apple/Ipad Pro.png"
+        },
+        {
+          "name": "Prata",
+          "code": "#E2E8F0",
+          "image": "/Produtos/Apple/Ipad Pro.png"
+        }
+      ],
+      "mainImage": "/Produtos/Apple/Ipad Pro.png",
+      "images": ["/Produtos/Apple/Ipad Pro.png"],
+      "stock": 12,
+      "rating": 4.9,
+      "reviews": 76,
+      "tags": ["novo", "profissional"],
+      "isNew": true,
+      "isFeatured": true,
+      "isOnSale": true
+    },
+    {
+      "id": "apple-ipad-air",
+      "name": "iPad Air",
+      "slug": "ipad-air",
+      "brand": "Apple",
+      "category": "tablets",
+      "subcategory": "ipad",
+      "price": 6499,
+      "originalPrice": 7499,
+      "discountPercentage": 13,
+      "description": "iPad Air com chip M2 oferece o equilíbrio perfeito entre desempenho, recursos e preço.",
+      "shortDescription": "Sério. Divertido. Completo.",
+      "specifications": {
+        "screen": "10,9 polegadas Liquid Retina",
+        "processor": "Chip M2",
+        "storage": ["128GB", "256GB", "512GB", "1TB"],
+        "camera": "Câmera traseira 12MP",
+        "connectivity": ["Wi-Fi", "Wi-Fi + Cellular"],
+        "compatibility": "Apple Pencil (2ª geração), Magic Keyboard"
+      },
+      "colors": [
+        {
+          "name": "Cinza Espacial",
+          "code": "#4A5568",
+          "image": "/Produtos/Apple/IpadAir.png"
+        },
+        {
+          "name": "Azul",
+          "code": "#1E3A8A",
+          "image": "/Produtos/Apple/IpadAir.png"
+        },
+        {
+          "name": "Rosa",
+          "code": "#FF6B9D",
+          "image": "/Produtos/Apple/IpadAir.png"
+        },
+        {
+          "name": "Roxo",
+          "code": "#7C3AED",
+          "image": "/Produtos/Apple/IpadAir.png"
+        },
+        {
+          "name": "Luz das estrelas",
+          "code": "#F8F9FA",
+          "image": "/Produtos/Apple/IpadAir.png"
+        }
+      ],
+      "mainImage": "/Produtos/Apple/IpadAir.png",
+      "images": ["/Produtos/Apple/IpadAir.png"],
+      "stock": 18,
+      "rating": 4.7,
+      "reviews": 94,
+      "tags": ["popular"],
+      "isNew": false,
+      "isFeatured": true,
+      "isOnSale": true
+    },
+    {
+      "id": "apple-ipad",
+      "name": "iPad",
+      "slug": "ipad",
+      "brand": "Apple",
+      "category": "tablets",
+      "subcategory": "ipad",
+      "price": 3499,
+      "originalPrice": 3999,
+      "discountPercentage": 13,
+      "description": "iPad com tela de 10,9 polegadas, chip A14 Bionic e suporte ao Apple Pencil (1ª geração).",
+      "shortDescription": "O iPad colorido para tudo.",
+      "specifications": {
+        "screen": "10,9 polegadas Liquid Retina",
+        "processor": "Chip A14 Bionic",
+        "storage": ["64GB", "256GB"],
+        "camera": "Câmera traseira 12MP",
+        "connectivity": ["Wi-Fi", "Wi-Fi + Cellular"],
+        "compatibility": "Apple Pencil (1ª geração)"
+      },
+      "colors": [
+        {
+          "name": "Azul",
+          "code": "#1E3A8A",
+          "image": "/Produtos/Apple/Ipad.png"
+        },
+        {
+          "name": "Rosa",
+          "code": "#FF6B9D",
+          "image": "/Produtos/Apple/Ipad.png"
+        },
+        {
+          "name": "Amarelo",
+          "code": "#FCD34D",
+          "image": "/Produtos/Apple/Ipad.png"
+        },
+        {
+          "name": "Prata",
+          "code": "#E2E8F0",
+          "image": "/Produtos/Apple/Ipad.png"
+        }
+      ],
+      "mainImage": "/Produtos/Apple/Ipad.png",
+      "images": ["/Produtos/Apple/Ipad.png"],
+      "stock": 25,
+      "rating": 4.5,
+      "reviews": 158,
+      "tags": ["acessível"],
+      "isNew": false,
+      "isFeatured": false,
+      "isOnSale": true
+    },
+    {
+      "id": "apple-ipad-mini",
+      "name": "iPad mini",
+      "slug": "ipad-mini",
+      "brand": "Apple",
+      "category": "tablets",
+      "subcategory": "ipad",
+      "price": 4299,
+      "originalPrice": 4999,
+      "discountPercentage": 14,
+      "description": "iPad mini com tela de 8,3 polegadas, chip A15 Bionic e compatibilidade com Apple Pencil (2ª geração).",
+      "shortDescription": "Mega potência. Mini formato.",
+      "specifications": {
+        "screen": "8,3 polegadas Liquid Retina",
+        "processor": "Chip A15 Bionic",
+        "storage": ["64GB", "256GB"],
+        "camera": "Câmera traseira 12MP",
+        "connectivity": ["Wi-Fi", "Wi-Fi + Cellular"],
+        "compatibility": "Apple Pencil (2ª geração)"
+      },
+      "colors": [
+        {
+          "name": "Cinza Espacial",
+          "code": "#4A5568",
+          "image": "/Produtos/Apple/IpadMini.png"
+        },
+        {
+          "name": "Rosa",
+          "code": "#FF6B9D",
+          "image": "/Produtos/Apple/IpadMini.png"
+        },
+        {
+          "name": "Roxo",
+          "code": "#7C3AED",
+          "image": "/Produtos/Apple/IpadMini.png"
+        },
+        {
+          "name": "Luz das estrelas",
+          "code": "#F8F9FA",
+          "image": "/Produtos/Apple/IpadMini.png"
+        }
+      ],
+      "mainImage": "/Produtos/Apple/IpadMini.png",
+      "images": ["/Produtos/Apple/IpadMini.png"],
+      "stock": 15,
+      "rating": 4.6,
+      "reviews": 67,
+      "tags": ["compacto"],
+      "isNew": false,
+      "isFeatured": false,
+      "isOnSale": true
+    },
+    {
+      "id": "apple-watch-series-10",
+      "name": "Apple Watch Series 10",
+      "slug": "apple-watch-series-10",
+      "brand": "Apple",
+      "category": "smartwatches",
+      "subcategory": "apple-watch",
+      "price": 4699,
+      "originalPrice": 5299,
+      "discountPercentage": 11,
+      "description": "Apple Watch Series 10 com tela maior, carregamento mais rápido e novos recursos de saúde.",
+      "shortDescription": "Mais fino. Mais inteligente. Mais brilhante.",
+      "specifications": {
+        "screen": "45mm ou 41mm",
+        "processor": "Chip S10",
+        "battery": "Até 18 horas",
+        "connectivity": ["GPS", "GPS + Cellular"],
+        "health": "ECG, oxigênio no sangue, detecção de queda",
+        "water": "Resistente à água até 50 metros"
+      },
+      "colors": [
+        {
+          "name": "Alumínio Rosa",
+          "code": "#FF6B9D",
+          "image": "/Produtos/Apple/Watch Series 10.png"
+        },
+        {
+          "name": "Alumínio Prata",
+          "code": "#E2E8F0",
+          "image": "/Produtos/Apple/Watch Series 10.png"
+        },
+        {
+          "name": "Alumínio Meia-noite",
+          "code": "#1C1C1E",
+          "image": "/Produtos/Apple/Watch Series 10.png"
+        }
+      ],
+      "mainImage": "/Produtos/Apple/Watch Series 10.png",
+      "images": ["/Produtos/Apple/Watch Series 10.png"],
+      "stock": 22,
+      "rating": 4.8,
+      "reviews": 103,
+      "tags": ["novo", "saúde"],
+      "isNew": true,
+      "isFeatured": true,
+      "isOnSale": true
+    },
+    {
+      "id": "apple-watch-ultra-2",
+      "name": "Apple Watch Ultra 2",
+      "slug": "apple-watch-ultra-2",
+      "brand": "Apple",
+      "category": "smartwatches",
+      "subcategory": "apple-watch",
+      "price": 8299,
+      "originalPrice": 9299,
+      "discountPercentage": 11,
+      "description": "Apple Watch Ultra 2 para aventuras extremas com caixa de titânio e recursos avançados.",
+      "shortDescription": "A aventura te chama.",
+      "specifications": {
+        "screen": "49mm Always-On Retina",
+        "processor": "Chip S9",
+        "battery": "Até 36 horas",
+        "connectivity": ["GPS", "Cellular"],
+        "material": "Caixa de titânio",
+        "water": "Resistente à água até 100 metros"
+      },
+      "colors": [
+        {
+          "name": "Titânio Natural",
+          "code": "#E6D7C3",
+          "image": "/Produtos/Apple/Watch Ultra 2.png"
+        }
+      ],
+      "mainImage": "/Produtos/Apple/Watch Ultra 2.png",
+      "images": ["/Produtos/Apple/Watch Ultra 2.png"],
+      "stock": 8,
+      "rating": 4.9,
+      "reviews": 45,
+      "tags": ["premium", "aventura"],
+      "isNew": false,
+      "isFeatured": true,
+      "isOnSale": true
+    },
+    {
+      "id": "apple-watch-se",
+      "name": "Apple Watch SE",
+      "slug": "apple-watch-se",
+      "brand": "Apple",
+      "category": "smartwatches",
+      "subcategory": "apple-watch",
+      "price": 2799,
+      "originalPrice": 3299,
+      "discountPercentage": 15,
+      "description": "Apple Watch SE oferece recursos essenciais do Apple Watch por um preço mais acessível.",
+      "shortDescription": "Recursos poderosos. Preço acessível.",
+      "specifications": {
+        "screen": "44mm ou 40mm Retina",
+        "processor": "Chip S8",
+        "battery": "Até 18 horas",
+        "connectivity": ["GPS", "GPS + Cellular"],
+        "health": "Detecção de queda, frequência cardíaca",
+        "water": "Resistente à água até 50 metros"
+      },
+      "colors": [
+        {
+          "name": "Alumínio Meia-noite",
+          "code": "#1C1C1E",
+          "image": "/Produtos/Apple/Watch SE.png"
+        },
+        {
+          "name": "Alumínio Prata",
+          "code": "#E2E8F0",
+          "image": "/Produtos/Apple/Watch SE.png"
+        },
+        {
+          "name": "Alumínio Luz das estrelas",
+          "code": "#F8F9FA",
+          "image": "/Produtos/Apple/Watch SE.png"
+        }
+      ],
+      "mainImage": "/Produtos/Apple/Watch SE.png",
+      "images": ["/Produtos/Apple/Watch SE.png"],
+      "stock": 30,
+      "rating": 4.6,
+      "reviews": 187,
+      "tags": ["acessível", "popular"],
+      "isNew": false,
+      "isFeatured": false,
+      "isOnSale": true
+    },
+    {
+      "id": "apple-airpods-4",
+      "name": "AirPods 4",
+      "slug": "airpods-4",
+      "brand": "Apple",
+      "category": "audio",
+      "subcategory": "airpods",
+      "price": 1299,
+      "originalPrice": 1499,
+      "discountPercentage": 13,
+      "description": "AirPods 4 com nova arquitetura acústica, case USB-C e até 30 horas de bateria.",
+      "shortDescription": "Redesenhados. Reengenhados.",
+      "specifications": {
+        "battery": "Até 5 horas (fones) + 30 horas (case)",
+        "connectivity": "Bluetooth 5.3",
+        "case": "USB-C",
+        "features": ["Audio Espacial", "Detecção automática"],
+        "compatibility": "iPhone, iPad, Mac, Apple TV"
+      },
+      "colors": [
+        {
+          "name": "Branco",
+          "code": "#F8F9FA",
+          "image": "/Produtos/Apple/airpods-4.png"
+        }
+      ],
+      "mainImage": "/Produtos/Apple/airpods-4.png",
+      "images": ["/Produtos/Apple/airpods-4.png"],
+      "stock": 35,
+      "rating": 4.7,
+      "reviews": 128,
+      "tags": ["novo"],
+      "isNew": true,
+      "isFeatured": true,
+      "isOnSale": true
+    },
+    {
+      "id": "apple-airpods-max",
+      "name": "AirPods Max",
+      "slug": "airpods-max",
+      "brand": "Apple",
+      "category": "audio",
+      "subcategory": "airpods",
+      "price": 4999,
+      "originalPrice": 5799,
+      "discountPercentage": 14,
+      "description": "AirPods Max com cancelamento ativo de ruído, áudio espacial e até 20 horas de bateria.",
+      "shortDescription": "Cancelamento de ruído sem igual.",
+      "specifications": {
+        "battery": "Até 20 horas",
+        "connectivity": "Bluetooth 5.0",
+        "features": ["Cancelamento Ativo de Ruído", "Modo Transparência", "Áudio Espacial"],
+        "drivers": "Driver dinâmico de 40mm",
+        "material": "Aço inoxidável e alumínio"
+      },
+      "colors": [
+        {
+          "name": "Cinza Espacial",
+          "code": "#4A5568",
+          "image": "/Produtos/Apple/airpods-max.png"
+        },
+        {
+          "name": "Prata",
+          "code": "#E2E8F0",
+          "image": "/Produtos/Apple/Air Pods Max.png"
+        },
+        {
+          "name": "Verde",
+          "code": "#059669",
+          "image": "/Produtos/Apple/airpods-max.png"
+        },
+        {
+          "name": "Azul Céu",
+          "code": "#0EA5E9",
+          "image": "/Produtos/Apple/airpods-max.png"
+        },
+        {
+          "name": "Rosa",
+          "code": "#FF6B9D",
+          "image": "/Produtos/Apple/airpods-max.png"
+        }
+      ],
+      "mainImage": "/Produtos/Apple/Air Pods Max.png",
+      "images": ["/Produtos/Apple/Air Pods Max.png", "/Produtos/Apple/airpods-max.png"],
+      "stock": 12,
+      "rating": 4.6,
+      "reviews": 89,
+      "tags": ["premium"],
+      "isNew": false,
+      "isFeatured": false,
+      "isOnSale": true
+    },
+    {
+      "id": "dji-mavic-3-pro",
+      "name": "DJI Mavic 3 Pro Fly More Combo",
+      "slug": "dji-mavic-3-pro",
+      "brand": "DJI",
+      "category": "drones",
+      "subcategory": "mavic",
+      "price": 12999,
+      "originalPrice": 14999,
+      "discountPercentage": 13,
+      "description": "DJI Mavic 3 Pro com sistema de câmera tripla Hasselblad e até 43 minutos de voo.",
+      "shortDescription": "Sistema de câmera tripla profissional.",
+      "specifications": {
+        "camera": "Hasselblad 4/3 CMOS + tele 70mm + ultra-angular 14mm",
+        "video": "5.1K/50fps, 4K/120fps",
+        "flight": "Até 43 minutos",
+        "range": "Até 15km (FCC)",
+        "features": ["ActiveTrack 5.0", "MasterShots", "Waypoints 3.0"]
+      },
+      "colors": [
+        {
+          "name": "Cinza",
+          "code": "#6B7280",
+          "image": "/Produtos/Dji/Drone DJI Mavic 3 Pro Fly More Combo (Com tela).webp"
+        }
+      ],
+      "mainImage": "/Produtos/Dji/Drone DJI Mavic 3 Pro Fly More Combo (Com tela).webp",
+      "images": ["/Produtos/Dji/Drone DJI Mavic 3 Pro Fly More Combo (Com tela).webp"],
+      "stock": 6,
+      "rating": 4.9,
+      "reviews": 34,
+      "tags": ["profissional", "premium"],
+      "isNew": false,
+      "isFeatured": true,
+      "isOnSale": true
+    },
+    {
+      "id": "dji-mini-4-pro",
+      "name": "DJI Mini 4 Pro Fly More Combo",
+      "slug": "dji-mini-4-pro",
+      "brand": "DJI",
+      "category": "drones",
+      "subcategory": "mini",
+      "price": 8999,
+      "originalPrice": 9999,
+      "discountPercentage": 10,
+      "description": "DJI Mini 4 Pro compacto e poderoso com câmera 4K/60fps e até 34 minutos de voo.",
+      "shortDescription": "Pequeno. Poderoso. Profissional.",
+      "specifications": {
+        "camera": "1/1.3 CMOS, 4K/60fps HDR",
+        "weight": "249g",
+        "flight": "Até 34 minutos",
+        "range": "Até 20km (FCC)",
+        "features": ["ActiveTrack 360°", "FocusTrack", "MasterShots"]
+      },
+      "colors": [
+        {
+          "name": "Cinza",
+          "code": "#6B7280",
+          "image": "/Produtos/Dji/Drone Dji Mini Pro Fly More Combo ( Com tela ).webp"
+        }
+      ],
+      "mainImage": "/Produtos/Dji/Drone Dji Mini Pro Fly More Combo ( Com tela ).webp",
+      "images": ["/Produtos/Dji/Drone Dji Mini Pro Fly More Combo ( Com tela ).webp"],
+      "stock": 10,
+      "rating": 4.8,
+      "reviews": 52,
+      "tags": ["compacto", "popular"],
+      "isNew": false,
+      "isFeatured": true,
+      "isOnSale": true
+    },
+    {
+      "id": "jbl-xtreme-4",
+      "name": "JBL Xtreme 4",
+      "slug": "jbl-xtreme-4",
+      "brand": "JBL",
+      "category": "audio",
+      "subcategory": "caixas-som",
+      "price": 2999,
+      "originalPrice": 3499,
+      "discountPercentage": 14,
+      "description": "JBL Xtreme 4 com som potente, bateria de 24 horas e resistência à água IP67.",
+      "shortDescription": "Som épico para aventuras épicas.",
+      "specifications": {
+        "battery": "24 horas",
+        "connectivity": "Bluetooth 5.3",
+        "water": "IP67",
+        "power": "2 x 70W",
+        "features": ["JBL Pro Sound", "Power Bank", "PartyBoost"]
+      },
+      "colors": [
+        {
+          "name": "Preto",
+          "code": "#1C1C1E",
+          "image": "/Produtos/JBL/JBL Xtreme 4.webp"
+        },
+        {
+          "name": "Azul",
+          "code": "#1E3A8A",
+          "image": "/Produtos/JBL/JBL Xtreme 4 Azul.webp"
+        }
+      ],
+      "mainImage": "/Produtos/JBL/JBL Xtreme 4.webp",
+      "images": ["/Produtos/JBL/JBL Xtreme 4.webp", "/Produtos/JBL/JBL Xtreme 4 Azul.webp"],
+      "stock": 18,
+      "rating": 4.7,
+      "reviews": 89,
+      "tags": ["potente", "portátil"],
+      "isNew": false,
+      "isFeatured": true,
+      "isOnSale": true
+    },
+    {
+      "id": "jbl-live-670nc",
+      "name": "JBL Live 670NC",
+      "slug": "jbl-live-670nc",
+      "brand": "JBL",
+      "category": "audio",
+      "subcategory": "fones",
+      "price": 799,
+      "originalPrice": 999,
+      "discountPercentage": 20,
+      "description": "JBL Live 670NC com cancelamento ativo de ruído, som JBL Spatial Audio e 65 horas de bateria.",
+      "shortDescription": "Som imersivo com cancelamento de ruído.",
+      "specifications": {
+        "battery": "65 horas (40h com ANC)",
+        "connectivity": "Bluetooth 5.3",
+        "features": ["Cancelamento Ativo de Ruído", "JBL Spatial Audio", "Smart Ambient"],
+        "drivers": "40mm",
+        "charging": "USB-C, carga rápida 5min = 4h"
+      },
+      "colors": [
+        {
+          "name": "Preto",
+          "code": "#1C1C1E",
+          "image": "/Produtos/JBL/JBL Live 670NC.webp"
+        },
+        {
+          "name": "Branco",
+          "code": "#F8F9FA",
+          "image": "/Produtos/JBL/JBL Live 670NC Branco.webp"
+        },
+        {
+          "name": "Azul",
+          "code": "#1E3A8A",
+          "image": "/Produtos/JBL/JBL Live 670NC Azul.webp"
+        },
+        {
+          "name": "Dourado",
+          "code": "#D4AF37",
+          "image": "/Produtos/JBL/JBL Live 670NC Dourado.webp"
+        }
+      ],
+      "mainImage": "/Produtos/JBL/JBL Live 670NC.webp",
+      "images": [
+        "/Produtos/JBL/JBL Live 670NC.webp",
+        "/Produtos/JBL/JBL Live 670NC Branco.webp",
+        "/Produtos/JBL/JBL Live 670NC Azul.webp",
+        "/Produtos/JBL/JBL Live 670NC Dourado.webp"
+      ],
+      "stock": 25,
+      "rating": 4.5,
+      "reviews": 156,
+      "tags": ["oferta", "popular"],
+      "isNew": false,
+      "isFeatured": true,
+      "isOnSale": true
+    },
+    {
+      "id": "xiaomi-redmi-note-14-pro",
+      "name": "Redmi Note 14 Pro 5G",
+      "slug": "xiaomi-redmi-note-14-pro",
+      "brand": "Xiaomi",
+      "category": "smartphones",
+      "subcategory": "redmi",
+      "price": 2499,
+      "originalPrice": 2999,
+      "discountPercentage": 17,
+      "description": "Redmi Note 14 Pro 5G com processador Dimensity 7300-Ultra, câmera 200MP e carregamento 67W.",
+      "shortDescription": "Performance premium por menos.",
+      "specifications": {
+        "screen": "6,67 polegadas AMOLED 120Hz",
+        "processor": "Dimensity 7300-Ultra",
+        "memory": "8GB/12GB RAM",
+        "storage": "256GB/512GB",
+        "camera": "200MP principal + 8MP ultra-angular + 2MP macro",
+        "battery": "5110mAh com carregamento 67W",
+        "5g": "Dual SIM 5G"
+      },
+      "colors": [
+        {
+          "name": "Preto",
+          "code": "#1C1C1E",
+          "image": "/Produtos/Xiomi/redmi-note-14-pro-5g.webp"
+        },
+        {
+          "name": "Azul",
+          "code": "#1E3A8A",
+          "image": "/Produtos/Xiomi/Redmi Note 14 Pro 5G Combo.webp"
+        }
+      ],
+      "mainImage": "/Produtos/Xiomi/redmi-note-14-pro-5g.webp",
+      "images": [
+        "/Produtos/Xiomi/redmi-note-14-pro-5g.webp",
+        "/Produtos/Xiomi/Redmi Note 14 Pro 5G Combo.webp"
+      ],
+      "stock": 30,
+      "rating": 4.4,
+      "reviews": 234,
+      "tags": ["novo", "5g", "câmera"],
+      "isNew": true,
+      "isFeatured": true,
+      "isOnSale": true
+    },
+    {
+      "id": "geonav-power-bank-20000",
+      "name": "Power Bank 20.000 mAh",
+      "slug": "geonav-power-bank-20000",
+      "brand": "Geonav",
+      "category": "acessorios",
+      "subcategory": "carregadores",
+      "price": 299,
+      "originalPrice": 399,
+      "discountPercentage": 25,
+      "description": "Power Bank Geonav com 20.000 mAh, carregamento rápido e múltiplas portas de saída.",
+      "shortDescription": "Energia para dias inteiros.",
+      "specifications": {
+        "capacity": "20.000 mAh",
+        "input": "USB-C 18W",
+        "output": "USB-A 22.5W + USB-C 20W",
+        "features": ["Power Delivery", "Quick Charge 3.0", "Display LED"],
+        "safety": "Proteção contra sobrecarga"
+      },
+      "colors": [
+        {
+          "name": "Cinza Espacial",
+          "code": "#4A5568",
+          "image": "/Produtos/Geonav/Power Bank 20.000 mAh – Cinza Espacial.jpg"
+        },
+        {
+          "name": "Rose Gold",
+          "code": "#E91E63",
+          "image": "/Produtos/Geonav/Power Bank 20.000 mAh – Rose Gold.jpg"
+        }
+      ],
+      "mainImage": "/Produtos/Geonav/Power Bank 20.000 mAh – Cinza Espacial.jpg",
+      "images": [
+        "/Produtos/Geonav/Power Bank 20.000 mAh – Cinza Espacial.jpg",
+        "/Produtos/Geonav/Power Bank 20.000 mAh – Rose Gold.jpg"
+      ],
+      "stock": 45,
+      "rating": 4.3,
+      "reviews": 298,
+      "tags": ["oferta", "útil"],
+      "isNew": false,
+      "isFeatured": false,
+      "isOnSale": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "smartphones",
+      "name": "Smartphones",
+      "slug": "smartphones",
+      "description": "Os melhores smartphones do mercado",
+      "image": "/Produtos/Apple/Iphone 16 Pro.png",
+      "featured": true
+    },
+    {
+      "id": "notebooks",
+      "name": "Notebooks",
+      "slug": "notebooks",
+      "description": "Notebooks para trabalho e criação",
+      "image": "/Produtos/Apple/Macbook Pro.png",
+      "featured": true
+    },
+    {
+      "id": "tablets",
+      "name": "Tablets",
+      "slug": "tablets",
+      "description": "Tablets para produtividade e entretenimento",
+      "image": "/Produtos/Apple/Ipad Pro.png",
+      "featured": true
+    },
+    {
+      "id": "smartwatches",
+      "name": "Smartwatches",
+      "slug": "smartwatches",
+      "description": "Relógios inteligentes para seu dia a dia",
+      "image": "/Produtos/Apple/Watch Series 10.png",
+      "featured": true
+    },
+    {
+      "id": "audio",
+      "name": "Áudio",
+      "slug": "audio",
+      "description": "Fones, caixas de som e acessórios de áudio",
+      "image": "/Produtos/JBL/JBL Live 670NC.webp",
+      "featured": true
+    },
+    {
+      "id": "drones",
+      "name": "Drones",
+      "slug": "drones",
+      "description": "Drones profissionais e recreativos",
+      "image": "/Produtos/Dji/Drone DJI Mavic 3 Pro Fly More Combo (Com tela).webp",
+      "featured": true
+    },
+    {
+      "id": "acessorios",
+      "name": "Acessórios",
+      "slug": "acessorios",
+      "description": "Cabos, carregadores e acessórios",
+      "image": "/Produtos/Geonav/Power Bank 20.000 mAh – Cinza Espacial.jpg",
+      "featured": false
+    }
+  ],
+  "brands": [
+    {
+      "id": "apple",
+      "name": "Apple",
+      "slug": "apple",
+      "description": "Tecnologia que transforma o mundo",
+      "logo": "/icons/apple.svg",
+      "featured": true,
+      "productCount": 13
+    },
+    {
+      "id": "jbl",
+      "name": "JBL",
+      "slug": "jbl",
+      "description": "Som que emociona",
+      "logo": "/icons/jbl.svg",
+      "featured": true,
+      "productCount": 8
+    },
+    {
+      "id": "dji",
+      "name": "DJI",
+      "slug": "dji",
+      "description": "O futuro das imagens aéreas",
+      "logo": "/icons/dji.svg",
+      "featured": true,
+      "productCount": 12
+    },
+    {
+      "id": "xiaomi",
+      "name": "Xiaomi",
+      "slug": "xiaomi",
+      "description": "Inovação para todos",
+      "logo": "/icons/xiaomi.svg",
+      "featured": true,
+      "productCount": 6
+    },
+    {
+      "id": "geonav",
+      "name": "Geonav",
+      "slug": "geonav",
+      "description": "Acessórios que fazem a diferença",
+      "logo": "/icons/geonav.svg",
+      "featured": false,
+      "productCount": 24
+    }
+  ]
+}
