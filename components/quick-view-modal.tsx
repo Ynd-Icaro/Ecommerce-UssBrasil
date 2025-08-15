@@ -8,23 +8,26 @@ import { Badge } from "@/components/ui/badge"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Star, Heart, ShoppingCart, Plus, Minus, Truck, Shield, CreditCard, X } from "lucide-react"
+import styles from "./quick-view-modal.module.css"
 
 interface Product {
-  id: number
+  id: string | number
   name: string
   price: number
   originalPrice?: number | null
-  image: string
-  description: string
-  category: string
-  brand: string
+  image?: string
+  mainImage?: string
+  description?: string
+  category?: string | { id: string; name: string; slug: string }
+  brand?: string
   badge?: string | null
-  rating: number
-  reviewCount: number
-  colors: string[]
-  discount: number
-  features: string[]
-  inStock: boolean
+  rating?: number
+  reviewCount?: number
+  reviews?: number
+  colors?: string[]
+  discount?: number
+  features?: string[]
+  inStock?: boolean
   storage?: string[]
 }
 
@@ -38,6 +41,16 @@ export function QuickViewModal({ product, isOpen, onClose }: QuickViewModalProps
   const [selectedColor, setSelectedColor] = useState(0)
   const [selectedStorage, setSelectedStorage] = useState(product.storage?.[0] || "")
   const [quantity, setQuantity] = useState(1)
+
+  // Valores padrão para propriedades opcionais
+  const colors = product.colors || []
+  const features = product.features || []
+  const discount = product.discount || 0
+  const reviewCount = product.reviewCount || product.reviews || 0
+  const rating = product.rating || 0
+  const description = product.description || ''
+  const imageSource = product.image || product.mainImage || '/placeholder-product.jpg'
+  const category = typeof product.category === 'string' ? product.category : product.category?.name || ''
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("pt-BR", {
@@ -63,12 +76,12 @@ export function QuickViewModal({ product, isOpen, onClose }: QuickViewModalProps
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto p-0 bg-white rounded-2xl">
+      <DialogContent className={`max-w-4xl max-h-[90vh] overflow-y-auto p-0 bg-white rounded-2xl border-0 shadow-2xl ${styles.modalContainer}`}>
         <div className="grid md:grid-cols-2 gap-0">
           {/* Product Image */}
           <div className="relative aspect-square bg-gradient-to-br from-gray-50 via-gray-50 to-gray-100 p-8">
             <Image
-              src={product.image || "/placeholder.svg"}
+              src={imageSource}
               alt={product.name}
               width={500}
               height={500}
@@ -82,9 +95,9 @@ export function QuickViewModal({ product, isOpen, onClose }: QuickViewModalProps
                   {product.badge}
                 </Badge>
               )}
-              {product.discount > 0 && (
+              {discount > 0 && (
                 <Badge className="bg-gradient-to-r from-red-500 to-red-600 text-white border-0 px-3 py-1.5 text-sm font-semibold shadow-lg">
-                  -{product.discount}% OFF
+                  -{discount}% OFF
                 </Badge>
               )}
             </div>
@@ -105,16 +118,16 @@ export function QuickViewModal({ product, isOpen, onClose }: QuickViewModalProps
             <DialogHeader className="mb-6">
               <div className="flex items-center justify-between mb-3">
                 <Badge variant="secondary" className="text-sm px-3 py-1">
-                  {product.brand}
+                  {product.brand || category}
                 </Badge>
                 <div className="flex items-center gap-1">
                   <Star className="h-4 w-4 text-yellow-400 fill-current" />
-                  <span className="text-sm font-semibold text-gray-700">{product.rating}</span>
-                  <span className="text-sm text-gray-400">({product.reviewCount} avaliações)</span>
+                  <span className="text-sm font-semibold text-gray-700">{rating}</span>
+                  <span className="text-sm text-gray-400">({reviewCount} avaliações)</span>
                 </div>
               </div>
               <DialogTitle className="text-2xl font-bold text-gray-900 leading-tight">{product.name}</DialogTitle>
-              <p className="text-gray-600 leading-relaxed mt-2">{product.description}</p>
+              <p className="text-gray-600 leading-relaxed mt-2">{description}</p>
             </DialogHeader>
 
             {/* Price */}
@@ -129,7 +142,7 @@ export function QuickViewModal({ product, isOpen, onClose }: QuickViewModalProps
                 <span className="text-green-600 font-medium">
                   Em até 12x de {formatPrice(product.price / 12)} sem juros
                 </span>
-                {product.discount > 0 && (
+                {discount > 0 && (
                   <span className="text-red-600 font-medium">
                     Economia de {formatPrice((product.originalPrice || 0) - product.price)}
                   </span>
@@ -138,26 +151,28 @@ export function QuickViewModal({ product, isOpen, onClose }: QuickViewModalProps
             </div>
 
             {/* Features */}
-            <div className="mb-6">
-              <h4 className="font-semibold text-gray-900 mb-3">Principais características:</h4>
-              <div className="grid grid-cols-2 gap-2">
-                {product.features.map((feature, index) => (
-                  <div key={index} className="flex items-center text-sm text-gray-600">
-                    <div className="w-1.5 h-1.5 bg-blue-600 rounded-full mr-2"></div>
-                    {feature}
-                  </div>
-                ))}
+            {features.length > 0 && (
+              <div className="mb-6">
+                <h4 className="font-semibold text-gray-900 mb-3">Principais características:</h4>
+                <div className="grid grid-cols-2 gap-2">
+                  {features.map((feature, index) => (
+                    <div key={index} className="flex items-center text-sm text-gray-600">
+                      <div className="w-1.5 h-1.5 bg-blue-600 rounded-full mr-2"></div>
+                      {feature}
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Color Selection */}
-            {product.colors.length > 1 && (
+            {colors.length > 1 && (
               <div className="mb-6">
                 <h4 className="font-semibold text-gray-900 mb-3">
-                  Cor: {getColorName(product.colors[selectedColor], selectedColor)}
+                  Cor: {getColorName(colors[selectedColor], selectedColor)}
                 </h4>
                 <div className="flex gap-3">
-                  {product.colors.map((color, index) => (
+                  {colors.map((color, index) => (
                     <button
                       key={index}
                       onClick={() => setSelectedColor(index)}

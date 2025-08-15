@@ -3,6 +3,8 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { useAuth } from '@/contexts/AuthContext'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -10,6 +12,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Separator } from '@/components/ui/separator'
 import { Label } from '@/components/ui/label'
 import { Badge } from '@/components/ui/badge'
+import { toast } from 'sonner'
 import { 
   Eye, 
   EyeOff, 
@@ -28,57 +31,126 @@ export default function LoginPage() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const [activeTab, setActiveTab] = useState('login')
   const [isLoading, setIsLoading] = useState(false)
+  const router = useRouter()
+  const { login } = useAuth()
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  // Forms data
+  const [loginData, setLoginData] = useState({
+    email: '',
+    password: ''
+  })
+
+  const [registerData, setRegisterData] = useState({
+    name: '',
+    email: '',
+    password: '',
+    confirmPassword: ''
+  })
+
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
     
-    // Simular chamada de API
-    setTimeout(() => {
+    try {
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(loginData)
+      })
+
+      const data = await response.json()
+
+      if (response.ok) {
+        toast.success('Login realizado com sucesso!')
+        login(data.user) // Usar o contexto de autenticação
+        router.push('/')
+      } else {
+        toast.error(data.error || 'Erro ao fazer login')
+      }
+    } catch (error) {
+      toast.error('Erro de conexão')
+    } finally {
       setIsLoading(false)
-      // Redirecionar após login/cadastro
-      window.location.href = '/'
-    }, 2000)
+    }
+  }
+
+  const handleRegister = async (e: React.FormEvent) => {
+    e.preventDefault()
+    
+    if (registerData.password !== registerData.confirmPassword) {
+      toast.error('Senhas não conferem')
+      return
+    }
+
+    setIsLoading(true)
+    
+    try {
+      const response = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: registerData.name,
+          email: registerData.email,
+          password: registerData.password
+        })
+      })
+
+      const data = await response.json()
+
+      if (response.ok) {
+        toast.success('Conta criada com sucesso!')
+        setActiveTab('login')
+        setLoginData({ email: registerData.email, password: '' })
+      } else {
+        toast.error(data.error || 'Erro ao criar conta')
+      }
+    } catch (error) {
+      toast.error('Erro de conexão')
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-neutral-50 via-white to-neutral-100 flex items-center justify-center p-4">
-      <div className="w-full max-w-md space-y-6">
+    <div className="min-h-screen bg-gradient-to-b from-neutral-50 to-neutral-100 flex items-center justify-center p-4">
+      <div className="w-full max-w-md space-y-8">
         {/* Header */}
-        <div className="text-center space-y-2">
-          <Link 
-            href="/" 
-            className="inline-flex items-center text-sm text-neutral-600 hover:text-neutral-900 transition-colors mb-4"
+        <div className="text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
           >
-            <ArrowLeft className="h-4 w-4 mr-2" />
-            Voltar para loja
-          </Link>
-          <h1 className="text-3xl font-bold tracking-tight text-neutral-900">
-            Bem-vindo
-          </h1>
-          <p className="text-neutral-600">
-            Entre na sua conta ou crie uma nova para continuar
-          </p>
+            <div className="flex items-center justify-center space-x-2 mb-4">
+              <div className="w-12 h-12 bg-gradient-to-br from-[#00CED1] to-[#20B2AA] rounded-xl flex items-center justify-center">
+                <User className="h-6 w-6 text-white" />
+              </div>
+              <h1 className="text-2xl font-bold bg-gradient-to-r from-[#00CED1] to-[#20B2AA] bg-clip-text text-transparent">
+                USS Brasil
+              </h1>
+            </div>
+            <p className="text-neutral-600">
+              Bem-vindo de volta! Entre em sua conta ou crie uma nova.
+            </p>
+          </motion.div>
         </div>
 
-        {/* Auth Card */}
-        <Card className="border-0 shadow-xl bg-white/80 backdrop-blur-sm">
-          <CardHeader className="space-y-1 pb-6">
-            <CardTitle className="text-center text-xl">Acesse sua conta</CardTitle>
-            <CardDescription className="text-center">
-              Use suas credenciais para entrar ou criar uma nova conta
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
+        {/* Main Card */}
+        <Card className="border-0 shadow-lg">
+          <CardContent className="p-8">
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-              <TabsList className="grid w-full grid-cols-2 mb-6">
+              <TabsList className="grid w-full grid-cols-2 mb-8">
                 <TabsTrigger value="login">Entrar</TabsTrigger>
                 <TabsTrigger value="register">Criar Conta</TabsTrigger>
               </TabsList>
 
               {/* Login Tab */}
               <TabsContent value="login" className="space-y-4">
-                <form onSubmit={handleSubmit} className="space-y-4">
+                <form onSubmit={handleLogin} className="space-y-4">
                   <div className="space-y-2">
                     <Label htmlFor="email">E-mail</Label>
                     <div className="relative">
@@ -88,6 +160,8 @@ export default function LoginPage() {
                         type="email"
                         placeholder="seu@email.com"
                         className="pl-10"
+                        value={loginData.email}
+                        onChange={(e) => setLoginData({...loginData, email: e.target.value})}
                         required
                       />
                     </div>
@@ -102,6 +176,8 @@ export default function LoginPage() {
                         type={showPassword ? 'text' : 'password'}
                         placeholder="••••••••"
                         className="pl-10 pr-10"
+                        value={loginData.password}
+                        onChange={(e) => setLoginData({...loginData, password: e.target.value})}
                         required
                       />
                       <Button
@@ -137,25 +213,17 @@ export default function LoginPage() {
 
               {/* Register Tab */}
               <TabsContent value="register" className="space-y-4">
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="firstName">Nome</Label>
-                      <div className="relative">
-                        <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-neutral-400" />
-                        <Input
-                          id="firstName"
-                          placeholder="João"
-                          className="pl-10"
-                          required
-                        />
-                      </div>
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="lastName">Sobrenome</Label>
+                <form onSubmit={handleRegister} className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="name">Nome Completo</Label>
+                    <div className="relative">
+                      <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-neutral-400" />
                       <Input
-                        id="lastName"
-                        placeholder="Silva"
+                        id="name"
+                        placeholder="João Silva"
+                        className="pl-10"
+                        value={registerData.name}
+                        onChange={(e) => setRegisterData({...registerData, name: e.target.value})}
                         required
                       />
                     </div>
@@ -170,20 +238,8 @@ export default function LoginPage() {
                         type="email"
                         placeholder="seu@email.com"
                         className="pl-10"
-                        required
-                      />
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="phone">Telefone</Label>
-                    <div className="relative">
-                      <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-neutral-400" />
-                      <Input
-                        id="phone"
-                        type="tel"
-                        placeholder="(11) 99999-9999"
-                        className="pl-10"
+                        value={registerData.email}
+                        onChange={(e) => setRegisterData({...registerData, email: e.target.value})}
                         required
                       />
                     </div>
@@ -198,6 +254,8 @@ export default function LoginPage() {
                         type={showPassword ? 'text' : 'password'}
                         placeholder="••••••••"
                         className="pl-10 pr-10"
+                        value={registerData.password}
+                        onChange={(e) => setRegisterData({...registerData, password: e.target.value})}
                         required
                       />
                       <Button
@@ -221,6 +279,8 @@ export default function LoginPage() {
                         type={showConfirmPassword ? 'text' : 'password'}
                         placeholder="••••••••"
                         className="pl-10 pr-10"
+                        value={registerData.confirmPassword}
+                        onChange={(e) => setRegisterData({...registerData, confirmPassword: e.target.value})}
                         required
                       />
                       <Button

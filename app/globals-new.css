@@ -1,0 +1,295 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 200 100% 23%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 180 51% 56%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 180 100% 50%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 200 100% 23%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+    
+    /* USS Brasil Custom Variables */
+    --ussbrasil-primary: 200 100% 23%;
+    --ussbrasil-secondary: 180 51% 56%;
+    --ussbrasil-dark: 198 82% 9%;
+    --ussbrasil-light: 210 20% 98%;
+    --ussbrasil-accent: 180 100% 50%;
+    --ussbrasil-success: 120 100% 65%;
+    --ussbrasil-error: 0 100% 65%;
+    --ussbrasil-warning: 48 100% 50%;
+    --ussbrasil-gold: 45 100% 52%;
+    --ussbrasil-premium: 0 0% 4%;
+  }
+
+  .dark {
+    --background: 198 82% 9%;
+    --foreground: 210 20% 98%;
+    --card: 198 82% 9%;
+    --card-foreground: 210 20% 98%;
+    --popover: 198 82% 9%;
+    --popover-foreground: 210 20% 98%;
+    --primary: 180 51% 56%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 200 100% 23%;
+    --secondary-foreground: 210 20% 98%;
+    --muted: 215 27.9% 16.9%;
+    --muted-foreground: 217.9 10.6% 64.9%;
+    --accent: 180 100% 50%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 20% 98%;
+    --border: 215 27.9% 16.9%;
+    --input: 215 27.9% 16.9%;
+    --ring: 180 51% 56%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* USS Brasil Custom Components */
+@layer components {
+  .uss-gradient-primary {
+    @apply bg-gradient-to-r from-[hsl(var(--ussbrasil-primary))] to-[hsl(var(--ussbrasil-secondary))];
+  }
+  
+  .uss-gradient-gold {
+    @apply bg-gradient-to-r from-[hsl(var(--ussbrasil-gold))] to-yellow-600;
+  }
+  
+  .uss-text-gradient {
+    @apply bg-gradient-to-r from-[hsl(var(--ussbrasil-primary))] to-[hsl(var(--ussbrasil-secondary))] bg-clip-text text-transparent;
+  }
+  
+  .uss-text-gradient-gold {
+    @apply bg-gradient-to-r from-[hsl(var(--ussbrasil-gold))] to-yellow-600 bg-clip-text text-transparent;
+  }
+  
+  .uss-glass {
+    @apply bg-white/10 backdrop-blur-md border border-white/20;
+  }
+  
+  .uss-shadow-glow {
+    @apply shadow-2xl shadow-[hsl(var(--ussbrasil-primary))]/20;
+  }
+  
+  .uss-shadow-gold {
+    @apply shadow-2xl shadow-[hsl(var(--ussbrasil-gold))]/20;
+  }
+  
+  .uss-button-primary {
+    @apply px-6 py-3 bg-gradient-to-r from-[hsl(var(--ussbrasil-primary))] to-[hsl(var(--ussbrasil-secondary))] text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105;
+  }
+  
+  .uss-button-gold {
+    @apply px-6 py-3 bg-gradient-to-r from-[hsl(var(--ussbrasil-gold))] to-yellow-600 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105;
+  }
+  
+  .uss-card {
+    @apply bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 p-6 hover:shadow-lg transition-shadow duration-300;
+  }
+  
+  .uss-input {
+    @apply w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ussbrasil-primary))] focus:border-transparent transition-all duration-200;
+  }
+}
+
+/* Custom Animations */
+@layer utilities {
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  .animate-glow {
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+  
+  .animate-shimmer {
+    animation: shimmer 2s linear infinite;
+  }
+  
+  .animate-pulse-slow {
+    animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  
+  .animate-bounce-slow {
+    animation: bounce 3s infinite;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #034a6e, 0 0 20px #034a6e;
+  }
+  to {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #034a6e, 0 0 40px #034a6e;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -468px 0;
+  }
+  100% {
+    background-position: 468px 0;
+  }
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100 dark:bg-gray-800;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gradient-to-b from-[hsl(var(--ussbrasil-primary))] to-[hsl(var(--ussbrasil-secondary))] rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply from-[hsl(var(--ussbrasil-secondary))] to-[hsl(var(--ussbrasil-primary))];
+}
+
+/* Selection */
+::selection {
+  @apply bg-[hsl(var(--ussbrasil-primary))]/20 text-[hsl(var(--ussbrasil-primary))];
+}
+
+/* Focus Visible */
+.focus-visible {
+  @apply outline-none ring-2 ring-[hsl(var(--ussbrasil-primary))] ring-offset-2 ring-offset-white dark:ring-offset-gray-900;
+}
+
+/* Print Styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  body {
+    @apply text-black bg-white;
+  }
+}
+
+/* Responsive Text */
+@layer utilities {
+  .text-responsive {
+    font-size: clamp(1rem, 2.5vw, 2rem);
+  }
+  
+  .text-responsive-lg {
+    font-size: clamp(1.5rem, 4vw, 3rem);
+  }
+  
+  .text-responsive-xl {
+    font-size: clamp(2rem, 5vw, 4rem);
+  }
+}
+
+/* Loading States */
+.loading-skeleton {
+  @apply animate-pulse bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 dark:from-gray-700 dark:via-gray-600 dark:to-gray-700;
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* USS Brasil Specific Styles */
+.vip-glow {
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.3), 0 0 40px rgba(212, 175, 55, 0.2), 0 0 60px rgba(212, 175, 55, 0.1);
+}
+
+.premium-gradient {
+  background: linear-gradient(135deg, #034a6e 0%, #54c4cf 50%, #00e5ff 100%);
+}
+
+.vip-gradient {
+  background: linear-gradient(135deg, #d4af37 0%, #ffd700 50%, #ffed4a 100%);
+}
+
+.glass-morphism {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.dark .glass-morphism {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Product Card Enhancements */
+.product-card-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.product-card-hover:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.dark .product-card-hover:hover {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .uss-button-primary,
+  .uss-button-gold {
+    @apply border-2 border-current;
+  }
+}

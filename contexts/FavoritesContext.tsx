@@ -4,7 +4,7 @@ import React, { createContext, useContext, useState, useEffect, ReactNode } from
 import { toast } from 'sonner';
 
 interface Product {
-  id: number;
+  id: string;
   name: string;
   price: number;
   image: string;
@@ -12,9 +12,9 @@ interface Product {
 }
 
 interface FavoritesContextType {
-  favorites: number[];
-  toggleFavorite: (productId: number) => void;
-  isFavorite: (productId: number) => boolean;
+  favorites: string[];
+  toggleFavorite: (productId: string) => void;
+  isFavorite: (productId: string) => boolean;
 }
 
 const FavoritesContext = createContext<FavoritesContextType | undefined>(undefined);
@@ -28,7 +28,7 @@ export const useFavorites = () => {
 };
 
 export const FavoritesProvider = ({ children }: { children: ReactNode }) => {
-  const [favorites, setFavorites] = useState<number[]>([]);
+  const [favorites, setFavorites] = useState<string[]>([]);
 
   useEffect(() => {
     const storedFavorites = localStorage.getItem('favorites');
@@ -41,7 +41,7 @@ export const FavoritesProvider = ({ children }: { children: ReactNode }) => {
     localStorage.setItem('favorites', JSON.stringify(favorites));
   }, [favorites]);
 
-  const toggleFavorite = (productId: number) => {
+  const toggleFavorite = (productId: string) => {
     setFavorites(prev => {
       if (prev.includes(productId)) {
         toast.info('Produto removido dos favoritos.');
@@ -53,7 +53,7 @@ export const FavoritesProvider = ({ children }: { children: ReactNode }) => {
     });
   };
 
-  const isFavorite = (productId: number) => {
+  const isFavorite = (productId: string) => {
     return favorites.includes(productId);
   };
 

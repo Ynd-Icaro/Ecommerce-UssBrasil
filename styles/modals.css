@@ -1,0 +1,33 @@
+/* Modal positioning styles */
+.modal-overlay {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 9999 !important;
+  pointer-events: all !important;
+}
+
+.modal-content {
+  max-height: 90vh !important;
+  max-width: 90vw !important;
+  margin: auto !important;
+  position: relative !important;
+  pointer-events: all !important;
+}
+
+/* Prevent body scroll when modal is open */
+.modal-open {
+  overflow: hidden !important;
+  height: 100vh !important;
+}
+
+/* Ensure modal appears over everything */
+.modal-backdrop {
+  backdrop-filter: blur(8px) !important;
+  background: rgba(0, 0, 0, 0.6) !important;
+}

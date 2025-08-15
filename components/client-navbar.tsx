@@ -1,7 +1,8 @@
 'use client'
 
 import { usePathname } from "next/navigation"
-import Navbar from "./navbar"
+import ModernNavbarClean from "./navbar-clean"
+
 export default function ClientNavbar() {  
   const pathname = usePathname()
   
@@ -10,5 +11,5 @@ export default function ClientNavbar() {
     return null
   }
   
-  return <Navbar />
+  return <ModernNavbarClean />
 }

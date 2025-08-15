@@ -1,8 +1,9 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Image from "next/image"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -12,23 +13,25 @@ import { Separator } from "@/components/ui/separator"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Textarea } from "@/components/ui/textarea"
 import { Badge } from "@/components/ui/badge"
-import { ArrowLeft, CreditCard, Truck, MapPin, User, Lock, CheckCircle } from "lucide-react"
-
-const orderItems = [
-  {
-    id: 1,
-    name: "iPhone 15 Pro Max",
-    brand: "Apple",
-    price: 9999,
-    quantity: 1,
-    color: "Titânio Natural",
-    storage: "256GB",
-    image: "/Produtos/Iphone 16 Pro.png",
-  },
-]
+import { ArrowLeft, CreditCard, Truck, MapPin, User, Lock, CheckCircle, ShoppingCart } from "lucide-react"
+import { toast } from 'react-hot-toast'
+import { useCart } from '@/contexts/CartContext'
 
 export default function CheckoutPage() {
+  const router = useRouter()
+  const { cartItems, cartTotal, cartCount, clearCart } = useCart()
+  const [isLoading, setIsLoading] = useState(false)
+  const [isLoaded, setIsLoaded] = useState(false)
   const [step, setStep] = useState(1) // 1: Dados, 2: Entrega, 3: Pagamento, 4: Confirmação
+  
+  useEffect(() => {
+    setIsLoaded(true)
+    // Redirect if cart is empty
+    if (cartItems.length === 0) {
+      router.push('/cart')
+    }
+  }, [cartItems, router])
+
   const [formData, setFormData] = useState({
     // Dados pessoais
     firstName: "",
@@ -63,9 +66,34 @@ export default function CheckoutPage() {
 
   const [orderConfirmed, setOrderConfirmed] = useState(false)
 
-  const subtotal = orderItems.reduce((sum, item) => sum + item.price * item.quantity, 0)
-  const deliveryFee = formData.deliveryMethod === "express" ? 49 : 0
+  const subtotal = cartTotal
+  const deliveryFee = formData.deliveryMethod === "express" ? 49 : (subtotal > 299 ? 0 : 29.90)
   const total = subtotal + deliveryFee
+
+  const formatPrice = (price: number) => {
+    return new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL'
+    }).format(price)
+  }
+
+  const handleFinishOrder = async () => {
+    setIsLoading(true)
+    try {
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 2000))
+      
+      // Clear cart and redirect to success page
+      clearCart()
+      toast.success('Pedido realizado com sucesso!')
+      setOrderConfirmed(true)
+      setStep(4)
+    } catch (error) {
+      toast.error('Erro ao processar pedido. Tente novamente.')
+    } finally {
+      setIsLoading(false)
+    }
+  }
 
   const handleInputChange = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
@@ -83,10 +111,8 @@ export default function CheckoutPage() {
     }
   }
 
-  const handleConfirmOrder = () => {
-    // Aqui você processaria o pedido
-    setOrderConfirmed(true)
-    setStep(4)
+  const handleConfirmOrder = async () => {
+    await handleFinishOrder()
   }
 
   const formatCEP = (value: string) => {
@@ -582,7 +608,7 @@ export default function CheckoutPage() {
                 <CardTitle>Resumo do Pedido</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                {orderItems.map((item) => (
+                {cartItems.map((item) => (
                   <div key={item.id} className="flex items-center space-x-3">
                     <Image
                       src={item.image || "/placeholder.svg"}
@@ -593,11 +619,12 @@ export default function CheckoutPage() {
                     />
                     <div className="flex-1">
                       <h4 className="font-medium text-sm">{item.name}</h4>
-                      <p className="text-xs text-gray-600">{item.brand}</p>
-                      <p className="text-xs text-gray-600">
-                        {item.color} • {item.storage}
-                      </p>
-                      <p className="text-sm font-medium">R$ {item.price.toLocaleString()}</p>
+                      {item.storage && (
+                        <p className="text-xs text-gray-600">
+                          {item.color && `${item.color} • `}{item.storage}
+                        </p>
+                      )}
+                      <p className="text-sm font-medium">{formatPrice(item.price)}</p>
                     </div>
                     <span className="text-sm text-gray-600">x{item.quantity}</span>
                   </div>
@@ -607,17 +634,17 @@ export default function CheckoutPage() {
 
                 <div className="space-y-2">
                   <div className="flex justify-between text-sm">
-                    <span>Subtotal</span>
-                    <span>R$ {subtotal.toLocaleString()}</span>
+                    <span>Subtotal ({cartCount} {cartCount === 1 ? 'item' : 'itens'})</span>
+                    <span>{formatPrice(subtotal)}</span>
                   </div>
                   <div className="flex justify-between text-sm">
                     <span>Entrega</span>
-                    <span>{deliveryFee === 0 ? "Grátis" : `R$ ${deliveryFee.toLocaleString()}`}</span>
+                    <span>{deliveryFee === 0 ? "Grátis" : formatPrice(deliveryFee)}</span>
                   </div>
                   {formData.paymentMethod === "pix" && (
                     <div className="flex justify-between text-sm text-green-600">
                       <span>Desconto PIX (5%)</span>
-                      <span>-R$ {(total * 0.05).toLocaleString()}</span>
+                      <span>-{formatPrice(total * 0.05)}</span>
                     </div>
                   )}
                 </div>
@@ -627,7 +654,7 @@ export default function CheckoutPage() {
                 <div className="flex justify-between text-lg font-semibold">
                   <span>Total</span>
                   <span>
-                    R$ {formData.paymentMethod === "pix" ? (total * 0.95).toLocaleString() : total.toLocaleString()}
+                    {formatPrice(formData.paymentMethod === "pix" ? (total * 0.95) : total)}
                   </span>
                 </div>
 
@@ -635,7 +662,7 @@ export default function CheckoutPage() {
                   <div className="text-center text-sm text-gray-600">
                     <p>ou {formData.installments}x de</p>
                     <p className="font-medium">
-                      R$ {(total / Number.parseInt(formData.installments)).toLocaleString()}
+                      {formatPrice(total / Number.parseInt(formData.installments))}
                     </p>
                   </div>
                 )}

@@ -98,7 +98,7 @@ const mockOrders: Order[] = [
         id: '1',
         productId: '1',
         name: 'iPhone 16 Pro',
-        image: '/produtos/iphone-16-pro.png',
+        image: '/Produtos/Apple/Iphone 16 Pro.png',
         quantity: 1,
         price: 8999
       }
@@ -128,7 +128,7 @@ const mockOrders: Order[] = [
         id: '2',
         productId: '2',
         name: 'MacBook Pro',
-        image: '/produtos/macbook-pro.png',
+        image: '/Produtos/Apple/Macbook Pro.png',
         quantity: 1,
         price: 15999
       }
@@ -201,8 +201,8 @@ const mockProducts: Product[] = [
     sku: 'IPH16P-256-TB',
     stock: 25,
     images: {
-      main: '/produtos/iphone-16-pro.png',
-      gallery: ['/produtos/iphone-16-pro-1.png', '/produtos/iphone-16-pro-2.png']
+      main: '/Produtos/Apple/Iphone 16 Pro.png',
+      gallery: ['/Produtos/Apple/Iphone 16 Pro.png', '/Produtos/Apple/Iphone 16 Pro.png']
     },
     status: 'active',
     isNew: true,

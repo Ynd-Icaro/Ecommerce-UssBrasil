@@ -1,0 +1,226 @@
+{
+  "products": [
+    {
+      "id": "iphone-16-pro",
+      "name": "iPhone 16 Pro 128GB",
+      "slug": "iphone-16-pro-128gb",
+      "price": 8999.00,
+      "discountPrice": 8499.00,
+      "category": "apple",
+      "subcategory": "smartphones",
+      "marca": "Apple",
+      "sku": "IP16P-128-TN",
+      "image": "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=800&h=600&fit=crop",
+      "images": [
+        "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=800&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=800&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1580910051074-3eb694886505?w=800&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1556656793-08538906a9f8?w=800&h=600&fit=crop"
+      ],
+      "video": "",
+      "description": "O iPhone 16 Pro redefine a inovação com o revolucionário chip A18 Pro, câmeras profissionais avançadas e design em titânio premium. Experiência fotográfica cinematográfica com Control Camera e gravação em 4K120p Dolby Vision.",
+      "shortDescription": "iPhone 16 Pro com chip A18 Pro, câmeras profissionais e design em titânio",
+      "longDescription": "O iPhone 16 Pro é o smartphone mais avançado da Apple, projetado para profissionais e entusiastas de tecnologia. Equipado com o poderoso chip A18 Pro, oferece performance incomparável para tarefas intensivas, jogos e criação de conteúdo. O sistema de câmeras Pro inclui teleobjetiva 5x, ultra-angular e principal, todas otimizadas para fotografia computacional avançada. A construção em titânio de grau aeroespacial garante durabilidade premium enquanto mantém o dispositivo surpreendentemente leve.",
+      "stock": 15,
+      "rating": 4.9,
+      "reviewsCount": 245,
+      "featured": true,
+      "isNew": true,
+      "bestSeller": true,
+      "vipOnly": false,
+      "limitedEdition": false,
+      "specifications": {
+        "Tela": "6.3 polegadas Super Retina XDR OLED",
+        "Resolução": "2556 x 1179 pixels, 460 ppi",
+        "Processador": "Chip A18 Pro",
+        "Memória": "8GB RAM",
+        "Armazenamento": "128GB, 256GB, 512GB, 1TB",
+        "Câmera Principal": "48MP com teleobjetiva 5x",
+        "Câmera Frontal": "12MP TrueDepth",
+        "Bateria": "Até 27 horas de reprodução de vídeo",
+        "Sistema Operacional": "iOS 18",
+        "Conectividade": "5G, Wi-Fi 7, Bluetooth 5.3",
+        "Resistência": "IP68",
+        "Dimensões": "149.6 x 71.5 x 8.25 mm",
+        "Peso": "199g"
+      },
+      "colors": [
+        { "name": "Titânio Natural", "hex": "#F5F5DC", "image": "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=400&h=400&fit=crop" },
+        { "name": "Titânio Branco", "hex": "#F8F8FF", "image": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=400&h=400&fit=crop" },
+        { "name": "Titânio Preto", "hex": "#2F2F2F", "image": "https://images.unsplash.com/photo-1580910051074-3eb694886505?w=400&h=400&fit=crop" },
+        { "name": "Titânio Deserto", "hex": "#DEB887", "image": "https://images.unsplash.com/photo-1556656793-08538906a9f8?w=400&h=400&fit=crop" }
+      ],
+      "variants": [
+        { "storage": "128GB", "price": 8999.00, "discountPrice": 8499.00 },
+        { "storage": "256GB", "price": 9999.00, "discountPrice": 9499.00 },
+        { "storage": "512GB", "price": 11999.00, "discountPrice": 11499.00 },
+        { "storage": "1TB", "price": 13999.00, "discountPrice": 13499.00 }
+      ],
+      "tags": ["apple", "iphone", "smartphone", "pro", "titanio", "camera", "5g"],
+      "benefits": [
+        "Control Camera para acesso rápido às funções da câmera",
+        "Gravação em 4K120p Dolby Vision",
+        "Teleobjetiva 5x com zoom óptico",
+        "Design em titânio de grau aeroespacial",
+        "Chip A18 Pro com Neural Engine de 16 núcleos",
+        "Bateria de longa duração com carregamento rápido",
+        "Resistência à água IP68",
+        "iOS 18 com Apple Intelligence"
+      ],
+      "warranty": "Garantia limitada de 1 ano da Apple + 90 dias de suporte técnico gratuito",
+      "deliveryTime": "1-2 dias úteis",
+      "seo": {
+        "metaTitle": "iPhone 16 Pro 128GB - Titânio Natural | USS Brasil",
+        "metaDescription": "iPhone 16 Pro com chip A18 Pro, câmeras profissionais e design em titânio. Compre com desconto exclusivo na USS Brasil."
+      }
+    },
+    {
+      "id": "iphone-16",
+      "name": "iPhone 16 128GB",
+      "slug": "iphone-16-128gb",
+      "price": 6999.00,
+      "discountPrice": 6499.00,
+      "category": "apple",
+      "subcategory": "smartphones",
+      "marca": "Apple",
+      "sku": "IP16-128-AZ",
+      "image": "https://images.unsplash.com/photo-1512499617640-c74ae3a79d37?w=800&h=600&fit=crop",
+      "images": [
+        "https://images.unsplash.com/photo-1512499617640-c74ae3a79d37?w=800&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1520923642038-b4259acecbd7?w=800&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1574944985070-8f3ebc6b79d2?w=800&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1596558450268-9c27524ba856?w=800&h=600&fit=crop"
+      ],
+      "video": "",
+      "description": "iPhone 16 com chip A18, câmera dupla avançada e design vibrante. A evolução natural do iPhone com Control Camera e recursos de IA integrados.",
+      "shortDescription": "iPhone 16 com chip A18, câmera dupla e cores vibrantes",
+      "longDescription": "O iPhone 16 representa uma nova era de inovação da Apple, combinando desempenho excepcional com design elegante. O chip A18 oferece eficiência energética superior e capacidades de IA avançadas. O sistema de câmera dupla captura fotos e vídeos impressionantes com facilidade, enquanto o novo Control Camera proporciona acesso rápido às suas funcionalidades favoritas.",
+      "stock": 25,
+      "rating": 4.7,
+      "reviewsCount": 189,
+      "featured": true,
+      "isNew": true,
+      "bestSeller": false,
+      "vipOnly": false,
+      "limitedEdition": false,
+      "specifications": {
+        "Tela": "6.1 polegadas Super Retina XDR OLED",
+        "Resolução": "2556 x 1179 pixels, 460 ppi",
+        "Processador": "Chip A18",
+        "Memória": "6GB RAM",
+        "Armazenamento": "128GB, 256GB, 512GB",
+        "Câmera Principal": "48MP Fusion",
+        "Câmera Frontal": "12MP TrueDepth",
+        "Bateria": "Até 22 horas de reprodução de vídeo",
+        "Sistema Operacional": "iOS 18",
+        "Conectividade": "5G, Wi-Fi 7, Bluetooth 5.3",
+        "Resistência": "IP68",
+        "Dimensões": "147.6 x 71.6 x 7.80 mm",
+        "Peso": "170g"
+      },
+      "colors": [
+        { "name": "Branco", "hex": "#FFFFFF", "image": "https://images.unsplash.com/photo-1512499617640-c74ae3a79d37?w=400&h=400&fit=crop" },
+        { "name": "Preto", "hex": "#000000", "image": "https://images.unsplash.com/photo-1520923642038-b4259acecbd7?w=400&h=400&fit=crop" },
+        { "name": "Rosa", "hex": "#FFB6C1", "image": "https://images.unsplash.com/photo-1574944985070-8f3ebc6b79d2?w=400&h=400&fit=crop" },
+        { "name": "Verde", "hex": "#90EE90", "image": "https://images.unsplash.com/photo-1596558450268-9c27524ba856?w=400&h=400&fit=crop" },
+        { "name": "Azul", "hex": "#87CEEB", "image": "https://images.unsplash.com/photo-1574944985070-8f3ebc6b79d2?w=400&h=400&fit=crop" }
+      ],
+      "variants": [
+        { "storage": "128GB", "price": 6999.00, "discountPrice": 6499.00 },
+        { "storage": "256GB", "price": 7999.00, "discountPrice": 7499.00 },
+        { "storage": "512GB", "price": 9999.00, "discountPrice": 9499.00 }
+      ],
+      "tags": ["apple", "iphone", "smartphone", "camera", "5g", "colorido"],
+      "benefits": [
+        "Control Camera para controle rápido",
+        "Chip A18 com eficiência energética superior",
+        "Câmera Fusion 48MP",
+        "Design durável e resistente",
+        "iOS 18 com recursos de IA",
+        "Carregamento sem fio MagSafe",
+        "Resistência à água IP68",
+        "Cores vibrantes disponíveis"
+      ],
+      "warranty": "Garantia limitada de 1 ano da Apple + 90 dias de suporte técnico gratuito",
+      "deliveryTime": "1-2 dias úteis",
+      "seo": {
+        "metaTitle": "iPhone 16 128GB - Azul | USS Brasil",
+        "metaDescription": "iPhone 16 com chip A18 e câmera dupla avançada. Cores vibrantes com desconto especial na USS Brasil."
+      }
+    },
+    {
+      "id": "macbook-air-m3",
+      "name": "MacBook Air 13\" M3 256GB",
+      "slug": "macbook-air-13-m3-256gb",
+      "price": 9999.00,
+      "discountPrice": 9499.00,
+      "category": "apple",
+      "subcategory": "notebooks",
+      "marca": "Apple",
+      "sku": "MBA13-M3-256-SL",
+      "image": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=800&h=600&fit=crop",
+      "images": [
+        "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=800&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=800&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=800&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1484788984921-03950022c9ef?w=800&h=600&fit=crop"
+      ],
+      "video": "",
+      "description": "MacBook Air com chip M3, desempenho excepcional e portabilidade incomparável. O notebook perfeito para produtividade e criatividade.",
+      "shortDescription": "MacBook Air 13\" com chip M3, 256GB SSD e design ultrafino",
+      "longDescription": "O novo MacBook Air com chip M3 oferece um salto significativo em desempenho e eficiência energética. Com até 18 horas de bateria, tela Liquid Retina de 13.6 polegadas e design incrivelmente fino, é o companheiro perfeito para trabalho, estudos e entretenimento. O chip M3 com CPU de 8 núcleos e GPU de até 10 núcleos garante performance fluida em todas as tarefas.",
+      "stock": 12,
+      "rating": 4.8,
+      "reviewsCount": 156,
+      "featured": true,
+      "isNew": false,
+      "bestSeller": true,
+      "vipOnly": false,
+      "limitedEdition": false,
+      "specifications": {
+        "Tela": "13.6 polegadas Liquid Retina",
+        "Resolução": "2560 x 1664 pixels",
+        "Processador": "Chip Apple M3",
+        "CPU": "8 núcleos",
+        "GPU": "8 ou 10 núcleos",
+        "Memória": "8GB RAM unificada",
+        "Armazenamento": "256GB, 512GB, 1TB, 2TB SSD",
+        "Bateria": "Até 18 horas",
+        "Sistema Operacional": "macOS Sonoma",
+        "Conectividade": "Wi-Fi 6E, Bluetooth 5.3",
+        "Portas": "2x Thunderbolt, MagSafe 3, fone de ouvido",
+        "Dimensões": "30.41 x 21.5 x 1.13 cm",
+        "Peso": "1.24 kg"
+      },
+      "colors": [
+        { "name": "Prateado", "hex": "#E8E8E8", "image": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400&h=400&fit=crop" },
+        { "name": "Cinza Espacial", "hex": "#5C5C5C", "image": "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=400&h=400&fit=crop" },
+        { "name": "Dourado", "hex": "#FFD700", "image": "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=400&h=400&fit=crop" },
+        { "name": "Meia-noite", "hex": "#191970", "image": "https://images.unsplash.com/photo-1484788984921-03950022c9ef?w=400&h=400&fit=crop" }
+      ],
+      "variants": [
+        { "storage": "256GB", "memory": "8GB", "price": 9999.00, "discountPrice": 9499.00 },
+        { "storage": "512GB", "memory": "8GB", "price": 11999.00, "discountPrice": 11499.00 },
+        { "storage": "1TB", "memory": "16GB", "price": 15999.00, "discountPrice": 15499.00 },
+        { "storage": "2TB", "memory": "24GB", "price": 21999.00, "discountPrice": 21499.00 }
+      ],
+      "tags": ["apple", "macbook", "notebook", "m3", "portatil", "profissional"],
+      "benefits": [
+        "Chip M3 com performance excepcional",
+        "Até 18 horas de bateria",
+        "Tela Liquid Retina brilhante",
+        "Design ultrafino e leve",
+        "Carregamento rápido MagSafe 3",
+        "Áudio espacial com som imersivo",
+        "Câmera FaceTime HD 1080p",
+        "macOS com apps otimizados"
+      ],
+      "warranty": "Garantia limitada de 1 ano da Apple + 90 dias de suporte técnico gratuito",
+      "deliveryTime": "2-3 dias úteis",
+      "seo": {
+        "metaTitle": "MacBook Air 13\" M3 256GB - Prateado | USS Brasil",
+        "metaDescription": "MacBook Air com chip M3, tela Liquid Retina e até 18h de bateria. Compre com desconto na USS Brasil."
+      }
+    }
+  ]
+}

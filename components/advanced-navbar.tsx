@@ -55,11 +55,11 @@ interface Category {
 }
 
 const mockSearchSuggestions: SearchSuggestion[] = [
-  { id: '1', name: 'iPhone 16 Pro', category: 'Smartphones', image: '/Produtos/Iphone 16 Pro.png', price: 7999 },
-  { id: '2', name: 'MacBook Pro', category: 'Computadores', image: '/Produtos/Macbook Pro.png', price: 15999 },
-  { id: '3', name: 'AirPods Pro 2', category: 'Áudio', image: '/Produtos/Air Pods Pro 2', price: 1899 },
-  { id: '4', name: 'Apple Watch Ultra', category: 'Wearables', image: '/Produtos/Watch Ultra 2.png', price: 5999 },
-  { id: '5', name: 'iPad Pro', category: 'Tablets', image: '/Produtos/Ipad Pro.png', price: 8999 }
+  { id: '1', name: 'iPhone 16 Pro', category: 'Smartphones', image: '/Produtos/Apple/Iphone 16 Pro.png', price: 7999 },
+  { id: '2', name: 'MacBook Pro', category: 'Computadores', image: '/Produtos/Apple/Macbook Pro.png', price: 15999 },
+  { id: '3', name: 'AirPods Pro 2', category: 'Áudio', image: '/Produtos/Apple/Air Pods Max.png', price: 1899 },
+  { id: '4', name: 'Apple Watch Ultra', category: 'Wearables', image: '/Produtos/Apple/Watch Ultra 2.png', price: 5999 },
+  { id: '5', name: 'iPad Pro', category: 'Tablets', image: '/Produtos/Apple/Ipad Pro.png', price: 8999 }
 ]
 
 const categories = premiumCategories.map(cat => ({

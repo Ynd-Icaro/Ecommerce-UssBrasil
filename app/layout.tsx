@@ -1,12 +1,14 @@
 import type { Metadata, Viewport } from 'next'
 import { Inter, JetBrains_Mono } from 'next/font/google'
 import ConditionalNavbar from '@/components/conditional-navbar'
-import ModernFooter from '@/components/ModernFooter'
+import ConditionalFooter from '@/components/conditional-footer'
 import ToastWrapper from '@/components/toast-wrapper'
 import { ThemeProvider } from '@/hooks/use-theme'
 import { Toaster } from 'sonner'
 import { CartProvider } from '@/contexts/CartContext'
 import { FavoritesProvider } from '@/contexts/FavoritesContext'
+import { AuthProvider } from '@/contexts/AuthContext'
+import { SessionProvider } from 'next-auth/react'
 import { FadeIn } from '@/components/animated-components'
 import './globals.css'
 
@@ -14,13 +16,15 @@ import './globals.css'
 const inter = Inter({ 
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-inter'
+  variable: '--font-inter',
+  fallback: ['system-ui', 'arial']
 })
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-mono'
+  variable: '--font-mono',
+  fallback: ['Consolas', 'monospace']
 })
 
 // ========== CONFIGURAÇÃO DE VIEWPORT ==========
@@ -152,13 +156,17 @@ export const metadata: Metadata = {
 // ========== PROVIDERS HIERÁRQUICOS ==========
 function AppProviders({ children }: { children: React.ReactNode }) {
   return (
-    <FavoritesProvider>
-      <CartProvider>
-        <FadeIn duration={0.3}>
-          {children}
-        </FadeIn>
-      </CartProvider>
-    </FavoritesProvider>
+    <SessionProvider>
+      <AuthProvider>
+        <FavoritesProvider>
+          <CartProvider>
+            <FadeIn duration={0.3}>
+              {children}
+            </FadeIn>
+          </CartProvider>
+        </FavoritesProvider>
+      </AuthProvider>
+    </SessionProvider>
   )
 }
 
@@ -176,7 +184,6 @@ export default function RootLayout({
     >
       <head>
         {/* Preload de recursos críticos */}
-        <link rel="preload" href="/fonts/inter-var.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         <link rel="preload" href="/Produtos/Apple/Iphone 16 Pro.png" as="image" />
         
         {/* DNS Prefetch para performance */}
@@ -233,7 +240,9 @@ export default function RootLayout({
       </head>
       
       <body className={`
-        ${inter.className} 
+        ${inter.variable} 
+        ${jetbrainsMono.variable}
+        font-inter
         antialiased 
         overflow-x-hidden
         selection:bg-primary/20 
@@ -268,7 +277,7 @@ export default function RootLayout({
               </main>
               
               {/* Modern Footer */}
-              <ModernFooter />
+              <ConditionalFooter />
               
               {/* Footer spacer para mobile */}
               <div className="h-20 md:h-0" />

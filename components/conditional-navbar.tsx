@@ -1,7 +1,8 @@
 'use client'
 
 import { usePathname } from 'next/navigation'
-import ClientNavbar from './client-navbar'
+import ModernNavbar from './navbar-clean'
+import { DEFAULT_NAVBAR_CONFIG, LANDING_NAVBAR_CONFIG } from './navbar-config'
 
 export default function ConditionalNavbar() {
   const pathname = usePathname()
@@ -10,6 +11,14 @@ export default function ConditionalNavbar() {
   if (pathname?.startsWith('/admin')) {
     return null
   }
+
+  // Usar configuração diferente para páginas específicas
+  const isLandingPage = pathname === '/' || pathname === '/sobre'
   
-  return <ClientNavbar />
+  return (
+    <ModernNavbar 
+      config={isLandingPage ? LANDING_NAVBAR_CONFIG : DEFAULT_NAVBAR_CONFIG}
+      showBrandDropdown={true}
+    />
+  )
 }

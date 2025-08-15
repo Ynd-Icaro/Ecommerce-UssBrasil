@@ -1,0 +1,80 @@
+import { NextRequest, NextResponse } from 'next/server'
+import { prisma } from '@/lib/prisma'
+
+export async function GET(request: NextRequest) {
+  try {
+    const { searchParams } = new URL(request.url)
+    const query = searchParams.get('q')
+    const limit = searchParams.get('limit')
+    const category = searchParams.get('category')
+
+    if (!query) {
+      return NextResponse.json(
+        { error: 'Parâmetro de busca é obrigatório' },
+        { status: 400 }
+      )
+    }
+
+    const where: any = {
+      AND: [
+        {
+          OR: [
+            {
+              name: {
+                contains: query,
+                mode: 'insensitive'
+              }
+            },
+            {
+              description: {
+                contains: query,
+                mode: 'insensitive'
+              }
+            }
+          ]
+        },
+        {
+          status: 'ACTIVE'
+        }
+      ]
+    }
+
+    if (category) {
+      where.AND.push({
+        category: {
+          slug: category
+        }
+      })
+    }
+
+    const products = await prisma.product.findMany({
+      where,
+      include: {
+        category: {
+          select: {
+            id: true,
+            name: true,
+            slug: true
+          }
+        }
+      },
+      orderBy: [
+        { featured: 'desc' },
+        { createdAt: 'desc' }
+      ],
+      take: limit ? parseInt(limit) : 50
+    })
+
+    return NextResponse.json({
+      products,
+      total: products.length,
+      query
+    })
+  } catch (error) {
+    console.error('Error searching products:', error)
+    return NextResponse.json(
+      { error: 'Erro ao buscar produtos' },
+      { status: 500 }
+    )
+  }
+}

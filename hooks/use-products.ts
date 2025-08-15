@@ -2,9 +2,42 @@
 
 import { useState, useEffect, useMemo } from 'react'
 import { useSearchParams } from 'next/navigation'
-import dbData from '@/data/db.json'
 
-export type Product = any
+export type Product = {
+  id: string
+  name: string
+  description: string
+  price: number
+  images?: string[] | string
+  image?: string
+  mainImage?: string
+  categoryId?: string
+  category?: {
+    id: string
+    name: string
+    slug: string
+  }
+  brand?: string
+  stock: number
+  featured?: boolean
+  specifications?: string
+  createdAt?: string
+  updatedAt?: string
+  originalPrice?: number
+  rating?: number
+  reviews?: number
+  isNew?: boolean
+  isFeatured?: boolean
+  isOnSale?: boolean
+  inStock?: boolean
+  features?: string[]
+  slug?: string
+  subcategory?: string
+  discountPercentage?: number
+  shortDescription?: string
+  tags?: string[]
+  colors?: any[]
+}
 
 export interface UseProductsOptions {
   category?: string
@@ -45,34 +78,44 @@ export function useProducts(options: UseProductsOptions = {}) {
         setLoading(true)
         setError(null)
         
-        // Simulate API call delay
-        await new Promise(resolve => setTimeout(resolve, 100))
-        
-        let filteredProducts = [...dbData.products]
-        
-        // Apply filters
-        if (finalOptions.category) {
-          filteredProducts = filteredProducts.filter(product => 
-            product.category?.toLowerCase() === finalOptions.category!.toLowerCase()
-          )
-        }
-        
-        if (finalOptions.brand) {
-          filteredProducts = filteredProducts.filter(product => 
-            product.brand?.toLowerCase() === finalOptions.brand!.toLowerCase()
-          )
-        }
+        // Build API URL with query params
+        const searchParams = new URLSearchParams()
         
         if (finalOptions.featured) {
-          filteredProducts = filteredProducts.filter(product => product.isFeatured)
+          searchParams.append('featured', 'true')
+        }
+        
+        if (finalOptions.limit) {
+          searchParams.append('limit', finalOptions.limit.toString())
+        }
+        
+        const apiUrl = `/api/products?${searchParams.toString()}`
+        console.log('Fetching products from:', apiUrl)
+        
+        const response = await fetch(apiUrl)
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`)
+        }
+        
+        const fetchedProducts: Product[] = await response.json()
+        console.log('Fetched products:', fetchedProducts)
+        
+        let filteredProducts = [...fetchedProducts]
+        
+        // Apply client-side filters that aren't handled by the API
+        if (finalOptions.category) {
+          filteredProducts = filteredProducts.filter(product => 
+            product.category?.slug?.toLowerCase() === finalOptions.category!.toLowerCase() ||
+            product.category?.name?.toLowerCase() === finalOptions.category!.toLowerCase()
+          )
         }
         
         if (finalOptions.search) {
           const searchTerm = finalOptions.search.toLowerCase()
           filteredProducts = filteredProducts.filter(product =>
             product.name?.toLowerCase().includes(searchTerm) ||
-            product.description?.toLowerCase().includes(searchTerm) ||
-            product.tags?.some((tag: string) => tag.toLowerCase().includes(searchTerm))
+            product.description?.toLowerCase().includes(searchTerm)
           )
         }
         
@@ -85,7 +128,7 @@ export function useProducts(options: UseProductsOptions = {}) {
         
         if (finalOptions.inStock !== undefined) {
           filteredProducts = filteredProducts.filter(product =>
-            product.stock > 0 === finalOptions.inStock
+            (product.stock > 0) === finalOptions.inStock
           )
         }
         
@@ -104,12 +147,13 @@ export function useProducts(options: UseProductsOptions = {}) {
                 bValue = b.price || 0
                 break
               case 'rating':
-                aValue = a.rating || 0
-                bValue = b.rating || 0
+                // Rating would need to be added to the Product model
+                aValue = 0
+                bValue = 0
                 break
               case 'newest':
-                aValue = new Date().getTime() // Usar data atual como fallback
-                bValue = new Date().getTime()
+                aValue = a.createdAt ? new Date(a.createdAt).getTime() : 0
+                bValue = b.createdAt ? new Date(b.createdAt).getTime() : 0
                 break
               default:
                 return 0
@@ -123,13 +167,10 @@ export function useProducts(options: UseProductsOptions = {}) {
           })
         }
         
-        // Apply limit
-        if (finalOptions.limit) {
-          filteredProducts = filteredProducts.slice(0, finalOptions.limit)
-        }
-        
+        console.log('Products data:', filteredProducts)
         setProducts(filteredProducts)
       } catch (err) {
+        console.error('Error loading products:', err)
         setError(err instanceof Error ? err.message : 'Failed to load products')
       } finally {
         setLoading(false)
@@ -137,23 +178,32 @@ export function useProducts(options: UseProductsOptions = {}) {
     }
     
     loadProducts()
-  }, [finalOptions])
+  }, [finalOptions.featured, finalOptions.limit, finalOptions.category, finalOptions.search, finalOptions.priceRange, finalOptions.inStock, finalOptions.sortBy, finalOptions.sortOrder])
 
   const categories = useMemo(() => {
-    return Array.from(new Set(dbData.products.map(p => p.category).filter(Boolean)))
-  }, [])
+    return Array.from(new Set(products.map(p => p.category?.name).filter(Boolean)))
+  }, [products])
 
   const brands = useMemo(() => {
-    return Array.from(new Set(dbData.products.map(p => p.brand).filter(Boolean)))
+    // Brand is not in our Product model yet, return empty array
+    return []
   }, [])
 
   const featuredProducts = useMemo(() => {
-    return dbData.products.filter(p => p.isFeatured).slice(0, 8)
-  }, [])
+    return products.filter(p => p.featured).slice(0, 8)
+  }, [products])
 
   const newProducts = useMemo(() => {
-    return dbData.products.filter(p => p.isNew).slice(0, 6)
-  }, [])
+    // Sort by creation date and take the newest 6
+    return products
+      .filter(p => p.createdAt) // Only include products with createdAt
+      .sort((a, b) => {
+        const aTime = a.createdAt ? new Date(a.createdAt).getTime() : 0
+        const bTime = b.createdAt ? new Date(b.createdAt).getTime() : 0
+        return bTime - aTime
+      })
+      .slice(0, 6)
+  }, [products])
 
   return {
     products,
@@ -179,24 +229,25 @@ export function useProduct(id: string) {
         setLoading(true)
         setError(null)
         
-        // Simulate API call delay
-        await new Promise(resolve => setTimeout(resolve, 100))
+        const response = await fetch(`/api/products/${id}`)
         
-        const foundProduct = dbData.products.find(p => p.id === id)
-        
-        if (!foundProduct) {
-          throw new Error('Product not found')
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`)
         }
         
-        setProduct(foundProduct)
+        const productData = await response.json()
+        setProduct(productData)
       } catch (err) {
+        console.error('Error loading product:', err)
         setError(err instanceof Error ? err.message : 'Failed to load product')
       } finally {
         setLoading(false)
       }
     }
     
-    loadProduct()
+    if (id) {
+      loadProduct()
+    }
   }, [id])
 
   return { product, loading, error }
@@ -227,14 +278,11 @@ export function calculateDiscount(price: number, originalPrice: number): number 
 }
 
 export function getProductsByPriceRange(min: number, max: number): Product[] {
-  return dbData.products.filter(p => p.price >= min && p.price <= max)
+  // This would need to be implemented with proper API calls
+  return []
 }
 
 export function getRelatedProducts(product: Product, limit = 4): Product[] {
-  return dbData.products
-    .filter(p => 
-      p.id !== product.id && 
-      (p.category === product.category || p.brand === product.brand)
-    )
-    .slice(0, limit)
+  // This would need to be implemented with proper API calls
+  return []
 }

@@ -15,11 +15,21 @@
       "specifications": {
         "screen": "6,3 polegadas Super Retina XDR",
         "processor": "Chip A18 Pro",
-        "storage": ["128GB", "256GB", "512GB", "1TB"],
+        "storage": [
+          "128GB",
+          "256GB",
+          "512GB",
+          "1TB"
+        ],
         "camera": "Sistema de câmera Pro 48MP",
         "battery": "Até 27 horas de reprodução de vídeo",
         "material": "Titânio",
-        "colors": ["Titânio Natural", "Titânio Azul", "Titânio Branco", "Titânio Preto"]
+        "colors": [
+          "Titânio Natural",
+          "Titânio Azul",
+          "Titânio Branco",
+          "Titânio Preto"
+        ]
       },
       "colors": [
         {
@@ -54,10 +64,15 @@
       "stock": 25,
       "rating": 4.9,
       "reviews": 324,
-      "tags": ["novo", "destaque", "premium"],
+      "tags": [
+        "novo",
+        "destaque",
+        "premium"
+      ],
       "isNew": true,
       "isFeatured": true,
-      "isOnSale": true
+      "isOnSale": true,
+      "image": "/Produtos/Apple/Iphone 16 Pro.png"
     },
     {
       "id": "apple-iphone-16",
@@ -74,11 +89,21 @@
       "specifications": {
         "screen": "6,1 polegadas Super Retina XDR",
         "processor": "Chip A18",
-        "storage": ["128GB", "256GB", "512GB"],
+        "storage": [
+          "128GB",
+          "256GB",
+          "512GB"
+        ],
         "camera": "Sistema de câmera dupla 48MP",
         "battery": "Até 22 horas de reprodução de vídeo",
         "material": "Alumínio",
-        "colors": ["Preto", "Branco", "Rosa", "Verde-acinzentado", "Ultramarino"]
+        "colors": [
+          "Preto",
+          "Branco",
+          "Rosa",
+          "Verde-acinzentado",
+          "Ultramarino"
+        ]
       },
       "colors": [
         {
@@ -119,10 +144,14 @@
       "stock": 40,
       "rating": 4.8,
       "reviews": 189,
-      "tags": ["novo", "destaque"],
+      "tags": [
+        "novo",
+        "destaque"
+      ],
       "isNew": true,
       "isFeatured": true,
-      "isOnSale": true
+      "isOnSale": true,
+      "image": "/Produtos/Apple/Iphone 16.png"
     },
     {
       "id": "apple-iphone-15",
@@ -139,11 +168,21 @@
       "specifications": {
         "screen": "6,1 polegadas Super Retina XDR",
         "processor": "Chip A16 Bionic",
-        "storage": ["128GB", "256GB", "512GB"],
+        "storage": [
+          "128GB",
+          "256GB",
+          "512GB"
+        ],
         "camera": "Sistema de câmera dupla 48MP",
         "battery": "Até 20 horas de reprodução de vídeo",
         "material": "Alumínio",
-        "colors": ["Preto", "Azul", "Verde", "Amarelo", "Rosa"]
+        "colors": [
+          "Preto",
+          "Azul",
+          "Verde",
+          "Amarelo",
+          "Rosa"
+        ]
       },
       "colors": [
         {
@@ -184,10 +223,14 @@
       "stock": 15,
       "rating": 4.7,
       "reviews": 256,
-      "tags": ["oferta", "popular"],
+      "tags": [
+        "oferta",
+        "popular"
+      ],
       "isNew": false,
       "isFeatured": true,
-      "isOnSale": true
+      "isOnSale": true,
+      "image": "/Produtos/Apple/Air Pods Max.png"
     },
     {
       "id": "apple-macbook-pro",
@@ -204,8 +247,16 @@
       "specifications": {
         "screen": "14 polegadas Liquid Retina XDR",
         "processor": "Chip M3 Pro",
-        "memory": ["18GB", "36GB"],
-        "storage": ["512GB", "1TB", "2TB", "4TB"],
+        "memory": [
+          "18GB",
+          "36GB"
+        ],
+        "storage": [
+          "512GB",
+          "1TB",
+          "2TB",
+          "4TB"
+        ],
         "graphics": "GPU de 18 núcleos",
         "battery": "Até 18 horas",
         "ports": "3x Thunderbolt 4, HDMI, SDXC, MagSafe 3"
@@ -223,14 +274,21 @@
         }
       ],
       "mainImage": "/Produtos/Apple/Macbook Pro.png",
-      "images": ["/Produtos/Apple/Macbook Pro.png"],
+      "images": [
+        "/Produtos/Apple/Macbook Pro.png"
+      ],
       "stock": 8,
       "rating": 4.9,
       "reviews": 87,
-      "tags": ["novo", "profissional", "premium"],
+      "tags": [
+        "novo",
+        "profissional",
+        "premium"
+      ],
       "isNew": true,
       "isFeatured": true,
-      "isOnSale": true
+      "isOnSale": true,
+      "image": "/Produtos/Apple/Macbook Pro.png"
     },
     {
       "id": "apple-macbook-air",
@@ -247,8 +305,17 @@
       "specifications": {
         "screen": "13,6 polegadas Liquid Retina",
         "processor": "Chip M3",
-        "memory": ["8GB", "16GB", "24GB"],
-        "storage": ["256GB", "512GB", "1TB", "2TB"],
+        "memory": [
+          "8GB",
+          "16GB",
+          "24GB"
+        ],
+        "storage": [
+          "256GB",
+          "512GB",
+          "1TB",
+          "2TB"
+        ],
         "graphics": "GPU de 10 núcleos",
         "battery": "Até 18 horas",
         "weight": "1,24 kg"
@@ -276,14 +343,20 @@
         }
       ],
       "mainImage": "/Produtos/Apple/Macbook Air.png",
-      "images": ["/Produtos/Apple/Macbook Air.png"],
+      "images": [
+        "/Produtos/Apple/Macbook Air.png"
+      ],
       "stock": 20,
       "rating": 4.8,
       "reviews": 142,
-      "tags": ["popular", "leve"],
+      "tags": [
+        "popular",
+        "leve"
+      ],
       "isNew": false,
       "isFeatured": true,
-      "isOnSale": true
+      "isOnSale": true,
+      "image": "/Produtos/Apple/Macbook Air.png"
     },
     {
       "id": "apple-ipad-pro",
@@ -300,9 +373,17 @@
       "specifications": {
         "screen": "11 ou 13 polegadas Ultra Retina XDR",
         "processor": "Chip M4",
-        "storage": ["256GB", "512GB", "1TB", "2TB"],
+        "storage": [
+          "256GB",
+          "512GB",
+          "1TB",
+          "2TB"
+        ],
         "camera": "Sistema de câmera Pro 12MP",
-        "connectivity": ["Wi-Fi", "Wi-Fi + Cellular"],
+        "connectivity": [
+          "Wi-Fi",
+          "Wi-Fi + Cellular"
+        ],
         "compatibility": "Apple Pencil Pro, Magic Keyboard"
       },
       "colors": [
@@ -318,14 +399,20 @@
         }
       ],
       "mainImage": "/Produtos/Apple/Ipad Pro.png",
-      "images": ["/Produtos/Apple/Ipad Pro.png"],
+      "images": [
+        "/Produtos/Apple/Ipad Pro.png"
+      ],
       "stock": 12,
       "rating": 4.9,
       "reviews": 76,
-      "tags": ["novo", "profissional"],
+      "tags": [
+        "novo",
+        "profissional"
+      ],
       "isNew": true,
       "isFeatured": true,
-      "isOnSale": true
+      "isOnSale": true,
+      "image": "/Produtos/Apple/Ipad Pro.png"
     },
     {
       "id": "apple-ipad-air",
@@ -342,9 +429,17 @@
       "specifications": {
         "screen": "10,9 polegadas Liquid Retina",
         "processor": "Chip M2",
-        "storage": ["128GB", "256GB", "512GB", "1TB"],
+        "storage": [
+          "128GB",
+          "256GB",
+          "512GB",
+          "1TB"
+        ],
         "camera": "Câmera traseira 12MP",
-        "connectivity": ["Wi-Fi", "Wi-Fi + Cellular"],
+        "connectivity": [
+          "Wi-Fi",
+          "Wi-Fi + Cellular"
+        ],
         "compatibility": "Apple Pencil (2ª geração), Magic Keyboard"
       },
       "colors": [
@@ -375,14 +470,19 @@
         }
       ],
       "mainImage": "/Produtos/Apple/IpadAir.png",
-      "images": ["/Produtos/Apple/IpadAir.png"],
+      "images": [
+        "/Produtos/Apple/IpadAir.png"
+      ],
       "stock": 18,
       "rating": 4.7,
       "reviews": 94,
-      "tags": ["popular"],
+      "tags": [
+        "popular"
+      ],
       "isNew": false,
       "isFeatured": true,
-      "isOnSale": true
+      "isOnSale": true,
+      "image": "/Produtos/Apple/Ipad.png"
     },
     {
       "id": "apple-ipad",
@@ -399,9 +499,15 @@
       "specifications": {
         "screen": "10,9 polegadas Liquid Retina",
         "processor": "Chip A14 Bionic",
-        "storage": ["64GB", "256GB"],
+        "storage": [
+          "64GB",
+          "256GB"
+        ],
         "camera": "Câmera traseira 12MP",
-        "connectivity": ["Wi-Fi", "Wi-Fi + Cellular"],
+        "connectivity": [
+          "Wi-Fi",
+          "Wi-Fi + Cellular"
+        ],
         "compatibility": "Apple Pencil (1ª geração)"
       },
       "colors": [
@@ -427,14 +533,19 @@
         }
       ],
       "mainImage": "/Produtos/Apple/Ipad.png",
-      "images": ["/Produtos/Apple/Ipad.png"],
+      "images": [
+        "/Produtos/Apple/Ipad.png"
+      ],
       "stock": 25,
       "rating": 4.5,
       "reviews": 158,
-      "tags": ["acessível"],
+      "tags": [
+        "acessível"
+      ],
       "isNew": false,
       "isFeatured": false,
-      "isOnSale": true
+      "isOnSale": true,
+      "image": "/Produtos/Apple/Ipad Pro.png"
     },
     {
       "id": "apple-ipad-mini",
@@ -451,9 +562,15 @@
       "specifications": {
         "screen": "8,3 polegadas Liquid Retina",
         "processor": "Chip A15 Bionic",
-        "storage": ["64GB", "256GB"],
+        "storage": [
+          "64GB",
+          "256GB"
+        ],
         "camera": "Câmera traseira 12MP",
-        "connectivity": ["Wi-Fi", "Wi-Fi + Cellular"],
+        "connectivity": [
+          "Wi-Fi",
+          "Wi-Fi + Cellular"
+        ],
         "compatibility": "Apple Pencil (2ª geração)"
       },
       "colors": [
@@ -479,14 +596,19 @@
         }
       ],
       "mainImage": "/Produtos/Apple/IpadMini.png",
-      "images": ["/Produtos/Apple/IpadMini.png"],
+      "images": [
+        "/Produtos/Apple/IpadMini.png"
+      ],
       "stock": 15,
       "rating": 4.6,
       "reviews": 67,
-      "tags": ["compacto"],
+      "tags": [
+        "compacto"
+      ],
       "isNew": false,
       "isFeatured": false,
-      "isOnSale": true
+      "isOnSale": true,
+      "image": "/Produtos/Apple/Ipad.png"
     },
     {
       "id": "apple-watch-series-10",
@@ -504,7 +626,10 @@
         "screen": "45mm ou 41mm",
         "processor": "Chip S10",
         "battery": "Até 18 horas",
-        "connectivity": ["GPS", "GPS + Cellular"],
+        "connectivity": [
+          "GPS",
+          "GPS + Cellular"
+        ],
         "health": "ECG, oxigênio no sangue, detecção de queda",
         "water": "Resistente à água até 50 metros"
       },
@@ -526,14 +651,20 @@
         }
       ],
       "mainImage": "/Produtos/Apple/Watch Series 10.png",
-      "images": ["/Produtos/Apple/Watch Series 10.png"],
+      "images": [
+        "/Produtos/Apple/Watch Series 10.png"
+      ],
       "stock": 22,
       "rating": 4.8,
       "reviews": 103,
-      "tags": ["novo", "saúde"],
+      "tags": [
+        "novo",
+        "saúde"
+      ],
       "isNew": true,
       "isFeatured": true,
-      "isOnSale": true
+      "isOnSale": true,
+      "image": "/Produtos/Apple/Watch SE.png"
     },
     {
       "id": "apple-watch-ultra-2",
@@ -551,7 +682,10 @@
         "screen": "49mm Always-On Retina",
         "processor": "Chip S9",
         "battery": "Até 36 horas",
-        "connectivity": ["GPS", "Cellular"],
+        "connectivity": [
+          "GPS",
+          "Cellular"
+        ],
         "material": "Caixa de titânio",
         "water": "Resistente à água até 100 metros"
       },
@@ -563,14 +697,20 @@
         }
       ],
       "mainImage": "/Produtos/Apple/Watch Ultra 2.png",
-      "images": ["/Produtos/Apple/Watch Ultra 2.png"],
+      "images": [
+        "/Produtos/Apple/Watch Ultra 2.png"
+      ],
       "stock": 8,
       "rating": 4.9,
       "reviews": 45,
-      "tags": ["premium", "aventura"],
+      "tags": [
+        "premium",
+        "aventura"
+      ],
       "isNew": false,
       "isFeatured": true,
-      "isOnSale": true
+      "isOnSale": true,
+      "image": "/Produtos/Apple/Watch Ultra 2.png"
     },
     {
       "id": "apple-watch-se",
@@ -588,7 +728,10 @@
         "screen": "44mm ou 40mm Retina",
         "processor": "Chip S8",
         "battery": "Até 18 horas",
-        "connectivity": ["GPS", "GPS + Cellular"],
+        "connectivity": [
+          "GPS",
+          "GPS + Cellular"
+        ],
         "health": "Detecção de queda, frequência cardíaca",
         "water": "Resistente à água até 50 metros"
       },
@@ -610,14 +753,20 @@
         }
       ],
       "mainImage": "/Produtos/Apple/Watch SE.png",
-      "images": ["/Produtos/Apple/Watch SE.png"],
+      "images": [
+        "/Produtos/Apple/Watch SE.png"
+      ],
       "stock": 30,
       "rating": 4.6,
       "reviews": 187,
-      "tags": ["acessível", "popular"],
+      "tags": [
+        "acessível",
+        "popular"
+      ],
       "isNew": false,
       "isFeatured": false,
-      "isOnSale": true
+      "isOnSale": true,
+      "image": "/Produtos/Apple/Watch SE.png"
     },
     {
       "id": "apple-airpods-4",
@@ -635,7 +784,10 @@
         "battery": "Até 5 horas (fones) + 30 horas (case)",
         "connectivity": "Bluetooth 5.3",
         "case": "USB-C",
-        "features": ["Audio Espacial", "Detecção automática"],
+        "features": [
+          "Audio Espacial",
+          "Detecção automática"
+        ],
         "compatibility": "iPhone, iPad, Mac, Apple TV"
       },
       "colors": [
@@ -646,14 +798,19 @@
         }
       ],
       "mainImage": "/Produtos/Apple/airpods-4.png",
-      "images": ["/Produtos/Apple/airpods-4.png"],
+      "images": [
+        "/Produtos/Apple/airpods-4.png"
+      ],
       "stock": 35,
       "rating": 4.7,
       "reviews": 128,
-      "tags": ["novo"],
+      "tags": [
+        "novo"
+      ],
       "isNew": true,
       "isFeatured": true,
-      "isOnSale": true
+      "isOnSale": true,
+      "image": "/Produtos/Apple/airpods-4.png"
     },
     {
       "id": "apple-airpods-max",
@@ -670,7 +827,11 @@
       "specifications": {
         "battery": "Até 20 horas",
         "connectivity": "Bluetooth 5.0",
-        "features": ["Cancelamento Ativo de Ruído", "Modo Transparência", "Áudio Espacial"],
+        "features": [
+          "Cancelamento Ativo de Ruído",
+          "Modo Transparência",
+          "Áudio Espacial"
+        ],
         "drivers": "Driver dinâmico de 40mm",
         "material": "Aço inoxidável e alumínio"
       },
@@ -702,14 +863,20 @@
         }
       ],
       "mainImage": "/Produtos/Apple/Air Pods Max.png",
-      "images": ["/Produtos/Apple/Air Pods Max.png", "/Produtos/Apple/airpods-max.png"],
+      "images": [
+        "/Produtos/Apple/Air Pods Max.png",
+        "/Produtos/Apple/airpods-max.png"
+      ],
       "stock": 12,
       "rating": 4.6,
       "reviews": 89,
-      "tags": ["premium"],
+      "tags": [
+        "premium"
+      ],
       "isNew": false,
       "isFeatured": false,
-      "isOnSale": true
+      "isOnSale": true,
+      "image": "/Produtos/Apple/airpods-max.png"
     },
     {
       "id": "dji-mavic-3-pro",
@@ -728,7 +895,11 @@
         "video": "5.1K/50fps, 4K/120fps",
         "flight": "Até 43 minutos",
         "range": "Até 15km (FCC)",
-        "features": ["ActiveTrack 5.0", "MasterShots", "Waypoints 3.0"]
+        "features": [
+          "ActiveTrack 5.0",
+          "MasterShots",
+          "Waypoints 3.0"
+        ]
       },
       "colors": [
         {
@@ -738,14 +909,20 @@
         }
       ],
       "mainImage": "/Produtos/Dji/Drone DJI Mavic 3 Pro Fly More Combo (Com tela).webp",
-      "images": ["/Produtos/Dji/Drone DJI Mavic 3 Pro Fly More Combo (Com tela).webp"],
+      "images": [
+        "/Produtos/Dji/Drone DJI Mavic 3 Pro Fly More Combo (Com tela).webp"
+      ],
       "stock": 6,
       "rating": 4.9,
       "reviews": 34,
-      "tags": ["profissional", "premium"],
+      "tags": [
+        "profissional",
+        "premium"
+      ],
       "isNew": false,
       "isFeatured": true,
-      "isOnSale": true
+      "isOnSale": true,
+      "image": "/Produtos/Dji/Câmera DJI Osmo Action 4 Adventure Combo.webp"
     },
     {
       "id": "dji-mini-4-pro",
@@ -764,7 +941,11 @@
         "weight": "249g",
         "flight": "Até 34 minutos",
         "range": "Até 20km (FCC)",
-        "features": ["ActiveTrack 360°", "FocusTrack", "MasterShots"]
+        "features": [
+          "ActiveTrack 360°",
+          "FocusTrack",
+          "MasterShots"
+        ]
       },
       "colors": [
         {
@@ -774,14 +955,20 @@
         }
       ],
       "mainImage": "/Produtos/Dji/Drone Dji Mini Pro Fly More Combo ( Com tela ).webp",
-      "images": ["/Produtos/Dji/Drone Dji Mini Pro Fly More Combo ( Com tela ).webp"],
+      "images": [
+        "/Produtos/Dji/Drone Dji Mini Pro Fly More Combo ( Com tela ).webp"
+      ],
       "stock": 10,
       "rating": 4.8,
       "reviews": 52,
-      "tags": ["compacto", "popular"],
+      "tags": [
+        "compacto",
+        "popular"
+      ],
       "isNew": false,
       "isFeatured": true,
-      "isOnSale": true
+      "isOnSale": true,
+      "image": "/Produtos/Dji/Câmera DJI Osmo Action 4 Adventure Combo.webp"
     },
     {
       "id": "jbl-xtreme-4",
@@ -800,7 +987,11 @@
         "connectivity": "Bluetooth 5.3",
         "water": "IP67",
         "power": "2 x 70W",
-        "features": ["JBL Pro Sound", "Power Bank", "PartyBoost"]
+        "features": [
+          "JBL Pro Sound",
+          "Power Bank",
+          "PartyBoost"
+        ]
       },
       "colors": [
         {
@@ -815,14 +1006,21 @@
         }
       ],
       "mainImage": "/Produtos/JBL/JBL Xtreme 4.webp",
-      "images": ["/Produtos/JBL/JBL Xtreme 4.webp", "/Produtos/JBL/JBL Xtreme 4 Azul.webp"],
+      "images": [
+        "/Produtos/JBL/JBL Xtreme 4.webp",
+        "/Produtos/JBL/JBL Xtreme 4 Azul.webp"
+      ],
       "stock": 18,
       "rating": 4.7,
       "reviews": 89,
-      "tags": ["potente", "portátil"],
+      "tags": [
+        "potente",
+        "portátil"
+      ],
       "isNew": false,
       "isFeatured": true,
-      "isOnSale": true
+      "isOnSale": true,
+      "image": "/Produtos/JBL/JBL Xtreme 4.webp"
     },
     {
       "id": "jbl-live-670nc",
@@ -839,7 +1037,11 @@
       "specifications": {
         "battery": "65 horas (40h com ANC)",
         "connectivity": "Bluetooth 5.3",
-        "features": ["Cancelamento Ativo de Ruído", "JBL Spatial Audio", "Smart Ambient"],
+        "features": [
+          "Cancelamento Ativo de Ruído",
+          "JBL Spatial Audio",
+          "Smart Ambient"
+        ],
         "drivers": "40mm",
         "charging": "USB-C, carga rápida 5min = 4h"
       },
@@ -875,10 +1077,14 @@
       "stock": 25,
       "rating": 4.5,
       "reviews": 156,
-      "tags": ["oferta", "popular"],
+      "tags": [
+        "oferta",
+        "popular"
+      ],
       "isNew": false,
       "isFeatured": true,
-      "isOnSale": true
+      "isOnSale": true,
+      "image": "/Produtos/JBL/JBL Live 670NC.webp"
     },
     {
       "id": "xiaomi-redmi-note-14-pro",
@@ -921,10 +1127,15 @@
       "stock": 30,
       "rating": 4.4,
       "reviews": 234,
-      "tags": ["novo", "5g", "câmera"],
+      "tags": [
+        "novo",
+        "5g",
+        "câmera"
+      ],
       "isNew": true,
       "isFeatured": true,
-      "isOnSale": true
+      "isOnSale": true,
+      "image": "/Produtos/Xiomi/redmi-note-14-pro-5g.webp"
     },
     {
       "id": "geonav-power-bank-20000",
@@ -942,7 +1153,11 @@
         "capacity": "20.000 mAh",
         "input": "USB-C 18W",
         "output": "USB-A 22.5W + USB-C 20W",
-        "features": ["Power Delivery", "Quick Charge 3.0", "Display LED"],
+        "features": [
+          "Power Delivery",
+          "Quick Charge 3.0",
+          "Display LED"
+        ],
         "safety": "Proteção contra sobrecarga"
       },
       "colors": [
@@ -965,10 +1180,1528 @@
       "stock": 45,
       "rating": 4.3,
       "reviews": 298,
-      "tags": ["oferta", "útil"],
+      "tags": [
+        "oferta",
+        "útil"
+      ],
       "isNew": false,
       "isFeatured": false,
-      "isOnSale": true
+      "isOnSale": true,
+      "image": "/Produtos/Geonav/Cabo 2 em 1 – USB-C para USB-C mais Lightning.jpg"
+    },
+    {
+      "id": "apple-airpods-max-v2",
+      "name": "AirPods Max",
+      "brand": "Apple",
+      "description": "Os fones de ouvido que redefinirão sua experiência musical. Com cancelamento ativo de ruído, som espacial e design luxuoso em alumínio.",
+      "price": 4999,
+      "discountPrice": null,
+      "image": "/Produtos/Apple/Air Pods Max.png",
+      "images": [
+        "/Produtos/Apple/Air Pods Max.png",
+        "/Produtos/Apple/airpods-max.png"
+      ],
+      "category": "audio",
+      "stock": 15,
+      "status": "active",
+      "tags": [
+        "premium",
+        "noise-cancelling",
+        "wireless"
+      ],
+      "featured": true,
+      "rating": 4.7,
+      "totalReviews": 156,
+      "colors": [
+        "Space Gray",
+        "Silver",
+        "Sky Blue",
+        "Green",
+        "Pink"
+      ],
+      "createdAt": "2025-01-15T10:00:00Z",
+      "specifications": {
+        "type": "Over-ear headphones",
+        "driver": "40mm dynamic driver",
+        "battery": "20 hours",
+        "connectivity": "Bluetooth 5.0",
+        "features": [
+          "Active Noise Cancellation",
+          "Spatial Audio",
+          "Transparency Mode"
+        ]
+      },
+      "paymentOptions": 12
+    },
+    {
+      "id": "apple-airpods-4-v2",
+      "name": "AirPods 4",
+      "brand": "Apple",
+      "description": "A nova geração dos AirPods com áudio espacial personalizado, cancelamento ativo de ruído e estojo de carregamento USB-C.",
+      "price": 1299,
+      "discountPrice": 1099,
+      "image": "/Produtos/Apple/airpods-4.png",
+      "images": [
+        "/Produtos/Apple/airpods-4.png"
+      ],
+      "category": "audio",
+      "stock": 32,
+      "status": "active",
+      "tags": [
+        "new",
+        "wireless",
+        "compact"
+      ],
+      "featured": true,
+      "rating": 4.6,
+      "totalReviews": 89,
+      "colors": [
+        "White"
+      ],
+      "createdAt": "2025-01-10T14:30:00Z",
+      "specifications": {
+        "type": "In-ear wireless earbuds",
+        "battery": "Up to 30 hours with case",
+        "connectivity": "Bluetooth 5.3",
+        "features": [
+          "Spatial Audio",
+          "Active Noise Cancellation",
+          "USB-C charging"
+        ]
+      },
+      "paymentOptions": 10
+    },
+    {
+      "id": "apple-pen",
+      "name": "Apple Pencil",
+      "brand": "Apple",
+      "description": "A ferramenta perfeita para criatividade no iPad. Pressão sensível, inclinação e precisão excepcional para desenhar e escrever.",
+      "price": 899,
+      "discountPrice": null,
+      "image": "/Produtos/Apple/Apple-Pen.png",
+      "images": [
+        "/Produtos/Apple/Apple-Pen.png"
+      ],
+      "category": "accessories",
+      "stock": 45,
+      "status": "active",
+      "tags": [
+        "creative",
+        "precision",
+        "ipad"
+      ],
+      "featured": false,
+      "rating": 4.8,
+      "totalReviews": 234,
+      "colors": [
+        "White"
+      ],
+      "createdAt": "2024-12-01T09:15:00Z",
+      "specifications": {
+        "compatibility": "iPad Pro, iPad Air, iPad mini",
+        "battery": "12 hours of usage",
+        "charging": "Magnetic attachment",
+        "features": [
+          "Pressure sensitivity",
+          "Tilt sensitivity",
+          "Palm rejection"
+        ]
+      },
+      "paymentOptions": 6
+    },
+    {
+      "id": "apple-magsafe-case",
+      "name": "Capa MagSafe",
+      "brand": "Apple",
+      "description": "Capa oficial Apple com tecnologia MagSafe para carregamento sem fio e aderência magnética perfeita.",
+      "price": 399,
+      "discountPrice": 349,
+      "image": "/Produtos/Apple/Capa-Mag.png",
+      "images": [
+        "/Produtos/Apple/Capa-Mag.png"
+      ],
+      "category": "accessories",
+      "stock": 67,
+      "status": "active",
+      "tags": [
+        "magsafe",
+        "protection",
+        "wireless-charging"
+      ],
+      "featured": false,
+      "rating": 4.4,
+      "totalReviews": 145,
+      "colors": [
+        "Black",
+        "White",
+        "Blue",
+        "Purple",
+        "Red"
+      ],
+      "createdAt": "2024-11-20T16:45:00Z",
+      "specifications": {
+        "material": "Silicone",
+        "compatibility": "iPhone 12 series and later",
+        "features": [
+          "MagSafe compatible",
+          "Wireless charging",
+          "Drop protection"
+        ]
+      },
+      "paymentOptions": 3
+    },
+    {
+      "id": "apple-imac",
+      "name": "iMac 24\"",
+      "brand": "Apple",
+      "description": "iMac de 24 polegadas com chip M3, tela Retina 4.5K e design ultrafino em cores vibrantes.",
+      "price": 13999,
+      "discountPrice": 12999,
+      "image": "/Produtos/Apple/Imac.png",
+      "images": [
+        "/Produtos/Apple/Imac.png"
+      ],
+      "category": "computers",
+      "stock": 8,
+      "status": "active",
+      "tags": [
+        "desktop",
+        "m3-chip",
+        "retina"
+      ],
+      "featured": true,
+      "rating": 4.9,
+      "totalReviews": 67,
+      "colors": [
+        "Blue",
+        "Green",
+        "Pink",
+        "Silver",
+        "Yellow",
+        "Orange",
+        "Purple"
+      ],
+      "createdAt": "2024-10-15T11:20:00Z",
+      "specifications": {
+        "processor": "Apple M3 chip",
+        "display": "24-inch 4.5K Retina display",
+        "memory": "8GB unified memory",
+        "storage": "256GB SSD",
+        "graphics": "8-core GPU"
+      },
+      "paymentOptions": 18
+    },
+    {
+      "id": "apple-ipad-pro-v2",
+      "name": "iPad Pro",
+      "brand": "Apple",
+      "description": "iPad Pro com chip M4, tela Ultra Retina XDR e compatibilidade com Apple Pencil Pro.",
+      "price": 8999,
+      "discountPrice": null,
+      "image": "/Produtos/Apple/Ipad Pro.png",
+      "images": [
+        "/Produtos/Apple/Ipad Pro.png"
+      ],
+      "category": "tablets",
+      "stock": 22,
+      "status": "active",
+      "tags": [
+        "pro",
+        "m4-chip",
+        "apple-pencil"
+      ],
+      "featured": true,
+      "rating": 4.8,
+      "totalReviews": 198,
+      "colors": [
+        "Space Gray",
+        "Silver"
+      ],
+      "createdAt": "2024-09-30T13:10:00Z",
+      "specifications": {
+        "processor": "Apple M4 chip",
+        "display": "12.9-inch Ultra Retina XDR",
+        "storage": "128GB, 256GB, 512GB, 1TB, 2TB",
+        "camera": "12MP Wide, 10MP Ultra Wide",
+        "connectivity": "Wi-Fi 6E, 5G optional"
+      },
+      "paymentOptions": 15
+    },
+    {
+      "id": "apple-ipad-v2",
+      "name": "iPad",
+      "brand": "Apple",
+      "description": "iPad com chip A14 Bionic, tela Retina de 10.9 polegadas e suporte ao Apple Pencil.",
+      "price": 3299,
+      "discountPrice": 2999,
+      "image": "/Produtos/Apple/Ipad.png",
+      "images": [
+        "/Produtos/Apple/Ipad.png"
+      ],
+      "category": "tablets",
+      "stock": 35,
+      "status": "active",
+      "tags": [
+        "versatile",
+        "family",
+        "education"
+      ],
+      "featured": false,
+      "rating": 4.6,
+      "totalReviews": 312,
+      "colors": [
+        "Space Gray",
+        "Pink",
+        "Blue",
+        "Yellow"
+      ],
+      "createdAt": "2024-08-20T08:30:00Z",
+      "specifications": {
+        "processor": "A14 Bionic chip",
+        "display": "10.9-inch Retina display",
+        "storage": "64GB, 256GB",
+        "camera": "12MP Wide back camera",
+        "connectivity": "Wi-Fi 6, optional 5G"
+      },
+      "paymentOptions": 12
+    },
+    {
+      "id": "apple-ipad-air-v2",
+      "name": "iPad Air",
+      "brand": "Apple",
+      "description": "iPad Air com chip M2, tela Liquid Retina de 10.9 polegadas e câmera frontal ultra-angular.",
+      "price": 5499,
+      "discountPrice": 4999,
+      "image": "/Produtos/Apple/IpadAir.png",
+      "images": [
+        "/Produtos/Apple/IpadAir.png"
+      ],
+      "category": "tablets",
+      "stock": 18,
+      "status": "active",
+      "tags": [
+        "m2-chip",
+        "lightweight",
+        "powerful"
+      ],
+      "featured": true,
+      "rating": 4.7,
+      "totalReviews": 176,
+      "colors": [
+        "Space Gray",
+        "Starlight",
+        "Pink",
+        "Purple",
+        "Blue"
+      ],
+      "createdAt": "2024-07-10T15:45:00Z",
+      "specifications": {
+        "processor": "Apple M2 chip",
+        "display": "10.9-inch Liquid Retina display",
+        "storage": "128GB, 256GB, 512GB",
+        "camera": "12MP Wide back, 12MP Ultra Wide front",
+        "connectivity": "Wi-Fi 6E, optional 5G"
+      },
+      "paymentOptions": 12
+    },
+    {
+      "id": "apple-ipad-mini-v2",
+      "name": "iPad mini",
+      "brand": "Apple",
+      "description": "iPad mini com chip A15 Bionic, tela Liquid Retina de 8.3 polegadas no formato mais compacto.",
+      "price": 4199,
+      "discountPrice": null,
+      "image": "/Produtos/Apple/IpadMini.png",
+      "images": [
+        "/Produtos/Apple/IpadMini.png"
+      ],
+      "category": "tablets",
+      "stock": 28,
+      "status": "active",
+      "tags": [
+        "compact",
+        "portable",
+        "a15-bionic"
+      ],
+      "featured": false,
+      "rating": 4.5,
+      "totalReviews": 134,
+      "colors": [
+        "Space Gray",
+        "Pink",
+        "Purple",
+        "Starlight"
+      ],
+      "createdAt": "2024-06-15T12:00:00Z",
+      "specifications": {
+        "processor": "A15 Bionic chip",
+        "display": "8.3-inch Liquid Retina display",
+        "storage": "64GB, 256GB",
+        "camera": "12MP Wide back camera",
+        "connectivity": "Wi-Fi 6, optional 5G"
+      },
+      "paymentOptions": 10
+    },
+    {
+      "id": "apple-iphone-16e",
+      "name": "iPhone 16e",
+      "brand": "Apple",
+      "description": "iPhone 16e com chip A18, design renovado e recursos essenciais do iPhone em versão mais acessível.",
+      "price": 5999,
+      "discountPrice": 5499,
+      "image": "/Produtos/Apple/Iphone 16e.png",
+      "images": [
+        "/Produtos/Apple/Iphone 16e.png",
+        "/Produtos/Apple/iphone-16e-Banner.webp",
+        "/Produtos/Apple/iphone-16e-Branco.webp",
+        "/Produtos/Apple/iphone-16e-Preto.webp"
+      ],
+      "category": "smartphones",
+      "stock": 42,
+      "status": "active",
+      "tags": [
+        "essential",
+        "affordable",
+        "a18-chip"
+      ],
+      "featured": true,
+      "rating": 4.4,
+      "totalReviews": 267,
+      "colors": [
+        "Black",
+        "White"
+      ],
+      "createdAt": "2024-11-01T10:30:00Z",
+      "specifications": {
+        "processor": "A18 chip",
+        "display": "6.1-inch Super Retina XDR",
+        "storage": "128GB, 256GB",
+        "camera": "Dual camera system 48MP",
+        "battery": "Up to 20 hours video playback"
+      },
+      "paymentOptions": 12
+    },
+    {
+      "id": "apple-mac-pro",
+      "name": "Mac Pro",
+      "brand": "Apple",
+      "description": "Mac Pro com chip M2 Ultra, performance extrema para profissionais que exigem o máximo poder computacional.",
+      "price": 54999,
+      "discountPrice": null,
+      "image": "/Produtos/Apple/Mac Pro.png",
+      "images": [
+        "/Produtos/Apple/Mac Pro.png"
+      ],
+      "category": "computers",
+      "stock": 3,
+      "status": "active",
+      "tags": [
+        "professional",
+        "ultra-performance",
+        "m2-ultra"
+      ],
+      "featured": true,
+      "rating": 4.9,
+      "totalReviews": 23,
+      "colors": [
+        "Space Black"
+      ],
+      "createdAt": "2024-05-20T14:15:00Z",
+      "specifications": {
+        "processor": "Apple M2 Ultra chip",
+        "memory": "64GB unified memory",
+        "storage": "1TB SSD",
+        "graphics": "76-core GPU",
+        "connectivity": "Thunderbolt 4, Wi-Fi 6E"
+      },
+      "paymentOptions": 24
+    },
+    {
+      "id": "apple-macbook-air-v2",
+      "name": "MacBook Air",
+      "brand": "Apple",
+      "description": "MacBook Air com chip M3, tela Liquid Retina de 13 polegadas e até 18 horas de bateria.",
+      "price": 9999,
+      "discountPrice": 8999,
+      "image": "/Produtos/Apple/Macbook Air.png",
+      "images": [
+        "/Produtos/Apple/Macbook Air.png"
+      ],
+      "category": "computers",
+      "stock": 25,
+      "status": "active",
+      "tags": [
+        "portable",
+        "m3-chip",
+        "lightweight"
+      ],
+      "featured": true,
+      "rating": 4.8,
+      "totalReviews": 445,
+      "colors": [
+        "Space Gray",
+        "Silver",
+        "Gold",
+        "Starlight"
+      ],
+      "createdAt": "2024-04-10T09:20:00Z",
+      "specifications": {
+        "processor": "Apple M3 chip",
+        "display": "13.6-inch Liquid Retina display",
+        "memory": "8GB unified memory",
+        "storage": "256GB SSD",
+        "battery": "Up to 18 hours"
+      },
+      "paymentOptions": 18
+    },
+    {
+      "id": "apple-macbook-pro-v2",
+      "name": "MacBook Pro",
+      "brand": "Apple",
+      "description": "MacBook Pro com chip M3 Pro, tela Liquid Retina XDR e performance profissional para criadores.",
+      "price": 19999,
+      "discountPrice": 18499,
+      "image": "/Produtos/Apple/Macbook Pro.png",
+      "images": [
+        "/Produtos/Apple/Macbook Pro.png"
+      ],
+      "category": "computers",
+      "stock": 12,
+      "status": "active",
+      "tags": [
+        "professional",
+        "m3-pro",
+        "creator"
+      ],
+      "featured": true,
+      "rating": 4.9,
+      "totalReviews": 289,
+      "colors": [
+        "Space Gray",
+        "Silver"
+      ],
+      "createdAt": "2024-03-25T11:40:00Z",
+      "specifications": {
+        "processor": "Apple M3 Pro chip",
+        "display": "14-inch Liquid Retina XDR display",
+        "memory": "18GB unified memory",
+        "storage": "512GB SSD",
+        "battery": "Up to 22 hours"
+      },
+      "paymentOptions": 24
+    },
+    {
+      "id": "apple-mac-mini",
+      "name": "Mac mini",
+      "brand": "Apple",
+      "description": "Mac mini com chip M2, design compacto e versatilidade para qualquer ambiente de trabalho.",
+      "price": 4999,
+      "discountPrice": 4499,
+      "image": "/Produtos/Apple/MacMini.png",
+      "images": [
+        "/Produtos/Apple/MacMini.png"
+      ],
+      "category": "computers",
+      "stock": 20,
+      "status": "active",
+      "tags": [
+        "compact",
+        "versatile",
+        "m2-chip"
+      ],
+      "featured": false,
+      "rating": 4.6,
+      "totalReviews": 156,
+      "colors": [
+        "Space Gray",
+        "Silver"
+      ],
+      "createdAt": "2024-02-14T13:25:00Z",
+      "specifications": {
+        "processor": "Apple M2 chip",
+        "memory": "8GB unified memory",
+        "storage": "256GB SSD",
+        "connectivity": "Thunderbolt 4, Wi-Fi 6E",
+        "ports": "Two Thunderbolt 4, HDMI, USB-A"
+      },
+      "paymentOptions": 12
+    },
+    {
+      "id": "apple-mac-studio",
+      "name": "Mac Studio",
+      "brand": "Apple",
+      "description": "Mac Studio com chip M2 Max, performance excepcional em design compacto para profissionais criativos.",
+      "price": 19999,
+      "discountPrice": null,
+      "image": "/Produtos/Apple/MacStudio.png",
+      "images": [
+        "/Produtos/Apple/MacStudio.png"
+      ],
+      "category": "computers",
+      "stock": 7,
+      "status": "active",
+      "tags": [
+        "professional",
+        "creative",
+        "m2-max"
+      ],
+      "featured": true,
+      "rating": 4.8,
+      "totalReviews": 78,
+      "colors": [
+        "Space Gray"
+      ],
+      "createdAt": "2024-01-30T16:50:00Z",
+      "specifications": {
+        "processor": "Apple M2 Max chip",
+        "memory": "32GB unified memory",
+        "storage": "512GB SSD",
+        "graphics": "38-core GPU",
+        "connectivity": "Thunderbolt 4, Wi-Fi 6E"
+      },
+      "paymentOptions": 24
+    },
+    {
+      "id": "apple-magic-mouse",
+      "name": "Magic Mouse",
+      "brand": "Apple",
+      "description": "Magic Mouse com superfície Multi-Touch, design elegante e conectividade sem fio via Bluetooth.",
+      "price": 699,
+      "discountPrice": 599,
+      "image": "/Produtos/Apple/Magic-Mouse.png",
+      "images": [
+        "/Produtos/Apple/Magic-Mouse.png"
+      ],
+      "category": "accessories",
+      "stock": 55,
+      "status": "active",
+      "tags": [
+        "wireless",
+        "multi-touch",
+        "ergonomic"
+      ],
+      "featured": false,
+      "rating": 4.2,
+      "totalReviews": 223,
+      "colors": [
+        "White",
+        "Space Gray"
+      ],
+      "createdAt": "2023-12-10T14:30:00Z",
+      "specifications": {
+        "connectivity": "Bluetooth",
+        "battery": "Built-in rechargeable battery",
+        "compatibility": "Mac with macOS",
+        "features": [
+          "Multi-Touch surface",
+          "Gesture support"
+        ]
+      },
+      "paymentOptions": 6
+    },
+    {
+      "id": "apple-pro-display",
+      "name": "Pro Display XDR",
+      "brand": "Apple",
+      "description": "Pro Display XDR de 32 polegadas com tecnologia Retina 6K, ideal para profissionais criativos exigentes.",
+      "price": 39999,
+      "discountPrice": null,
+      "image": "/Produtos/Apple/Pro Display.png",
+      "images": [
+        "/Produtos/Apple/Pro Display.png"
+      ],
+      "category": "displays",
+      "stock": 4,
+      "status": "active",
+      "tags": [
+        "professional",
+        "6k-retina",
+        "hdr"
+      ],
+      "featured": true,
+      "rating": 4.9,
+      "totalReviews": 34,
+      "colors": [
+        "Space Gray"
+      ],
+      "createdAt": "2023-11-15T10:15:00Z",
+      "specifications": {
+        "display": "32-inch Retina 6K display",
+        "resolution": "6016 x 3384",
+        "brightness": "1000 nits sustained, 1600 nits peak",
+        "color": "P3 wide color gamut",
+        "connectivity": "Thunderbolt 3"
+      },
+      "paymentOptions": 24
+    },
+    {
+      "id": "apple-studio-display",
+      "name": "Studio Display",
+      "brand": "Apple",
+      "description": "Studio Display de 27 polegadas com tela Retina 5K, câmera Center Stage e áudio de alta qualidade.",
+      "price": 12999,
+      "discountPrice": 11999,
+      "image": "/Produtos/Apple/Studio Display.png",
+      "images": [
+        "/Produtos/Apple/Studio Display.png"
+      ],
+      "category": "displays",
+      "stock": 11,
+      "status": "active",
+      "tags": [
+        "5k-retina",
+        "center-stage",
+        "professional"
+      ],
+      "featured": true,
+      "rating": 4.7,
+      "totalReviews": 89,
+      "colors": [
+        "Silver"
+      ],
+      "createdAt": "2023-10-20T15:20:00Z",
+      "specifications": {
+        "display": "27-inch Retina 5K display",
+        "resolution": "5120 x 2880",
+        "camera": "12MP Ultra Wide with Center Stage",
+        "audio": "Six-speaker sound system",
+        "connectivity": "Thunderbolt 3"
+      },
+      "paymentOptions": 18
+    },
+    {
+      "id": "apple-magic-keyboard",
+      "name": "Magic Keyboard",
+      "brand": "Apple",
+      "description": "Magic Keyboard com teclas retroiluminadas, Touch ID e design ultrafino para máximo conforto.",
+      "price": 1299,
+      "discountPrice": 1099,
+      "image": "/Produtos/Apple/Teclado-Apple.png",
+      "images": [
+        "/Produtos/Apple/Teclado-Apple.png",
+        "/Produtos/Apple/Teclado.png"
+      ],
+      "category": "accessories",
+      "stock": 38,
+      "status": "active",
+      "tags": [
+        "wireless",
+        "backlit",
+        "touch-id"
+      ],
+      "featured": false,
+      "rating": 4.6,
+      "totalReviews": 267,
+      "colors": [
+        "White",
+        "Space Gray"
+      ],
+      "createdAt": "2023-09-05T12:45:00Z",
+      "specifications": {
+        "connectivity": "Bluetooth, USB-C",
+        "features": [
+          "Touch ID",
+          "Backlit keys",
+          "Scissor mechanism"
+        ],
+        "battery": "Built-in rechargeable battery",
+        "compatibility": "Mac with macOS"
+      },
+      "paymentOptions": 10
+    },
+    {
+      "id": "apple-watch-se-v2",
+      "name": "Apple Watch SE",
+      "brand": "Apple",
+      "description": "Apple Watch SE com recursos essenciais de saúde e fitness, ideal para iniciantes no universo Apple Watch.",
+      "price": 2299,
+      "discountPrice": 1999,
+      "image": "/Produtos/Apple/Watch SE.png",
+      "images": [
+        "/Produtos/Apple/Watch SE.png"
+      ],
+      "category": "wearables",
+      "stock": 45,
+      "status": "active",
+      "tags": [
+        "fitness",
+        "health",
+        "affordable"
+      ],
+      "featured": true,
+      "rating": 4.5,
+      "totalReviews": 334,
+      "colors": [
+        "Silver",
+        "Space Gray",
+        "Gold"
+      ],
+      "createdAt": "2023-08-12T09:30:00Z",
+      "specifications": {
+        "display": "Retina display",
+        "health": "Heart rate, sleep tracking",
+        "fitness": "Workout detection, GPS",
+        "battery": "Up to 18 hours",
+        "connectivity": "Wi-Fi, Bluetooth, optional Cellular"
+      },
+      "paymentOptions": 12
+    },
+    {
+      "id": "apple-watch-series-10-v2",
+      "name": "Apple Watch Series 10",
+      "brand": "Apple",
+      "description": "Apple Watch Series 10 com tela Always-On maior, recursos avançados de saúde e design mais fino.",
+      "price": 3299,
+      "discountPrice": null,
+      "image": "/Produtos/Apple/Watch Series 10.png",
+      "images": [
+        "/Produtos/Apple/Watch Series 10.png"
+      ],
+      "category": "wearables",
+      "stock": 23,
+      "status": "active",
+      "tags": [
+        "latest",
+        "advanced-health",
+        "always-on"
+      ],
+      "featured": true,
+      "rating": 4.8,
+      "totalReviews": 145,
+      "colors": [
+        "Silver",
+        "Space Black",
+        "Gold",
+        "Natural"
+      ],
+      "createdAt": "2024-09-15T14:00:00Z",
+      "specifications": {
+        "display": "Always-On Retina display",
+        "health": "ECG, Blood Oxygen, Temperature",
+        "fitness": "Advanced workout metrics",
+        "battery": "Up to 18 hours",
+        "connectivity": "Wi-Fi, Bluetooth, optional Cellular"
+      },
+      "paymentOptions": 12
+    },
+    {
+      "id": "apple-watch-ultra-2-v2",
+      "name": "Apple Watch Ultra 2",
+      "brand": "Apple",
+      "description": "Apple Watch Ultra 2 com caixa de titânio, bateria de 36 horas e recursos extremos para aventureiros.",
+      "price": 6299,
+      "discountPrice": null,
+      "image": "/Produtos/Apple/Watch Ultra 2.png",
+      "images": [
+        "/Produtos/Apple/Watch Ultra 2.png"
+      ],
+      "category": "wearables",
+      "stock": 8,
+      "status": "active",
+      "tags": [
+        "extreme",
+        "titanium",
+        "adventure"
+      ],
+      "featured": true,
+      "rating": 4.9,
+      "totalReviews": 67,
+      "colors": [
+        "Natural Titanium"
+      ],
+      "createdAt": "2024-08-01T11:25:00Z",
+      "specifications": {
+        "display": "49mm Always-On Retina display",
+        "material": "Titanium case",
+        "battery": "Up to 36 hours",
+        "features": [
+          "Depth gauge",
+          "Dual-frequency GPS",
+          "Action button"
+        ],
+        "connectivity": "Wi-Fi, Bluetooth, Cellular"
+      },
+      "paymentOptions": 18
+    },
+    {
+      "id": "dji-osmo-action-4-adventure",
+      "name": "DJI Osmo Action 4 Adventure Combo",
+      "brand": "DJI",
+      "description": "Câmera de ação ultra-resistente com gravação 4K/120fps, estabilização RockSteady 3.0 e tela frontal.",
+      "price": 3299,
+      "discountPrice": 2999,
+      "image": "/Produtos/Dji/Câmera DJI Osmo Action 4 Adventure Combo.webp",
+      "images": [
+        "/Produtos/Dji/Câmera DJI Osmo Action 4 Adventure Combo.webp"
+      ],
+      "category": "cameras",
+      "stock": 15,
+      "status": "active",
+      "tags": [
+        "action-camera",
+        "4k",
+        "waterproof"
+      ],
+      "featured": true,
+      "rating": 4.7,
+      "totalReviews": 189,
+      "colors": [
+        "Gray"
+      ],
+      "createdAt": "2024-06-20T13:15:00Z",
+      "specifications": {
+        "video": "4K/120fps, 2.7K/240fps",
+        "stabilization": "RockSteady 3.0",
+        "display": "Dual touchscreens",
+        "waterproof": "18m without housing",
+        "battery": "160 minutes recording time"
+      },
+      "paymentOptions": 12
+    },
+    {
+      "id": "dji-osmo-action-4-standard",
+      "name": "DJI Osmo Action 4 Standard Combo",
+      "brand": "DJI",
+      "description": "Versão padrão da câmera de ação DJI com recursos essenciais para capturar seus momentos de aventura.",
+      "price": 2499,
+      "discountPrice": 2199,
+      "image": "/Produtos/Dji/Câmera DJI Osmo Action 4 Standard Combo BR.webp",
+      "images": [
+        "/Produtos/Dji/Câmera DJI Osmo Action 4 Standard Combo BR.webp"
+      ],
+      "category": "cameras",
+      "stock": 22,
+      "status": "active",
+      "tags": [
+        "action-camera",
+        "standard",
+        "adventure"
+      ],
+      "featured": false,
+      "rating": 4.5,
+      "totalReviews": 156,
+      "colors": [
+        "Gray"
+      ],
+      "createdAt": "2024-05-15T10:30:00Z",
+      "specifications": {
+        "video": "4K/60fps",
+        "stabilization": "RockSteady 3.0",
+        "display": "Dual touchscreens",
+        "waterproof": "16m without housing",
+        "battery": "150 minutes recording time"
+      },
+      "paymentOptions": 10
+    },
+    {
+      "id": "dji-osmo-action-5-pro-adventure",
+      "name": "DJI Osmo Action 5 Pro Adventure Combo",
+      "brand": "DJI",
+      "description": "A mais avançada câmera de ação DJI com sensor maior, melhor performance em baixa luz e novos recursos pro.",
+      "price": 4299,
+      "discountPrice": null,
+      "image": "/Produtos/Dji/Câmera DJI Osmo Action 5 Pro Adventure Combo BR.webp",
+      "images": [
+        "/Produtos/Dji/Câmera DJI Osmo Action 5 Pro Adventure Combo BR.webp"
+      ],
+      "category": "cameras",
+      "stock": 8,
+      "status": "active",
+      "tags": [
+        "pro",
+        "latest",
+        "low-light"
+      ],
+      "featured": true,
+      "rating": 4.8,
+      "totalReviews": 78,
+      "colors": [
+        "Gray"
+      ],
+      "createdAt": "2024-11-10T15:45:00Z",
+      "specifications": {
+        "video": "4K/120fps HDR",
+        "sensor": "1/1.3-inch CMOS",
+        "stabilization": "RockSteady 3.0+",
+        "display": "OLED dual touchscreens",
+        "waterproof": "20m without housing"
+      },
+      "paymentOptions": 15
+    },
+    {
+      "id": "dji-osmo-action-5-pro-standard",
+      "name": "DJI Osmo Action 5 Pro Standard Combo",
+      "brand": "DJI",
+      "description": "Versão padrão da Action 5 Pro com recursos essenciais para filmagens profissionais em ação.",
+      "price": 3499,
+      "discountPrice": 3199,
+      "image": "/Produtos/Dji/Câmera DJI Osmo Action 5 Pro Standard Combo.webp",
+      "images": [
+        "/Produtos/Dji/Câmera DJI Osmo Action 5 Pro Standard Combo.webp"
+      ],
+      "category": "cameras",
+      "stock": 12,
+      "status": "active",
+      "tags": [
+        "pro",
+        "standard",
+        "professional"
+      ],
+      "featured": true,
+      "rating": 4.7,
+      "totalReviews": 94,
+      "colors": [
+        "Gray"
+      ],
+      "createdAt": "2024-10-25T12:20:00Z",
+      "specifications": {
+        "video": "4K/60fps HDR",
+        "sensor": "1/1.3-inch CMOS",
+        "stabilization": "RockSteady 3.0+",
+        "display": "OLED dual touchscreens",
+        "waterproof": "18m without housing"
+      },
+      "paymentOptions": 12
+    },
+    {
+      "id": "dji-osmo-pocket-3",
+      "name": "DJI Osmo Pocket 3 Standard",
+      "brand": "DJI",
+      "description": "Câmera compacta com gimbal de 3 eixos, sensor de 1 polegada e gravação 4K para criadores de conteúdo.",
+      "price": 2999,
+      "discountPrice": 2699,
+      "image": "/Produtos/Dji/Câmera DJI Osmo Pocket 3 Standard BR.webp",
+      "images": [
+        "/Produtos/Dji/Câmera DJI Osmo Pocket 3 Standard BR.webp"
+      ],
+      "category": "cameras",
+      "stock": 18,
+      "status": "active",
+      "tags": [
+        "compact",
+        "gimbal",
+        "content-creation"
+      ],
+      "featured": true,
+      "rating": 4.6,
+      "totalReviews": 167,
+      "colors": [
+        "Black"
+      ],
+      "createdAt": "2024-04-08T14:10:00Z",
+      "specifications": {
+        "video": "4K/120fps",
+        "sensor": "1-inch CMOS",
+        "stabilization": "3-axis mechanical gimbal",
+        "size": "Ultra-compact",
+        "features": [
+          "ActiveTrack 6.0",
+          "Face detection"
+        ]
+      },
+      "paymentOptions": 12
+    },
+    {
+      "id": "dji-flip-standard",
+      "name": "DJI Flip Standard",
+      "brand": "DJI",
+      "description": "Drone compacto e dobrável ideal para iniciantes, com câmera 4K e modos de voo inteligentes.",
+      "price": 1999,
+      "discountPrice": 1799,
+      "image": "/Produtos/Dji/Drone Dji flip Standard.webp",
+      "images": [
+        "/Produtos/Dji/Drone Dji flip Standard.webp"
+      ],
+      "category": "drones",
+      "stock": 25,
+      "status": "active",
+      "tags": [
+        "beginner",
+        "compact",
+        "foldable"
+      ],
+      "featured": false,
+      "rating": 4.4,
+      "totalReviews": 223,
+      "colors": [
+        "Gray"
+      ],
+      "createdAt": "2024-03-12T11:30:00Z",
+      "specifications": {
+        "camera": "4K/30fps",
+        "flight_time": "31 minutes",
+        "range": "10km",
+        "weight": "249g",
+        "features": [
+          "GPS",
+          "Return to Home",
+          "QuickShots"
+        ]
+      },
+      "paymentOptions": 10
+    },
+    {
+      "id": "dji-neo-fly-more-combo",
+      "name": "DJI Neo Fly More Combo",
+      "brand": "DJI",
+      "description": "Drone ultra-leve com decolagem da palma da mão, ideal para selfies aéreas e vídeos criativos.",
+      "price": 2799,
+      "discountPrice": 2499,
+      "image": "/Produtos/Dji/Drone Dji INeo Fly MOre Combo.webp",
+      "images": [
+        "/Produtos/Dji/Drone Dji INeo Fly MOre Combo.webp"
+      ],
+      "category": "drones",
+      "stock": 20,
+      "status": "active",
+      "tags": [
+        "ultra-light",
+        "palm-launch",
+        "creative"
+      ],
+      "featured": true,
+      "rating": 4.5,
+      "totalReviews": 145,
+      "colors": [
+        "White"
+      ],
+      "createdAt": "2024-09-20T16:25:00Z",
+      "specifications": {
+        "camera": "4K/30fps",
+        "flight_time": "18 minutes",
+        "weight": "135g",
+        "features": [
+          "Palm takeoff",
+          "Follow me",
+          "Dronie"
+        ],
+        "control": "Smartphone app"
+      },
+      "paymentOptions": 12
+    },
+    {
+      "id": "dji-mavic-3-pro-fly-more",
+      "name": "DJI Mavic 3 Pro Fly More Combo",
+      "brand": "DJI",
+      "description": "Drone profissional com sistema de câmeras triplo, incluindo tele 7x e detecção omnidirecional de obstáculos.",
+      "price": 14999,
+      "discountPrice": 13499,
+      "image": "/Produtos/Dji/Drone DJI Mavic 3 Pro Fly More Combo (Com tela).webp",
+      "images": [
+        "/Produtos/Dji/Drone DJI Mavic 3 Pro Fly More Combo (Com tela).webp"
+      ],
+      "category": "drones",
+      "stock": 6,
+      "status": "active",
+      "tags": [
+        "professional",
+        "triple-camera",
+        "obstacle-avoidance"
+      ],
+      "featured": true,
+      "rating": 4.9,
+      "totalReviews": 89,
+      "colors": [
+        "Gray"
+      ],
+      "createdAt": "2024-02-28T13:40:00Z",
+      "specifications": {
+        "camera": "4K/120fps, Triple camera system",
+        "flight_time": "43 minutes",
+        "range": "15km",
+        "features": [
+          "7x tele camera",
+          "Omnidirectional obstacle sensing"
+        ],
+        "controller": "RC Pro with built-in screen"
+      },
+      "paymentOptions": 24
+    },
+    {
+      "id": "dji-mini-pro-fly-more",
+      "name": "DJI Mini Pro Fly More Combo",
+      "brand": "DJI",
+      "description": "Drone compacto sub-250g com recursos profissionais, câmera 4K e controle com tela integrada.",
+      "price": 5999,
+      "discountPrice": 5499,
+      "image": "/Produtos/Dji/Drone Dji Mini Pro Fly More Combo ( Com tela ).webp",
+      "images": [
+        "/Produtos/Dji/Drone Dji Mini Pro Fly More Combo ( Com tela ).webp"
+      ],
+      "category": "drones",
+      "stock": 15,
+      "status": "active",
+      "tags": [
+        "sub-250g",
+        "professional",
+        "screen-controller"
+      ],
+      "featured": true,
+      "rating": 4.7,
+      "totalReviews": 234,
+      "colors": [
+        "Gray"
+      ],
+      "createdAt": "2024-01-18T10:15:00Z",
+      "specifications": {
+        "camera": "4K/60fps",
+        "flight_time": "34 minutes",
+        "weight": "249g",
+        "range": "12km",
+        "controller": "RC with built-in screen"
+      },
+      "paymentOptions": 18
+    },
+    {
+      "id": "dji-neo-standard",
+      "name": "DJI Neo Standard",
+      "brand": "DJI",
+      "description": "Versão padrão do menor drone DJI, perfeito para capturar momentos únicos com facilidade extrema.",
+      "price": 1799,
+      "discountPrice": 1599,
+      "image": "/Produtos/Dji/Drone Dji Neo Standard.webp",
+      "images": [
+        "/Produtos/Dji/Drone Dji Neo Standard.webp"
+      ],
+      "category": "drones",
+      "stock": 30,
+      "status": "active",
+      "tags": [
+        "ultra-compact",
+        "easy",
+        "entry-level"
+      ],
+      "featured": false,
+      "rating": 4.3,
+      "totalReviews": 178,
+      "colors": [
+        "White"
+      ],
+      "createdAt": "2024-08-30T09:45:00Z",
+      "specifications": {
+        "camera": "4K/30fps",
+        "flight_time": "18 minutes",
+        "weight": "135g",
+        "features": [
+          "Palm takeoff",
+          "Voice control",
+          "Gesture control"
+        ],
+        "control": "Smartphone app"
+      },
+      "paymentOptions": 10
+    },
+    {
+      "id": "dji-osmo-mobile-6",
+      "name": "DJI Osmo Mobile 6 Platinum",
+      "brand": "DJI",
+      "description": "Estabilizador de smartphone dobrável com recursos inteligentes para criação de conteúdo profissional.",
+      "price": 899,
+      "discountPrice": 799,
+      "image": "/Produtos/Dji/Estabilizador DJI Osmo Mobile 6 (Platinum).webp",
+      "images": [
+        "/Produtos/Dji/Estabilizador DJI Osmo Mobile 6 (Platinum).webp"
+      ],
+      "category": "gimbals",
+      "stock": 35,
+      "status": "active",
+      "tags": [
+        "smartphone",
+        "stabilizer",
+        "content-creation"
+      ],
+      "featured": false,
+      "rating": 4.4,
+      "totalReviews": 267,
+      "colors": [
+        "Platinum"
+      ],
+      "createdAt": "2023-11-25T14:20:00Z",
+      "specifications": {
+        "compatibility": "iOS and Android smartphones",
+        "battery": "6.4 hours",
+        "weight": "309g",
+        "features": [
+          "ActiveTrack 5.0",
+          "DynamicZoom",
+          "Story mode"
+        ],
+        "design": "Foldable and magnetic"
+      },
+      "paymentOptions": 6
+    },
+    {
+      "id": "dji-osmo-mobile-7",
+      "name": "DJI Osmo Mobile 7",
+      "brand": "DJI",
+      "description": "Nova geração do estabilizador de smartphone com melhor ergonomia e recursos avançados de tracking.",
+      "price": 1199,
+      "discountPrice": 1099,
+      "image": "/Produtos/Dji/Estabilizador DJI Osmo Mobile 7 BR.webp",
+      "images": [
+        "/Produtos/Dji/Estabilizador DJI Osmo Mobile 7 BR.webp"
+      ],
+      "category": "gimbals",
+      "stock": 28,
+      "status": "active",
+      "tags": [
+        "latest",
+        "improved-ergonomics",
+        "advanced-tracking"
+      ],
+      "featured": true,
+      "rating": 4.6,
+      "totalReviews": 156,
+      "colors": [
+        "Slate Gray"
+      ],
+      "createdAt": "2024-07-15T11:30:00Z",
+      "specifications": {
+        "compatibility": "iOS and Android smartphones",
+        "battery": "8 hours",
+        "weight": "295g",
+        "features": [
+          "ActiveTrack 6.0",
+          "Quick Launch",
+          "Extension rod"
+        ],
+        "design": "Compact and portable"
+      },
+      "paymentOptions": 8
+    },
+    {
+      "id": "dji-osmo-mobile-7p",
+      "name": "DJI Osmo Mobile 7P",
+      "brand": "DJI",
+      "description": "Versão Pro do Osmo Mobile 7 com recursos adicionais para criadores de conteúdo profissional.",
+      "price": 1599,
+      "discountPrice": null,
+      "image": "/Produtos/Dji/Estabilizador DJI Osmo Mobile 7P BR.webp",
+      "images": [
+        "/Produtos/Dji/Estabilizador DJI Osmo Mobile 7P BR.webp"
+      ],
+      "category": "gimbals",
+      "stock": 18,
+      "status": "active",
+      "tags": [
+        "pro",
+        "professional",
+        "enhanced-features"
+      ],
+      "featured": true,
+      "rating": 4.7,
+      "totalReviews": 89,
+      "colors": [
+        "Slate Gray"
+      ],
+      "createdAt": "2024-08-20T15:45:00Z",
+      "specifications": {
+        "compatibility": "iOS and Android smartphones",
+        "battery": "10 hours",
+        "weight": "320g",
+        "features": [
+          "Pro mode",
+          "Enhanced stabilization",
+          "Professional controls"
+        ],
+        "accessories": "Extra mounting options"
+      },
+      "paymentOptions": 10
+    },
+    {
+      "id": "dji-osmo-mobile-se",
+      "name": "DJI Osmo Mobile SE",
+      "brand": "DJI",
+      "description": "Versão essencial do estabilizador DJI, ideal para quem está começando na criação de conteúdo móvel.",
+      "price": 599,
+      "discountPrice": 529,
+      "image": "/Produtos/Dji/Estabilizador DJI Osmo Mobile SE BR.webp",
+      "images": [
+        "/Produtos/Dji/Estabilizador DJI Osmo Mobile SE BR.webp"
+      ],
+      "category": "gimbals",
+      "stock": 42,
+      "status": "active",
+      "tags": [
+        "entry-level",
+        "affordable",
+        "essential"
+      ],
+      "featured": false,
+      "rating": 4.2,
+      "totalReviews": 198,
+      "colors": [
+        "Sage Green"
+      ],
+      "createdAt": "2023-09-10T12:00:00Z",
+      "specifications": {
+        "compatibility": "iOS and Android smartphones",
+        "battery": "5 hours",
+        "weight": "270g",
+        "features": [
+          "ShotGuides",
+          "ActiveTrack 3.0",
+          "Gesture control"
+        ],
+        "design": "Lightweight and portable"
+      },
+      "paymentOptions": 6
+    },
+    {
+      "id": "dji-mic",
+      "name": "DJI Mic (2 TX + 1 RX + Case)",
+      "brand": "DJI",
+      "description": "Sistema de microfone sem fio profissional com 2 transmissores, 1 receptor e case de carregamento.",
+      "price": 1899,
+      "discountPrice": 1699,
+      "image": "/Produtos/Dji/Microfone DJI Mic (2 Microfones, 1 Receptor e 1 Base de carregamento).webp",
+      "images": [
+        "/Produtos/Dji/Microfone DJI Mic (2 Microfones, 1 Receptor e 1 Base de carregamento).webp"
+      ],
+      "category": "audio",
+      "stock": 20,
+      "status": "active",
+      "tags": [
+        "wireless",
+        "professional",
+        "dual-channel"
+      ],
+      "featured": true,
+      "rating": 4.8,
+      "totalReviews": 145,
+      "colors": [
+        "Black"
+      ],
+      "createdAt": "2024-05-30T13:25:00Z",
+      "specifications": {
+        "range": "250m unobstructed",
+        "battery": "5.5 hours continuous use",
+        "frequency": "2.4GHz",
+        "features": [
+          "Noise cancellation",
+          "Backup recording",
+          "Magnetic attachment"
+        ],
+        "compatibility": "Cameras, smartphones, computers"
+      },
+      "paymentOptions": 12
+    },
+    {
+      "id": "dji-mic-2",
+      "name": "DJI Mic 2 (1 TX + 1 RX)",
+      "brand": "DJI",
+      "description": "Segunda geração do sistema DJI Mic com melhor qualidade de áudio e recursos aprimorados.",
+      "price": 1299,
+      "discountPrice": 1199,
+      "image": "/Produtos/Dji/Microfone DJI Mic 2 (1 TX Microfone + 1 RX Receptor).webp",
+      "images": [
+        "/Produtos/Dji/Microfone DJI Mic 2 (1 TX Microfone + 1 RX Receptor).webp"
+      ],
+      "category": "audio",
+      "stock": 25,
+      "status": "active",
+      "tags": [
+        "latest",
+        "improved-audio",
+        "single-channel"
+      ],
+      "featured": true,
+      "rating": 4.7,
+      "totalReviews": 98,
+      "colors": [
+        "Black"
+      ],
+      "createdAt": "2024-10-05T14:50:00Z",
+      "specifications": {
+        "range": "300m unobstructed",
+        "battery": "6 hours continuous use",
+        "frequency": "2.4GHz",
+        "features": [
+          "Enhanced noise cancellation",
+          "32-bit float recording",
+          "Smartphone adapter"
+        ],
+        "audio_quality": "48kHz/24-bit"
+      },
+      "paymentOptions": 10
+    },
+    {
+      "id": "dji-mic-mini",
+      "name": "DJI Mic Mini (1 TX + 1 RX)",
+      "brand": "DJI",
+      "description": "Versão compacta do DJI Mic, ideal para criadores que precisam de portabilidade máxima.",
+      "price": 899,
+      "discountPrice": 799,
+      "image": "/Produtos/Dji/Microfone DJI Mic Mini (1 TX Microfone + 1 RX Receptor).webp",
+      "images": [
+        "/Produtos/Dji/Microfone DJI Mic Mini (1 TX Microfone + 1 RX Receptor).webp"
+      ],
+      "category": "audio",
+      "stock": 30,
+      "status": "active",
+      "tags": [
+        "compact",
+        "lightweight",
+        "content-creator"
+      ],
+      "featured": false,
+      "rating": 4.5,
+      "totalReviews": 167,
+      "colors": [
+        "Black"
+      ],
+      "createdAt": "2024-06-12T10:40:00Z",
+      "specifications": {
+        "range": "200m unobstructed",
+        "battery": "4.5 hours continuous use",
+        "weight": "10g (transmitter)",
+        "features": [
+          "Clip-on design",
+          "Plug-and-play",
+          "Noise reduction"
+        ],
+        "compatibility": "Smartphones, cameras"
+      },
+      "paymentOptions": 8
+    },
+    {
+      "id": "dji-mic-mini-dual",
+      "name": "DJI Mic Mini (2 TX + 1 RX + Case)",
+      "brand": "DJI",
+      "description": "Kit duplo do DJI Mic Mini com case de carregamento para gravações com duas pessoas.",
+      "price": 1499,
+      "discountPrice": 1349,
+      "image": "/Produtos/Dji/Microfone DJI Mic Mini (2 TX Microfone + 1 RX Receptor + 1 Case de carregamento).webp",
+      "images": [
+        "/Produtos/Dji/Microfone DJI Mic Mini (2 TX Microfone + 1 RX Receptor + 1 Case de carregamento).webp"
+      ],
+      "category": "audio",
+      "stock": 22,
+      "status": "active",
+      "tags": [
+        "dual-person",
+        "compact",
+        "charging-case"
+      ],
+      "featured": true,
+      "rating": 4.6,
+      "totalReviews": 134,
+      "colors": [
+        "Black"
+      ],
+      "createdAt": "2024-07-25T16:15:00Z",
+      "specifications": {
+        "range": "200m unobstructed",
+        "battery": "4.5 hours + case extends to 13.5 hours",
+        "weight": "10g each (transmitter)",
+        "features": [
+          "Dual-channel recording",
+          "Charging case",
+          "Magnetic attachment"
+        ],
+        "compatibility": "Smartphones, cameras, computers"
+      },
+      "paymentOptions": 10
     }
   ],
   "categories": [
@@ -1027,6 +2760,54 @@
       "description": "Cabos, carregadores e acessórios",
       "image": "/Produtos/Geonav/Power Bank 20.000 mAh – Cinza Espacial.jpg",
       "featured": false
+    },
+    {
+      "id": "cameras",
+      "name": "Câmeras",
+      "slug": "cameras",
+      "description": "Câmeras de ação e equipamentos de filmagem",
+      "image": "/Produtos/Dji/Câmera DJI Osmo Action 5 Pro Adventure Combo BR.webp",
+      "featured": true
+    },
+    {
+      "id": "computers",
+      "name": "Computadores",
+      "slug": "computers",
+      "description": "iMacs, Mac mini, Mac Studio e Mac Pro",
+      "image": "/Produtos/Apple/Imac.png",
+      "featured": true
+    },
+    {
+      "id": "displays",
+      "name": "Monitores",
+      "slug": "displays",
+      "description": "Monitores profissionais e displays de alta qualidade",
+      "image": "/Produtos/Apple/Pro Display.png",
+      "featured": true
+    },
+    {
+      "id": "wearables",
+      "name": "Wearables",
+      "slug": "wearables",
+      "description": "Relógios inteligentes e dispositivos vestíveis",
+      "image": "/Produtos/Apple/Watch Series 10.png",
+      "featured": true
+    },
+    {
+      "id": "gimbals",
+      "name": "Estabilizadores",
+      "slug": "gimbals",
+      "description": "Estabilizadores para smartphones e câmeras",
+      "image": "/Produtos/Dji/Estabilizador DJI Osmo Mobile 7 BR.webp",
+      "featured": true
+    },
+    {
+      "id": "accessories",
+      "name": "Acessórios Apple",
+      "slug": "accessories",
+      "description": "Acessórios originais Apple - Teclados, mouses e capas",
+      "image": "/Produtos/Apple/Magic-Mouse.png",
+      "featured": true
     }
   ],
   "brands": [

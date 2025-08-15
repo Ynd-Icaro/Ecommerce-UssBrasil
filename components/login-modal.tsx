@@ -1,40 +1,48 @@
 'use client'
 
 import { useState } from 'react'
-import { signIn, getSession } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Card, CardContent } from '@/components/ui/card'
-import { Eye, EyeOff, User, Mail, Lock, Chrome, X, Loader2 } from 'lucide-react'
-import { toast } from 'react-hot-toast'
-import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from '@radix-ui/react-dialog'
-import { DialogHeader } from './ui/dialog'
+import { useRouter } from 'next/navigation'
+import { toast } from 'sonner'
+import { 
+  Eye, 
+  EyeOff, 
+  Mail, 
+  Lock, 
+  User, 
+  X,
+  Chrome,
+  Github,
+  Apple
+} from 'lucide-react'
 
 interface LoginModalProps {
   isOpen: boolean
   onClose: () => void
-  children: React.ReactNode
 }
-export default function LoginModal({ children, isOpen: propIsOpen, onClose }: LoginModalProps) {
-  const [isOpen, setIsOpen] = useState(propIsOpen || false)
-  const [isLoading, setIsLoading] = useState(false)
+
+// Temporary auth function
+const useAuth = () => ({
+  login: (user: any) => {
+    console.log('User logged in:', user)
+  }
+})
+
+export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const [activeTab, setActiveTab] = useState('login')
+  const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
+  const { login } = useAuth()
 
-  // Login form state
-  const [loginForm, setLoginForm] = useState({
+  // Forms data
+  const [loginData, setLoginData] = useState({
     email: '',
     password: ''
   })
 
-  // Register form state
-  const [registerForm, setRegisterForm] = useState({
+  const [registerData, setRegisterData] = useState({
     name: '',
     email: '',
     password: '',
@@ -44,25 +52,21 @@ export default function LoginModal({ children, isOpen: propIsOpen, onClose }: Lo
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
-
+    
     try {
-      const result = await signIn('credentials', {
-        email: loginForm.email,
-        password: loginForm.password,
-        redirect: false,
-      })
-
-      if (result?.error) {
-        toast.error('Credenciais inválidas')
-      } else {
+      // Simulated login - replace with real authentication
+      await new Promise(resolve => setTimeout(resolve, 1000))
+      
+      if (loginData.email && loginData.password) {
+        login({ 
+          id: '1', 
+          name: 'Usuário', 
+          email: loginData.email 
+        })
         toast.success('Login realizado com sucesso!')
-        setIsOpen(false)
-        const session = await getSession()
-        if (session?.user?.role === 'admin') {
-          router.push('/admin')
-        } else {
-          router.refresh()
-        }
+        onClose()
+      } else {
+        toast.error('Preencha todos os campos')
       }
     } catch (error) {
       toast.error('Erro ao fazer login')
@@ -73,39 +77,27 @@ export default function LoginModal({ children, isOpen: propIsOpen, onClose }: Lo
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault()
-    
-    if (registerForm.password !== registerForm.confirmPassword) {
-      toast.error('As senhas não coincidem')
-      return
-    }
-
-    if (registerForm.password.length < 6) {
-      toast.error('A senha deve ter pelo menos 6 caracteres')
-      return
-    }
-
     setIsLoading(true)
-
+    
     try {
-      const response = await fetch('/api/auth/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: registerForm.name,
-          email: registerForm.email,
-          password: registerForm.password,
-        }),
-      })
-
-      if (response.ok) {
+      if (registerData.password !== registerData.confirmPassword) {
+        toast.error('Senhas não coincidem')
+        return
+      }
+      
+      // Simulated registration
+      await new Promise(resolve => setTimeout(resolve, 1000))
+      
+      if (registerData.name && registerData.email && registerData.password) {
+        login({ 
+          id: '1', 
+          name: registerData.name, 
+          email: registerData.email 
+        })
         toast.success('Conta criada com sucesso!')
-        setActiveTab('login')
-        setRegisterForm({ name: '', email: '', password: '', confirmPassword: '' })
+        onClose()
       } else {
-        const data = await response.json()
-        toast.error(data.message || 'Erro ao criar conta')
+        toast.error('Preencha todos os campos')
       }
     } catch (error) {
       toast.error('Erro ao criar conta')
@@ -114,415 +106,294 @@ export default function LoginModal({ children, isOpen: propIsOpen, onClose }: Lo
     }
   }
 
-  const handleGoogleLogin = async () => {
-    setIsLoading(true)
-    try {
-      await signIn('google', { callbackUrl: '/' })
-    } catch (error) {
-      toast.error('Erro ao fazer login com Google')
-    } finally {
-      setIsLoading(false)
-    }
+  const handleSocialLogin = (provider: string) => {
+    toast.info(`Login com ${provider} em desenvolvimento`)
   }
 
-  return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogTrigger asChild>
-        {children}
-      </DialogTrigger>
-      <DialogContent className="sm:max-w-md">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.95, y: 20 }}
-          transition={{ duration: 0.3, ease: "easeOut" }}
-        >
-          <DialogHeader>
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1, duration: 0.3 }}
-            >
-              <DialogTitle className="text-center text-2xl font-bold text-gray-900">
-                Bem-vindo à UssBrasil
-              </DialogTitle>
-              <DialogDescription className="text-center text-gray-600">
-                Faça login ou crie sua conta para continuar
-              </DialogDescription>
-            </motion.div>
-          </DialogHeader>
+  if (!isOpen) return null
 
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.3 }}
-          >
-            {/* Custom Tab Navigation */}
-            <div className="flex w-full mb-6">
+  return (
+    <AnimatePresence>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        onClick={onClose}
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(0, 0, 0, 0.6)',
+          backdropFilter: 'blur(8px)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '16px',
+          zIndex: 9999
+        }}
+      >
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9, y: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0.9, y: 20 }}
+          transition={{ duration: 0.3 }}
+          onClick={(e) => e.stopPropagation()}
+          style={{
+            backgroundColor: 'white',
+            borderRadius: '12px',
+            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+            width: '100%',
+            maxWidth: '450px',
+            maxHeight: '90vh',
+            overflow: 'hidden',
+            margin: 'auto'
+          }}
+        >
+          {/* Header */}
+          <div className="relative bg-white border-b border-gray-200 p-6">
+            <button
+              onClick={onClose}
+              className="absolute right-4 top-4 p-2 rounded-full hover:bg-gray-100 transition-colors"
+            >
+              <X className="h-4 w-4" />
+            </button>
+            <div className="text-center">
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                Bem-vindo!
+              </h2>
+              <p className="text-gray-600">
+                Entre na sua conta ou crie uma nova
+              </p>
+            </div>
+          </div>
+
+          {/* Content */}
+          <div className="p-6 space-y-6">
+            {/* Tabs */}
+            <div className="flex bg-gray-100 rounded-lg p-1">
               <button
                 onClick={() => setActiveTab('login')}
-                className={`flex-1 py-2 px-4 text-center font-medium transition-all duration-300 ${
+                className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-colors ${
                   activeTab === 'login'
-                    ? 'text-[#00CED1] border-b-2 border-[#00CED1]'
-                    : 'text-gray-500 hover:text-gray-700'
+                    ? 'bg-white text-gray-900 shadow-sm'
+                    : 'text-gray-600 hover:text-gray-900'
                 }`}
               >
                 Entrar
               </button>
               <button
                 onClick={() => setActiveTab('register')}
-                className={`flex-1 py-2 px-4 text-center font-medium transition-all duration-300 ${
+                className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-colors ${
                   activeTab === 'register'
-                    ? 'text-[#00CED1] border-b-2 border-[#00CED1]'
-                    : 'text-gray-500 hover:text-gray-700'
+                    ? 'bg-white text-gray-900 shadow-sm'
+                    : 'text-gray-600 hover:text-gray-900'
                 }`}
               >
-                Criar Conta
+                Criar conta
               </button>
             </div>
 
-            {/* Animated Content Container */}
-            <div className="relative overflow-hidden">
-              <AnimatePresence mode="wait">
-                {/* Login Form */}
-                {activeTab === 'login' && (
-                  <motion.div
-                    key="login"
-                    initial={{ x: -50, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    exit={{ x: 50, opacity: 0 }}
-                    transition={{ duration: 0.3, ease: "easeInOut" }}
-                    className="space-y-4"
+            {/* Login Form */}
+            {activeTab === 'login' && (
+              <form onSubmit={handleLogin} className="space-y-4">
+                <div className="space-y-2">
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                    E-mail
+                  </label>
+                  <div className="relative">
+                    <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                    <input
+                      id="email"
+                      type="email"
+                      placeholder="seu@email.com"
+                      value={loginData.email}
+                      onChange={(e) => setLoginData({ ...loginData, email: e.target.value })}
+                      className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+                    Senha
+                  </label>
+                  <div className="relative">
+                    <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                    <input
+                      id="password"
+                      type={showPassword ? "text" : "password"}
+                      placeholder="Sua senha"
+                      value={loginData.password}
+                      onChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
+                      className="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      required
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-3 top-3 p-1 rounded hover:bg-gray-100"
+                    >
+                      {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                    </button>
+                  </div>
+                </div>
+
+                <div className="flex justify-end">
+                  <button
+                    type="button"
+                    className="text-sm text-blue-600 hover:text-blue-700"
                   >
-                    <form onSubmit={handleLogin} className="space-y-4">
-                      <motion.div 
-                        className="space-y-2"
-                        initial={{ x: -20, opacity: 0 }}
-                        animate={{ x: 0, opacity: 1 }}
-                        transition={{ delay: 0.1, duration: 0.3 }}
-                      >
-                        <Label htmlFor="login-email">Email</Label>
-                        <div className="relative">
-                          <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-                          <Input
-                            id="login-email"
-                            type="email"
-                            placeholder="seu@email.com"
-                            className="pl-10 transition-all duration-200 focus:ring-2 focus:ring-[#00CED1]/20"
-                            value={loginForm.email}
-                            onChange={(e) => setLoginForm(prev => ({ ...prev, email: e.target.value }))}
-                            required
-                          />
-                        </div>
-                      </motion.div>
+                    Esqueci minha senha
+                  </button>
+                </div>
 
-                      <motion.div 
-                        className="space-y-2"
-                        initial={{ x: -20, opacity: 0 }}
-                        animate={{ x: 0, opacity: 1 }}
-                        transition={{ delay: 0.2, duration: 0.3 }}
-                      >
-                        <Label htmlFor="login-password">Senha</Label>
-                        <div className="relative">
-                          <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-                          <Input
-                            id="login-password"
-                            type={showPassword ? "text" : "password"}
-                            placeholder="Sua senha"
-                            className="pl-10 pr-10 transition-all duration-200 focus:ring-2 focus:ring-[#00CED1]/20"
-                            value={loginForm.password}
-                            onChange={(e) => setLoginForm(prev => ({ ...prev, password: e.target.value }))}
-                            required
-                          />
-                          <Button
-                            type="button"
-                            variant="ghost"
-                            size="sm"
-                            className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
-                            onClick={() => setShowPassword(!showPassword)}
-                          >
-                            <motion.div
-                              initial={false}
-                              animate={{ rotate: showPassword ? 180 : 0 }}
-                              transition={{ duration: 0.2 }}
-                            >
-                              {showPassword ? (
-                                <EyeOff className="h-4 w-4 text-gray-400" />
-                              ) : (
-                                <Eye className="h-4 w-4 text-gray-400" />
-                              )}
-                            </motion.div>
-                          </Button>
-                        </div>
-                      </motion.div>
+                <button
+                  type="submit"
+                  disabled={isLoading}
+                  className="w-full bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-lg font-medium transition-colors disabled:opacity-50"
+                >
+                  {isLoading ? 'Entrando...' : 'Entrar'}
+                </button>
+              </form>
+            )}
 
-                      <motion.div
-                        initial={{ y: 20, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        transition={{ delay: 0.3, duration: 0.3 }}
-                      >
-                        <Button 
-                          type="submit" 
-                          className="w-full bg-[#00CED1] hover:bg-[#20B2AA] transition-all duration-200 transform hover:scale-[1.02]" 
-                          disabled={isLoading}
-                        >
-                          {isLoading ? (
-                            <motion.span
-                              initial={{ opacity: 0 }}
-                              animate={{ opacity: 1 }}
-                              className="flex items-center"
-                            >
-                              <motion.div
-                                className="w-4 h-4 border-2 border-white border-t-transparent rounded-full mr-2"
-                                animate={{ rotate: 360 }}
-                                transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                              />
-                              Entrando...
-                            </motion.span>
-                          ) : (
-                            'Entrar'
-                          )}
-                        </Button>
-                      </motion.div>
-                    </form>
+            {/* Register Form */}
+            {activeTab === 'register' && (
+              <form onSubmit={handleRegister} className="space-y-4">
+                <div className="space-y-2">
+                  <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+                    Nome completo
+                  </label>
+                  <div className="relative">
+                    <User className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                    <input
+                      id="name"
+                      type="text"
+                      placeholder="Seu nome completo"
+                      value={registerData.name}
+                      onChange={(e) => setRegisterData({ ...registerData, name: e.target.value })}
+                      className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      required
+                    />
+                  </div>
+                </div>
 
-                    <motion.div 
-                      className="relative"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ delay: 0.4, duration: 0.3 }}
+                <div className="space-y-2">
+                  <label htmlFor="register-email" className="block text-sm font-medium text-gray-700">
+                    E-mail
+                  </label>
+                  <div className="relative">
+                    <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                    <input
+                      id="register-email"
+                      type="email"
+                      placeholder="seu@email.com"
+                      value={registerData.email}
+                      onChange={(e) => setRegisterData({ ...registerData, email: e.target.value })}
+                      className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <label htmlFor="register-password" className="block text-sm font-medium text-gray-700">
+                    Senha
+                  </label>
+                  <div className="relative">
+                    <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                    <input
+                      id="register-password"
+                      type={showPassword ? "text" : "password"}
+                      placeholder="Crie uma senha"
+                      value={registerData.password}
+                      onChange={(e) => setRegisterData({ ...registerData, password: e.target.value })}
+                      className="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      required
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-3 top-3 p-1 rounded hover:bg-gray-100"
                     >
-                      <div className="absolute inset-0 flex items-center">
-                        <span className="w-full border-t" />
-                      </div>
-                      <div className="relative flex justify-center text-xs uppercase">
-                        <span className="bg-background px-2 text-muted-foreground">
-                          Ou continue com
-                        </span>
-                      </div>
-                    </motion.div>
+                      {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                    </button>
+                  </div>
+                </div>
 
-                    <motion.div
-                      initial={{ y: 20, opacity: 0 }}
-                      animate={{ y: 0, opacity: 1 }}
-                      transition={{ delay: 0.5, duration: 0.3 }}
+                <div className="space-y-2">
+                  <label htmlFor="confirm-password" className="block text-sm font-medium text-gray-700">
+                    Confirmar senha
+                  </label>
+                  <div className="relative">
+                    <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                    <input
+                      id="confirm-password"
+                      type={showConfirmPassword ? "text" : "password"}
+                      placeholder="Confirme sua senha"
+                      value={registerData.confirmPassword}
+                      onChange={(e) => setRegisterData({ ...registerData, confirmPassword: e.target.value })}
+                      className="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      required
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                      className="absolute right-3 top-3 p-1 rounded hover:bg-gray-100"
                     >
-                      <Button
-                        type="button"
-                        variant="outline"
-                        className="w-full transition-all duration-200 hover:bg-gray-50 transform hover:scale-[1.02]"
-                        onClick={handleGoogleLogin}
-                        disabled={isLoading}
-                      >
-                        <Chrome className="mr-2 h-4 w-4" />
-                        Google
-                      </Button>
-                    </motion.div>
-                  </motion.div>
-                )}
+                      {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                    </button>
+                  </div>
+                </div>
 
-                {/* Register Form */}
-                {activeTab === 'register' && (
-                  <motion.div
-                    key="register"
-                    initial={{ x: 50, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    exit={{ x: -50, opacity: 0 }}
-                    transition={{ duration: 0.3, ease: "easeInOut" }}
-                    className="space-y-4"
-                  >
-                    <form onSubmit={handleRegister} className="space-y-4">
-                      <motion.div 
-                        className="space-y-2"
-                        initial={{ x: -20, opacity: 0 }}
-                        animate={{ x: 0, opacity: 1 }}
-                        transition={{ delay: 0.1, duration: 0.3 }}
-                      >
-                        <Label htmlFor="register-name">Nome Completo</Label>
-                        <div className="relative">
-                          <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-                          <Input
-                            id="register-name"
-                            type="text"
-                            placeholder="Seu nome completo"
-                            className="pl-10 transition-all duration-200 focus:ring-2 focus:ring-[#00CED1]/20"
-                            value={registerForm.name}
-                            onChange={(e) => setRegisterForm(prev => ({ ...prev, name: e.target.value }))}
-                            required
-                          />
-                        </div>
-                      </motion.div>
+                <button
+                  type="submit"
+                  disabled={isLoading}
+                  className="w-full bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-lg font-medium transition-colors disabled:opacity-50"
+                >
+                  {isLoading ? 'Criando conta...' : 'Criar conta'}
+                </button>
+              </form>
+            )}
 
-                      <motion.div 
-                        className="space-y-2"
-                        initial={{ x: -20, opacity: 0 }}
-                        animate={{ x: 0, opacity: 1 }}
-                        transition={{ delay: 0.2, duration: 0.3 }}
-                      >
-                        <Label htmlFor="register-email">Email</Label>
-                        <div className="relative">
-                          <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-                          <Input
-                            id="register-email"
-                            type="email"
-                            placeholder="seu@email.com"
-                            className="pl-10 transition-all duration-200 focus:ring-2 focus:ring-[#00CED1]/20"
-                            value={registerForm.email}
-                            onChange={(e) => setRegisterForm(prev => ({ ...prev, email: e.target.value }))}
-                            required
-                          />
-                        </div>
-                      </motion.div>
+            {/* Social Login */}
+            <div className="space-y-4">
+              <div className="relative">
+                <div className="absolute inset-0 flex items-center">
+                  <div className="w-full border-t border-gray-300" />
+                </div>
+                <div className="relative flex justify-center text-xs uppercase">
+                  <span className="bg-white px-2 text-gray-500">ou continue com</span>
+                </div>
+              </div>
 
-                      <motion.div 
-                        className="space-y-2"
-                        initial={{ x: -20, opacity: 0 }}
-                        animate={{ x: 0, opacity: 1 }}
-                        transition={{ delay: 0.3, duration: 0.3 }}
-                      >
-                        <Label htmlFor="register-password">Senha</Label>
-                        <div className="relative">
-                          <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-                          <Input
-                            id="register-password"
-                            type={showPassword ? "text" : "password"}
-                            placeholder="Crie uma senha"
-                            className="pl-10 pr-10 transition-all duration-200 focus:ring-2 focus:ring-[#00CED1]/20"
-                            value={registerForm.password}
-                            onChange={(e) => setRegisterForm(prev => ({ ...prev, password: e.target.value }))}
-                            required
-                          />
-                          <Button
-                            type="button"
-                            variant="ghost"
-                            size="sm"
-                            className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
-                            onClick={() => setShowPassword(!showPassword)}
-                          >
-                            <motion.div
-                              initial={false}
-                              animate={{ rotate: showPassword ? 180 : 0 }}
-                              transition={{ duration: 0.2 }}
-                            >
-                              {showPassword ? (
-                                <EyeOff className="h-4 w-4 text-gray-400" />
-                              ) : (
-                                <Eye className="h-4 w-4 text-gray-400" />
-                              )}
-                            </motion.div>
-                          </Button>
-                        </div>
-                      </motion.div>
-
-                      <motion.div 
-                        className="space-y-2"
-                        initial={{ x: -20, opacity: 0 }}
-                        animate={{ x: 0, opacity: 1 }}
-                        transition={{ delay: 0.4, duration: 0.3 }}
-                      >
-                        <Label htmlFor="register-confirm-password">Confirmar Senha</Label>
-                        <div className="relative">
-                          <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-                          <Input
-                            id="register-confirm-password"
-                            type={showConfirmPassword ? "text" : "password"}
-                            placeholder="Confirme sua senha"
-                            className="pl-10 pr-10 transition-all duration-200 focus:ring-2 focus:ring-[#00CED1]/20"
-                            value={registerForm.confirmPassword}
-                            onChange={(e) => setRegisterForm(prev => ({ ...prev, confirmPassword: e.target.value }))}
-                            required
-                          />
-                          <Button
-                            type="button"
-                            variant="ghost"
-                            size="sm"
-                            className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
-                            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                          >
-                            <motion.div
-                              initial={false}
-                              animate={{ rotate: showConfirmPassword ? 180 : 0 }}
-                              transition={{ duration: 0.2 }}
-                            >
-                              {showConfirmPassword ? (
-                                <EyeOff className="h-4 w-4 text-gray-400" />
-                              ) : (
-                                <Eye className="h-4 w-4 text-gray-400" />
-                              )}
-                            </motion.div>
-                          </Button>
-                        </div>
-                      </motion.div>
-
-                      <motion.div
-                        initial={{ y: 20, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        transition={{ delay: 0.5, duration: 0.3 }}
-                      >
-                        <Button 
-                          type="submit" 
-                          className="w-full bg-[#00CED1] hover:bg-[#20B2AA] transition-all duration-200 transform hover:scale-[1.02]" 
-                          disabled={isLoading}
-                        >
-                          {isLoading ? (
-                            <motion.span
-                              initial={{ opacity: 0 }}
-                              animate={{ opacity: 1 }}
-                              className="flex items-center"
-                            >
-                              <motion.div
-                                className="w-4 h-4 border-2 border-white border-t-transparent rounded-full mr-2"
-                                animate={{ rotate: 360 }}
-                                transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                              />
-                              Criando conta...
-                            </motion.span>
-                          ) : (
-                            'Criar Conta'
-                          )}
-                        </Button>
-                      </motion.div>
-                    </form>
-
-                    <motion.div 
-                      className="relative"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ delay: 0.6, duration: 0.3 }}
-                    >
-                      <div className="absolute inset-0 flex items-center">
-                        <span className="w-full border-t" />
-                      </div>
-                      <div className="relative flex justify-center text-xs uppercase">
-                        <span className="bg-background px-2 text-muted-foreground">
-                          Ou continue com
-                        </span>
-                      </div>
-                    </motion.div>
-
-                    <motion.div
-                      initial={{ y: 20, opacity: 0 }}
-                      animate={{ y: 0, opacity: 1 }}
-                      transition={{ delay: 0.7, duration: 0.3 }}
-                    >
-                      <Button
-                        type="button"
-                        variant="outline"
-                        className="w-full transition-all duration-200 hover:bg-gray-50 transform hover:scale-[1.02]"
-                        onClick={handleGoogleLogin}
-                        disabled={isLoading}
-                      >
-                        <Chrome className="mr-2 h-4 w-4" />
-                        Google
-                      </Button>
-                    </motion.div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+              <div className="grid grid-cols-3 gap-3">
+                <button
+                  onClick={() => handleSocialLogin('Google')}
+                  className="flex justify-center items-center py-2 px-4 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+                >
+                  <Chrome className="h-4 w-4" />
+                </button>
+                <button
+                  onClick={() => handleSocialLogin('GitHub')}
+                  className="flex justify-center items-center py-2 px-4 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+                >
+                  <Github className="h-4 w-4" />
+                </button>
+                <button
+                  onClick={() => handleSocialLogin('Apple')}
+                  className="flex justify-center items-center py-2 px-4 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+                >
+                  <Apple className="h-4 w-4" />
+                </button>
+              </div>
             </div>
-          </motion.div>
+          </div>
         </motion.div>
-      </DialogContent>
-    </Dialog>
+      </motion.div>
+    </AnimatePresence>
   )
 }
