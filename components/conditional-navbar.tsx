@@ -1,8 +1,7 @@
 'use client'
 
 import { usePathname } from 'next/navigation'
-import ModernNavbar from './navbar-clean'
-import { DEFAULT_NAVBAR_CONFIG, LANDING_NAVBAR_CONFIG } from './navbar-config'
+import NavbarPremium from './navbar-premium'
 
 export default function ConditionalNavbar() {
   const pathname = usePathname()
@@ -12,13 +11,22 @@ export default function ConditionalNavbar() {
     return null
   }
 
-  // Usar configuração diferente para páginas específicas
-  const isLandingPage = pathname === '/' || pathname === '/sobre'
+  // Configurações específicas por página
+  const isVipPage = pathname?.includes('/vip')
+  const isMinimalPage = pathname?.includes('/login') || pathname?.includes('/register') || pathname?.includes('/checkout')
+  
+  // Determinar variante da navbar
+  let variant: 'default' | 'minimal' | 'transparent' = 'default'
+  if (isMinimalPage) variant = 'minimal'
+  if (isVipPage) variant = 'transparent'
   
   return (
-    <ModernNavbar 
-      config={isLandingPage ? LANDING_NAVBAR_CONFIG : DEFAULT_NAVBAR_CONFIG}
-      showBrandDropdown={true}
+    <NavbarPremium 
+      variant={variant}
+      showTopBar={!isMinimalPage}
+      showSearchBar={!isMinimalPage}
+      showCategories={!isMinimalPage}
+      className={isVipPage ? 'bg-gradient-to-r from-black/20 to-transparent' : ''}
     />
   )
 }

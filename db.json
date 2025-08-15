@@ -8,11 +8,13 @@
       "price": 7999.99,
       "discountPrice": 7499.99,
       "description": "O iPhone mais Pro de todos os tempos",
-      "image": "/Produtos/Iphone 16 Pro.png",
+      "image": "/Produtos/Apple/Iphone 16 Pro.png",
       "images": [
-        "/Produtos/Iphone 16 Pro.png",
-        "/Produtos/Iphone 16/variant1.png",
-        "/Produtos/Iphone 16/variant2.png"
+        "/Produtos/Apple/iphone-16-pro-Max-Apresentacao.webp",
+        "/Produtos/Apple/iphone-16-pro-Max-Titanio-branco.webp",
+        "/Produtos/Apple/iphone-16-pro-Max-Titanio-natural.webp",
+        "/Produtos/Apple/iphone-16-pro-Max-Titânio-deserto.webp",
+        "/Produtos/Apple/iphone-16-pro-Max-Titânio-preto.webp"
       ],
       "rating": 4.8,
       "totalReviews": 1247,
@@ -35,9 +37,10 @@
       "category": "computers",
       "price": 12999.99,
       "description": "Performance incomparável para profissionais",
-      "image": "/Produtos/Macbook Pro.png",
+      "image": "/Produtos/Apple/Macbook Pro.png",
       "images": [
-        "/Produtos/Macbook Pro.png"
+        "/Produtos/Apple/Macbook Pro.png",
+        "/Produtos/Apple/Macbook Air.png"
       ],
       "rating": 4.9,
       "totalReviews": 892,
@@ -61,9 +64,12 @@
       "price": 5999.99,
       "discountPrice": 5499.99,
       "description": "Criatividade sem limites",
-      "image": "/Produtos/Ipad Pro.png",
+      "image": "/Produtos/Apple/Ipad Pro.png",
       "images": [
-        "/Produtos/Ipad Pro.png"
+        "/Produtos/Apple/Ipad Pro.png",
+        "/Produtos/Apple/Ipad.png",
+        "/Produtos/Apple/IpadAir.png",
+        "/Produtos/Apple/IpadMini.png"
       ],
       "rating": 4.7,
       "totalReviews": 654,
@@ -86,9 +92,11 @@
       "category": "wearables",
       "price": 2999.99,
       "description": "O futuro da saúde no seu pulso",
-      "image": "/Produtos/Watch Series 10.png",
+      "image": "/Produtos/Apple/Watch Series 10.png",
       "images": [
-        "/Produtos/Watch Series 10.png"
+        "/Produtos/Apple/Watch Series 10.png",
+        "/Produtos/Apple/Watch SE.png",
+        "/Produtos/Apple/Watch Ultra 2.png"
       ],
       "rating": 4.6,
       "totalReviews": 423,
@@ -111,9 +119,11 @@
       "category": "audio",
       "price": 1899.99,
       "description": "Som imersivo com cancelamento ativo de ruído",
-      "image": "/Produtos/Air Pods Pro 2",
+      "image": "/Produtos/Apple/Air Pods Max.png",
       "images": [
-        "/Produtos/Air Pods Pro 2"
+        "/Produtos/Apple/Air Pods Max.png",
+        "/Produtos/Apple/airpods-4.png",
+        "/Produtos/Apple/airpods-max.png"
       ],
       "rating": 4.8,
       "totalReviews": 987,
@@ -127,6 +137,195 @@
         "battery": "Até 6 horas + 30 horas com estojo",
         "features": "Cancelamento ativo de ruído",
         "connectivity": "Bluetooth 5.3"
+      }
+    },
+    {
+      "id": 6,
+      "name": "DJI Mini 3 Pro",
+      "brand": "DJI",
+      "category": "drones",
+      "price": 4999.99,
+      "discountPrice": 4599.99,
+      "description": "Drone compacto com recursos profissionais e qualidade 4K",
+      "image": "/Produtos/Dji/Drone Dji Mini Pro Fly More Combo ( Com tela ).webp",
+      "images": [
+        "/Produtos/Dji/Drone Dji Mini Pro Fly More Combo ( Com tela ).webp",
+        "/Produtos/Dji/Drone Dji Neo Standard.webp",
+        "/Produtos/Dji/Drone Dji flip Standard.webp"
+      ],
+      "rating": 4.7,
+      "totalReviews": 543,
+      "stock": 12,
+      "status": "active",
+      "paymentOptions": 10,
+      "colors": ["Cinza"],
+      "createdAt": "2024-11-15T10:00:00Z",
+      "specifications": {
+        "camera": "4K/60fps HDR",
+        "flightTime": "Até 34 minutos",
+        "range": "Até 12 km",
+        "weight": "249g"
+      }
+    },
+    {
+      "id": 7,
+      "name": "DJI Mavic 3 Pro",
+      "brand": "DJI",
+      "category": "drones",
+      "price": 12999.99,
+      "description": "Drone profissional com três câmeras e qualidade cinematográfica",
+      "image": "/Produtos/Dji/Drone DJI Mavic 3 Pro Fly More Combo (Com tela).webp",
+      "images": [
+        "/Produtos/Dji/Drone DJI Mavic 3 Pro Fly More Combo (Com tela).webp"
+      ],
+      "rating": 4.9,
+      "totalReviews": 234,
+      "stock": 8,
+      "status": "active",
+      "paymentOptions": 12,
+      "colors": ["Cinza"],
+      "createdAt": "2024-11-10T10:00:00Z",
+      "specifications": {
+        "camera": "Hasselblad 4/3 CMOS",
+        "flightTime": "Até 43 minutos",
+        "range": "Até 15 km",
+        "weight": "958g"
+      }
+    },
+    {
+      "id": 8,
+      "name": "DJI Osmo Action 5 Pro",
+      "brand": "DJI",
+      "category": "cameras",
+      "price": 2799.99,
+      "description": "Câmera de ação com estabilização avançada e gravação 4K",
+      "image": "/Produtos/Dji/Câmera DJI Osmo Action 5 Pro Adventure Combo BR.webp",
+      "images": [
+        "/Produtos/Dji/Câmera DJI Osmo Action 5 Pro Adventure Combo BR.webp",
+        "/Produtos/Dji/Câmera DJI Osmo Action 5 Pro Standard Combo.webp",
+        "/Produtos/Dji/Câmera DJI Osmo Action 4 Adventure Combo.webp"
+      ],
+      "rating": 4.6,
+      "totalReviews": 378,
+      "stock": 18,
+      "status": "active",
+      "paymentOptions": 8,
+      "colors": ["Preto"],
+      "createdAt": "2024-11-05T10:00:00Z",
+      "specifications": {
+        "camera": "1/1.3 CMOS 4K/120fps",
+        "battery": "Até 4 horas",
+        "waterproof": "Até 20m",
+        "display": "Tela frontal e traseira"
+      }
+    },
+    {
+      "id": 9,
+      "name": "JBL PartyBox 710",
+      "brand": "JBL",
+      "category": "audio",
+      "price": 3599.99,
+      "discountPrice": 3199.99,
+      "description": "Caixa de som portátil com luzes e som potente para festas",
+      "image": "/Produtos/JBL/JBL Partybox 710.webp",
+      "images": [
+        "/Produtos/JBL/JBL Partybox 710.webp",
+        "/Produtos/JBL/JBL PartyBox Club 120.webp",
+        "/Produtos/JBL/JBL PartyBox Encore 2.webp"
+      ],
+      "rating": 4.8,
+      "totalReviews": 675,
+      "stock": 6,
+      "status": "active",
+      "paymentOptions": 10,
+      "colors": ["Preto"],
+      "createdAt": "2024-10-30T10:00:00Z",
+      "specifications": {
+        "power": "800W RMS",
+        "battery": "Até 18 horas",
+        "connectivity": "Bluetooth, USB, Karaokê",
+        "features": "Luzes LED sincronizadas"
+      }
+    },
+    {
+      "id": 10,
+      "name": "JBL Tune 670NC",
+      "brand": "JBL",
+      "category": "audio",
+      "price": 549.99,
+      "discountPrice": 449.99,
+      "description": "Fone de ouvido wireless com cancelamento de ruído",
+      "image": "/Produtos/JBL/JBL Tune 670NC.webp",
+      "images": [
+        "/Produtos/JBL/JBL Tune 670NC.webp",
+        "/Produtos/JBL/JBL Tune 670NC branco.webp",
+        "/Produtos/JBL/JBL Live 670NC.webp"
+      ],
+      "rating": 4.5,
+      "totalReviews": 423,
+      "stock": 25,
+      "status": "active",
+      "paymentOptions": 6,
+      "colors": ["Preto", "Branco", "Azul"],
+      "createdAt": "2024-10-25T10:00:00Z",
+      "specifications": {
+        "driver": "40mm",
+        "battery": "Até 70 horas",
+        "anc": "Cancelamento ativo de ruído",
+        "connectivity": "Bluetooth 5.3"
+      }
+    },
+    {
+      "id": 11,
+      "name": "Xiaomi 13 Lite",
+      "brand": "Xiaomi",
+      "category": "smartphones",
+      "price": 2199.99,
+      "discountPrice": 1899.99,
+      "description": "Smartphone elegante com câmera de 50MP e design premium",
+      "image": "/Produtos/Xiomi/Xiaomi 13 Lite Banner.webp",
+      "images": [
+        "/Produtos/Xiomi/Xiaomi 13 Lite Banner.webp",
+        "/Produtos/Xiomi/Xiaomi 13 Lite Combo.webp"
+      ],
+      "rating": 4.4,
+      "totalReviews": 512,
+      "stock": 20,
+      "status": "active",
+      "paymentOptions": 8,
+      "colors": ["Rosa", "Preto", "Dourado"],
+      "createdAt": "2024-10-20T10:00:00Z",
+      "specifications": {
+        "screen": "6.55 AMOLED 90Hz",
+        "processor": "Snapdragon 7 Gen 1",
+        "camera": "50MP + 8MP + 2MP",
+        "battery": "4500mAh com carregamento 67W"
+      }
+    },
+    {
+      "id": 12,
+      "name": "Redmi Note 14 Pro 5G",
+      "brand": "Xiaomi",
+      "category": "smartphones",
+      "price": 1799.99,
+      "description": "Smartphone 5G com excelente custo-benefício",
+      "image": "/Produtos/Xiomi/redmi-note-14-pro-5g.webp",
+      "images": [
+        "/Produtos/Xiomi/redmi-note-14-pro-5g.webp",
+        "/Produtos/Xiomi/Redmi Note 14 Pro 5G Combo.webp"
+      ],
+      "rating": 4.3,
+      "totalReviews": 687,
+      "stock": 30,
+      "status": "active",
+      "paymentOptions": 8,
+      "colors": ["Azul", "Preto", "Branco"],
+      "createdAt": "2024-10-15T10:00:00Z",
+      "specifications": {
+        "screen": "6.67 AMOLED 120Hz",
+        "processor": "Dimensity 7020",
+        "camera": "108MP + 8MP + 2MP",
+        "battery": "5000mAh com carregamento 67W"
       }
     }
   ],
@@ -220,7 +419,7 @@
           "quantity": 1,
           "unitPrice": 7499.99,
           "total": 7499.99,
-          "image": "/Produtos/Iphone 16 Pro.png"
+          "image": "/Produtos/Apple/Iphone 16 Pro.png"
         }
       ]
     },
@@ -248,7 +447,7 @@
           "quantity": 1,
           "unitPrice": 12999.99,
           "total": 12999.99,
-          "image": "/Produtos/Macbook Pro.png"
+          "image": "/Produtos/Apple/Macbook Pro.png"
         }
       ]
     },
@@ -276,7 +475,7 @@
           "quantity": 1,
           "unitPrice": 5499.99,
           "total": 5499.99,
-          "image": "/Produtos/Ipad Pro.png"
+          "image": "/Produtos/Apple/Ipad Pro.png"
         },
         {
           "productId": 4,
@@ -284,7 +483,7 @@
           "quantity": 1,
           "unitPrice": 2999.99,
           "total": 2999.99,
-          "image": "/Produtos/Watch Series 10.png"
+          "image": "/Produtos/Apple/Watch Series 10.png"
         },
         {
           "productId": 5,
@@ -292,7 +491,7 @@
           "quantity": 1,
           "unitPrice": 1899.99,
           "total": 1899.99,
-          "image": "/Produtos/Air Pods Pro 2"
+          "image": "/Produtos/Apple/Air Pods Max.png"
         }
       ]
     }
@@ -303,9 +502,9 @@
       "name": "smartphones",
       "displayName": "iPhone",
       "description": "A linha mais avançada de smartphones do mundo",
-      "image": "/Produtos/Iphone 16 Pro.png",
+      "image": "/Produtos/Apple/Iphone 16 Pro.png",
       "video": "/Videos/IphoneVideo.mp4",
-      "productCount": 5,
+      "productCount": 8,
       "tagline": "Titanium. Tão forte. Tão leve. Tão Pro."
     },
     {
@@ -313,7 +512,7 @@
       "name": "computers",
       "displayName": "Mac",
       "description": "Performance sem limites para suas criações",
-      "image": "/Produtos/Macbook Pro.png",
+      "image": "/Produtos/Apple/Macbook Pro.png",
       "video": "/Videos/Macs Video.mp4",
       "productCount": 8,
       "tagline": "Superpowered by M3"
@@ -323,7 +522,7 @@
       "name": "tablets",
       "displayName": "iPad",
       "description": "Versátil, poderoso e portátil",
-      "image": "/Produtos/Ipad Pro.png",
+      "image": "/Produtos/Apple/Ipad Pro.png",
       "video": "/Videos/IpadVideo.mp4",
       "productCount": 4,
       "tagline": "Lovable. Drawable. Magical."
@@ -333,7 +532,7 @@
       "name": "wearables",
       "displayName": "Apple Watch",
       "description": "O futuro da saúde no seu pulso",
-      "image": "/Produtos/Watch Series 10.png",
+      "image": "/Produtos/Apple/Watch Series 10.png",
       "video": "/Videos/Apple Watch.mp4",
       "productCount": 3,
       "tagline": "A healthy leap ahead."
@@ -341,14 +540,138 @@
     {
       "id": 5,
       "name": "audio",
-      "displayName": "AirPods",
+      "displayName": "Audio",
       "description": "Som que envolve você completamente",
-      "image": "/Produtos/Air Pods Pro 2",
+      "image": "/Produtos/Apple/Air Pods Max.png",
       "video": "/Videos/AirPods Video.webm",
-      "productCount": 4,
+      "productCount": 6,
       "tagline": "Adaptive Audio. Que se adapta a você."
+    },
+    {
+      "id": 6,
+      "name": "drones",
+      "displayName": "Drones",
+      "description": "Tecnologia de voo inteligente e criatividade aérea",
+      "image": "/Produtos/Dji/Drone DJI Mavic 3 Pro Fly More Combo (Com tela).webp",
+      "video": "/Videos/DJI - Introducing DJI Mini 3 Pro.mp4",
+      "productCount": 4,
+      "tagline": "Create at the speed of life."
+    },
+    {
+      "id": 7,
+      "name": "cameras",
+      "displayName": "Câmeras",
+      "description": "Capture momentos únicos com qualidade profissional",
+      "image": "/Produtos/Dji/Câmera DJI Osmo Action 5 Pro Adventure Combo BR.webp",
+      "video": "/Videos/Meet DJI Neo.mp4",
+      "productCount": 3,
+      "tagline": "Action without limits."
+    },
+    {
+      "id": 8,
+      "name": "accessories",
+      "displayName": "Acessórios",
+      "description": "Complemente sua experiência tecnológica",
+      "image": "/Produtos/Geonav/Carregador Portátil Branco – 20.000 mAh.jpg",
+      "video": null,
+      "productCount": 15,
+      "tagline": "Power up your devices."
     }
   ],
+  "brands": [
+    {
+      "id": 1,
+      "name": "Apple",
+      "logo": "/Logo-Marcas-Especializadas/Apple.png",
+      "description": "Inovação que muda o mundo",
+      "website": "https://www.apple.com",
+      "categories": ["smartphones", "computers", "tablets", "wearables", "audio"],
+      "productCount": 5,
+      "featured": true
+    },
+    {
+      "id": 2,
+      "name": "DJI",
+      "logo": "/Logo-Marcas-Especializadas/Dji.jpg",
+      "description": "O futuro dos drones e criatividade aérea",
+      "website": "https://www.dji.com",
+      "categories": ["drones", "cameras", "accessories"],
+      "productCount": 3,
+      "featured": true
+    },
+    {
+      "id": 3,
+      "name": "JBL",
+      "logo": "/Logo-Marcas-Especializadas/JBL.png",
+      "description": "Som que move você",
+      "website": "https://www.jbl.com",
+      "categories": ["audio"],
+      "productCount": 2,
+      "featured": true
+    },
+    {
+      "id": 4,
+      "name": "Xiaomi",
+      "logo": "/Logo-Marcas-Especializadas/Xiomi.png",
+      "description": "Inovação para todos",
+      "website": "https://www.mi.com",
+      "categories": ["smartphones", "tablets", "wearables"],
+      "productCount": 2,
+      "featured": true
+    },
+    {
+      "id": 5,
+      "name": "GeoNav",
+      "logo": "/Logo-Marcas-Especializadas/GeoNav.jpg",
+      "description": "Acessórios premium para seus dispositivos",
+      "website": "https://www.geonav.com.br",
+      "categories": ["accessories"],
+      "productCount": 15,
+      "featured": false
+    }
+  ],
+  "assets": {
+    "company": {
+      "logos": {
+        "light": "/UssBrasil/02.png",
+        "dark": "/UssBrasil/01.png",
+        "icon": "/UssBrasil/04.png",
+        "favicon": "/UssBrasil/05.png"
+      },
+      "images": [
+        "/UssBrasil/01.png",
+        "/UssBrasil/02.png",
+        "/UssBrasil/04.png",
+        "/UssBrasil/05.png",
+        "/UssBrasil/06.png",
+        "/UssBrasil/07.png"
+      ]
+    },
+    "videos": {
+      "apple": [
+        "/Videos/IphoneVideo.mp4",
+        "/Videos/IpadVideo.mp4",
+        "/Videos/Macs Video.mp4",
+        "/Videos/Apple Watch.mp4",
+        "/Videos/AirPods Video.webm"
+      ],
+      "dji": [
+        "/Videos/DJI - Introducing DJI Mini 3 Pro.mp4",
+        "/Videos/DJI Mini 2 - Make Your Moments Fly.mp4",
+        "/Videos/Introducing DJI Mavic 4 Pro.mp4",
+        "/Videos/Meet DJI Flip - The All-in-One Vlog Camera Drone.mp4",
+        "/Videos/Meet DJI Neo.mp4"
+      ],
+      "jbl": [
+        "/Videos/JBL Boombox 2 _ TÁ BOMBANDO AINDA +.mp4",
+        "/Videos/JBL CHARGE 5 _ DESIGN, POTÊNCIA, E SOM MAIS OUSADOS.mp4",
+        "/Videos/JBL PartyBox 1000 _ The Ultimate Party Machine!.mp4",
+        "/Videos/JBL PARTYBOX ENCORE ESSENTIAL _ Leve a festa com você!.mp4",
+        "/Videos/JBL _ Pulse 5 (1).mp4",
+        "/Videos/JBL _ Pulse 5.mp4"
+      ]
+    }
+  },
   "settings": {
     "company": {
       "name": "UssBrasil",

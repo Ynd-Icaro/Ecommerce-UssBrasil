@@ -1,500 +1,717 @@
-'use client'
+'use client';
 
-import { useState, useEffect } from 'react'
-import Link from 'next/link'
-import Image from 'next/image'
-import { motion, AnimatePresence } from 'framer-motion'
-import { useTheme } from 'next-themes'
-import {
-  MagnifyingGlassIcon,
-  HeartIcon,
-  UserIcon,
-  ShoppingBagIcon,
-  SunIcon,
-  MoonIcon,
-  Bars3Icon,
-  XMarkIcon,
-  ChevronDownIcon,
-  PhoneIcon,
-  EnvelopeIcon,
-  StarIcon
-} from '@heroicons/react/24/outline'
-import { HeartIcon as HeartSolidIcon } from '@heroicons/react/24/solid'
+import React, { useState, useEffect } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
+import Link from 'next/link';
+import Image from 'next/image';
+import { motion, AnimationProps } from 'framer-motion';
+import { 
+  Heart, 
+  ShoppingCart, 
+  User, 
+  Search, 
+  Menu, 
+  X,
+  Home,
+  Smartphone,
+  Monitor,
+  Tablet,
+  Watch,
+  Headphones,
+  Camera,
+  Gamepad2,
+  Star,
+  Gift,
+  Phone,
+  Info,
+  Crown,
+  LogOut,
+  Settings,
+  Package,
+  MapPin,
+  CreditCard,
+  Bell
+} from 'lucide-react';
 
-interface Brand {
-  id: string
-  name: string
-  slug: string
-  logo: string
-  description: string
-  categories: string[]
-  featured: boolean
+interface NavbarPremiumProps {
+  variant?: 'default' | 'minimal' | 'transparent';
+  showTopBar?: boolean;
+  showSearchBar?: boolean;
+  showCategories?: boolean;
+  className?: string;
 }
 
-interface Category {
-  id: string
-  name: string
-  slug: string
-  description: string
-  image: string
-  subcategories: Array<{
-    id: string
-    name: string
-    slug: string
-  }>
+interface User {
+  id: string;
+  name: string;
+  email: string;
+  avatar?: string;
+  type: 'vip' | 'regular' | 'new';
 }
 
-const brands: Brand[] = [
-  {
-    id: 'apple',
-    name: 'Apple',
-    slug: 'apple',
-    logo: '/Public/Svg/apple-logo.svg',
-    description: 'Think Different. A Apple revoluciona a tecnologia.',
-    categories: ['smartphones', 'laptops', 'tablets', 'audio'],
-    featured: true
-  },
-  {
-    id: 'jbl',
-    name: 'JBL',
-    slug: 'jbl',
-    logo: '/Public/Svg/jbl-logo.svg',
-    description: 'Som profissional para todos os momentos.',
-    categories: ['speakers', 'headphones', 'soundbars'],
-    featured: true
-  },
-  {
-    id: 'xiaomi',
-    name: 'Xiaomi',
-    slug: 'xiaomi',
-    logo: '/Public/Svg/xiaomi-logo.svg',
-    description: 'Inovação para todos.',
-    categories: ['smartphones', 'tablets', 'smart-home'],
-    featured: true
-  },
-  {
-    id: 'dji',
-    name: 'DJI',
-    slug: 'dji',
-    logo: '/Public/Svg/dji-logo.svg',
-    description: 'O futuro dos drones.',
-    categories: ['drones', 'cameras', 'gimbals'],
-    featured: true
-  },
-  {
-    id: 'geonav',
-    name: 'Geonav',
-    slug: 'geonav',
-    logo: '/Public/Svg/geonav-logo.svg',
-    description: 'Energia sem limites.',
-    categories: ['powerbanks', 'chargers', 'cables'],
-    featured: true
-  }
-]
+interface CartItem {
+  id: string;
+  name: string;
+  price: number;
+  quantity: number;
+  image: string;
+}
 
-const categories: Category[] = [
-  {
-    id: 'smartphones',
-    name: 'Smartphones',
-    slug: 'smartphones',
-    description: 'Os melhores celulares premium',
-    image: '/Public/Produtos/Apple/iphone-16-pro-Max-Apresentacao.webp',
-    subcategories: [
-      { id: 'iphone', name: 'iPhone', slug: 'iphone' },
-      { id: 'xiaomi-phones', name: 'Xiaomi', slug: 'xiaomi' }
-    ]
-  },
-  {
-    id: 'audio',
-    name: 'Áudio',
-    slug: 'audio',
-    description: 'Fones e alto-falantes premium',
-    image: '/Public/Produtos/JBL/JBL Boombox 3.webp',
-    subcategories: [
-      { id: 'headphones', name: 'Fones de Ouvido', slug: 'fones' },
-      { id: 'speakers', name: 'Alto-falantes', slug: 'speakers' }
-    ]
-  },
-  {
-    id: 'laptops',
-    name: 'Laptops',
-    slug: 'laptops',
-    description: 'MacBooks e notebooks premium',
-    image: '/Public/Produtos/Apple/Macbook Air.png',
-    subcategories: [
-      { id: 'macbook', name: 'MacBook', slug: 'macbook' },
-      { id: 'ultrabooks', name: 'Ultrabooks', slug: 'ultrabooks' }
-    ]
-  },
-  {
-    id: 'drones',
-    name: 'Drones',
-    slug: 'drones',
-    description: 'Drones profissionais DJI',
-    image: '/Public/Produtos/Dji/Drone Dji Mini Pro Fly More Combo ( Com tela ).webp',
-    subcategories: [
-      { id: 'consumer', name: 'Consumer', slug: 'consumer' },
-      { id: 'professional', name: 'Profissional', slug: 'profissional' }
-    ]
-  }
-]
+const NavbarPremium: React.FC<NavbarPremiumProps> = ({
+  variant = 'default',
+  showTopBar = true,
+  showSearchBar = true,
+  showCategories = true,
+  className = ''
+}) => {
+  const pathname = usePathname();
+  const router = useRouter();
+  
+  // State management
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [user, setUser] = useState<User | null>(null);
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [favorites, setFavorites] = useState<string[]>([]);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
-export default function NavbarPremium() {
-  const [isScrolled, setIsScrolled] = useState(false)
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
-  const [searchQuery, setSearchQuery] = useState('')
-  const [cartCount, setCartCount] = useState(0)
-  const [wishlistCount, setWishlistCount] = useState(0)
-  const { theme, setTheme } = useTheme()
+  // Animation variants
+  const slideDown: AnimationProps['variants'] = {
+    hidden: { y: -20, opacity: 0 },
+    visible: { y: 0, opacity: 1 }
+  };
 
+  const fadeIn: AnimationProps['variants'] = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1 }
+  };
+
+  // Effects
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 0)
+      setIsScrolled(window.scrollY > 10);
+    };
+
+    const handleTheme = () => {
+      const theme = localStorage.getItem('theme');
+      setIsDarkMode(theme === 'dark');
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleTheme();
+    
+    // Mock user data - replace with actual auth
+    const mockUser = localStorage.getItem('user');
+    if (mockUser) {
+      setUser(JSON.parse(mockUser));
     }
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
 
-  const handleDropdownEnter = (dropdown: string) => {
-    setActiveDropdown(dropdown)
-  }
+    // Mock cart data - replace with actual cart context
+    const mockCart = localStorage.getItem('cart');
+    if (mockCart) {
+      setCartItems(JSON.parse(mockCart));
+    }
 
-  const handleDropdownLeave = () => {
-    setActiveDropdown(null)
-  }
+    // Mock favorites - replace with actual favorites context
+    const mockFavorites = localStorage.getItem('favorites');
+    if (mockFavorites) {
+      setFavorites(JSON.parse(mockFavorites));
+    }
 
-  return (
-    <>
-      {/* Top Bar - Informações de contato */}
-      <div className="bg-ussbrasil-primary text-white py-2 px-4 text-sm hidden md:block">
-        <div className="container mx-auto flex justify-between items-center">
-          <div className="flex items-center space-x-6">
-            <div className="flex items-center space-x-2">
-              <PhoneIcon className="h-4 w-4" />
-              <span>(11) 99999-9999</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <EnvelopeIcon className="h-4 w-4" />
-              <span>contato@ussbrasil.com.br</span>
-            </div>
-          </div>
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Navigation categories
+  const categories = [
+    { 
+      id: 'home', 
+      name: 'Início', 
+      href: '/', 
+      icon: Home,
+      active: pathname === '/'
+    },
+    { 
+      id: 'smartphones', 
+      name: 'iPhone', 
+      href: '/categories/smartphones', 
+      icon: Smartphone,
+      active: pathname.includes('/categories/smartphones')
+    },
+    { 
+      id: 'computers', 
+      name: 'Mac', 
+      href: '/categories/computers', 
+      icon: Monitor,
+      active: pathname.includes('/categories/computers')
+    },
+    { 
+      id: 'tablets', 
+      name: 'iPad', 
+      href: '/categories/tablets', 
+      icon: Tablet,
+      active: pathname.includes('/categories/tablets')
+    },
+    { 
+      id: 'wearables', 
+      name: 'Watch', 
+      href: '/categories/wearables', 
+      icon: Watch,
+      active: pathname.includes('/categories/wearables')
+    },
+    { 
+      id: 'audio', 
+      name: 'Audio', 
+      href: '/categories/audio', 
+      icon: Headphones,
+      active: pathname.includes('/categories/audio')
+    },
+    { 
+      id: 'cameras', 
+      name: 'Câmeras', 
+      href: '/categories/cameras', 
+      icon: Camera,
+      active: pathname.includes('/categories/cameras')
+    },
+    { 
+      id: 'accessories', 
+      name: 'Acessórios', 
+      href: '/categories/accessories', 
+      icon: Gamepad2,
+      active: pathname.includes('/categories/accessories')
+    }
+  ];
+
+  // Special pages
+  const specialPages = [
+    { 
+      id: 'vip', 
+      name: 'VIP', 
+      href: '/vip', 
+      icon: Crown,
+      className: 'text-[#d4af37] hover:text-[#f4d03f]',
+      active: pathname.includes('/vip')
+    },
+    { 
+      id: 'offers', 
+      name: 'Ofertas', 
+      href: '/ofertas', 
+      icon: Star,
+      className: 'text-[#54c4cf] hover:text-[#7dd3db]',
+      active: pathname.includes('/ofertas')
+    },
+    { 
+      id: 'releases', 
+      name: 'Lançamentos', 
+      href: '/lancamentos', 
+      icon: Gift,
+      active: pathname.includes('/lancamentos')
+    }
+  ];
+
+  // Utility functions
+  const getTotalCartItems = () => {
+    return cartItems.reduce((total, item) => total + item.quantity, 0);
+  };
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      router.push(`/search?q=${encodeURIComponent(searchQuery)}`);
+      setIsSearchOpen(false);
+      setSearchQuery('');
+    }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    localStorage.removeItem('cart');
+    localStorage.removeItem('favorites');
+    setUser(null);
+    setCartItems([]);
+    setFavorites([]);
+    router.push('/');
+  };
+
+  // Logo component
+  const Logo = () => (
+    <Link href="/" className="flex items-center space-x-2">
+      <div className="relative w-12 h-12">
+        <Image
+          src={isDarkMode ? "/UssBrasil/01.png" : "/UssBrasil/02.png"}
+          alt="UssBrasil"
+          width={48}
+          height={48}
+          className="object-contain"
+          priority
+        />
+      </div>
+      <div className="hidden md:block">
+        <h1 className="text-xl font-bold text-[#034a6e] dark:text-white">
+          UssBrasil
+        </h1>
+        <p className="text-xs text-gray-600 dark:text-gray-400">
+          Premium Technology
+        </p>
+      </div>
+    </Link>
+  );
+
+  // Top functionality bar
+  const TopBar = () => (
+    <motion.div 
+      className="bg-[#034a6e] text-white py-3"
+      initial="hidden"
+      animate="visible"
+      variants={slideDown}
+      transition={{ duration: 0.2 }}
+    >
+      <div className="container mx-auto px-4">
+        <div className="flex items-center justify-between">
+          {/* Logo */}
           <div className="flex items-center space-x-4">
-            <span className="flex items-center space-x-1">
-              <StarIcon className="h-4 w-4 text-yellow-400" />
-              <span>Avaliação 4.9/5 no Google</span>
-            </span>
-            <span>Frete grátis acima de R$ 299</span>
+            <Logo />
+          </div>
+
+          {/* Search Bar */}
+          {showSearchBar && (
+            <div className="hidden lg:flex flex-1 max-w-2xl mx-8">
+              <form onSubmit={handleSearch} className="w-full">
+                <div className="relative">
+                  <input
+                    type="text"
+                    placeholder="Buscar produtos..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full px-4 py-2 pl-10 pr-4 rounded-full border-0 bg-white/10 backdrop-blur-sm text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-[#54c4cf] focus:bg-white/20 transition-all duration-200"
+                  />
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-white/70" />
+                  <button
+                    type="submit"
+                    className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-[#54c4cf] hover:bg-[#7dd3db] p-1 rounded-full transition-colors duration-150"
+                  >
+                    <Search className="w-3 h-3 text-white" />
+                  </button>
+                </div>
+              </form>
+            </div>
+          )}
+
+          {/* Action Buttons */}
+          <div className="flex items-center space-x-4">
+            {/* Search Mobile */}
+            <button
+              onClick={() => setIsSearchOpen(true)}
+              className="lg:hidden p-2 hover:bg-white/10 rounded-lg transition-colors duration-150"
+            >
+              <Search className="w-5 h-5" />
+            </button>
+
+            {/* Favorites */}
+            <button 
+              onClick={() => user ? router.push('/favorites') : router.push('/login')}
+              className="relative p-2 hover:bg-white/10 rounded-lg transition-colors duration-150"
+            >
+              <Heart className="w-5 h-5" />
+              {user && favorites.length > 0 && (
+                <span className="absolute -top-1 -right-1 bg-[#d4af37] text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                  {favorites.length}
+                </span>
+              )}
+            </button>
+
+            {/* Cart */}
+            <button 
+              onClick={() => router.push('/cart')}
+              className="relative p-2 hover:bg-white/10 rounded-lg transition-colors duration-150"
+            >
+              <ShoppingCart className="w-5 h-5" />
+              {cartItems.length > 0 && (
+                <span className="absolute -top-1 -right-1 bg-[#54c4cf] text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                  {getTotalCartItems()}
+                </span>
+              )}
+            </button>
+
+            {/* User Menu */}
+            <div className="relative group">
+              <button className="flex items-center space-x-2 p-2 hover:bg-white/10 rounded-lg transition-colors duration-150">
+                {user ? (
+                  <div className="flex items-center space-x-2">
+                    <div className="w-8 h-8 bg-[#54c4cf] rounded-full flex items-center justify-center">
+                      <span className="text-sm font-semibold text-white">
+                        {user.name.charAt(0).toUpperCase()}
+                      </span>
+                    </div>
+                    <span className="hidden md:block text-sm font-medium">
+                      {user.name}
+                    </span>
+                    {user.type === 'vip' && (
+                      <Crown className="w-4 h-4 text-[#d4af37]" />
+                    )}
+                  </div>
+                ) : (
+                  <div className="flex items-center space-x-2">
+                    <User className="w-5 h-5" />
+                    <span className="hidden md:block text-sm">Entrar</span>
+                  </div>
+                )}
+              </button>
+
+              {/* User Dropdown */}
+              <div className="absolute right-0 top-full mt-2 w-64 bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                {user ? (
+                  <div className="p-4">
+                    <div className="flex items-center space-x-3 pb-3 border-b border-gray-200 dark:border-gray-700">
+                      <div className="w-10 h-10 bg-[#54c4cf] rounded-full flex items-center justify-center">
+                        <span className="text-sm font-semibold text-white">
+                          {user.name.charAt(0).toUpperCase()}
+                        </span>
+                      </div>
+                      <div>
+                        <p className="font-semibold text-gray-900 dark:text-white">
+                          {user.name}
+                        </p>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">
+                          {user.email}
+                        </p>
+                        {user.type === 'vip' && (
+                          <span className="inline-flex items-center text-xs bg-[#d4af37]/10 text-[#d4af37] px-2 py-1 rounded-full mt-1">
+                            <Crown className="w-3 h-3 mr-1" />
+                            VIP Member
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                    <nav className="mt-3 space-y-1">
+                      <Link href="/profile" className="flex items-center space-x-3 px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
+                        <User className="w-4 h-4" />
+                        <span>Meu Perfil</span>
+                      </Link>
+                      <Link href="/orders" className="flex items-center space-x-3 px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
+                        <Package className="w-4 h-4" />
+                        <span>Meus Pedidos</span>
+                      </Link>
+                      <Link href="/profile/addresses" className="flex items-center space-x-3 px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
+                        <MapPin className="w-4 h-4" />
+                        <span>Endereços</span>
+                      </Link>
+                      <Link href="/profile/payments" className="flex items-center space-x-3 px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
+                        <CreditCard className="w-4 h-4" />
+                        <span>Pagamentos</span>
+                      </Link>
+                      <Link href="/profile/notifications" className="flex items-center space-x-3 px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
+                        <Bell className="w-4 h-4" />
+                        <span>Notificações</span>
+                      </Link>
+                      <Link href="/profile/settings" className="flex items-center space-x-3 px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
+                        <Settings className="w-4 h-4" />
+                        <span>Configurações</span>
+                      </Link>
+                      <hr className="my-2 border-gray-200 dark:border-gray-700" />
+                      <button 
+                        onClick={handleLogout}
+                        className="flex items-center space-x-3 px-3 py-2 text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg w-full text-left"
+                      >
+                        <LogOut className="w-4 h-4" />
+                        <span>Sair</span>
+                      </button>
+                    </nav>
+                  </div>
+                ) : (
+                  <div className="p-4">
+                    <Link href="/login" className="block w-full bg-[#034a6e] hover:bg-[#056291] text-white text-center py-2 px-4 rounded-lg text-sm font-medium transition-colors duration-150">
+                      Fazer Login
+                    </Link>
+                    <p className="text-center text-xs text-gray-600 dark:text-gray-400 mt-2">
+                      Novo por aqui?{' '}
+                      <Link href="/register" className="text-[#54c4cf] hover:underline">
+                        Criar conta
+                      </Link>
+                    </p>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Mobile Menu Toggle */}
+            <button
+              onClick={() => setIsMobileMenuOpen(true)}
+              className="lg:hidden p-2 hover:bg-white/10 rounded-lg transition-colors duration-150"
+            >
+              <Menu className="w-5 h-5" />
+            </button>
           </div>
         </div>
       </div>
+    </motion.div>
+  );
 
-      {/* Main Navbar */}
-      <nav 
-        className={`sticky top-0 z-50 transition-all duration-300 ${
-          isScrolled 
-            ? 'bg-white/95 dark:bg-ussbrasil-dark/95 backdrop-blur-md shadow-lg' 
-            : 'bg-white dark:bg-ussbrasil-dark'
-        }`}
-      >
-        {/* Upper Navbar */}
-        <div className="border-b border-gray-200 dark:border-gray-700">
-          <div className="container mx-auto px-4 py-4">
-            <div className="flex items-center justify-between">
-              {/* Logo */}
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                className="flex items-center"
-              >
-                <Link href="/" className="flex items-center space-x-3">
-                  <div className="relative">
-                    <div className="w-10 h-10 bg-gradient-to-br from-ussbrasil-primary to-ussbrasil-secondary rounded-lg flex items-center justify-center">
-                      <span className="text-white font-bold text-lg">USS</span>
-                    </div>
-                    <div className="absolute -top-1 -right-1 w-3 h-3 bg-ussbrasil-accent rounded-full animate-pulse"></div>
-                  </div>
-                  <div>
-                    <span className="text-2xl font-bold text-ussbrasil-primary dark:text-white">
-                      USS Brasil
-                    </span>
-                    <div className="text-xs text-gray-500 dark:text-gray-400 font-medium">
-                      Tecnologia Premium
-                    </div>
-                  </div>
+  // Navigation bar
+  const NavigationBar = () => (
+    <motion.div 
+      className={`bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 ${
+        isScrolled ? 'shadow-md' : ''
+      } transition-shadow duration-200`}
+      initial="hidden"
+      animate="visible"
+      variants={fadeIn}
+      transition={{ duration: 0.2, delay: 0.1 }}
+    >
+      <div className="container mx-auto px-4">
+        <nav className="flex items-center justify-between py-4">
+          {/* Categories */}
+          {showCategories && (
+            <div className="hidden lg:flex items-center space-x-8">
+              {categories.map((category) => {
+                const IconComponent = category.icon;
+                return (
+                  <Link
+                    key={category.id}
+                    href={category.href}
+                    className={`flex items-center space-x-2 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-150 ${
+                      category.active
+                        ? 'bg-[#034a6e] text-white'
+                        : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
+                    }`}
+                  >
+                    <IconComponent className="w-4 h-4" />
+                    <span>{category.name}</span>
+                  </Link>
+                );
+              })}
+            </div>
+          )}
+
+          {/* Special Pages */}
+          <div className="hidden lg:flex items-center space-x-6 ml-auto">
+            {specialPages.map((page) => {
+              const IconComponent = page.icon;
+              return (
+                <Link
+                  key={page.id}
+                  href={page.href}
+                  className={`flex items-center space-x-2 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-150 ${
+                    page.className || ''
+                  } ${
+                    page.active
+                      ? 'bg-[#034a6e] text-white'
+                      : 'hover:bg-gray-100 dark:hover:bg-gray-800'
+                  }`}
+                >
+                  <IconComponent className="w-4 h-4" />
+                  <span>{page.name}</span>
                 </Link>
-              </motion.div>
-
-              {/* Search Bar */}
-              <div className="hidden md:flex flex-1 max-w-xl mx-8">
-                <div className="relative w-full">
-                  <input
-                    type="text"
-                    placeholder="Buscar produtos, marcas..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full px-4 py-3 pl-12 rounded-full border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-ussbrasil-primary focus:border-transparent transition-all duration-200"
-                  />
-                  <MagnifyingGlassIcon className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-                  {searchQuery && (
-                    <motion.button
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      onClick={() => setSearchQuery('')}
-                      className="absolute right-4 top-1/2 transform -translate-y-1/2"
-                    >
-                      <XMarkIcon className="h-5 w-5 text-gray-400 hover:text-gray-600" />
-                    </motion.button>
-                  )}
-                </div>
-              </div>
-
-              {/* Right Icons */}
-              <div className="flex items-center space-x-4">
-                {/* Theme Toggle */}
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                  className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-                >
-                  {theme === 'dark' ? (
-                    <SunIcon className="h-6 w-6 text-yellow-500" />
-                  ) : (
-                    <MoonIcon className="h-6 w-6 text-gray-600" />
-                  )}
-                </motion.button>
-
-                {/* Wishlist */}
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  className="relative"
-                >
-                  <Link href="/wishlist" className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
-                    {wishlistCount > 0 ? (
-                      <HeartSolidIcon className="h-6 w-6 text-red-500" />
-                    ) : (
-                      <HeartIcon className="h-6 w-6 text-gray-600 dark:text-gray-400" />
-                    )}
-                  </Link>
-                  {wishlistCount > 0 && (
-                    <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                      {wishlistCount}
-                    </span>
-                  )}
-                </motion.div>
-
-                {/* User Profile */}
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  className="relative"
-                >
-                  <Link href="/profile" className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
-                    <UserIcon className="h-6 w-6 text-gray-600 dark:text-gray-400" />
-                  </Link>
-                </motion.div>
-
-                {/* Shopping Cart */}
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  className="relative"
-                >
-                  <Link href="/cart" className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
-                    <ShoppingBagIcon className="h-6 w-6 text-gray-600 dark:text-gray-400" />
-                  </Link>
-                  {cartCount > 0 && (
-                    <motion.span
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      className="absolute -top-1 -right-1 bg-ussbrasil-accent text-white text-xs rounded-full h-5 w-5 flex items-center justify-center"
-                    >
-                      {cartCount}
-                    </motion.span>
-                  )}
-                </motion.div>
-
-                {/* Mobile Menu Toggle */}
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                  className="md:hidden p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-                >
-                  {isMobileMenuOpen ? (
-                    <XMarkIcon className="h-6 w-6 text-gray-600 dark:text-gray-400" />
-                  ) : (
-                    <Bars3Icon className="h-6 w-6 text-gray-600 dark:text-gray-400" />
-                  )}
-                </motion.button>
-              </div>
-            </div>
+              );
+            })}
+            
+            <Link
+              href="/contato"
+              className={`flex items-center space-x-2 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-150 ${
+                pathname === '/contato'
+                  ? 'bg-[#034a6e] text-white'
+                  : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
+              }`}
+            >
+              <Phone className="w-4 h-4" />
+              <span>Contato</span>
+            </Link>
+            
+            <Link
+              href="/sobre"
+              className={`flex items-center space-x-2 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-150 ${
+                pathname === '/sobre'
+                  ? 'bg-[#034a6e] text-white'
+                  : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
+              }`}
+            >
+              <Info className="w-4 h-4" />
+              <span>Sobre</span>
+            </Link>
           </div>
+        </nav>
+      </div>
+    </motion.div>
+  );
+
+  // Mobile search overlay
+  const MobileSearchOverlay = () => (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 lg:hidden"
+      onClick={() => setIsSearchOpen(false)}
+    >
+      <motion.div
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        exit={{ y: -100 }}
+        className="bg-white dark:bg-gray-900 p-4"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <form onSubmit={handleSearch} className="flex items-center space-x-3">
+          <div className="flex-1 relative">
+            <input
+              type="text"
+              placeholder="Buscar produtos..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full px-4 py-3 pl-10 pr-4 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#54c4cf] focus:border-transparent"
+              autoFocus
+            />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+          </div>
+          <button
+            type="button"
+            onClick={() => setIsSearchOpen(false)}
+            className="p-3 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        </form>
+      </motion.div>
+    </motion.div>
+  );
+
+  // Mobile menu
+  const MobileMenu = () => (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 lg:hidden"
+      onClick={() => setIsMobileMenuOpen(false)}
+    >
+      <motion.div
+        initial={{ x: '100%' }}
+        animate={{ x: 0 }}
+        exit={{ x: '100%' }}
+        className="fixed right-0 top-0 h-full w-80 bg-white dark:bg-gray-900 shadow-xl"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Menu</h2>
+          <button
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+          >
+            <X className="w-5 h-5" />
+          </button>
         </div>
 
-        {/* Lower Navbar - Navigation Links */}
-        <div className="hidden md:block">
-          <div className="container mx-auto px-4">
-            <div className="flex items-center space-x-8 py-4">
-              {/* Produtos Dropdown */}
-              <div
-                className="relative"
-                onMouseEnter={() => handleDropdownEnter('produtos')}
-                onMouseLeave={handleDropdownLeave}
+        <div className="p-4 space-y-6">
+          {/* Categories */}
+          <div>
+            <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">
+              Categorias
+            </h3>
+            <nav className="space-y-1">
+              {categories.map((category) => {
+                const IconComponent = category.icon;
+                return (
+                  <Link
+                    key={category.id}
+                    href={category.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className={`flex items-center space-x-3 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-150 ${
+                      category.active
+                        ? 'bg-[#034a6e] text-white'
+                        : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
+                    }`}
+                  >
+                    <IconComponent className="w-4 h-4" />
+                    <span>{category.name}</span>
+                  </Link>
+                );
+              })}
+            </nav>
+          </div>
+
+          {/* Special Pages */}
+          <div>
+            <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">
+              Especiais
+            </h3>
+            <nav className="space-y-1">
+              {specialPages.map((page) => {
+                const IconComponent = page.icon;
+                return (
+                  <Link
+                    key={page.id}
+                    href={page.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className={`flex items-center space-x-3 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-150 ${
+                      page.className || ''
+                    } ${
+                      page.active
+                        ? 'bg-[#034a6e] text-white'
+                        : 'hover:bg-gray-100 dark:hover:bg-gray-800'
+                    }`}
+                  >
+                    <IconComponent className="w-4 h-4" />
+                    <span>{page.name}</span>
+                  </Link>
+                );
+              })}
+            </nav>
+          </div>
+
+          {/* Other Pages */}
+          <div>
+            <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">
+              Informações
+            </h3>
+            <nav className="space-y-1">
+              <Link
+                href="/contato"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className={`flex items-center space-x-3 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-150 ${
+                  pathname === '/contato'
+                    ? 'bg-[#034a6e] text-white'
+                    : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
+                }`}
               >
-                <button className="flex items-center space-x-1 text-gray-700 dark:text-gray-300 hover:text-ussbrasil-primary dark:hover:text-ussbrasil-accent transition-colors font-medium">
-                  <span>Produtos</span>
-                  <ChevronDownIcon className="h-4 w-4" />
-                </button>
-
-                <AnimatePresence>
-                  {activeDropdown === 'produtos' && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 10 }}
-                      className="absolute top-full left-0 mt-2 w-screen max-w-6xl bg-white dark:bg-gray-800 shadow-2xl rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden"
-                      style={{ left: '-50vw', marginLeft: '50%' }}
-                    >
-                      <div className="p-6">
-                        <div className="grid grid-cols-5 gap-6">
-                          {/* Brands */}
-                          {brands.map((brand) => (
-                            <div key={brand.id} className="space-y-3">
-                              <Link 
-                                href={`/marca/${brand.slug}`}
-                                className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group"
-                              >
-                                <div className="w-12 h-12 bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
-                                  <Image
-                                    src={brand.logo}
-                                    alt={brand.name}
-                                    width={32}
-                                    height={32}
-                                    className="object-contain"
-                                  />
-                                </div>
-                                <div>
-                                  <h3 className="font-semibold text-gray-900 dark:text-white">
-                                    {brand.name}
-                                  </h3>
-                                  <p className="text-xs text-gray-500 dark:text-gray-400">
-                                    {brand.description}
-                                  </p>
-                                </div>
-                              </Link>
-                              
-                              {/* Categories for this brand */}
-                              <div className="ml-3 space-y-1">
-                                {brand.categories.slice(0, 3).map((category) => (
-                                  <Link
-                                    key={category}
-                                    href={`/categoria/${category}?marca=${brand.slug}`}
-                                    className="block text-sm text-gray-600 dark:text-gray-400 hover:text-ussbrasil-primary dark:hover:text-ussbrasil-accent transition-colors capitalize"
-                                  >
-                                    {category.replace('-', ' ')}
-                                  </Link>
-                                ))}
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-
-              {/* Other Navigation Links */}
-              <Link href="/categorias" className="text-gray-700 dark:text-gray-300 hover:text-ussbrasil-primary dark:hover:text-ussbrasil-accent transition-colors font-medium">
-                Categorias
+                <Phone className="w-4 h-4" />
+                <span>Contato</span>
               </Link>
-              
-              <Link href="/ofertas" className="text-gray-700 dark:text-gray-300 hover:text-ussbrasil-primary dark:hover:text-ussbrasil-accent transition-colors font-medium relative">
-                Ofertas
-                <span className="absolute -top-1 -right-2 bg-red-500 text-white text-xs px-1 rounded-full">
-                  HOT
-                </span>
+              <Link
+                href="/sobre"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className={`flex items-center space-x-3 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-150 ${
+                  pathname === '/sobre'
+                    ? 'bg-[#034a6e] text-white'
+                    : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
+                }`}
+              >
+                <Info className="w-4 h-4" />
+                <span>Sobre</span>
               </Link>
-              
-              <Link href="/lancamentos" className="text-gray-700 dark:text-gray-300 hover:text-ussbrasil-primary dark:hover:text-ussbrasil-accent transition-colors font-medium">
-                Lançamentos
-              </Link>
-              
-              <Link href="/vip" className="text-transparent bg-gradient-to-r from-ussbrasil-gold to-yellow-600 bg-clip-text font-bold hover:from-yellow-600 hover:to-ussbrasil-gold transition-all duration-300">
-                Área VIP
-              </Link>
-              
-              <Link href="/contato" className="text-gray-700 dark:text-gray-300 hover:text-ussbrasil-primary dark:hover:text-ussbrasil-accent transition-colors font-medium">
-                Contato
-              </Link>
-            </div>
+            </nav>
           </div>
         </div>
-      </nav>
+      </motion.div>
+    </motion.div>
+  );
+
+  return (
+    <>
+      <header className={`sticky top-0 z-40 ${className}`}>
+        {/* Top Bar - Functionality */}
+        {showTopBar && <TopBar />}
+        
+        {/* Navigation Bar - Routes */}
+        <NavigationBar />
+      </header>
+
+      {/* Mobile Search Overlay */}
+      {isSearchOpen && <MobileSearchOverlay />}
 
       {/* Mobile Menu */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, x: '100%' }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: '100%' }}
-            className="fixed inset-0 z-50 md:hidden"
-          >
-            {/* Backdrop */}
-            <div className="absolute inset-0 bg-black/50" onClick={() => setIsMobileMenuOpen(false)} />
-            
-            {/* Menu Panel */}
-            <div className="absolute right-0 top-0 h-full w-80 bg-white dark:bg-gray-900 shadow-xl">
-              <div className="p-6">
-                <div className="flex items-center justify-between mb-6">
-                  <h2 className="text-xl font-bold text-gray-900 dark:text-white">Menu</h2>
-                  <button
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700"
-                  >
-                    <XMarkIcon className="h-6 w-6 text-gray-600 dark:text-gray-400" />
-                  </button>
-                </div>
-
-                {/* Mobile Search */}
-                <div className="mb-6">
-                  <div className="relative">
-                    <input
-                      type="text"
-                      placeholder="Buscar produtos..."
-                      className="w-full px-4 py-3 pl-12 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white"
-                    />
-                    <MagnifyingGlassIcon className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-                  </div>
-                </div>
-
-                {/* Mobile Navigation */}
-                <nav className="space-y-4">
-                  <Link href="/produtos" className="block py-3 text-gray-700 dark:text-gray-300 font-medium">
-                    Produtos
-                  </Link>
-                  <Link href="/categorias" className="block py-3 text-gray-700 dark:text-gray-300 font-medium">
-                    Categorias
-                  </Link>
-                  <Link href="/ofertas" className="block py-3 text-gray-700 dark:text-gray-300 font-medium">
-                    Ofertas
-                  </Link>
-                  <Link href="/lancamentos" className="block py-3 text-gray-700 dark:text-gray-300 font-medium">
-                    Lançamentos
-                  </Link>
-                  <Link href="/vip" className="block py-3 text-ussbrasil-gold font-bold">
-                    Área VIP
-                  </Link>
-                  <Link href="/contato" className="block py-3 text-gray-700 dark:text-gray-300 font-medium">
-                    Contato
-                  </Link>
-                </nav>
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {isMobileMenuOpen && <MobileMenu />}
     </>
-  )
-}
+  );
+};
+
+export default NavbarPremium;
